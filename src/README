@@ -1,0 +1,19 @@
+# Group B Project Structure
+
+## models/
+Domain models representing business entities.
+
+## viewModels/
+UI-specific data structures for dashboards.
+
+## pages/
+Route-level dashboard pages.
+
+## components/
+Reusable UI components.
+
+## hooks/
+Custom React hooks for data logic.
+
+## services/
+API calls and data transformation.
