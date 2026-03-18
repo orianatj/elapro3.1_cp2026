@@ -1,1 +1,0 @@
-// This is the view model for the student dashboard
