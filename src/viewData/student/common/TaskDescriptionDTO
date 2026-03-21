@@ -1,0 +1,7 @@
+// Type defines the task description DTO 
+export type TaskDescription = {
+    placeHolderText: string;
+    taskID: string;
+    questionID: number;
+    questionText: string;
+}
