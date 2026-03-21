@@ -1,0 +1,11 @@
+// Type defines reusable filter DTO for student dashboard pages
+export type StudentFilter<T> = {
+    label: string;
+    selected: T;
+    options: T[];
+};
+
+// Define union types for filters 
+export type IeltsType = "Academic" | "General";
+export type TaskType = "Task 1" | "Task 2";
+export type ViewBy = "Weekly" | "Monthly" | "Quarterly"
