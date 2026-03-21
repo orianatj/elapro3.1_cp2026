@@ -7,8 +7,21 @@
 
 // TODO: Replace with shared Breadcrumb import once team agrees on structure
 export type Breadcrumb = {
-    label: string;                              // Text displayed for this breadcrumb segment
-    href?: string;                              // Optional URL for navigation; if omitted the segment is not clickable
+    label: string;                                      // Text displayed for this breadcrumb segment
+    href?: string;                                      // Optional URL for navigation; if omitted the segment is not clickable
+};
+
+
+// Define union types for filter options used in the Reports dropdowns
+export type IeltsType = "Academic" | "General";
+export type TaskType = 1 | 2;
+export type All = "All";
+
+
+// Generic select option shape used by dropdowns (label, value) - can be reused across different filter types
+export type SelectOption<T extends string | number> = {
+  label: string;                                        // What the dropdown shows, e.g. "Show all", "Task 1"
+  value: T;                                             // What the ViewModel/logic uses, e.g. "All" or 1
 };
 
 
@@ -18,33 +31,34 @@ export type Breadcrumb = {
  * filter options, and the list of report rows to display.
  */
 export type StudentReportsViewData = {
-    title: string;                              // Page title, e.g. "Reports"
-    breadcrumb: Breadcrumb[];                   // Breadcrumb trail representing navigation hierarchy
+    title: string;                                      // Page title, e.g. "Reports"
+    breadcrumb: Breadcrumb[];                           // Breadcrumb trail representing navigation hierarchy
     
     filters: {
-        ieltsOptions:string[];                  // Dropdown options for IELTS type filter, e.g.: ["Show all", "Academic", "General"]
-        selectedIelts:string;                   // Currently selected IELTS type filter option
+        ieltsOptions:SelectOption<IeltsType | All>[];   // Example: [{ label: "Show all", value: "All" }, { label: "Academic", value: "Academic" }]
+        selectedIelts:IeltsType | All;                  // Currently selected IELTS type filter option
 
-        taskOptions:string[];                   // Dropdown options for Task type filter, e.g. ["Show all", "Task 1", "Task 2"]
-        selectedTask:string;                    // Currently selected Task type filter option
+        taskOptions:SelectOption<TaskType | All>[];     // Example: [{ label: "Show all", value: "All" }, { label: "Task 1", value: 1 }]
+        selectedTask:TaskType | All;                    // Currently selected Task type filter option
     };
 
-    reports: StudentReportRowViewData[];        // List of rows displayed in the Reports table
+    reports: StudentReportRowViewData[];                // List of rows displayed in the Reports table
 };
 
 
 /**
- * 
  * Represents a single row in the Student Reports table.
  * Each row describes one submission, including its metadata and score,
  * and contains the identifier needed to open the submission analysis page.
  */
-export type StudentReportRowViewData = {    
-    date: string;                               // Date of the submission, formatted as a string for display, e.g. "23/02/2026"
-    essayType: string;                          // Category of the submission, e.g. "Practice" or "Submitted"
-    ieltsType: string;                          // IELTS type associated with the submission: "Academic" or "General"
-    taskType: number;                           // Task type associated with the submission: 1 or 2
-    score: number;                              // Overall score achieved for the submission, e.g. 6.5
-    reportId: string;                           // Unique identifier for the report, used for navigation to analysis page 
+export type StudentReportRowViewData = {
+    reportId: string;                                   // Unique identifier for the report, used for navigation to analysis page   
+    date: string;                                       // Date of the submission, formatted as a string for display, e.g. "23/02/2026"
+    essayType: string;                                  // "Practice" | "Submitted" (UI label provided by ViewModel)
+    ieltsType: IeltsType;                               // "Academic" | "General"
+    taskType: TaskType;                                 // 1 | 2
+    score: number;                                      // Overall score achieved for the submission, e.g. 6.5
 };
+
+
 
