@@ -9,5 +9,5 @@ export type TaskAnswer = {
     anwerText: string;
     wordCount: number;
     submissionDate: string;
-    fromUpload: boolean;
+    fromUpload?: boolean;
 };

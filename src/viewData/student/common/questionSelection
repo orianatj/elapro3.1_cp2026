@@ -1,4 +1,9 @@
-// Type defines Question Selection DTO
-export type QuestionSelection ={
-    
+// Type defines Question Selection union type 
+export type QuestionType = "opinion" | "problem_solution" | "advantage_disadvantages" | "discussion" | "formal_letters" | "semiformal_letters" | "informal_letters";
+
+export type QuestionOption = {
+    label: string;
+    questionType: QuestionType;
+    isConfirmed: boolean;
 };
+
