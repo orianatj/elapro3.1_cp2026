@@ -1,4 +1,4 @@
 // Type defines Question Selection DTO
 export type QuestionSelection ={
-    questionChoice: 
+    
 };
