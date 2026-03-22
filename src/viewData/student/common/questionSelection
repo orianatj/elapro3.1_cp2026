@@ -1,10 +1,14 @@
-// Type defines Question Selection union type 
-export type QuestionType = "opinion" | "problem_solution" | "advantage_disadvantages" | "discussion" | "formal_letters" | "semiformal_letters" | "informal_letters";
+// Type defines Task 1 Question Selection union type  
+export type TaskOneQuestionType = "Opinion (Agree or Disagree)" | "Problem & Solution" | "Advantage & Disadvantages" | "Discussion"
+
+// Type defines Task 2 Question Selection union type 
+export type TaskTwoQuestionType = "Formal Letters" | "Semi-Formal Letters" | "Informal Letters";
 
 // Type defines Question Option DTO
-export type QuestionOption = {
-    label: string;
-    questionType: QuestionType;
+export type QuestionSelectionMenu<T> = {
+    label: string;  // ex. "Choose a question"
+    questionSelected: T;  // ex. 
+    questionOptions: T[];  // ex. ["Formal Letters", "Semi-Formal Letters"]
     isConfirmed: boolean;
 };
 
