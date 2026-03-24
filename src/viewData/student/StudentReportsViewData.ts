@@ -15,14 +15,14 @@ export type Breadcrumb = {
 // TODO: Consider reusing or replacing student/common/StudentFilter dependant on team agreement
 // Define union types for filter options used in the Reports dropdowns
 export type IeltsType = "Academic" | "General";
-export type TaskType = 1 | 2;
+export type TaskType = "1" | "2";
 export type All = "All";
 
 
 // Generic select option shape used by dropdowns (label, value) - can be reused across different filter types
 export type SelectOption<T extends string | number> = {
   label: string;   // What the dropdown shows, e.g. "Show all", "Task 1"
-  value: T;        // What the ViewModel/logic uses, e.g. "All" or 1
+  value: T;        // What the ViewModel/logic uses, e.g. "All" or "1"
 };
 
 
@@ -53,12 +53,12 @@ export type StudentReportsViewData = {
  * and contains the identifier needed to open the submission analysis page.
  */
 export type StudentReportRowViewData = {
-    reportId: string;       // Unique identifier for the report, used for navigation to analysis page   
-    date: string;           // Date of the submission, formatted as a string for display, e.g. "23/02/2026"
-    essayType: string;      // "Practice" | "Submitted" (UI label provided by ViewModel)
-    ieltsType: IeltsType;   // "Academic" | "General"
-    taskType: TaskType;     // 1 | 2
-    score: number;          // Overall score achieved for the submission, e.g. 6.5
+    reportId: string;       // backend: submissionId - unique identifier for this report, used for navigation to the analysis page   
+    date: string;           // formatted from submission timestamp, e.g. "2024-05-01 14:30"
+    essayType: string;      // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
+    ieltsType: IeltsType;   // from backend 'submissions': "Academic" | "General"
+    taskType: TaskType;     // from backend 'submissions': "1" | "2"
+    score: number;          // from backend 'results', e.g. 6.5
 };
 
 
