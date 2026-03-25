@@ -12,8 +12,8 @@ export type FilterOption<T> = {
 
 // Type defines reusable filter DTO for student dashboard pages
 export type StudentFilter<T> = {
-    tilte: string;  // ex. "Choose an IELTS Type"
-    selected?: T;  // ex. "task-one"
+    title: string;  // ex. "Choose an IELTS Type"
+    selected: T;  // ex. "task-one"
     options: FilterOption<T>[];
 };
 
