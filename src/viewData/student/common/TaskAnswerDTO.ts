@@ -6,7 +6,7 @@ export type TaskAnswer = {
     ieltsType: string;
     taskType: string;
     questionCategory: string;
-    answerText: string;
+    anwerText: string;
     wordCount: number;
     submissionDate: string;
     fromUpload?: boolean;  // Is not applicable to Practice Writing 
