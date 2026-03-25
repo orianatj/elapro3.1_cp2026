@@ -1,16 +1,19 @@
+import type { StudentFilter,IeltsType, TaskType, ViewBy} from "./common/StudentFilter";
+
+
 /**
  * This view data represents the data required to render
  * the Student Dashboard page. It is comprised of data type objects defined in this file.
  */
 
-export type StudentDashboardViewData = {
+export interface StudentDashboardViewData {
     statsOverview:SummaryStats;
     statCards:SummaryCard[];
     chart: ProgressTrackingChart;
     chartFilters: {
-        ieltsType:DashboardFilter<IeltsType>;
-        taskType:DashboardFilter<TaskType>;
-        viewBy:DashboardFilter<ViewBy>;
+        ieltsType:StudentFilter<IeltsType>;
+        taskType:StudentFilter<TaskType>;
+        viewBy:StudentFilter<ViewBy>;
     }; 
 };
 
@@ -48,20 +51,6 @@ export type SummaryCard = {
     cardLabel: string;  //'Total Submissions', 'Highest Score', etc.
     // Any of the properties listed in SummaryStats
     value: number;
-};
-
-
-// Define union types for dashboard filters
-export type IeltsType = "Academic" | "General";
-export type TaskType = "Task 1" | "Task 2";
-export type ViewBy = "Weekly" | "Monthly" | "Quarterly";
-
-
-// Type defines a generic chart filter which can be used for filter types 'IELTS', 'Task' and 'View By' implemented in the hook (ViewModel) 
-export type DashboardFilter<T> = {
-  label: string;  // ex. "Choose an IELTS Type"
-  selected: T;  // ex. "Academic"
-  options: T[];  // ex. ["Academic", "General"]
 };
 
 
