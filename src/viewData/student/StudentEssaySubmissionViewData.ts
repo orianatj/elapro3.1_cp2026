@@ -1,5 +1,5 @@
 import type {TaskUtilityBar} from "./common/TaskUtilBar";
-import type {TaskDescription} from "./common/TaskDescriptionDTO";
+import type {TaskDescription} from "./common/TaskDescriptionDTO.ts";
 import type {TaskAnswer} from "./common/TaskAnswerDTO";
 import type { IeltsType, TaskType, StudentFilter} from "./common/StudentFilter";
 
