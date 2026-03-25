@@ -1,4 +1,4 @@
-import type { StudentFilter,IeltsType, TaskType, ViewBy} from "./common/StudentFilter";
+import type { StudentFilter,IeltsType, TaskType, ViewBy} from "./common/StudentFilter.ts";
 
 
 /**
