@@ -1,10 +1,9 @@
 // Type defines reusable filter DTO for student dashboard pages
 export type StudentFilter<T> = {
     title: string;  // ex. "Choose an IELTS Type"
-    selected?: T;  // ex. "task-one"
+    selected: T;  // ex. "task-one"
     options: FilterOption<T>[];
 };
-
 
 // Define union types for filters 
 export type IeltsType = "academic" | "general";
@@ -19,8 +18,5 @@ export type FilterOption<T> = {
     value: T;  // ex. "academic" or "task-one"
     label: string;  // ex. "Academic" or "Task 1"
 };
-
-
-
 
 
