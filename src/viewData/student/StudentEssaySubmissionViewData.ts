@@ -23,7 +23,7 @@ export interface EssaySubmission {
 export type EssayUpload = {
     placeHolderText: string;
     fileName: string;
-    fileType: AcceptedFileTypes;
+    fileType: AcceaptedFileTypes;
     filePath:string;
     fileProvided: boolean;
     isValid: boolean;
@@ -31,5 +31,5 @@ export type EssayUpload = {
 };
 
 // Union type defines acceptable file format for essay upload
-export type AcceptedFileTypes = "txt" | "pdf" | "docx";
+export type AcceaptedFileTypes = "txt" | "pdf" | "docx";
 
