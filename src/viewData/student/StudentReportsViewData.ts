@@ -14,10 +14,14 @@ export type Breadcrumb = {
 
 // TODO: Consider reusing or replacing student/common/StudentFilter dependant on team agreement
 // Define union types for filter options used in the Reports dropdowns
-export type IeltsType = "Academic" | "General";
-export type TaskType = "1" | "2";
-export type All = "All";
+export type IeltsType = "academic" | "general";
+export type TaskType = "task1" | "task2";
+export type ShowAll = "all";
 
+export type FilterSelect<T extends string> = {
+    options: SelectOption<T>[];  // Available options for this filter dropdown
+    selected: T;                 // Currently selected value for this filter, e.g. "All" or "Academic"
+};
 
 // Generic select option shape used by dropdowns (label, value) - can be reused across different filter types
 export type SelectOption<T extends string | number> = {
@@ -31,20 +35,19 @@ export type SelectOption<T extends string | number> = {
  * Contains metadata for the page title, breadcrumb trail,
  * filter options, and the list of report rows to display.
  */
-export type StudentReportsViewData = {
+export interface StudentReportsViewData {
     title: string;              // Page title, e.g. "Reports"
     breadcrumb: Breadcrumb[];   // Breadcrumb trail representing navigation hierarchy
     
     filters: {
-        ieltsOptions: SelectOption<IeltsType | All>[];   // Example: [{ label: "Show all", value: "All" }, { label: "Academic", value: "Academic" }]
-        selectedIelts: IeltsType | All;                  // Currently selected IELTS type filter option
-
-        taskOptions: SelectOption<TaskType | All>[];     // Example: [{ label: "Show all", value: "All" }, { label: "Task 1", value: 1 }]
-        selectedTask: TaskType | All;                    // Currently selected Task type filter option
+        ieltsType: FilterSelect<IeltsType | ShowAll>;  // Example: [{ label: "Show all", value: "All" }, { label: "Academic", value: "Academic" }]
+        taskType: FilterSelect<TaskType | ShowAll>;    // Currently selected Task type filter option
     };
 
     reports: StudentReportRowViewData[];   // List of rows displayed in the Reports table
 };
+
+
 
 
 /**
