@@ -16,6 +16,14 @@ export type Breadcrumb = {
     href?: string;   // Optional URL for navigation; if omitted the segment is not clickable
 };
 
+// TODO: Import once the shared StudentFilter structure is agreed with Oriana
+/*import type { 
+*  StudentFilter,
+*  IeltsType,
+*  TaskType,
+*  ShowAll,
+* } from "./common/StudentFilter";
+*/
 
 /* ------------------------------------------------------------------
  * Main Student Reports Interface 
@@ -46,24 +54,25 @@ export type ReportsPageHeader = {
  * Reports Filters
  * ------------------------------------------------------------------
  */
-// TODO: Consider reusing or replacing student/common/StudentFilter dependant on team agreement
+
 export type ReportsFilters = {
-  ieltsType: FilterSelect<IeltsType | ShowAll>;  // IELTS Type dropdown
-  taskType: FilterSelect<TaskType | ShowAll>;    // Task Type dropdown
+  ieltsType: StudentFilter<IeltsType | ShowAll>;  // IELTS Type dropdown
+  taskType: StudentFilter<TaskType | ShowAll>;    // Task Type dropdown
 };
 
+// TODO: Remove StudentFilter script below once the shared StudentFilter structure is agreed with Oriana
 // Define union types for filter options used in the Reports dropdowns
 export type IeltsType = "academic" | "general";  
 export type TaskType = "task1" | "task2";
 export type ShowAll = "all";
 
-export type FilterSelect<T extends string> = {
-    options: SelectOption<T>[];  // Available options for this filter dropdown
+export type StudentFilter<T extends string> = {
+    options: FilterOption<T>[];  // Available options for this filter dropdown
     selected: T;                 // Currently selected value for this filter, e.g. "All" or "Academic"
 };
 
 // Generic select option shape used by dropdowns (label, value) - can be reused across different filter types
-export type SelectOption<T extends string | number> = {
+export type FilterOption<T extends string | number> = {
   label: string;   // What the dropdown shows, e.g. "Show all", "Task 1"
   value: T;        // What the ViewModel/logic uses, e.g. "All" or "1"
 };
