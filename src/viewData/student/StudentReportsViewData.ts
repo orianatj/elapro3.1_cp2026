@@ -1,3 +1,11 @@
+// Import shared StudentFilter DTO from student/common folder. 
+import type { 
+  StudentFilter,
+  FilterValue,
+  IeltsType,
+  TaskType
+} from "./common/StudentFilter";
+
 /*
  * StudentReportsViewData
  * 
@@ -5,25 +13,6 @@
  * including the header, filters, and the reports table.
  */
 
-
-/* ------------------------------------------------------------------
- * Shared DTO's
- * ------------------------------------------------------------------
- */
-// TODO: Replace with shared Breadcrumb import if team agrees on structure
-export type Breadcrumb = {
-    label: string;   // Text displayed for this breadcrumb segment
-    href?: string;   // Optional URL for navigation; if omitted the segment is not clickable
-};
-
-// TODO: Import once the shared StudentFilter structure is agreed with Oriana
-/*import type { 
-*  StudentFilter,
-*  IeltsType,
-*  TaskType,
-*  ShowAll,
-* } from "./common/StudentFilter";
-*/
 
 /* ------------------------------------------------------------------
  * Main Student Reports Interface 
@@ -49,32 +38,20 @@ export type ReportsPageHeader = {
   breadcrumb: Breadcrumb[];  // Breadcrumb navigation hierarchy
 }
 
+// TODO: Replace with shared Breadcrumb import if team agrees on structure
+export type Breadcrumb = {
+    label: string;   // Text displayed for this breadcrumb segment
+    href?: string;   // Optional URL for navigation; if omitted the segment is not clickable
+};
+
 
 /* ------------------------------------------------------------------
  * Reports Filters
  * ------------------------------------------------------------------
  */
-
 export type ReportsFilters = {
-  ieltsType: StudentFilter<IeltsType | ShowAll>;  // IELTS Type dropdown
-  taskType: StudentFilter<TaskType | ShowAll>;    // Task Type dropdown
-};
-
-// TODO: Remove StudentFilter script below once the shared StudentFilter structure is agreed with Oriana
-// Define union types for filter options used in the Reports dropdowns
-export type IeltsType = "academic" | "general";  
-export type TaskType = "task1" | "task2";
-export type ShowAll = "all";
-
-export type StudentFilter<T extends string> = {
-    options: FilterOption<T>[];  // Available options for this filter dropdown
-    selected: T;                 // Currently selected value for this filter, e.g. "All" or "Academic"
-};
-
-// Generic select option shape used by dropdowns (label, value) - can be reused across different filter types
-export type FilterOption<T extends string | number> = {
-  label: string;   // What the dropdown shows, e.g. "Show all", "Task 1"
-  value: T;        // What the ViewModel/logic uses, e.g. "All" or "1"
+  ieltsType: StudentFilter<FilterValue<IeltsType>>;  // IELTS Type dropdown
+  taskType: StudentFilter<FilterValue<TaskType>>;    // Task Type dropdown
 };
 
 
@@ -92,8 +69,8 @@ export type ReportTableRow = {
     reportId: string;       // backend: submissionId - unique identifier for this report, used for navigation to the analysis page   
     date: string;           // formatted from submission timestamp, e.g. "2024-05-01 14:30"
     essayType: string;      // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
-    ieltsType: IeltsType;   // from backend 'submissions': "Academic" | "General"
-    taskType: TaskType;     // from backend 'submissions': "1" | "2"
+    ieltsType: IeltsType;   // from backend 'submissions': "academic" | "general"
+    taskType: TaskType;     // from backend 'submissions': "task-one" | "task-two"
     score: number;          // from backend 'results', e.g. 6.5
 };
 
