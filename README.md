@@ -15,9 +15,9 @@ This repository contains the React + TypeScript codebase for our CP2026 group pr
 3. Run `npm run dev`
 
 ## Project Structure
+- models/            → fetches data from the API (Model)
+- views/          → Pages connecting the ViewModel and View
+- viewModels/             → ViewModels managing state and logic (Hooks)
+- components/        → Pure UI components (View)
 
-- models/ → Domain models
-- viewModels/ → UI data models
-- pages/ → Dashboard pages
-- components/ → Reusable UI components
-- services/ → Data and API logic
+Model (access data via API) → ViewModel (hook) → Views (Typed objects for compoment props) → View (Pure UI components)
