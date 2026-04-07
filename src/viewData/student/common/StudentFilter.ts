@@ -1,6 +1,6 @@
 // Type defines reusable filter DTO for student dashboard pages
 export type StudentFilter<T extends string> = {
-    tilte: string;  // ex. "Choose an IELTS Type"
+    title: string;  // ex. "Choose an IELTS Type"
     selected: T;  // ex. "task-one"
     options: FilterOption<T>[];
 };
