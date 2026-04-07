@@ -1,17 +1,7 @@
-// Type defines the four key statistics presented to the student at the top of the dashboard page
-
-interface SummaryStats {
-    totalSubmissions: number;
-    highestScore: number;
-    lowestScore: number;
-    averageScore: number;
-};
-
 // Type defines the structure of a summary score card 
 interface SummaryCard {
     cardLabel: string;  //'Total Submissions', 'Highest Score', etc.
-    // Any of the properties listed in SummaryStats
-    value: number;
+    value: number;  // Coressponding statistic 
 };
 
 
@@ -24,21 +14,26 @@ function UserStatCard({cardLabel, value}: SummaryCard){
     );
 }
 
-export default function UserStatsSummary() {
+
+function UserStatsSummary({submission}) {
     return (
     <div>
-        <UserStatCard cardLabel="Total Submissions" value={0} /> 
-        <UserStatCard cardLabel="Highest Score" value={0} />
-        <UserStatCard cardLabel="Lowest Score" value={0} />
-        <UserStatCard cardLabel="Average Score" value={0} />
+        <UserStatCard cardLabel="Total Submissions" value={totalSubmissions} /> 
+        <UserStatCard cardLabel="Highest Score" value={highestScore} />
+        <UserStatCard cardLabel="Lowest Score" value={lowestScore} />
+        <UserStatCard cardLabel="Average Score" value={averageScore} />
     </div>
         
 
     );
 }
 
-const STUDENT = [
-    {},
+const SUBMISSIONS = [
     {},
     {}
+
 ];
+
+export default function App() {
+  return <UserStatsSummary submission={SUBMISSIONS} />;
+}
