@@ -6,19 +6,24 @@
 
 export default function StudentDashboard(){
     return(
-    <><GreetingBanner name={"Lucy"} /><StatsSummary /></>
+    <>
+    <div><GreetingBanner name={STUDENT}/></div>
+    <div><GreetingBanner name="Ben"/></div>
+    <div><StatsSummary stats={STATS}/></div>
+    </>
 
     );    
 }
 
 // Provide type to describe the GreetingBanner component's props
-interface StudentProps {
+type StudentProps = {
     /** The name to display inside the banner */
     name: string;
 }
 
 // Greeting Banner component 
-function GreetingBanner({name}: StudentProps){
+export function GreetingBanner({name}: StudentProps){
+
     return(
         <div>Hi,{name}</div>
     );
@@ -27,25 +32,42 @@ function GreetingBanner({name}: StudentProps){
 
 
 
-// StatsSummary component displays four StatCard subcomponents which contain four key statistics from the student's submissions 
-function StatsSummary(){
+// StatsSummary component displays four StatCard subcomponents which contain four key statistics from the student's submissions.
+// TODO: Pass data for values to prop. 
+function StatsSummary({stats}:StatSummaryProps){
     return(
         <div>
-        <StatCard cardLabel="Total Submissions" value={0} /> 
-        <StatCard cardLabel="Highest Score" value={0} />
-        <StatCard cardLabel="Lowest Score" value={0} />
-        <StatCard cardLabel="Average Score" value={0} />
+            {stats.map((stat) => (
+                <StatCard 
+                cardLabel={stat.label}
+                value={stat.value}
+                />
+            ))}
     </div>
     );
 
 }
 
-interface StatCardProps {
+// Describe STATS data types 
+type Stat = {
+    label: string;
+    value: number;
+}
+
+type StatSummaryProps = {
+    stats: Stat[];
+}
+
+
+// Provide type to describe the StatCard component's props
+type StatCardProps = {
     cardLabel: string;  //'Total Submissions', 'Highest Score', etc.
     value: number;  // Coressponding statistic 
 };
 
 
+
+// StatCard component displays a single stat card containing a label and value
 function StatCard({cardLabel, value}: StatCardProps){
     return (
         <div>
@@ -55,37 +77,58 @@ function StatCard({cardLabel, value}: StatCardProps){
     );
 }
 
+// ProgressTracking component is a container for several smaller components that are dependant on the same data.
+//function ProgressTracking({}){
+    //return();
+//}
 
-function ProgressTracking({}){
-    return();
+//function FilterBar({}:ChartFilter){
+//    return();
+//}
+
+
+// 
+interface ChartFilterProps {
+    title: string;  // ex. "Choose an IELTS Type"
+    selected: string;  // ex. true
+    options: string[];
+};
+
+function ChartFilter({title, selected, options}:ChartFilterProps){
+    return(
+    <>
+        <label>{title}</label>
+        <select value={selected}>
+            <option>--Please choose a X--</option>
+            {options.map((option) => (
+                <option value={option}>
+                    {option}
+                </option>
+            ))}
+        </select>
+    </>
+    );
 }
 
-function FilterBar({}:ChartFilter){
-    return();
-}
+//function CriterionSelector({}:CriterionToggle){
+    //return();
+//}
 
-function ChartFilter({}){
-    return();
-}
+//function CriterionToggle({}){
+    //return();
+//}
 
-function CriterionSelector({}:CriterionToggle){
-    return();
-}
+//function ProgressTrackingChart({}){
+   // return();
+//}
 
-function CriterionToggle({}){
-    return();
-}
+const STUDENT = "George";
+;
 
-function ProgressTrackingChart({}){
-    return();
-}
-
-const STUDENTS = [
-    {id:1, name:"Ben"},
-    {id:2, name:"Lucy"},
-    {id:3, name:"Tom"}
+const STATS = [
+  { label: "Total Submissions", value: 15 },
+  { label: "Highest Score", value: 33 },
+  { label: "Lowest Score", value: 0 },
+  { label: "Average Score", value: 0 }
 ];
 
-const AGG_SUBMISSIONS = [
-    {}
-];
