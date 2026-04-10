@@ -1,0 +1,56 @@
+/* Overall page styling */
+body {
+  margin: 0; /* Removes default browser spacing */
+  font-family: Arial, sans-serif; /* Sets a clean default font */
+  background: linear-gradient(to bottom, #c7d2fe, #e5e7eb); /* Soft gradient background */
+}
+
+/* Main layout wrapper */
+.container {
+  display: flex; /* Places sidebar and main content side by side */
+  flex-direction: column;
+  min-height: 100vh; /* Makes the layout fill the full viewport height */
+}
+
+/* Greeting banner container */
+
+.greeting-banner {
+    margin: 15px 10px 10px 10px;
+
+    padding: 25px; /* Inner spacing */
+    background: #f3f4f6; /* Light gray background */
+    border-radius: 12px; /* Rounded corners */
+    font-size: 25px; /* Larger text size */
+    font-weight: bold;
+}
+
+
+/* Row of statistic cards */
+.stats-summary {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+/* Individual statistic card */
+.stat-card {
+    flex: 1; /* Makes all cards equal width */
+    background: white;
+    border-radius: 12px;
+    padding-bottom: 5px; /* Inner spacing */
+    padding-left: 20px;
+    margin: 10px;
+}
+
+.statcard-label {
+    font-size: 20px;
+    text-align: left;;
+}
+
+.statcard-value {
+    font-size: 22px;
+    text-align: left;
+    font-weight: bold;
+}
