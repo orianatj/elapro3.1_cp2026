@@ -1,3 +1,6 @@
+// StudentDashboardPage.tsx
+import "../../pages/student/studentdb.css";
+
 // Build a static version of the student dashboard page using React components 
 // Use top-down approach: start by building the components at the top of the hierarchy first 
 // Type defines the structure of a summary score card 
@@ -6,12 +9,10 @@
 
 export default function StudentDashboard(){
     return(
-    <>
+    <div className="container">
     <div><GreetingBanner name={STUDENT}/></div>
-    <div><GreetingBanner name="Ben"/></div>
     <div><StatsSummary stats={STATS}/></div>
-    </>
-
+    </div>
     );    
 }
 
@@ -25,7 +26,7 @@ type StudentProps = {
 export function GreetingBanner({name}: StudentProps){
 
     return(
-        <div>Hi,{name}</div>
+        <div className="greeting-banner">Hi, {name}</div>
     );
 };
 
@@ -36,7 +37,7 @@ export function GreetingBanner({name}: StudentProps){
 // TODO: Pass data for values to prop. 
 function StatsSummary({stats}:StatSummaryProps){
     return(
-        <div>
+        <div className="stats-summary">
             {stats.map((stat) => (
                 <StatCard 
                 cardLabel={stat.label}
@@ -70,9 +71,9 @@ type StatCardProps = {
 // StatCard component displays a single stat card containing a label and value
 function StatCard({cardLabel, value}: StatCardProps){
     return (
-        <div>
-            <p>{cardLabel}</p>
-            <strong>{value}</strong>
+        <div className="stat-card">
+            <p className="statcard-label">{cardLabel}</p>
+            <p className="statcard-value">{value}</p>
         </div>
     );
 }
