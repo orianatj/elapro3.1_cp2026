@@ -11,7 +11,7 @@ body {
 
 .sidebar {
   width: 240px;
-  background: #5a6b8c;
+  background: #6476A1;
   color: white;
   padding: 20px;
   border-radius: 20px; /* curved box */
@@ -20,8 +20,25 @@ body {
 }
 
 .logo {
-  font-size: 24px;
+  display: flex;
+  flex-direction: column; /* stack image and text vertically */
+  align-items: center;    /* center horizontally */
+  padding: -10px 0;
+  text-align: center;
+}
+
+.logo img {
+  max-width: 390px;  /* adjust as needed */
+  height: auto;
+  margin-bottom: -100px; /* space between image and text */
+}
+
+.logo p {
+  margin: 0;
+  font-size: 40px;
+  font-family: 'Source Serif Pro';
   font-weight: bold;
+  color: #fff;  /* adjust depending on your sidebar color */
 }
 
 .logo span {
@@ -120,4 +137,30 @@ body {
   margin: 8px 0;
   background: #f3f4f6;
   border-radius: 8px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+nav ul li:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Icon styling */
+nav ul li img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }

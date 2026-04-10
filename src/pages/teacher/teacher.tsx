@@ -5,17 +5,35 @@ export default function Dashboard() {
   return (
     <div className="container">
       <aside className="sidebar">
-        <div className="logo">ELA<span>Pro</span><p>Teacher</p></div>
-        <nav>
-          <ul>
-            <li>Dashboard</li>
-            <li>Assignments</li>
-            <li>Resources</li>
-            <li>Submissions</li>
-            <li>Settings</li>
-            <li>Help</li>
-          </ul>
-        </nav>
+        <div className="logo"> <img src="src\assets\logo.png" alt="dashboard" /><p>Teacher</p></div>
+      <nav>
+  <ul>
+    <li>
+      <img src="src\assets\grid.png" alt="dashboard" />
+      Dashboard
+    </li>
+    <li>
+      <img src="src\assets\create.png" alt="assignments" />
+      Assignments
+    </li>
+    <li>
+      <img src="src\assets\file-tray-full.png" alt="resources" />
+      Resources
+    </li>
+    <li>
+      <img src="src\assets\documents.png" alt="submissions" />
+      Submissions
+    </li>
+    <li>
+      <img src="src\assets\vector.png" alt="settings" />
+      Settings
+    </li>
+    <li>
+      <img src="src\assets\help.png" alt="help" />
+      Help
+    </li>
+  </ul>
+</nav>
       </aside>
 
       <main className="main">
