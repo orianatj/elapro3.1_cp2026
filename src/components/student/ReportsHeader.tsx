@@ -1,6 +1,30 @@
 
-// ReportsHeader is a presentational component responsible for rendering
-// the header section of the Student Reports page.
-export function ReportsHeader() {
-  return <div>Reports Header</div>;
+import type { ReportsPageHeader } from "../../viewData/student/StudentReportsViewData";
+
+// ReportsHeader is a presentational component responsible for rendering the header section of the Student Reports page,
+// that displays the title and breadcrumb navigation provided via the viewData from the parent page entry component
+type Props = {
+  header: ReportsPageHeader;
+};
+
+
+export function ReportsHeader({ header }: Props) {
+  return (
+    <header>
+       {/* Page title */}
+       <h1>{header.title}</h1>  
+       
+       {/* Breadcrumb navigation */}
+       {/* TODO: Replace span with appropriate navigation element once routing exists */}
+       <nav>
+        {header.breadcrumb.map((breadcrumb, index) => (            
+            <span key = {index}>
+                {breadcrumb.label}
+                {/* Add separator if not the last breadcrumb segment */}
+                {index < header.breadcrumb.length - 1 && " > "}
+            </span>
+        ))}
+       </nav>
+    </header>
+  );
 }
