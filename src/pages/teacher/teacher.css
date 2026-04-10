@@ -1,0 +1,224 @@
+
+/* Overall page styling */
+body {
+  margin: 0; /* Removes default browser spacing */
+  font-family: Arial, sans-serif; /* Sets a clean default font */
+  background: linear-gradient(to bottom, #c7d2fe, #e5e7eb); /* Soft gradient background */
+}
+
+/* Main layout wrapper */
+.container {
+  display: flex; /* Places sidebar and main content side by side */
+  min-height: 100vh; /* Makes the layout fill the full viewport height */
+}
+
+/* Sidebar panel */
+.sidebar {
+  width: 240px; /* Fixed sidebar width */
+  margin: 10px; /* Space between sidebar and page edges */
+  padding: 20px; /* Inner spacing */
+  background: #6476a1; /* Sidebar background color */
+  color: #fff; /* Default text color in sidebar */
+  border-radius: 20px; /* Rounded corners */
+}
+
+/* Removes default spacing from sidebar and nav lists */
+.sidebar ul,
+nav ul {
+  list-style: none; /* Removes bullet points */
+  padding: 0; /* Removes left indentation */
+  margin: 0; /* Removes default margin */
+}
+
+/* Sidebar menu items and nav items */
+.sidebar li,
+nav ul li {
+  padding: 12px; /* Internal spacing */
+  margin: 8px 0; /* Spacing between items */
+  border-radius: 8px; /* Rounded item corners */
+  cursor: pointer; /* Shows pointer on hover */
+  transition: background 0.3s ease; /* Smooth hover animation */
+}
+
+/* Sidebar menu item background */
+.sidebar li {
+  background: rgba(255, 255, 255, 0.1); /* Slight translucent white background */
+}
+
+/* Hover effect for sidebar items */
+.sidebar li:hover {
+  background: #215dab; /* Brighter blue on hover */
+}
+
+
+/* Logo area at the top of the sidebar */
+.logo {
+  display: flex; /* Aligns logo image and text */
+  flex-direction: column; /* Stacks image above text */
+  align-items: center; /* Centers content horizontally */
+  text-align: center; /* Centers text */
+  margin-top: -40px; 
+}
+
+/* Logo image */
+.logo img {
+  max-width: 390px; /* Controls logo size */
+  height: auto; /* Keeps image proportions correct */
+  margin-bottom: -130px; /* Pulls text closer to image */
+}
+
+/* Logo text */
+.logo p {
+  margin: 0; /* Removes extra spacing */
+  font-family: "Source Serif Pro"; /* Serif font for the Teacher label */
+  font-size: 40px; /* Large title text */
+  color: #fff; /* White text */
+}
+
+/* Highlighted part of the logo text */
+.logo span {
+  color: #ff3b3b; /* Red accent color */
+}
+
+/* Icons abov navigation */
+.top-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+/* Notification icon */
+.notification-wrapper img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+/* Notification container */
+.notification-wrapper {
+  position: relative;
+  margin-right: 20px; /* moves it slightly left */
+  top: 5px;
+}
+
+/* Badge (the "2") */
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #F70406;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+
+/* Navigation list items */
+nav ul li {
+  display: flex; /* Places icon and text in a row */
+  align-items: center; /* Vertically centers icon and text */
+  gap: 15px; /* Space between icon and label */
+  font-family: 'DM Sans';
+  font-size: 18px;
+}
+
+/* Icon sizing in nav items */
+nav ul li img {
+  width: 24px; /* Icon width */
+  height: 24px; /* Icon height */
+  object-fit: contain; /* Prevents icon distortion */
+}
+
+/* Main content area */
+.main {
+  flex: 1; /* Takes up remaining screen space */
+  padding: 20px; /* Inner spacing around content */
+}
+
+/* Welcome header box */
+.header {
+  margin-bottom: 20px; /* Space below the header */
+  padding: 20px; /* Inner spacing */
+  background: #f3f4f6; /* Light gray background */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 24px; /* Larger text size */
+}
+
+/* Row of statistic cards */
+.stats {
+  display: flex; /* Lays cards out horizontally */
+  gap: 15px; /* Space between cards */
+  margin-bottom: 20px; /* Space below stats row */
+}
+
+/* Individual statistic card */
+.card {
+  flex: 1; /* Makes all cards equal width */
+  padding: 15px; /* Inner spacing */
+  background: #fff; /* White card background */
+  border-radius: 12px; /* Rounded corners */
+  text-align: center; /* Centers the text */
+}
+
+/* Number/value inside each card */
+.card strong {
+  display: block; /* Moves value onto its own line */
+  margin-top: 10px; /* Space above the value */
+  font-size: 20px; /* Bigger number text */
+}
+
+/* Charts section layout */
+.charts {
+  display: grid; /* Uses grid layout for chart boxes */
+  grid-template-columns: 1fr 1fr 2fr; /* Two smaller boxes and one larger box */
+  gap: 15px; /* Space between chart boxes */
+  margin-bottom: 20px; /* Space below charts section */
+}
+
+/* Individual chart container */
+.chart-box {
+  min-height: 150px; /* Minimum chart box height */
+  padding: 20px; /* Inner spacing */
+  background: #fff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+}
+
+/* Extra-large chart box styling */
+.chart-box.large {
+  grid-column: span 1; /* Keeps it in one grid column */
+}
+
+/* Bottom section with lists */
+.bottom {
+  display: flex; /* Places the two list panels side by side */
+  gap: 20px; /* Space between the panels */
+}
+
+/* List panel styling */
+.list {
+  flex: 1; /* Makes both panels equal width */
+  padding: 15px; /* Inner spacing */
+  background: #fff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+}
+
+/* List inside each panel */
+.list ul {
+  list-style: none; /* Removes bullet points */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+/* Individual list item */
+.list li {
+  margin: 8px 0; /* Space between items */
+  padding: 10px; /* Inner spacing */
+  background: #f3f4f6; /* Light gray item background */
+  border-radius: 8px; /* Rounded corners */
+}
