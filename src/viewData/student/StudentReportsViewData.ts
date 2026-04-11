@@ -1,3 +1,6 @@
+// Import shared PageHeader DTO
+import type { PageHeaderViewData } from "../common/PageHeaderDTO";
+
 // Import shared StudentFilter DTO from student/common folder. 
 import type { 
   StudentFilter,
@@ -13,7 +16,6 @@ import type {
  * including the header, filters, and the reports table.
  */
 
-
 /* ------------------------------------------------------------------
  * Main Student Reports Interface 
  * ------------------------------------------------------------------
@@ -21,28 +23,10 @@ import type {
 // Main page-level ViewData for the Student Reports page.
 // Acts as the UI contract between the ViewModel and the React components
 export interface StudentReports {
-    pageHeader: ReportsPageHeader;  // Page title, e.g. "Reports"
+    pageHeader: PageHeaderViewData; // Shared page header (title + breadcrumb)
     filters: ReportsFilters;        // Dropdown filter options for the reports table
     reportsTable: ReportsTable;     // List of rows displayed in the Reports table
-};
-
-
-/* ------------------------------------------------------------------
- * Reports Page Header
- * ------------------------------------------------------------------
- */
-// Page header information displayed at the top of the page,
-// including the title and breadcrumb navigation context
-export type ReportsPageHeader = {
-  title: string;             // Page title, e.g. "Reports"
-  breadcrumb: Breadcrumb[];  // Breadcrumb navigation hierarchy
 }
-
-// TODO: Replace with shared Breadcrumb import if team agrees on structure
-export type Breadcrumb = {
-    label: string;   // Text displayed for this breadcrumb segment
-    href?: string;   // Optional URL for navigation; if omitted the segment is not clickable
-};
 
 
 /* ------------------------------------------------------------------
