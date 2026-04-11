@@ -1,14 +1,14 @@
 
-import type { ReportsPageHeader } from "../../viewData/student/StudentReportsViewData";
+import type { PageHeader } from "../../viewData/common/PageHeaderDTO";
 
-// ReportsHeader is a presentational component responsible for rendering the header section of the Student Reports page,
+// PageHeader is a presentational component responsible for rendering the header section of each page,
 // that displays the title and breadcrumb navigation provided via the viewData from the parent page entry component
-type Props = {
-  header: ReportsPageHeader;
+type PageHeaderProps = {
+  header: PageHeader;
 };
 
 
-export function ReportsHeader({ header }: Props) {
+export function PageHeaderView({ header }: PageHeaderProps) {
   return (
     <header>
        {/* Page title */}
