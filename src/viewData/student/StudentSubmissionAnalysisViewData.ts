@@ -1,3 +1,10 @@
+
+// Import shared PageHeader DTO
+import type { PageHeaderViewData } from "../common/PageHeaderDTO";
+
+// Import shared task description DTO used across student pages
+import type {TaskDescription} from "./common/TaskDescriptionDTO";
+
 /**
  * StudentSubmissionAnalysisViewData
  * 
@@ -5,45 +12,18 @@
  * render the Student Submission Analysis page.
  */
 
-
-// TODO: Replace with shared Breadcrumb import if team agrees on a viewData/common shared structure
-// Represents a single segment in the breadcrumb navigation trail
-export type Breadcrumb = {
-    label: string;  // Text displayed for this breadcrumb segment
-    href?: string;  // Optional URL for navigation; if omitted the segment is not clickable
-};
-
-// Import shared task description DTO used across student pages
-import type {TaskDescription} from "./common/TaskDescriptionDTO.ts";
-
-
-
 /* ------------------------------------------------------------------ 
 * Main Submission Analysis Interface
 * ------------------------------------------------------------------- 
 */ 
 // Main page-level ViewData for the Submission Analysis screen
 // Acts as the UI contract between the ViewModel and the React components
-export interface SubmissionAnalysis {
-    pageHeader: PageHeader;                // Page title and breadcrumb navigation data
+export interface SubmissionAnalysis {      
+    pageHeader: PageHeaderViewData;        // Shared page header (title + breadcrumb)
     scoreOverview: ScoreOverview;          // Displays overall and criteria scores, as well as writing metrics.
     submissionSummary: SubmissionSummary;  // Contains the task description and the submitted essay response
     scoreExplanation: ScoreExplanation;    // Detailed explanations for overall and criteria scores, with enhancement suggestions.
-};
-
-
-
-/* ------------------------------------------------------------------ 
-* Page Header
-* ------------------------------------------------------------------- 
-*/ 
-// Page header information displayed at the top of the page,
-// including the title and breadcrumb navigation context
-export type PageHeader = {
-  title: string;             // Page title, e.g. "Submission Analysis"
-  breadcrumb: Breadcrumb[];  // Breadcrumb navigation hierarchy
-};
-
+}
 
 
 /* ------------------------------------------------------------------ 
@@ -86,7 +66,6 @@ export type ScoreBarSegment = {
 };
 
 
-
 /* ------------------------------------------------------------------ 
 * Submission Summary
 * ------------------------------------------------------------------- 
@@ -102,7 +81,6 @@ export type SubmittedResponse = {
   essayText: string;   // derived from backend 'essayResponse'
   wordCount?: number;  // derived from length of 'essayResponse'
 };
-
 
 
 /* ------------------------------------------------------------------ 
