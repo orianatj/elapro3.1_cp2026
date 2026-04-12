@@ -14,10 +14,10 @@ export function ReportsFilters({ filters }: ReportsFilterProps) {
     <section>
       {/* Render IELTS Type filter */}
       <div>
-        <label>{filters.ieltsType.title}</label>
-        <select value = {filters.ieltsType.selected}>
+        <label>{filters.ieltsType.title}</label>       // ex "Choose an IELTS Type"
+        <select value = {filters.ieltsType.selected}>  // ex "academic", "general", or "all"
           {filters.ieltsType.options.map((option) => (
-            <option key = {option.value} value = {option.value}>
+            <option key = {option.value} value = {option.value}>  
               {option.label}
             </option>
           ))}
@@ -26,8 +26,8 @@ export function ReportsFilters({ filters }: ReportsFilterProps) {
 
       {/* Render Task Type filter */}
       <div>
-        <label>{filters.taskType.title}</label>
-        <select value = {filters.taskType.selected}>
+        <label>{filters.taskType.title}</label>       // ex "Choose a Task Type"
+        <select value = {filters.taskType.selected}>  // ex "task-one", "task-two", or "all"
           {filters.taskType.options.map((option) => (
             <option key = {option.value} value = {option.value}>
               {option.label}
