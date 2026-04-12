@@ -1,10 +1,10 @@
 
-import type { PageHeader } from "../../viewData/common/PageHeaderDTO";
+import type { PageHeaderViewData } from "../../viewData/common/PageHeaderDTO";
 
 // PageHeader is a presentational component responsible for rendering the header section of each page,
 // that displays the title and breadcrumb navigation provided via the viewData from the parent page entry component
 type PageHeaderProps = {
-  header: PageHeader;
+  header: PageHeaderViewData;
 };
 
 
