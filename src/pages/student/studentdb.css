@@ -1,3 +1,6 @@
+
+
+
 /* Overall page styling */
 body {
   margin: 0; /* Removes default browser spacing */
@@ -37,20 +40,58 @@ body {
 /* Individual statistic card */
 .stat-card {
     flex: 1; /* Makes all cards equal width */
+    display: flex;
     background: white;
     border-radius: 12px;
     padding-bottom: 5px; /* Inner spacing */
     padding-left: 20px;
     margin: 10px;
+    align-items: center;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-icon {
+    font-size: 40px;
+    margin-left: auto;
+    margin-right: 30px;
 }
 
 .statcard-label {
     font-size: 20px;
-    text-align: left;;
+    text-align: left;
+    margin-bottom: 5px;
 }
 
 .statcard-value {
     font-size: 22px;
     text-align: left;
     font-weight: bold;
+    margin-top: 5px;
 }
+
+.filter-dropdown {
+    background: white;
+    width:80%;
+    font-size: 15px;   
+}
+
+.filter-bar {
+    display: flex;
+    gap: 20px;
+    width: 60%;
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.filter-item {
+    width:70%;
+    display: flex;
+    flex-direction: column;
+}
+
