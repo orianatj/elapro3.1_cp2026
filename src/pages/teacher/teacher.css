@@ -1,3 +1,9 @@
+/* ================= RESET + BASE ================= */
+
+/* Universal reset for consistent sizing */
+* {
+  box-sizing: border-box; /* Includes padding and border in element width/height */
+}
 
 /* Overall page styling */
 body {
@@ -6,219 +12,319 @@ body {
   background: linear-gradient(to bottom, #c7d2fe, #e5e7eb); /* Soft gradient background */
 }
 
-/* Main layout wrapper */
-.container {
-  display: flex; /* Places sidebar and main content side by side */
-  min-height: 100vh; /* Makes the layout fill the full viewport height */
+/* Makes all images responsive by default */
+img {
+  max-width: 100%; /* Prevents images from overflowing their containers */
+  display: block; /* Removes inline spacing under images */
 }
 
-/* Sidebar panel */
+/* ================= LAYOUT WRAPPER ================= */
+
+/* Main layout container holding sidebar + main content */
+.container {
+  display: flex; /* Places sidebar and main content side by side */
+  min-height: 100vh; /* Makes layout fill full viewport height */
+}
+
+/* ================= SIDEBAR ================= */
+
+/* Sidebar panel container */
 .sidebar {
   width: 240px; /* Fixed sidebar width */
-  margin: 10px; /* Space between sidebar and page edges */
+  margin: 10px; /* Space around sidebar */
   padding: 20px; /* Inner spacing */
   background: #6476a1; /* Sidebar background color */
-  color: #fff; /* Default text color in sidebar */
+  color: #fff; /* Default text color */
   border-radius: 20px; /* Rounded corners */
 }
 
-/* Removes default spacing from sidebar and nav lists */
-.sidebar ul,
-nav ul {
-  list-style: none; /* Removes bullet points */
-  padding: 0; /* Removes left indentation */
-  margin: 0; /* Removes default margin */
+/* Wrapper for top sidebar content */
+.top-section {
+  display: flex; /* Enables flex layout */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center; /* Centers items horizontally */
 }
 
-/* Sidebar menu items and nav items */
-.sidebar li,
-nav ul li {
-  padding: 12px; /* Internal spacing */
-  margin: 8px 0; /* Spacing between items */
-  border-radius: 8px; /* Rounded item corners */
-  cursor: pointer; /* Shows pointer on hover */
-  transition: background 0.3s ease; /* Smooth hover animation */
-}
-
-/* Sidebar menu item background */
-.sidebar li {
-  background: rgba(255, 255, 255, 0.1); /* Slight translucent white background */
-}
-
-/* Hover effect for sidebar items */
-.sidebar li:hover {
-  background: #215dab; /* Brighter blue on hover */
-}
-
-
-/* Logo area at the top of the sidebar */
+/* Logo container */
 .logo {
-  display: flex; /* Aligns logo image and text */
-  flex-direction: column; /* Stacks image above text */
+  display: flex; /* Enables flex layout */
+  flex-direction: column; /* Stacks image and text vertically */
   align-items: center; /* Centers content horizontally */
-  text-align: center; /* Centers text */
-  margin-top: -40px; 
+  text-align: center; /* Centers text alignment */
+  margin-bottom: 20px; /* Space below logo block */
 }
 
-/* Logo image */
+/* Logo image styling */
 .logo img {
-  max-width: 390px; /* Controls logo size */
-  height: auto; /* Keeps image proportions correct */
-  margin-bottom: -130px; /* Pulls text closer to image */
+  max-width: 300px; /* Controls logo size */
+  height: auto; /* Maintains aspect ratio */
+  margin-bottom: 0; /* Removes extra spacing under image */
 }
 
-/* Logo text */
+/* Logo text styling */
 .logo p {
-  margin: 0; /* Removes extra spacing */
-  font-family: "Source Serif Pro"; /* Serif font for the Teacher label */
-  font-size: 40px; /* Large title text */
-  color: #fff; /* White text */
+  margin-top: -80px; /* Pulls text upward toward logo image */
+  font-family: "Source Serif Pro", serif; /* Serif font style */
+  font-size: 28px; /* Text size */
+  line-height: 1; /* Reduces vertical spacing */
+  color: #fff; /* White text color */
 }
 
-/* Highlighted part of the logo text */
+/* Highlighted logo text span */
 .logo span {
   color: #ff3b3b; /* Red accent color */
 }
 
-/* Icons abov navigation */
+/* Top icon row container */
 .top-icons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 10px;
-  margin-top: 10px;
-  margin-bottom: 30px;
+  display: flex; /* Places icons in a row */
+  align-items: center; /* Vertically centers items */
+  justify-content: space-between; /* Spreads items apart */
+  width: 100%; /* Full width of sidebar */
+  padding: 0 10px; /* Horizontal padding */
+  margin-bottom: 20px; /* Space below icon row */
+}
+
+/* Avatar image */
+.avatar {
+  width: 40px; /* Avatar size */
+  height: 40px; /* Avatar size */
+  border-radius: 50%; /* Makes avatar circular */
+}
+
+/* Notification wrapper container */
+.notification-wrapper {
+  position: relative; /* Allows badge positioning */
 }
 
 /* Notification icon */
 .notification-wrapper img {
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
+  width: 28px; /* Icon width */
+  height: 28px; /* Icon height */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
-/* Notification container */
-.notification-wrapper {
-  position: relative;
-  margin-right: 20px; /* moves it slightly left */
-  top: 5px;
-}
-
-/* Badge (the "2") */
+/* Notification badge */
 .badge {
-  position: absolute;
-  top: -6px;
-  right: -10px;
-  background: #F70406;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
+  position: absolute; /* Positioned relative to wrapper */
+  top: -6px; /* Moves badge upward */
+  right: -8px; /* Moves badge right */
+  background: #f70406; /* Red badge background */
+  color: white; /* White text */
+  font-size: 12px; /* Small text size */
+  font-weight: bold; /* Bold text */
+  padding: 2px 6px; /* Internal spacing */
+  border-radius: 50%; /* Circular badge */
 }
 
-
-/* Navigation list items */
-nav ul li {
-  display: flex; /* Places icon and text in a row */
-  align-items: center; /* Vertically centers icon and text */
-  gap: 15px; /* Space between icon and label */
-  font-family: 'DM Sans';
-  font-size: 18px;
-}
-
-/* Icon sizing in nav items */
-nav ul li img {
-  width: 24px; /* Icon width */
-  height: 24px; /* Icon height */
-  object-fit: contain; /* Prevents icon distortion */
-}
-
-/* Main content area */
-.main {
-  flex: 1; /* Takes up remaining screen space */
-  padding: 20px; /* Inner spacing around content */
-}
-
-/* Welcome header box */
-.header {
-  margin-bottom: 20px; /* Space below the header */
-  padding: 20px; /* Inner spacing */
-  background: #f3f4f6; /* Light gray background */
-  border-radius: 12px; /* Rounded corners */
-  font-size: 24px; /* Larger text size */
-}
-
-/* Row of statistic cards */
-.stats {
-  display: flex; /* Lays cards out horizontally */
-  gap: 15px; /* Space between cards */
-  margin-bottom: 20px; /* Space below stats row */
-}
-
-/* Individual statistic card */
-.card {
-  flex: 1; /* Makes all cards equal width */
-  padding: 15px; /* Inner spacing */
-  background: #fff; /* White card background */
-  border-radius: 12px; /* Rounded corners */
-  text-align: center; /* Centers the text */
-}
-
-/* Number/value inside each card */
-.card strong {
-  display: block; /* Moves value onto its own line */
-  margin-top: 10px; /* Space above the value */
-  font-size: 20px; /* Bigger number text */
-}
-
-/* Charts section layout */
-.charts {
-  display: grid; /* Uses grid layout for chart boxes */
-  grid-template-columns: 1fr 1fr 2fr; /* Two smaller boxes and one larger box */
-  gap: 15px; /* Space between chart boxes */
-  margin-bottom: 20px; /* Space below charts section */
-}
-
-/* Individual chart container */
-.chart-box {
-  min-height: 150px; /* Minimum chart box height */
-  padding: 20px; /* Inner spacing */
-  background: #fff; /* White background */
-  border-radius: 12px; /* Rounded corners */
-}
-
-/* Extra-large chart box styling */
-.chart-box.large {
-  grid-column: span 1; /* Keeps it in one grid column */
-}
-
-/* Bottom section with lists */
-.bottom {
-  display: flex; /* Places the two list panels side by side */
-  gap: 20px; /* Space between the panels */
-}
-
-/* List panel styling */
-.list {
-  flex: 1; /* Makes both panels equal width */
-  padding: 15px; /* Inner spacing */
-  background: #fff; /* White background */
-  border-radius: 12px; /* Rounded corners */
-}
-
-/* List inside each panel */
-.list ul {
-  list-style: none; /* Removes bullet points */
+/* Sidebar navigation list reset */
+nav ul {
+  list-style: none; /* Removes bullets */
   padding: 0; /* Removes default padding */
   margin: 0; /* Removes default margin */
 }
 
-/* Individual list item */
-.list li {
+/* Sidebar list reset (duplicate safety) */
+.sidebar ul {
+  list-style: none; /* Removes bullets */
+  padding: 0; /* Removes indentation */
+  margin: 0; /* Removes spacing */
+}
+
+/* Sidebar navigation items */
+nav ul li {
+  display: flex; /* Aligns icon + text horizontally */
+  align-items: center; /* Vertically centers content */
+  gap: 15px; /* Space between icon and text */
+  padding: 12px; /* Inner spacing */
   margin: 8px 0; /* Space between items */
-  padding: 10px; /* Inner spacing */
-  background: #f3f4f6; /* Light gray item background */
   border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  background: rgba(255, 255, 255, 0.1); /* Subtle translucent background */
+  transition: background 0.3s ease; /* Smooth hover effect */
+  font-family: "DM Sans", sans-serif; /* Clean sans-serif font */
+  font-size: 18px; /* Text size */
+}
+
+/* Hover effect for navigation items */
+nav ul li:hover {
+  background: #215dab; /* Blue highlight on hover */
+}
+
+/* Navigation icons */
+nav ul li img {
+  width: 24px; /* Icon width */
+  height: 24px; /* Icon height */
+  object-fit: contain; /* Prevents distortion */
+}
+
+/* ================= MAIN CONTENT ================= */
+
+/* Main content wrapper */
+.main {
+  flex: 1; /* Takes remaining horizontal space */
+  padding: 20px; /* Inner spacing */
+}
+
+/* Header section */
+.header {
+  margin-bottom: 20px; /* Space below header */
+  padding: 20px; /* Inner spacing */
+  background: #f3f4f6; /* Light gray background */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 24px; /* Large text */
+}
+
+/* ================= STATS SECTION ================= */
+
+/* Stats grid container */
+.stats {
+  display: grid; /* Grid layout */
+  grid-template-columns: repeat(5, 1fr); /* Five equal columns */
+  gap: 200px; /* Large spacing between cards */
+  margin-bottom: 20px; /* Space below section */
+}
+
+/* Individual stat card */
+.card {
+  padding: 15px; /* Inner spacing */
+  background: #fff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+  text-align: center; /* Center text */
+  font-family: "DM Sans", sans-serif; /* Font style */
+  display: flex; /* Flex layout */
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center horizontally */
+  max-width: 180px; /* Limits card width */
+  gap: 8px; /* Space between elements */
+}
+
+/* Card icon */
+.card img {
+  width: 36px; /* Icon size */
+  height: 36px; /* Icon size */
+}
+
+/* Card value text */
+.card strong {
+  display: block; /* Forces new line */
+  margin-top: 10px; /* Space above value */
+  font-family: "Source Serif Pro", serif; /* Serif font */
+  font-size: 22px; /* Large number text */
+}
+
+/* ================= CHARTS SECTION ================= */
+
+/* Charts grid container */
+.charts {
+  display: grid; /* Grid layout */
+  grid-template-columns: 1fr 1fr 2fr; /* Uneven column layout */
+  gap: 15px; /* Space between charts */
+  margin-bottom: 20px; /* Space below section */
+}
+
+/* Individual chart box */
+.chart-box {
+  min-height: 150px; /* Minimum height */
+  padding: 20px; /* Inner spacing */
+  background: #fff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+}
+
+/* ================= BOTTOM LISTS ================= */
+
+/* Bottom section container */
+.bottom {
+  display: flex; /* Horizontal layout */
+  gap: 20px; /* Space between panels */
+}
+
+/* List panel */
+.list {
+  flex: 1; /* Equal width panels */
+  padding: 15px; /* Inner spacing */
+  background: #fff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+}
+
+/* List reset */
+.list ul {
+  list-style: none; /* Removes bullets */
+  padding: 0; /* Removes padding */
+  margin: 0; /* Removes margin */
+}
+
+/* List item styling */
+.list li {
+  margin: 8px 0; /* Spacing between items */
+  padding: 10px; /* Inner spacing */
+  background: #f3f4f6; /* Light gray background */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* ================= TABLET RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column; /* Stack sidebar and main vertically */
+  }
+
+  .sidebar {
+    width: auto; /* Full width */
+    margin: 10px; /* Maintain spacing */
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr); /* Reduce columns */
+  }
+
+  .charts {
+    grid-template-columns: 1fr; /* Single column */
+  }
+
+  .bottom {
+    flex-direction: column; /* Stack panels */
+  }
+}
+
+/* ================= PHONE RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+
+  /* Sidebar padding adjustment */
+  .sidebar {
+    padding: 15px; /* Reduced padding */
+  }
+
+  /* Logo scaling */
+  .logo img {
+    width: 90px; /* Smaller logo */
+  }
+
+  /* Logo text scaling */
+  .logo p {
+    font-size: 22px; /* Smaller text */
+  }
+
+  /* Header scaling */
+  .header {
+    font-size: 18px; /* Smaller header text */
+    padding: 15px; /* Reduced padding */
+  }
+
+  /* Stats layout for mobile */
+  .stats {
+    grid-template-columns: 1fr; /* Single column */
+  }
+
+  /* Card text scaling */
+  .card strong {
+    font-size: 20px; /* Slightly smaller text */
+  }
+
+  /* Chart box spacing */
+  .chart-box {
+    padding: 15px; /* Reduced padding */
+    min-height: 120px; /* Smaller height */
+  }
 }

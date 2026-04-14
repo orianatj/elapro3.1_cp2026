@@ -1,66 +1,96 @@
 import React from "react";
 import "./teacher.css";
 
-
 export default function Dashboard() {
   return (
     <div className="container">
-<aside className="sidebar">
-  <div className="top-section">
-    <div className="logo">
-      <img src="src/assets/logo.png" alt="dashboard" />
-      <p>Teacher</p>
-    </div>
+      <aside className="sidebar">
+        <div className="top-section">
+          <div className="logo">
+            <img src="src/assets/logo.png" alt="dashboard" />
+            <p>Teacher</p>
+          </div>
 
-   <div className="top-icons">
-  <img className="avatar" src="src/assets/Avatar.png" alt="user icon" />
+          <div className="top-icons">
+            <img
+              className="avatar"
+              src="src/assets/Avatar.png"
+              alt="user icon"
+            />
 
-  <div className="notification-wrapper">
-    <img src="src/assets/notifications.png" alt="notifications icon" />
-    <span className="badge">2</span>
-  </div>
-</div>
-  </div>
+            <div className="notification-wrapper">
+              <img
+                src="src/assets/notifications.png"
+                alt="notifications icon"
+              />
+              <span className="badge">2</span>
+            </div>
+          </div>
+        </div>
 
-  <nav>
-    <ul>
-      <li>
-        <img src="src/assets/grid.png" alt="dashboard" />
-        Dashboard
-      </li>
-      <li>
-        <img src="src/assets/create.png" alt="assignments" />
-        Assignments
-      </li>
-      <li>
-        <img src="src/assets/file-tray-full.png" alt="resources" />
-        Resources
-      </li>
-      <li>
-        <img src="src/assets/documents.png" alt="submissions" />
-        Submissions
-      </li>
-      <li>
-        <img src="src/assets/vector.png" alt="settings" />
-        Settings
-      </li>
-      <li>
-        <img src="src/assets/help.png" alt="help" />
-        Help
-      </li>
-    </ul>
-  </nav>
-</aside>
+        <nav>
+          <ul>
+            <li>
+              <img src="src/assets/grid.png" alt="dashboard" />
+              Dashboard
+            </li>
+            <li>
+              <img src="src/assets/create.png" alt="assignments" />
+              Assignments
+            </li>
+            <li>
+              <img src="src/assets/file-tray-full.png" alt="resources" />
+              Resources
+            </li>
+            <li>
+              <img src="src/assets/documents.png" alt="submissions" />
+              Submissions
+            </li>
+            <li>
+              <img src="src/assets/vector.png" alt="settings" />
+              Settings
+            </li>
+            <li>
+              <img src="src/assets/help.png" alt="help" />
+              Help
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
       <main className="main">
         <div className="header">Welcome back, [[USER NAME]]</div>
 
         <div className="stats">
-          <div className="card">My Courses <strong>4</strong></div>
-          <div className="card"># Of Students <strong>270</strong></div>
-          <div className="card">Exams for Review <strong>37</strong></div>
-          <div className="card">Avg. Performance <strong>75.6%</strong></div>
-          <div className="card">Improvement Rate <strong>20%</strong></div>
+          <div className="card">
+            <img src="src/assets/business.png" alt="submissions" />
+            <span>My Courses</span>
+            <strong>4</strong>
+          </div>
+
+          <div className="card">
+            <img src="src/assets/people-circle.png" alt="students" />
+            <span># Of Students</span>
+            <strong>270</strong>
+          </div>
+
+          <div className="card">
+            <img src="src/assets/newspaper.png" alt="reviews" />
+            <span>Exams for Review</span>
+            <strong>37</strong>
+          </div>
+
+          <div className="card">
+            <img src="src/assets/podium.png" alt="performance" />
+            <span>Avg. Performance</span>
+            <strong>75.6%</strong>
+          </div>
+
+          <div className="card">
+            <img src="src/assets/trending-up.png" alt="improvement" />
+            <span>Improvement Rate</span>
+            <strong>20%</strong>
+          </div>
         </div>
 
         <div className="charts">
