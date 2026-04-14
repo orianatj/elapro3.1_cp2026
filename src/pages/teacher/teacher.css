@@ -327,4 +327,17 @@ nav ul li img {
     padding: 15px; /* Reduced padding */
     min-height: 120px; /* Smaller height */
   }
+
+/* Stats layout for mobile */
+.stats {
+  grid-template-columns: 1fr; /* keep single column */
+  gap: 12px; /* reduce huge desktop spacing */
+}
+
+/* Make cards wider and full-width */
+.card {
+  max-width: none;   /* remove width restriction */
+  width: 100%;       /* take full available space */
+}
+
 }
