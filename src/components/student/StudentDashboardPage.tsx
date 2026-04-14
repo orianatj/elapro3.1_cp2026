@@ -2,7 +2,8 @@
 import "../../pages/student/studentdb.css";
 import { IoDocumentsOutline} from "react-icons/io5";
 import { BsArrowUp, BsArrowDown, BsArrowDownUp } from "react-icons/bs";
-import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
+
 
 // Build a static version of the student dashboard page using React components 
 // Use top-down approach: start by building the components at the top of the hierarchy first 
@@ -34,6 +35,7 @@ export default function StudentDashboard(){
 
         }
     ]}/></div>
+    <div></div>
     </div>
     );    
 }
@@ -149,6 +151,23 @@ function ChartFilter({title, selected, options}:ChartFilterProps){
     );
 }
 
+function ProgressTrackingChart({}){
+    return(
+    <div className="chart-card">
+        <ResponsiveContainer>
+            <LineChart data={data}>
+                <CartesianGrid />
+                <Line datakey="" />
+                <XAxis dataKey="date" />
+                <YAxis domain={[0, 9]} type="number"/>
+                <Legend />
+            </LineChart>
+        </ResponsiveContainer>
+    </div>
+
+    );
+}
+
 //function CriterionSelector({}:CriterionToggle){
     //return();
 //}
@@ -157,9 +176,7 @@ function ChartFilter({title, selected, options}:ChartFilterProps){
     //return();
 //}
 
-//function ProgressTrackingChart({}){
-   // return();
-//}
+
 
 const STUDENT = "George";
 ;
@@ -171,3 +188,9 @@ const STATS = [
   { label: "Average Score", value: 0, icon: <BsArrowDownUp />}
 ];
 
+const CHART_DATA = [
+    {ielts: "general", task: "task one", week:"05/01", overallScore: 6, taskAchievement: 5.5, GrammaticalRA: 6, lexicalResource: 5, coheranceAndCohesion: 7},
+    {ielts: "general", task: "task one", week:"19/01",  overallScore: 5, taskAchievement: 4, GrammaticalRA: 4, lexicalResource: 5, coheranceAndCohesion: 6},
+    {ielts: "general", task: "task one", week:"26/01" ,overallScore: 5, taskAchievement: 4, GrammaticalRA: 4, lexicalResource: 5, coheranceAndCohesion: 6},
+
+]
