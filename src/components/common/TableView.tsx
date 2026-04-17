@@ -5,14 +5,14 @@ import React from "react";
  * reusable across different pages (Reports, Teacher validation tables, Admin lists, etc.)
  * 
  * This component receives:
- *  - column headers (pure presentation)
- *  - row content (rendered by the caller)
+ *  - column headers 
+ *  - row content (children) supplied by the parent component, responsible for mapping the data to table rows.
  */
 
 // Column labels displayed in the table header.
 type TableProps = {  
   headers: string[];   
-  rows: React.ReactNode;  // supplied by the caller
+  children: React.ReactNode;  // supplied by the caller
 };
 
 /**
@@ -22,7 +22,7 @@ type TableProps = {
  *  - column headers
  *  - table rows passed in by the parent
  */
-export function Table({ headers, rows }: TableProps) {
+export function Table({ headers, children }: TableProps) {
   return (
     <table>
       {/* Table header section */}
@@ -38,7 +38,7 @@ export function Table({ headers, rows }: TableProps) {
 
       {/* Table body section */}
       <tbody>
-        {rows}
+        {children}
       </tbody>
     </table>
   );
