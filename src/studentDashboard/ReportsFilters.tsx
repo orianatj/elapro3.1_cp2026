@@ -1,6 +1,6 @@
 
 // Import the ViewData type used by the Studen Reports component
-import type { ReportsFilters as FiltersViewData} from "../../viewData/student/StudentReportsViewData";
+import type { ReportsFilters as FiltersViewData} from "../types/student/StudentReportsViewData";
 
 
 // ReportsFilters is a presentational component responsible for rendering

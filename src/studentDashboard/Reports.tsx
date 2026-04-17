@@ -1,7 +1,7 @@
 
 // Import the page-level ViewData contract for the Student Reports page,
 // to define the complete UI-ready data structure expected by this component.
-import type { StudentReports } from "../../viewData/student/StudentReportsViewData";
+import type { StudentReports } from "../types/student/StudentReportsViewData";
 
 // Import the shared PageHeaderView component
 import { PageHeaderView } from "../common/PageHeaderView";
