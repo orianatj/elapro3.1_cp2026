@@ -101,11 +101,58 @@ export default function Dashboard() {
 
         <div className="bottom">
           <div className="list">
-            <h3>Recent Assignments</h3>
-            <ul>
-              <li>Biology Assessment 1b</li>
-              <li>Learning Basics 2a</li>
-              <li>Analysis Comp 2c</li>
+            <div className="list-header">
+              <h3>Recent Assignments</h3>
+              <span className="see-all">See all</span>
+            </div>
+
+            <div className="divider"></div>
+
+            <ul className="assignment-list">
+              <li className="assignment-item">
+                <div className="assignment-date">
+                  <span className="day">23</span>
+                </div>
+
+                <div className="assignment-title-wrap">
+                  <strong>Learning Basics 2a</strong>
+                </div>
+
+                <div className="assignment-meta">
+                  <span className="time">12 P.M.</span>
+                  <span className="status">Upcoming</span>
+                </div>
+              </li>
+
+              <li className="assignment-item">
+                <div className="assignment-date">
+                  <span className="day">24</span>
+                </div>
+
+                <div className="assignment-title-wrap">
+                  <strong>Biology Assessment 1b</strong>
+                </div>
+
+                <div className="assignment-meta">
+                  <span className="time">2 P.M.</span>
+                  <span className="status">Upcoming</span>
+                </div>
+              </li>
+
+              <li className="assignment-item">
+                <div className="assignment-date">
+                  <span className="day">25</span>
+                </div>
+
+                <div className="assignment-title-wrap">
+                  <strong>Analysis Comp 2c</strong>
+                </div>
+
+                <div className="assignment-meta">
+                  <span className="time">4 P.M.</span>
+                  <span className="status">Upcoming</span>
+                </div>
+              </li>
             </ul>
           </div>
 

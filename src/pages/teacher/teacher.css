@@ -247,19 +247,137 @@ nav ul li img {
   border-radius: 12px; /* Rounded corners */
 }
 
-/* List reset */
-.list ul {
-  list-style: none; /* Removes bullets */
-  padding: 0; /* Removes padding */
-  margin: 0; /* Removes margin */
+/* Header row (title + see all) */
+.list-header {
+  display: flex; /* Put title and link in one row */
+  justify-content: space-between; /* Push them to opposite sides */
+  align-items: center; /* Vertically align */
+  margin-bottom: 8px; /* Small spacing before divider */
 }
 
-/* List item styling */
-.list li {
-  margin: 8px 0; /* Spacing between items */
-  padding: 10px; /* Inner spacing */
-  background: #f3f4f6; /* Light gray background */
-  border-radius: 8px; /* Rounded corners */
+/* Section title */
+.list-header h3 {
+  margin: 0; /* Remove default margin */
+  font-size: 18px;
+}
+
+/* "See all" link */
+.see-all {
+  font-size: 14px;
+  color: #4f46e5; /* Subtle blue */
+  cursor: pointer; /* Makes it feel clickable */
+}
+.see-all:hover {
+  text-decoration: underline;
+}
+
+/* Divider line */
+.divider {
+  width: 100%; /* Full width line */
+  height: 1px; /* Thin line */
+  background: #e5e7eb; /* Light gray */
+  margin-bottom: 10px; /* Space before list */
+}
+
+/* List reset */
+/* Recent Assignments list container */
+/* Recent Assignments list container */
+.assignment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each assignment row/card */
+.assignment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px; /* Reduced spacing */
+  padding: 10px 12px; /* Smaller padding */
+  margin: 8px 0; /* Less vertical spacing */
+  background: #eef0f5;
+  border-radius: 16px; /* Slightly smaller radius */
+}
+
+/* Change card color on hover */
+.assignment-item:hover {
+  background: #FEE6E6;
+}
+
+/* Change date box color on hover */
+.assignment-item:hover .assignment-date {
+  background: #B00303;
+}
+
+/* Date box on the left */
+/* Each assignment row/card */
+.assignment-item {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between sections */
+  padding: 10px 12px;
+  margin: 8px 0;
+  background: #eef0f5;
+  border-radius: 16px;
+}
+
+/* Date box */
+.assignment-date {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  background: #16396b;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Day number */
+.assignment-date .day {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Title wrapper (centered in available space) */
+.assignment-title-wrap {
+  flex: 1; /* Take all remaining space */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* CENTER horizontally */
+  text-align: center; /* Ensure text is centered */
+}
+
+/* Assignment title */
+.assignment-title-wrap strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Meta section (time + status) */
+.assignment-meta {
+  width: 90px; /* Fixed width to control position */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Move content LEFT */
+  text-align: left; /* Left-align text */
+  gap: 4px;
+}
+
+/* Time text */
+.assignment-meta .time {
+  font-size: 13px;
+  color: #374151;
+}
+
+/* Status text */
+.assignment-meta .status {
+  font-size: 14px;
+  color: #6b7280;
 }
 
 /* ================= TABLET RESPONSIVE ================= */
