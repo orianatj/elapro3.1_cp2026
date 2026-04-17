@@ -18,6 +18,12 @@ img {
   display: block; /* Removes inline spacing under images */
 }
 
+h3 {
+  font-family: "Source Serif Pro", serif; /* Serif font for section titles */
+  font-size: 24px; /* Size for section headers */
+  font-weight: 600; /* Semi-bold */
+}
+
 /* ================= LAYOUT WRAPPER ================= */
 
 /* Main layout container holding sidebar + main content */
@@ -187,7 +193,7 @@ nav ul li img {
 
 /* Individual stat card */
 .card {
-  padding: 15px; /* Inner spacing */
+  padding: 5px; /* Inner spacing */
   background: #fff; /* White background */
   border-radius: 12px; /* Rounded corners */
   text-align: center; /* Center text */
@@ -197,6 +203,7 @@ nav ul li img {
   align-items: center; /* Center horizontally */
   max-width: 180px; /* Limits card width */
   gap: 8px; /* Space between elements */
+  border: 1px solid #C7C9D9; /* Light outline */
 }
 
 /* Card icon */
@@ -229,6 +236,7 @@ nav ul li img {
   padding: 20px; /* Inner spacing */
   background: #fff; /* White background */
   border-radius: 12px; /* Rounded corners */
+  border: 1px solid #C7C9D9; /* Light outline */
 }
 
 /* ================= BOTTOM LISTS ================= */
@@ -244,6 +252,7 @@ nav ul li img {
   flex: 1; /* Equal width panels */
   padding: 15px; /* Inner spacing */
   background: #fff; /* White background */
+  border: 1px solid #C7C9D9; /* Light outline */
   border-radius: 12px; /* Rounded corners */
 }
 
@@ -300,6 +309,11 @@ nav ul li img {
   border-radius: 16px; /* Slightly smaller radius */
 }
 
+.assignment-item img {
+  width: 28px; /* Smaller icon size */
+  height: 28px; /* Smaller icon size */
+}
+
 /* Change card color on hover */
 .assignment-item:hover {
   background: #FEE6E6;
@@ -308,18 +322,6 @@ nav ul li img {
 /* Change date box color on hover */
 .assignment-item:hover .assignment-date {
   background: #B00303;
-}
-
-/* Date box on the left */
-/* Each assignment row/card */
-.assignment-item {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* Space between sections */
-  padding: 10px 12px;
-  margin: 8px 0;
-  background: #eef0f5;
-  border-radius: 16px;
 }
 
 /* Date box */
@@ -378,6 +380,22 @@ nav ul li img {
 .assignment-meta .status {
   font-size: 14px;
   color: #6b7280;
+}
+
+
+.status {
+  font-family: "DM Sans", sans-serif; /* Clean sans font */
+  font-size: 10px; /* Requested size */
+  font-weight: 400; /* Regular weight */
+  color: #059669;
+}
+
+/* Late text */
+.status.late {
+  font-family: "Jost", sans-serif; /* Jost font */
+  font-size: 14px; /* Adjust if needed */
+  font-weight: 700; /* Bold */
+  color: #B00303;
 }
 
 /* ================= TABLET RESPONSIVE ================= */

@@ -60,6 +60,7 @@ export default function Dashboard() {
 
       <main className="main">
         <div className="header">Welcome back, [[USER NAME]]</div>
+          <h3>Overall Performance</h3>
 
         <div className="stats">
           <div className="card">
@@ -156,14 +157,58 @@ export default function Dashboard() {
             </ul>
           </div>
 
-          <div className="list">
-            <h3>Submission View</h3>
-            <ul>
-              <li>Steven Stone - On Time</li>
-              <li>Joyle Jackie - On Time</li>
-              <li>Kyle Cone - Late</li>
-            </ul>
-          </div>
+         <div className="list">
+  <div className="list-header">
+    <h3>Submission View</h3>
+    <span className="see-all">See all</span>
+  </div>
+
+  <div className="divider"></div>
+
+  <ul className="assignment-list">
+    <li className="assignment-item">
+      <div className="assignment-date avatar-box">
+        <img src="src/assets/ClipboardList.png" alt="student" />
+      </div>
+
+      <div className="assignment-title-wrap">
+        <strong>Steven Stone</strong>
+      </div>
+
+      <div className="assignment-meta">
+        <span className="status">On Time</span>
+      </div>
+    </li>
+
+    <li className="assignment-item">
+      <div className="assignment-date avatar-box">
+        <img src="src/assets/ClipboardList.png" alt="student" />
+      </div>
+
+      <div className="assignment-title-wrap">
+        <strong>Joyle Jackie</strong>
+      </div>
+
+      <div className="assignment-meta">
+        <span className="status">On Time</span>
+      </div>
+    </li>
+
+    <li className="assignment-item">
+      <div className="assignment-date avatar-box">
+        <img src="src/assets/ClipboardList.png" alt="student" />
+      </div>
+
+      <div className="assignment-title-wrap">
+        <strong>Kyle Cone</strong>
+      </div>
+
+      <div className="assignment-meta">
+        <span className="status late">LATE</span>
+      </div>
+    </li>
+  </ul>
+</div>
         </div>
       </main>
     </div>
