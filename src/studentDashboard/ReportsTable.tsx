@@ -3,7 +3,7 @@
 import { Table } from "../common/TableView";
 
 // Import the ViewData type used by this component
-import type { ReportsTable as TableViewData } from "../../viewData/student/StudentReportsViewData";
+import type { ReportsTable as TableViewData } from "../types/student/StudentReportsViewData";
 
 // ReportsTableProps defines the data contract for the ReportsTable component.
 // It receives an array of report rows prepared by the ViewModel.
