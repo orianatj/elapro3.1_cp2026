@@ -18,11 +18,11 @@ This repository contains the React codebase for our CP2026 group project.
 
 When naming a branch use the following convention:
   
-  `feature/` for new functionality 
-  `bugfix` for fixing bugs within the code
-  `docs` for updating documentation 
-  `release` for preparing release functionality 
+  - `feature/` for new functionality 
+  - `bugfix` for fixing bugs within the code
+  - `docs` for updating documentation 
+  - `release` for preparing release functionality 
 
-Add the Jira ticket code associated with the code:
+Add the Jira ticket code associated with work undertaken on the branch:
 
   `feature/AD-274-feature-name`
