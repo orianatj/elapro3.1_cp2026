@@ -1,19 +1,17 @@
 # Group B Project Structure
 
-## models/
-Domain models representing business entities.
+The project folder structure follows a feature based approach.
 
-## viewModels/
-UI-specific data structures for dashboards.
+For example, all components related to the student dashboard would sit under the studentDashboard folder. Hooks (component specific), CSS, and tests that relate to the component would also belong in this folder.
 
-## pages/
-Route-level dashboard pages.
+`common` is for storing components that are used across multiple pages/dashboards, for example the navigation, header, tables, forms, filters etc. Likewise, their style sheets (CSS), tests etc. would sit in this folder.
 
-## components/
-Reusable UI components.
+`hooks` - for custom hooks that are used by multiple components.
 
-## hooks/
-Custom React hooks for data logic.
+'utils` - General utility functions used across the app (ex. date formatting)
 
-## services/
-API calls and data transformation.
+`types` - Define data types that our components consume through props
+
+`services` - API fetching 
+
+`pages` - page-level components that use components from feature/ (ex. studentDashboard/) and common (Navigation bar etc.) 
