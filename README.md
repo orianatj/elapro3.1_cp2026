@@ -1,6 +1,6 @@
 # ELAPRO3.1 – CP2026 Student Database Project
 
-This repository contains the React + TypeScript codebase for our CP2026 group project.
+This repository contains the React codebase for our CP2026 group project.
 
 ## Tech Stack
 - React
@@ -14,10 +14,15 @@ This repository contains the React + TypeScript codebase for our CP2026 group pr
 2. Run `npm install`
 3. Run `npm run dev`
 
-## Project Structure
-- models/            → fetches data from the API (Model)
-- views/          → Pages connecting the ViewModel and View
-- viewModels/             → ViewModels managing state and logic (Hooks)
-- components/        → Pure UI components (View)
+## Branch Naming Convention 
 
-Model (access data via API) → ViewModel (hook) → Views (Typed objects for compoment props) → View (Pure UI components)
+When naming a branch use the following convention:
+  
+  `feature/` for new functionality 
+  `bugfix` for fixing bugs within the code
+  `docs` for updating documentation 
+  `release` for preparing release functionality 
+
+Add the Jira ticket code associated with the code:
+
+  `feature/AD-274-feature-name`
