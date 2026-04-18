@@ -20,7 +20,7 @@ The codebase follows a feature-based structure, where components and related fil
 
 `src/`
 
-  `features/`      # Feature-specific modules (e.g. studentDashboard/)
+  `features/`      # Feature-specific components, styles, tests, hooks (e.g. studentDashboard/)
   
   `common/`        # Reusable components shared across features (e.g. navigation, tables, forms)
   
