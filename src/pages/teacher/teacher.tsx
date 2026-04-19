@@ -93,11 +93,12 @@ export default function Dashboard() {
             <strong>20%</strong>
           </div>
         </div>
+  
 
         <div className="charts">
-          <div className="chart-box">Band Distribution</div>
-          <div className="chart-box">Exam Progress</div>
-          <div className="chart-box large">Weakness Trends</div>
+          <div className="chart-box">  <img src= "src\assets\Student-Statistic.png"/> </div>
+          <div className="chart-box"><img src= "src\assets\Class-Progress.png"/></div>
+          <div className="chart-box large"><img src= "src\assets\Attendance.png"/></div>
         </div>
 
         <div className="bottom">

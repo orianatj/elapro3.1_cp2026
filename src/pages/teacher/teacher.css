@@ -225,18 +225,18 @@ nav ul li img {
 /* Charts grid container */
 .charts {
   display: grid; /* Grid layout */
-  grid-template-columns: 1fr 1fr 2fr; /* Uneven column layout */
-  gap: 15px; /* Space between charts */
+  grid-template-columns: 1fr 1fr 1fr; /* Uneven column layout */
+  gap: 100px; /* Space between charts */
   margin-bottom: 20px; /* Space below section */
 }
 
 /* Individual chart box */
 .chart-box {
-  min-height: 150px; /* Minimum height */
-  padding: 20px; /* Inner spacing */
-  background: #fff; /* White background */
-  border-radius: 12px; /* Rounded corners */
-  border: 1px solid #C7C9D9; /* Light outline */
+ /* min-height: 150px;  Minimum height */
+  /* padding: 20px; Inner spacing */
+   /* background: #fff; White background */
+  /*  border-radius: 12px; Rounded corners */
+  /*border: 1px solid #C7C9D9;  Light outline */
 }
 
 /* ================= BOTTOM LISTS ================= */
