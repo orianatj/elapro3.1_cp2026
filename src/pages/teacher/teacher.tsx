@@ -1,63 +1,11 @@
 import React from "react";
 import "./teacher.css";
+import Sidebar from "./../../common/SideBarTeacher.tsx";
 
 export default function Dashboard() {
   return (
     <div className="container">
-      <aside className="sidebar">
-        <div className="top-section">
-          <div className="logo">
-            <img src="src/assets/logo.png" alt="dashboard" />
-            <p>Teacher</p>
-          </div>
-
-          <div className="top-icons">
-            <img
-              className="avatar"
-              src="src/assets/Avatar.png"
-              alt="user icon"
-            />
-
-            <div className="notification-wrapper">
-              <img
-                src="src/assets/notifications.png"
-                alt="notifications icon"
-              />
-              <span className="badge">2</span>
-            </div>
-          </div>
-        </div>
-
-        <nav>
-          <ul>
-            <li>
-              <img src="src/assets/grid.png" alt="dashboard" />
-              Dashboard
-            </li>
-            <li>
-              <img src="src/assets/create.png" alt="assignments" />
-              Assignments
-            </li>
-            <li>
-              <img src="src/assets/file-tray-full.png" alt="resources" />
-              Resources
-            </li>
-            <li>
-              <img src="src/assets/documents.png" alt="submissions" />
-              Submissions
-            </li>
-            <li>
-              <img src="src/assets/vector.png" alt="settings" />
-              Settings
-            </li>
-            <li>
-              <img src="src/assets/help.png" alt="help" />
-              Help
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
+    <Sidebar />
       <main className="main">
         <div className="header">Welcome back, [[USER NAME]]</div>
           <h3>Overall Performance</h3>
