@@ -1,47 +1,17 @@
 import React from "react";
 import "./teacher.css";
+import Stats from "../../types/teacher/StatisticBoxTemplate";
 import Sidebar from "./../../common/SideBarTeacher.tsx";
 
 export default function Dashboard() {
   return (
     <div className="container">
-    <Sidebar />
+          <Sidebar />
       <main className="main">
         <div className="header">Welcome back, [[USER NAME]]</div>
           <h3>Overall Performance</h3>
 
-        <div className="stats">
-          <div className="card">
-            <img src="src/assets/business.png" alt="submissions" />
-            <span>My Courses</span>
-            <strong>4</strong>
-          </div>
-
-          <div className="card">
-            <img src="src/assets/people-circle.png" alt="students" />
-            <span># Of Students</span>
-            <strong>270</strong>
-          </div>
-
-          <div className="card">
-            <img src="src/assets/newspaper.png" alt="reviews" />
-            <span>Exams for Review</span>
-            <strong>37</strong>
-          </div>
-
-          <div className="card">
-            <img src="src/assets/podium.png" alt="performance" />
-            <span>Avg. Performance</span>
-            <strong>75.6%</strong>
-          </div>
-
-          <div className="card">
-            <img src="src/assets/trending-up.png" alt="improvement" />
-            <span>Improvement Rate</span>
-            <strong>20%</strong>
-          </div>
-        </div>
-  
+         <Stats />
 
         <div className="charts">
           <div className="chart-box">  <img src= "src\assets\Student-Statistic.png"/> </div>

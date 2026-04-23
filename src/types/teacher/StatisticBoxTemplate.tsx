@@ -2,11 +2,11 @@ import React from "react";
 import StatCard from "../../hooks/StatisticCardTemplate.tsx";
 
 // optional: import images instead of using string paths
-import business from "../assets/business.png";
-import people from "../assets/people-circle.png";
-import newspaper from "../assets/newspaper.png";
-import podium from "../assets/podium.png";
-import trending from "../assets/trending-up.png";
+import business from "../../assets/business.png";
+import people from "../../assets/people-circle.png";
+import newspaper from "../../assets/newspaper.png";
+import podium from "../../assets/podium.png";
+import trending from "../../assets/trending-up.png";
 
 const statsData = [
   {
