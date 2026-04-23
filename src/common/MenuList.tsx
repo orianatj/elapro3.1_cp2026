@@ -1,25 +1,25 @@
 import React from "react";
-import AssignmentItem from "./MenuItem";
+import MenuItem from "./MenuItem";
 
-interface Assignment {
+type Status = "Upcoming" | "On Time" | "LATE";
+
+export interface MenuData {
+  id: string;
   day?: string;
   title: string;
   time?: string;
-  status: string;
-  isLate?: boolean;
-  avatar?: string;
-  isSubmission?: boolean;
+  status: Status;
+  avatarSrc?: string;
+  avatarAlt?: string;
+  isAvatar?: boolean;
 }
 
-interface AssignmentListProps {
+interface MenuListProps {
   title: string;
-  items: Assignment[];
+  items: MenuData[];
 }
 
-export default function AssignmentList({
-  title,
-  items,
-}: AssignmentListProps) {
+export default function MenuList({ title, items }: MenuListProps) {
   return (
     <div className="list">
       <div className="list-header">
@@ -30,8 +30,8 @@ export default function AssignmentList({
       <div className="divider"></div>
 
       <ul className="assignment-list">
-        {items.map((item, index) => (
-          <AssignmentItem key={index} {...item} />
+        {items.map((item) => (
+          <MenuItem key={item.id} {...item} />
         ))}
       </ul>
     </div>
