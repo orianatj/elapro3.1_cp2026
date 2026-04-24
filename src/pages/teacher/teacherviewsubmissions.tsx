@@ -12,12 +12,48 @@ interface Submission {
 }
 
 const submissions: Submission[] = [
-  { firstName: "Alice", lastName: "Johnson", className: "IELTS Writing Practice", time: "Today, 11:15 AM", status: "On Time" },
-  { firstName: "Mark", lastName: "Lee", className: "IELTS Listening", time: "Today, 9:30 PM", status: "Late" },
-  { firstName: "Sara", lastName: "Kilm", className: "IELTS Reading A", time: "Yesterday, 4:50 PM", status: "Extension" },
-  { firstName: "John", lastName: "Patel", className: "IELTS Speaking B", time: "Yesterday, 2:50 PM", status: "On Time" },
-  { firstName: "Emily", lastName: "Davis", className: "IELTS Speaking Practice", time: "April 22, 2:10 PM", status: "Late" },
-  { firstName: "David", lastName: "Chen", className: "Listening Practice", time: "April 21, 2:35 PM", status: "On Time" },
+  {
+    firstName: "Alice",
+    lastName: "Johnson",
+    className: "IELTS Writing Practice",
+    time: "Today, 11:15 AM",
+    status: "On Time",
+  },
+  {
+    firstName: "Mark",
+    lastName: "Lee",
+    className: "IELTS Listening",
+    time: "Today, 9:30 PM",
+    status: "Late",
+  },
+  {
+    firstName: "Sara",
+    lastName: "Kilm",
+    className: "IELTS Reading A",
+    time: "Yesterday, 4:50 PM",
+    status: "Extension",
+  },
+  {
+    firstName: "John",
+    lastName: "Patel",
+    className: "IELTS Speaking B",
+    time: "Yesterday, 2:50 PM",
+    status: "On Time",
+  },
+  {
+    firstName: "Emily",
+    lastName: "Davis",
+    className: "IELTS Speaking Practice",
+    time: "April 22, 2:10 PM",
+    status: "Late",
+  },
+  {
+    firstName: "David",
+    lastName: "Chen",
+    className: "Listening Practice",
+    time: "April 21, 2:35 PM",
+    status: "On Time",
+  },
 ];
 
 export default function SubmissionsOverview() {
@@ -30,11 +66,14 @@ export default function SubmissionsOverview() {
 
         {/* Top Controls */}
         <div className="toolbar">
-          <input
-            type="text"
-            placeholder="Search by Student"
-            className="search-input"
-          />
+          <div className="search-box">
+            <img src="src\assets\search.png" alt="search" className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search by Student"
+              className="search-input"
+            />
+          </div>
 
           <div className="toolbar-right">
             <select className="sort-dropdown">
@@ -43,8 +82,8 @@ export default function SubmissionsOverview() {
               <option>Date</option>
             </select>
 
-            <button className="btn filter">Filter</button>
-            <button className="btn export">Export</button>
+            <button className="btn">Filter</button>
+            <button className="btn">Export</button>
           </div>
         </div>
 
@@ -74,8 +113,8 @@ export default function SubmissionsOverview() {
                         s.status === "Late"
                           ? "late"
                           : s.status === "Extension"
-                          ? "extension"
-                          : "on-time"
+                            ? "extension"
+                            : "on-time"
                       }`}
                     >
                       {s.status === "Extension"
