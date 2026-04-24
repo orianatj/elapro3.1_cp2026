@@ -1,7 +1,7 @@
 import React from "react";
 import "./teacher.css";
-import Stats from "../../types/teacher/StatisticBoxTemplate";
-import Sidebar from "./../../common/SideBarTeacher.tsx";
+import Stats from "../../types/teacher/StatisticBoxTemplate.tsx";
+import Sidebar from "../../common/SideBarTeacher.tsx";
 
 export default function Dashboard() {
   return (
