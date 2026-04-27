@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../../common/SideBarTeacher";
 import SubmissionTable from "../../common/TableViewTeacher";
+import ToolbarButton from "../../common/ToolbarButton";
 import "./teacher.css";
 import "./teachersubmission.css";
 
@@ -55,7 +56,7 @@ const submissions: Submission[] = [
     time: "April 21, 2:35 PM",
     status: "On Time",
   },
-   {
+  {
     firstName: "John",
     lastName: "Patel",
     className: "IELTS Speaking B",
@@ -75,9 +76,8 @@ const submissions: Submission[] = [
     className: "Listening Practice",
     time: "April 21, 2:35 PM",
     status: "On Time",
-    
   },
-   {
+  {
     firstName: "John",
     lastName: "Patel",
     className: "IELTS Speaking B",
@@ -130,17 +130,17 @@ export default function SubmissionsOverview() {
               <option>Date</option>
             </select>
 
-            <button className="btn">
-              <img src="src/assets/funnel.png" alt="Filter" />
-              <span>Filter</span>
-              <span className="spacer"></span>
-            </button>
+            <ToolbarButton
+              icon="src/assets/funnel.png"
+              label="Filter"
+              onClick={() => console.log("Filter clicked")}
+            />
 
-            <button className="btn">
-              <img src="src/assets/download.png" alt="Export" />
-              <span>Export</span>
-              <span className="spacer"></span>
-            </button>
+            <ToolbarButton
+              icon="src/assets/download.png"
+              label="Export"
+              onClick={() => console.log("Export clicked")}
+            />
           </div>
         </div>
 
