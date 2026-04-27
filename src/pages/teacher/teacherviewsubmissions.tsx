@@ -54,6 +54,49 @@ const submissions: Submission[] = [
     time: "April 21, 2:35 PM",
     status: "On Time",
   },
+   {
+    firstName: "John",
+    lastName: "Patel",
+    className: "IELTS Speaking B",
+    time: "Yesterday, 2:50 PM",
+    status: "On Time",
+  },
+  {
+    firstName: "Emily",
+    lastName: "Davis",
+    className: "IELTS Speaking Practice",
+    time: "April 22, 2:10 PM",
+    status: "Late",
+  },
+  {
+    firstName: "David",
+    lastName: "Chen",
+    className: "Listening Practice",
+    time: "April 21, 2:35 PM",
+    status: "On Time",
+    
+  },
+   {
+    firstName: "John",
+    lastName: "Patel",
+    className: "IELTS Speaking B",
+    time: "Yesterday, 2:50 PM",
+    status: "On Time",
+  },
+  {
+    firstName: "Emily",
+    lastName: "Davis",
+    className: "IELTS Speaking Practice",
+    time: "April 22, 2:10 PM",
+    status: "Late",
+  },
+  {
+    firstName: "David",
+    lastName: "Chen",
+    className: "Listening Practice",
+    time: "April 21, 2:35 PM",
+    status: "On Time",
+  },
 ];
 
 export default function SubmissionsOverview() {
@@ -67,7 +110,11 @@ export default function SubmissionsOverview() {
         {/* Top Controls */}
         <div className="toolbar">
           <div className="search-box">
-            <img src="src\assets\search.png" alt="search" className="search-icon" />
+            <img
+              src="src\assets\search.png"
+              alt="search"
+              className="search-icon"
+            />
             <input
               type="text"
               placeholder="Search by Student"
@@ -82,8 +129,17 @@ export default function SubmissionsOverview() {
               <option>Date</option>
             </select>
 
-            <button className="btn">Filter</button>
-            <button className="btn">Export</button>
+            <button className="btn">
+              <img src="src/assets/funnel.png" alt="Filter" />
+              <span>Filter</span>
+              <span className="spacer"></span>
+            </button>
+
+            <button className="btn">
+              <img src="src/assets/download.png" alt="Export" />
+              <span>Export</span>
+              <span className="spacer"></span>
+            </button>
           </div>
         </div>
 
