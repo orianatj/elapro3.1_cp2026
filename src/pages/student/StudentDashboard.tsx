@@ -3,6 +3,8 @@ import { BsArrowUp, BsArrowDown, BsArrowDownUp } from "react-icons/bs";
 import { StatsSummary } from "../../studentDashboard/StatsSummary";
 import './studentdb.css';
 import { FilterBar } from "../../studentDashboard/StudentFilter";
+import { CriterionSelector } from "../../studentDashboard/ProgressTracking";
+
 
 const STATS = [
     { label: "Total Submissions", value: 15, icon: <IoDocumentsOutline /> },
@@ -16,6 +18,14 @@ const CHART_DATA = [
     { ielts: "general", task: "task one", week: "19/01", overallScore: 5, taskAchievement: 4, GrammaticalRA: 4, lexicalResource: 5, coheranceAndCohesion: 6 },
     { ielts: "general", task: "task one", week: "26/01", overallScore: 5, taskAchievement: 4, GrammaticalRA: 4, lexicalResource: 5, coheranceAndCohesion: 6 },
 ]
+
+const CRITERIA = [
+    "Overall Score",
+    "Task Achievement",
+    "Grammatical Range & Accuracy",
+    "Lexical Resource",
+    "Coherence & Cohesion",
+];
 
 
 export default function StudentDashboardPage() {
@@ -42,6 +52,8 @@ export default function StudentDashboardPage() {
 
                 }
             ]} />
+                <CriterionSelector toggles={CRITERIA} />
+
             </div>
         </div>
     )

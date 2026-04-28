@@ -58,25 +58,31 @@ body {
     font-size: 40px;
     margin-left: auto;
     margin-right: 30px;
+    color: black;
 }
 
 .statcard-label {
-    font-size: 20px;
+    font-size: 18px;
     text-align: left;
     margin-bottom: 5px;
+    color: black;
 }
+
 
 .statcard-value {
     font-size: 22px;
     text-align: left;
     font-weight: bold;
     margin-top: 5px;
+    color: black;
+    
 }
 
 .filter-dropdown {
     background: white;
     width:80%;
     font-size: 15px;   
+    color: black;
 }
 
 .filter-bar {

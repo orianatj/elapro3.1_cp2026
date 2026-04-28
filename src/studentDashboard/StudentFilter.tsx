@@ -7,7 +7,8 @@ type FilterData = {
 
 type FilterBarProps = {
     filters: FilterData[];
-}
+};
+
 export function FilterBar({ filters }: FilterBarProps) {
     return (
         <div className="filter-bar">
@@ -21,7 +22,7 @@ export function FilterBar({ filters }: FilterBarProps) {
             ))}
         </div>
     );
-}
+};
 
 type ChartFilterProps = FilterData;
 
@@ -41,4 +42,4 @@ function ChartFilter({ title, selected, options }: ChartFilterProps) {
             </select>
         </div>
     );
-}
+};
