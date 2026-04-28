@@ -112,30 +112,34 @@ nav ul {
 }
 
 /* Sidebar navigation items */
-nav ul li {
+.sidebar a {
   display: flex; /* Aligns icon + text horizontally */
   align-items: center; /* Vertically centers content */
   gap: 15px; /* Space between icon and text */
-  padding: 12px; /* Inner spacing */
-  margin: 8px 0; /* Space between items */
+  padding: 0px; /* Inner spacing */
+  margin: 0; /* Space between items */
   border-radius: 8px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
-  background: rgba(255, 255, 255, 0.1); /* Subtle translucent background */
-  transition: background 0.3s ease; /* Smooth hover effect */
   font-family: "DM Sans", sans-serif; /* Clean sans-serif font */
   font-size: 18px; /* Text size */
 }
 
 /* Hover effect for navigation items */
-nav ul li:hover {
+.sidebar a:hover {
   background: #215dab; /* Blue highlight on hover */
 }
 
 /* Navigation icons */
-nav ul li img {
+.sidebar a img {
   width: 24px; /* Icon width */
   height: 24px; /* Icon height */
   object-fit: contain; /* Prevents distortion */
+}
+
+.sidebar a,
+.sidebar a:visited {
+  color: inherit;        /* Uses your sidebar text color */
+  text-decoration: none; /* Removes underline */
 }
 
 /* ================= MAIN CONTENT ================= */
