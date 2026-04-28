@@ -1,12 +1,25 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const navItems = [
-  { icon: "/src/assets/grid.png", label: "Dashboard", alt: "dashboard" },
-  { icon: "/src/assets/create.png", label: "Assignments", alt: "assignments" },
-  { icon: "/src/assets/file-tray-full.png", label: "Resources", alt: "resources" },
-  { icon: "/src/assets/documents.png", label: "Submissions", alt: "submissions" },
-  { icon: "/src/assets/vector.png", label: "Settings", alt: "settings" },
-  { icon: "/src/assets/help.png", label: "Help", alt: "help" },
+  { icon: "/src/assets/grid.png", label: "Dashboard", path: "/dashboard" },
+  {
+    icon: "/src/assets/create.png",
+    label: "Assignments",
+    path: "/assignments",
+  },
+  {
+    icon: "/src/assets/file-tray-full.png",
+    label: "Resources",
+    path: "/resources",
+  },
+  {
+    icon: "/src/assets/documents.png",
+    label: "Submissions",
+    path: "/submissions",
+  },
+  { icon: "/src/assets/vector.png", label: "Settings", path: "/settings" },
+  { icon: "/src/assets/help.png", label: "Help", path: "/help" },
 ];
 
 export default function Sidebar() {
@@ -19,7 +32,11 @@ export default function Sidebar() {
         </div>
 
         <div className="top-icons">
-          <img className="avatar" src="/src/assets/Avatar.png" alt="user icon" />
+          <img
+            className="avatar"
+            src="/src/assets/Avatar.png"
+            alt="user icon"
+          />
 
           <div className="notification-wrapper">
             <img src="/src/assets/notifications.png" alt="notifications icon" />
@@ -32,8 +49,10 @@ export default function Sidebar() {
         <ul>
           {navItems.map((item) => (
             <li key={item.label}>
-              <img src={item.icon} alt={item.alt} />
-              {item.label}
+              <NavLink to={item.path}>
+                <img src={item.icon} />
+                {item.label}
+              </NavLink>
             </li>
           ))}
         </ul>
