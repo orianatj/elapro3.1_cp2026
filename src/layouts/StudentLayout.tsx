@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../common/Navbar";
+import Sidebar from "../common/SideBarTeacher";
 
 
 const studentNavItems = [
@@ -13,13 +14,17 @@ const studentNavItems = [
 
 export default function StudentLayout() {
     return (
-        <div>
+        <div className="container">
             <Navbar pageNames={studentNavItems} />
-            <header>Student Header</header>
+            {/*<Sidebar />*/}
 
-            <main>
-                <Outlet />
-            </main>
+            <div className="main">
+                <header className="header">Student Header</header>
+
+                <main>
+                    <Outlet />
+                </main>
+            </div>
         </div>
     )
 };
