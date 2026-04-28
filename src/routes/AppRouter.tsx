@@ -8,35 +8,37 @@ import StudentDashboardPage from "../pages/student/StudentDashboard";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import ReportsPage from "../pages/student/Reports";
-
+import TeacherDashboard from "../pages/teacher/teacher.tsx";
 
 // TODO: Confirm if student are the only user type that require an account management page
 
-// Defines the application's routing structure, including public and protected routes and nested dashboard layouts  
+// Defines the application's routing structure, including public and protected routes and nested dashboard layouts
 export default function AppRouter() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                {/* 
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* 
                 <Route path="/" element={<AuthLayout />}>
                     <Route path="login" element={<Login />} />
                 </Route>*/}
+        // Protected Routes
+        {/*<Route element={<ProtectedRoute />}>*/}
+        // Studnet Dashboard
+        <Route path="/student" element={<StudentLayout />}>
+          <Route index element={<StudentDashboardPage />} />
+          <Route path="essay-submission" element={<EssaySubmissionPage />} />
+          <Route path="practice-writing" element={<PracticeWritingPage />} />
+          <Route path="reports" element={<ReportsPage />}>
+            <Route
+              path="submission-analysis"
+              element={<SubmissionAnalysisPage />}
+            />
+          </Route>
+          {
 
-                // Protected Routes
-                {/*<Route element={<ProtectedRoute />}>*/}
-                    // Studnet Dashboard
-                <Route path="/student" element={<StudentLayout />}>
-                    <Route index element={<StudentDashboardPage />} />
-                    <Route path="essay-submission" element={<EssaySubmissionPage />} />
-                    <Route path="practice-writing" element={<PracticeWritingPage />} />
-                    <Route path="reports" element={<ReportsPage />}>
-                        <Route
-                            path="submission-analysis"
-                            element={<SubmissionAnalysisPage />}
-                        />
-                    </Route>
-                    {/*</Route>
+            /*</Route>
                     // Teacher Dashboard
+                    
                 <Route path="/teacher" element={<TeacherLayout />}>
                     <Route index element={<TeacherHome />} />
                     <Route path="page-1" element={<Teacher />} />
@@ -46,10 +48,11 @@ export default function AppRouter() {
                     <Route index element={<AdminHome />} />
                     <Route path="users" element={<UsersPage />} />
                 </Route>
-                */}
-                </Route>
-
-            </Routes>
-        </BrowserRouter >
-    );
+                */
+          }
+        </Route>
+        <Route path="/teacher" element={<TeacherDashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

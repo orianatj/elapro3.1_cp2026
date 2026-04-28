@@ -5,8 +5,10 @@
   box-sizing: border-box; /* Includes padding and border in element width/height */
 }
 
+
 /* Overall page styling */
 body {
+  color: black;
   margin: 0; /* Removes default browser spacing */
   font-family: Arial, sans-serif; /* Sets a clean default font */
   background: linear-gradient(to bottom, #c7d2fe, #e5e7eb); /* Soft gradient background */
@@ -204,6 +206,7 @@ nav ul li img {
   max-width: 180px; /* Limits card width */
   gap: 8px; /* Space between elements */
   border: 1px solid #C7C9D9; /* Light outline */
+  color: black;;
 }
 
 /* Card icon */
