@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../common/Navbar";
 import Sidebar from "../common/SideBarTeacher";
-
+import { GreetingBanner } from "../studentDashboard/GreetingBanner";
 
 const studentNavItems = [
     { label: "Dashboard", path: "/student" },
@@ -15,11 +15,11 @@ const studentNavItems = [
 export default function StudentLayout() {
     return (
         <div className="container">
-            <Navbar pageNames={studentNavItems} />
+            {/*<Navbar pageNames={studentNavItems} />*/}
             {/*<Sidebar />*/}
 
             <div className="main">
-                <header className="header">Student Header</header>
+                <div><GreetingBanner name={"Oriana"} /></div>
 
                 <main>
                     <Outlet />
