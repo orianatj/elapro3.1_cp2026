@@ -28,7 +28,7 @@ h3 {
 /* ================= LAYOUT WRAPPER ================= */
 
 /* Main layout container holding sidebar + main content */
-.container {
+.teacher-container {
   display: flex; /* Places sidebar and main content side by side */
   min-height: 100vh; /* Makes layout fill full viewport height */
 }

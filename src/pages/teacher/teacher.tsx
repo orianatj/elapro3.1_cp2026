@@ -55,7 +55,7 @@ const submissionView: MenuData[] = [
 export default function Dashboard() {
   return (
     <div className="dashboard-page">
-      <div className="header">Welcome back, [[USER NAME]]</div>
+
 
       <h3>Overall Performance</h3>
       <Stats />

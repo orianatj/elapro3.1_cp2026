@@ -4,13 +4,11 @@ import { GreetingBanner } from "../studentDashboard/GreetingBanner";
 
 export default function TeacherLayout() {
   return (
-    <div className="container">
+    <div className="teacher-container">
       <Sidebar />
 
       <div className="main">
-        <div>
-          <GreetingBanner name={"USER NAME"} />
-        </div>
+        <div className="header">Welcome back, [[USER NAME]]</div>
 
         <main>
           <Outlet />
