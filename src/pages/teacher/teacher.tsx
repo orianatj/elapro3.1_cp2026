@@ -1,7 +1,6 @@
 import React from "react";
 import "./teacher.css";
 import Stats from "../../types/teacher/StatisticBoxTemplate";
-import Sidebar from "./../../common/SideBarTeacher.tsx";
 import MenuList from "./../../common/MenuList.tsx";
 import type { MenuData } from "./../../common/MenuList.tsx";
 
@@ -55,32 +54,30 @@ const submissionView: MenuData[] = [
 
 export default function Dashboard() {
   return (
-    <div className="container">
-          <Sidebar />
-      <main className="main">
-        <div className="header">Welcome back, [[USER NAME]]</div>
-        <h3>Overall Performance</h3>
+    <div className="dashboard-page">
+      <div className="header">Welcome back, [[USER NAME]]</div>
 
-         <Stats />
+      <h3>Overall Performance</h3>
+      <Stats />
 
-        <div className="charts">
-          <div className="chart-box">
-            {" "}
-            <img src="src\assets\Student-Statistic.png" />{" "}
-          </div>
-          <div className="chart-box">
-            <img src="src\assets\Class-Progress.png" />
-          </div>
-          <div className="chart-box large">
-            <img src="src\assets\Attendance.png" />
-          </div>
+      <div className="charts">
+        <div className="chart-box">
+          <img src="src/assets/Student-Statistic.png" alt="Student Statistic" />
         </div>
 
-        <div className="bottom">
-          <MenuList title="Recent Assignments" items={recentAssignments} />
-          <MenuList title="Submission View" items={submissionView} />
+        <div className="chart-box">
+          <img src="src/assets/Class-Progress.png" alt="Class Progress" />
         </div>
-      </main>
+
+        <div className="chart-box large">
+          <img src="src/assets/Attendance.png" alt="Attendance" />
+        </div>
+      </div>
+
+      <div className="bottom">
+        <MenuList title="Recent Assignments" items={recentAssignments} />
+        <MenuList title="Submission View" items={submissionView} />
+      </div>
     </div>
   );
 }
