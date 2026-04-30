@@ -17,7 +17,7 @@ const studentNavItems = [
 export default function StudentLayout() {
     return (
         <div className="container">
-            {/*<Navbar pageNames={studentNavItems} />*/}
+            <Navbar pageNames={studentNavItems} />
             {/*<Sidebar />*/}
 
             <div className="main">
