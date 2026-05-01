@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 //import AdminLayout from "../layouts/AdminLayout";
 import StudentLayout from "../layouts/StudentLayout";
 import TeacherLayout from "../layouts/TeacherLayout";
+import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
 //import AuthLayout from "../layouts/AuthLayout";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
@@ -53,6 +54,7 @@ export default function AppRouter() {
         </Route>
         <Route path="/teacher" element={<TeacherLayout />}>
         <Route index element={<TeacherDashboard />} />
+        <Route path="edit-score" element={<EditStudentScorePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
