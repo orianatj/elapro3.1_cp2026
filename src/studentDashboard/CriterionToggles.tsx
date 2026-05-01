@@ -25,7 +25,6 @@ export function CriterionSelector({ toggles }: CriterionSelectorProps) {
 
     return (
         <div className='toggle-box'>
-            <h3>Select Criterion</h3>
             {toggles.map((toggle, index) => (
                 <CriterionToggle
                     key={toggle}
