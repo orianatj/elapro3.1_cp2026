@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../layouts/AdminLayout";
 import StudentLayout from "../layouts/StudentLayout";
+import { AdminDashboardPage } from "../pages/admin/adminDashboard.tsx";
 import TeacherLayout from "../layouts/TeacherLayout";
 //import AuthLayout from "../layouts/AuthLayout";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
@@ -51,8 +52,8 @@ export default function AppRouter() {
                 */
           }
         </Route>
-        <Route path="/teacher" element={<TeacherLayout />}>
-        <Route index element={<TeacherDashboard />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboardPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
