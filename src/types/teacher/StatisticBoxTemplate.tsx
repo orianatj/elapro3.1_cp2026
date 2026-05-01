@@ -1,5 +1,5 @@
 import React from "react";
-import StatCard from "../../hooks/StatisticCardTemplate.tsx";
+import StatCard from "../../common/StatisticCardTemplate.tsx";
 
 // optional: import images instead of using string paths
 import business from "../../assets/business.png";
