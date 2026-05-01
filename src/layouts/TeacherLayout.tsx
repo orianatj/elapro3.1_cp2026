@@ -8,7 +8,6 @@ export default function TeacherLayout() {
       <Sidebar />
 
       <div className="main">
-        <div className="header">Welcome back, [[USER NAME]]</div>
 
         <main>
           <Outlet />

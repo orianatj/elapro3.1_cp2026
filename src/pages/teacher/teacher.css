@@ -10,6 +10,7 @@ body {
   margin: 0; /* Removes default browser spacing */
   font-family: Arial, sans-serif; /* Sets a clean default font */
   background: linear-gradient(to bottom, #c7d2fe, #e5e7eb); /* Soft gradient background */
+  display: block;
   color: black;
 }
 
