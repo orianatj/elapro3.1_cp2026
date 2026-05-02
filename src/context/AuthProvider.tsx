@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
-import { useContext, createContext, useState } from "react";
-import type { User, UserCredentials } from "../types/common/UserType.ts";
+import { createContext, useState } from "react";
+import type { User } from "../types/common/User.ts";
+import type { Credentials } from "../types/common/Auth.ts";
 
 
 // Define props for AuthContext
 type AuthContextProps = {
     user: User | null;
-    login: (Credentials: UserCredentials) => Promise<void>;
+    login: (Credentials: Credentials) => Promise<void>;
     logout: () => void;
 };
 
