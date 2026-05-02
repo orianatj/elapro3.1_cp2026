@@ -21,7 +21,7 @@ export function SubmissionsPage() {
     const { viewData,
         isLoading,
         error,
-        actions,
+        //actions, (deferred pending backend implementation of filter actions)
     } = useStudentSubmissions(userId);
 
     // Render a simple loading state while submissions data is being fetched.
