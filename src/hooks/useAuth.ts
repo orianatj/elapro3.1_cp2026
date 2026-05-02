@@ -1,0 +1,1 @@
+// Define custom hook that gives access to the authentication context
