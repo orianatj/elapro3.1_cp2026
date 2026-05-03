@@ -1,22 +1,18 @@
 
-import {
-    useEffect,
-    useMemo,
-    useState
-} from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import { getStudentSubmissions } from "../services/studentSubmissionsService";
+import { getStudentSubmissions } from "../services/StudentSubmissionsService";
+import { formatDateTime } from "../utils/dateUtils";
 
-import type {
-    StudentSubmissions,
-    SubmissionTableRow
-} from "../types/student/StudentSubmissionsViewData";
+import type { StudentSubmissions } from "../types/student/StudentSubmissionsViewData";
 
 import type {
     FilterValue,
     IeltsType,
     TaskType,
 } from "../types/student/common/StudentFilter";
+
 
 /**
  * useStudentSubmissions Hook
@@ -29,85 +25,41 @@ import type {
 export function useStudentSubmissions(userId: string) {
 
     /* ==================== FILTER STATE ==================== */
-    // Functions to update the IELTS and Task filters.
-    // Calling either will trigger a re-render and refresh the derived ViewData.
+    // Functions to update the IELTS and Task filter states.
+    // Calling either will trigger a re-render via the queryKey.
     const [ieltsType, setIeltsType] =
         useState<FilterValue<IeltsType>>("all");  // Accepted values: "all", "academic", or "general". Default set to "all"
 
     const [taskType, setTaskType] =
         useState<FilterValue<TaskType>>("all");   // Accepted values: "all", "task-one", or "task-two". Default set to "all"
 
-    /* ==================== DATA STATE ==================== */
-    // State for the submissions data fetched from the backend, as well as loading and error states.
-    const [rows, setRows] = useState<SubmissionTableRow[]>([]);  // UI-ready table rows derived from backend submissions.
-    const [isLoading, setIsLoading] = useState<boolean>(false);  // Loading flag used by the page to render spinners / skeleton states.
-    const [error, setError] = useState<string | null>(null);     // Error message string if data fetching fails, otherwise null.
+    /* ==================== SERVER STATE ==================== */
+    // Loading, error, caching, and refetch behaviour is handled automatically by TanStack Query.
+    const { data, isPending, error } = useQuery({
+        queryKey: ["studentSubmissions", userId, ieltsType, taskType],
 
-    /* ============ SIDE EFFECTS: DATA FETCHING ============ */
-    // Fetch submissions from the backend whenever the userId or any filter changes.
-    useEffect(() => {
-        // Guards against state updates if the component using this hook unmounts
-        // before the async request completes.
-        let isMounted = true;
+        // Query function responsible for retrieving data from the backend API based on the current user and filter states.
+        queryFn: () =>
+            getStudentSubmissions({
+                userId,
+                ieltsType,
+                taskType,
+            }),
 
-        async function fetchSubmissions() {
-            setIsLoading(true);
-            setError(null);
+        // Prevents the query from running until a valid userId is available
+        enabled: Boolean(userId),
 
-            try {
-                // Delegate network concerns to the service layer.
-                // Filtering parameters are kept explicit rather than embedded in the service.
-                const response = await getStudentSubmissions({
-                    userId,
-                    ieltsType: ieltsType === "all" ? undefined : ieltsType,
-                    taskType: taskType === "all" ? undefined : taskType,
-                });
-
-                if (!isMounted) return;
-
-                // Transform backend models into UI-safe, presentation-ready rows.
-                const mappedRows: SubmissionTableRow[] = response.map(
-                    (submission: any): SubmissionTableRow => ({
-                        submissionId: submission.submissionId,
-                        date: formatDateTime(submission.submissionTimestamp),
-                        essayType: submission.submissionGroup === 1
-                            ? "Practice"
-                            : "Submitted Essay",
-                        ieltsType: submission.ieltsType,
-                        taskType: submission.taskType,
-                        score: submission.overallScore ?? undefined,  // score is optional and may be undefined if not yet graded
-                    })
-                );
-
-                setRows(mappedRows);
-            } catch (err) {
-                if (!isMounted) return;
-                setError("Unable to load submissions.");
-            } finally {
-                if (isMounted) setIsLoading(false);
-            }
-        }
-
-        fetchSubmissions();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [userId, ieltsType, taskType]);
-
-    /* ==================== DERIVED VIEW DATA ==================== */
-    // Cache the construction of the StudentSubmissions view data to avoid unnecessary recalculations on every render.
-    const viewData: StudentSubmissions = useMemo(
-        () => ({
+        /* ==================== VIEW DATA TRANSFORMATION ==================== */
+        // Transform backend submissions into UI-ready StudentSubmissions ViewData when query data changes.
+        select: (submissions): StudentSubmissions => ({
             pageHeader: {
                 title: "Submissions",
                 breadcrumb: [
-                    { label: "Dashboard", link: "/student/dashboard" },
+                    { label: "Dashboard", link: "/student" },
                     { label: "Submissions" },
                 ],
             },
-
-            // Filter configuration consumed directly by the Filters component.
+            // Filter configuration consumed directly by the SubmissionsFilters component
             filters: {
                 ieltsType: {
                     title: "IELTS Type",
@@ -129,34 +81,29 @@ export function useStudentSubmissions(userId: string) {
                 },
             },
             submissionsTable: {
-                rows,
+                rows: submissions.map((submission) => ({
+                    submissionId: submission.id,
+                    date: formatDateTime(submission.submittedAt),
+                    essayType: submission.essayType,
+                    ieltsType: submission.ieltsType,
+                    taskType: submission.taskType,
+                    score: submission.score ?? null,
+                    status: submission.status,
+                })),
             },
         }),
-        [rows, ieltsType, taskType]
-    );
+    });
+
 
     /* ==================== PUBLIC API ==================== */
-    // Returns the view data, loading and error states, and actions to update filters.
+    // Exposes view data, query state, and filter actions to the page component.
     return {
-        viewData,
-        isLoading,
+        viewData: data,
+        isPending,
         error,
         actions: {
             setIeltsType,
             setTaskType,
         },
     };
-}
-
-/* ========== Utilities (ViewModel-local only) ========== */
-// Formats backend timestamps for UI display.
-function formatDateTime(isoString: string): string {
-    const date = new Date(isoString);
-    return date.toLocaleDateString("en-AU", {
-        year: "numeric",
-        month: "short",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-    });
 }
