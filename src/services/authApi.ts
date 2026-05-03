@@ -1,5 +1,5 @@
 import { api } from "./client";
-import type { Credentials, Registration, PasswordReset, EmailRequest, VerifyEmailParams } from "../types/common/Auth.ts"
+import type { Credentials, Registration, PasswordReset, EmailRequest } from "../types/common/Auth.ts"
 
 export const login = (credentials: Credentials) =>
   api.post("/auth/login", credentials);
@@ -13,11 +13,11 @@ export const forgotPassword = (data: EmailRequest) =>
 export const resetPassword = (data: PasswordReset) =>
   api.post("/api/v1/auth/reset-password", data);
 
-export const sendVerify = (params: VerifyEmailParams) =>
-  api.get("/api/v1/auth/verify-email", { params });
-
 export const resendVerify = (data: EmailRequest) =>
   api.post("/api/v1/auth/resend-verify-email", data);
+
+export const sendVerify = () =>
+  api.get("/api/v1/auth/verify-email");
 
 export const refreshToken = () =>
   api.post("/auth/refresh-session");

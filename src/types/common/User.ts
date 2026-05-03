@@ -8,4 +8,3 @@ export type User = {
     phoneNumber?: string;
     userRole: string;
 };
-

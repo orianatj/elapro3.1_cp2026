@@ -17,7 +17,6 @@ export type Registration = {
 
 // Define a type for password reset 
 export type PasswordReset = {
-    token: string;
     newPassword: string;
     confirmPassword: string;
 };
@@ -27,7 +26,3 @@ export type EmailRequest = {
     emailAddress: string;
 };
 
-// Define type for verifying a user's email
-export type VerifyEmailParams = {
-    token: string;
-};
