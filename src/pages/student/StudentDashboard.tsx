@@ -3,7 +3,7 @@ import { BsArrowUp, BsArrowDown, BsArrowDownUp } from "react-icons/bs";
 import { StatsSummary } from "../../studentDashboard/StatsSummary";
 import './studentdb.css';
 import { FilterBar } from "../../studentDashboard/StudentFilter";
-import { CriterionSelector } from "../../studentDashboard/ProgressTracking";
+import { CriterionSelector } from "../../studentDashboard/CriterionToggles";
 
 
 const STATS = [
