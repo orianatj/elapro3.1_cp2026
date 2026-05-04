@@ -17,7 +17,7 @@ type AuthContextProps = {
 };
 
 // Define a global authentication context to manage authentication state
-const AuthContext = createContext<AuthContextProps | null>(null);
+export const AuthContext = createContext<AuthContextProps | null>(null);
 
 // Define props for AuthProvider
 type AuthProviderProps = {
@@ -41,34 +41,39 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (data) setUser(data.data);
     }, [data]);
 
-    /* Define async function to handle login result and update global state  */
+    // Define async function to handle login result and update global state  
     async function login(credentials: Credentials) {
 
+        // Call the mutation and store the resolved response 
         const res = await loginMutation(credentials);
 
+        // Extract data propery containing token and assign to variable 
         const { accessToken } = res.data;
 
+        // Persist access token for the current session to authenticate API calls
         sessionStorage.setItem("token", accessToken);
 
-        /* Invalidates current user data by marking it as stale and triggers refetching */
+        // Invalidate current user data by marking it as stale and trigger refetching 
         queryClient.invalidateQueries({ queryKey: ["me"] });
     };
 
+    // Function to handle logout by clearing auth state and cached user data
     function logout() {
+
+        // Remove access token 
         sessionStorage.removeItem("token");
 
+        // Reset user to unauthenticated - no user details available.
         setUser(null);
 
-        /* Clear cached data*/
+        // Clear cached data
         queryClient.removeQueries({ queryKey: ["me"] });
-    }
+    };
 
-
-    return <div>{children}</div>
-
-
+    // Provide auth state and actions (user, login, logout) to all child components via context
+    return (
+        <AuthContext value={{ user, login, logout }}>
+            {children}
+        </AuthContext>
+    )
 };
-
-
-
-//
