@@ -34,10 +34,6 @@ export default function AppRouter() {
           <Route path="submissions/:submissionId" element={<SubmissionAnalysisPage />} />
         </Route>
         {
-     <Route path="/teacher" element={<TeacherLayout />}>
-        <Route index element={<TeacherDashboard />} />
-        <Route path="edit-score" element={<EditStudentScorePage />} />
-      </Route>
           /*</Route>
                   // Teacher Dashboard
                   
@@ -52,6 +48,10 @@ export default function AppRouter() {
               </Route>
               */
         }
+            <Route path="/teacher" element={<TeacherLayout />}>
+        <Route index element={<TeacherDashboard />} />
+        <Route path="edit-score" element={<EditStudentScorePage />} />
+      </Route>
 
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
