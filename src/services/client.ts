@@ -28,6 +28,16 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   // Success handler: any 2xx response is returned unchanged 
   (response) => response,
-  // Error handler: any non-2xx (only 422 currently) response and rethrow it 
-  (error) => Promise.reject(error)
+  // Error handler: any non-2xx (only 422 and 401 currently) response and rethrow it 
+  (error) => {
+
+    const status = error.response?.status;
+
+    if (status === 500) {
+      console.error("Global server error:", error.response?.data);
+    }
+
+    return Promise.reject(error);
+  }
 );
+

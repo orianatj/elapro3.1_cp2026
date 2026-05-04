@@ -60,10 +60,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         } catch (error: any) {
 
-            // Log error for debugging 
-            if (error.response?.status === 422) {
-                console.warn("Login validation failed:", error.response.data);
+            const status = error.response?.status;
+
+            const errors = error.response?.data?.detail?.errors ?? [];
+
+            const hasInvalidCredentials = errors.some(
+                (e: any) => e.code === "INVALID_CREDENTIALS"
+            );
+
+            // Log invalid credential errors for debugging 
+            if (status === 401 && hasInvalidCredentials) {
+                console.warn("Login failed: invalid credentials")
             }
+
             // Pass it upward to the UI component
             throw error;
         }
