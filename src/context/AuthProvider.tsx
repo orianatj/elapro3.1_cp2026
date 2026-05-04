@@ -44,17 +44,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // Define async function to handle login result and update global state  
     async function login(credentials: Credentials) {
 
-        // Call the mutation and store the resolved response 
-        const res = await loginMutation(credentials);
+        try {
 
-        // Extract data propery containing token and assign to variable 
-        const { accessToken } = res.data;
+            // Call the mutation and store the resolved response 
+            const res = await loginMutation(credentials);
 
-        // Persist access token for the current session to authenticate API calls
-        sessionStorage.setItem("token", accessToken);
+            // Extract data propery containing token and assign to variable 
+            const { accessToken } = res.data;
 
-        // Invalidate current user data by marking it as stale and trigger refetching 
-        queryClient.invalidateQueries({ queryKey: ["me"] });
+            // Persist access token for the current session to authenticate API calls
+            sessionStorage.setItem("token", accessToken);
+
+            // Invalidate current user data by marking it as stale and trigger refetching 
+            queryClient.invalidateQueries({ queryKey: ["me"] });
+
+        } catch (error: any) {
+
+            // Log error for debugging 
+            if (error.response?.status === 422) {
+                console.warn("Login validation failed:", error.response.data);
+            }
+            // Pass it upward to the UI component
+            throw error;
+        }
     };
 
     // Function to handle logout by clearing auth state and cached user data
