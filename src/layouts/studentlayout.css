@@ -1,0 +1,46 @@
+/* ================= RESET + BASE ================= */
+
+/* Universal reset for consistent sizing */
+* {
+  box-sizing: border-box; /* Includes padding and border in element width/height */
+}
+
+/* Overall page styling */
+.student-layout-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0; /* Removes default browser spacing */
+  font-family: Arial, sans-serif; /* Sets a clean default font */
+  background: white; /* Soft gradient background */
+  display: block;
+  color: black;
+}
+
+/* ================= LAYOUT WRAPPER ================= */
+
+/* Main layout container holding sidebar + main content */
+.student-container {
+  display: flex; /* Places sidebar and main content side by side */
+  min-height: 100vh; /* Makes layout fill full viewport height */
+  background-color: white;
+}
+
+/* Greeting banner container */
+.greeting-banner {
+    margin: 15px 10px 10px 10px;
+    padding: 5px; /* Inner spacing */
+    background: #f3f4f6; /* Light gray background */
+    border-radius: 12px; /* Rounded corners */
+    font-size: 25px; /* Larger text size */
+    font-weight: bold;
+}
+
+/* Main content wrapper */
+.page-content {
+  flex: 1; /* Takes remaining horizontal space */
+  padding: 20px; /* Inner spacing */
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 15px 10px 10px 10px;
+}
