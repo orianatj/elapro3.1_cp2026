@@ -11,6 +11,7 @@ import StudentDashboardPage from "../pages/student/StudentDashboard";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import { SubmissionsPage } from "../pages/student/Submissions";
+import { LoginPage } from "../pages/auth/LoginPage.tsx"
 
 // TODO: Confirm if student are the only user type that require an account management page
 
@@ -19,12 +20,12 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 
-                <Route path="/" element={<AuthLayout />}>
-                    <Route path="login" element={<Login />} />
-                </Route>*/}
+        <Route path="/" element={<LoginPage />}>
+        </Route>
+
         {/* Protected Routes */}
         {/*<Route element={<ProtectedRoute />}>*/}
+
         {/* Studnet Dashboard */}
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={<StudentDashboardPage />} />
@@ -33,26 +34,14 @@ export default function AppRouter() {
           <Route path="submissions" element={<SubmissionsPage />} />
           <Route path="submissions/:submissionId" element={<SubmissionAnalysisPage />} />
         </Route>
-        {
-     <Route path="/teacher" element={<TeacherLayout />}>
-        <Route index element={<TeacherDashboard />} />
-        <Route path="edit-score" element={<EditStudentScorePage />} />
-      </Route>
-          /*</Route>
-                  // Teacher Dashboard
-                  
-              <Route path="/teacher" element={<TeacherLayout />}>
-                  <Route index element={<TeacherHome />} />
-                  <Route path="page-1" element={<Teacher />} />
-              </Route>
-                  // Admin Dashboard
-              <Route path="/admin" element={<AdminLayout />}>
-                  <Route index element={<AdminHome />} />
-                  <Route path="users" element={<UsersPage />} />
-              </Route>
-              */
-        }
 
+        {/* Teacher Dashboard */}
+        <Route path="/teacher" element={<TeacherLayout />}>
+          <Route index element={<TeacherDashboard />} />
+          <Route path="edit-score" element={<EditStudentScorePage />} />
+        </Route>
+
+        {/* Admin Dashboard */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
         </Route>
