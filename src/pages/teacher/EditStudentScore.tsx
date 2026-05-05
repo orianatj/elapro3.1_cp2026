@@ -1,14 +1,14 @@
 import React from "react";
 import "./editScore.css";
 import "./teacher.css";
+import ScoreBox from "../../common/ScoreBox";
 
 export default function EditStudentScore() {
   return (
     <div className="edit-score-page">
       <h2 className="page-title">Edit Student Score</h2>
 
-      {/* Student Info */}
-      <div className="student-card">
+      <div className="student-card">1h 40m
         <div className="student-avatar"></div>
         <div>
           <h3>Emily Parker</h3>
@@ -17,7 +17,6 @@ export default function EditStudentScore() {
         </div>
       </div>
 
-      {/* Score Grid */}
       <div className="score-grid">
         <ScoreBox title="Task Response" score="8.0" />
         <ScoreBox title="Coherence & Cohesion" score="6.5" />
@@ -25,7 +24,6 @@ export default function EditStudentScore() {
         <ScoreBox title="Grammatical Range + Accuracy" score="4.0" />
       </div>
 
-      {/* Right Panel */}
       <div className="assignment-panel">
         <h3>View Assignment</h3>
         <p>
@@ -47,8 +45,6 @@ export default function EditStudentScore() {
         </div>
       </div>
 
-      {/* Overall Score */}
-      {/* Overall Score */}
       <div className="overall-score">
         <div className="overall-score__header">Overall Score</div>
 
@@ -61,22 +57,6 @@ export default function EditStudentScore() {
 
         <div className="overall-score__footer">
           <p className="description">Description here</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* Reusable Score Box */
-function ScoreBox({ title, score }: { title: string; score: string }) {
-  return (
-    <div className="score-box">
-      <h4>{title}</h4>
-      <h2>{score}</h2>
-
-      <div className="slider-wrapper">
-        <div className="score-slider">
-          <input type="range" />
         </div>
       </div>
     </div>
