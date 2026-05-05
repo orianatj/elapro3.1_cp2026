@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../common/Navbar";
-import Sidebar from "../common/SideBarTeacher";
 import { GreetingBanner } from "../studentDashboard/GreetingBanner";
+import "./studentlayout.css"
 
 
 const studentNavItems = [
@@ -16,17 +16,18 @@ const studentNavItems = [
 
 export default function StudentLayout() {
     return (
-        <div className="container">
+        <div className="student-container">
+            {/* Navigation Menu */}
             <Navbar pageNames={studentNavItems} />
-            {/*<Sidebar />*/}
 
-            <div className="main">
-                <div><GreetingBanner name={"Oriana"} /></div>
-
-                <main>
+            <div className="student-layout-body">
+                <header className="greeting-banner"><GreetingBanner name={"Oriana"} />
+                </header>
+                <main className="page-content">
                     <Outlet />
                 </main>
             </div>
         </div>
+
     )
 };
