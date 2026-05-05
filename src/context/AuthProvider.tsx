@@ -6,8 +6,6 @@ import { useLogin } from "../hooks/useLogin.ts";
 import { useCurrentUser } from "../hooks/useCurrentUser.ts";
 import { useQueryClient } from "@tanstack/react-query";
 
-// 
-const queryClient = useQueryClient();
 
 // Define props for AuthContext
 type AuthContextProps = {
@@ -26,6 +24,8 @@ type AuthProviderProps = {
 
 // Define context provider component - role to pass on global context to children 
 export function AuthProvider({ children }: AuthProviderProps) {
+
+    const queryClient = useQueryClient();
 
     /* Holds the currently authenticated user. setUser is the function to update the state, user state starts as null (not logged in) */
     const [user, setUser] = useState(null);

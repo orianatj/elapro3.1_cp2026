@@ -1,8 +1,4 @@
 
-// Import the page-level ViewData contract for the Student Submissions page,
-// to define the complete UI-ready data structure expected by this component.
-import type { StudentSubmissions } from "../../types/student/StudentSubmissionsViewData";
-
 // Import the shared PageHeaderView component
 import { PageHeaderView } from "../../common/PageHeaderView";
 
@@ -11,18 +7,52 @@ import { PageHeaderView } from "../../common/PageHeaderView";
 import { SubmissionsFilters } from "../../studentDashboard/SubmissionsFilters";
 import { SubmissionsTable } from "../../studentDashboard/SubmissionsTable";
 
-// Define the Props type for the page-level component.
-type Props = {
-    viewData: StudentSubmissions;
-}
+// Import the page-level data hook responsible for fetching submissions and producing ViewData
+import { useStudentSubmissions } from "../../hooks/useStudentSubmissions";
 
 // Page entry component for the Student Submissions screen.
-export function SubmissionsPage({viewData}: Props) {
+export function SubmissionsPage() {
+    // temporary userId placeholder
+    // TODO: Replace with actual user ID retrieval logic when available
+    const userId = "currentUserId";
+
+    // Consume the student submissions data hook, which owns
+    // data fetching, filtering, and ViewData construction.
+    const { viewData,
+        isLoading,
+        error,
+        //actions, (deferred pending backend implementation of filter actions)
+    } = useStudentSubmissions(userId);
+
+    // Render a simple loading state while submissions data is being fetched.
+    if (isLoading) {
+        return (
+            <div className="student-submissions-page">
+                Loading Submissions...
+            </div>
+        );
+    }
+
+    // Render an error state if data retrieval fails.
+    if (error) {
+        return (
+            <div className="student-submissions-page">
+                Error: {error}
+            </div>
+        );
+    }
+
     return (
-        <div className = "student-submissions-page">
-            <PageHeaderView header = {viewData.pageHeader} />
-            <SubmissionsFilters filters = {viewData.filters} />
-            <SubmissionsTable table = {viewData.submissionsTable} />
+        <div className="student-submissions-page">
+            {/* The page is composed of a header, filters, and a table. 
+            Each section receives only the data it needs from the ViewData. */}
+            <PageHeaderView header={viewData.pageHeader} />
+            <SubmissionsFilters filters={viewData.filters}
+            //TODO: wire actions to filters and table components once implemented
+            // onIeltsTypeChange={actions.setIeltsType}
+            // onTaskTypeChange={actions.setTaskType}
+            />
+            <SubmissionsTable table={viewData.submissionsTable} />
         </div>
     );
 }   

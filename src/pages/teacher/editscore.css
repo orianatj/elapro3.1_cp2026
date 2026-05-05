@@ -1,0 +1,335 @@
+/* ===============================
+   Base Layout
+=================================*/
+.edit-score-page {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1700px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ===============================
+   Title
+=================================*/
+.page-title {
+  grid-column: span 2;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ===============================
+   Student Card
+=================================*/
+.student-card {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f3f4f6;
+  padding: 14px 16px;
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.student-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #d1d5db;
+  flex-shrink: 0;
+}
+
+/* ===============================
+   Score Grid
+=================================*/
+.score-grid {
+  display: grid;
+
+  /* keeps 2 columns but allows shrink if needed */
+  grid-template-columns: repeat(2, minmax(220px, 260px));
+
+  column-gap: 10px;
+  row-gap: 14px;
+
+  justify-content: start;
+  align-content: start;
+}
+
+/* ===============================
+   Score Box
+=================================*/
+.score-box {
+   background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #c7c9d9;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  /* KEY FIX */
+  justify-content: space-between;
+  min-height: 180px;
+  
+}
+
+.score-box > * {
+  width: 100%;
+  text-align: center;
+}
+
+
+.score-box h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.score-box h2 {
+  font-size: clamp(24px, 2vw, 30px);
+  margin: 0;
+  line-height: 1;
+}
+
+/* ===============================
+   Slider
+=================================*/
+.score-slider-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.score-slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 260px;
+}
+
+.score-slider input {
+  width: 100%;
+  flex: 1;
+}
+
+
+/* ===============================
+   Assignment Panel (Refined)
+=================================*/
+.assignment-panel {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.assignment-panel h3 {
+  background: #1f4c8f;
+  color: #fff;
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Inner content wrapper (NEW) */
+.assignment-panel > *:not(h3) {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+/* Assignment text */
+.assignment-panel p {
+  margin-top: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Fake text lines */
+.dummy-text {
+  height: 110px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #9ca3af,
+    #9ca3af 3px,
+    transparent 3px,
+    transparent 10px
+  );
+  margin-bottom: 20px; /* 👈 increase this */
+  border-radius: 4px;
+}
+
+
+
+/* Resources */
+.resources {
+  margin-bottom: 12px;
+}
+
+/* Resource card */
+.resource {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f3f4f6;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Button */
+.resource button {
+  background: #1f3b73;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+/* ===============================
+   Overall Score
+=================================*/
+/* ===============================
+   Overall Score
+=================================*/
+.overall-score {
+  grid-column: span 2;
+  background: #fff;
+  border: 1px solid #c7c9d9;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+}
+
+.overall-score__header {
+  background: #2f67b2;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.overall-score__body {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+}
+
+.score-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: nowrap;
+}
+
+.score-badge {
+  background: #eef6ff;
+  padding: 10px 22px;
+  min-width: 108px;
+  text-align: center;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1;
+  border-radius: 0;
+  color: #111;
+}
+
+.level-text {
+  margin: 0;
+  font-size: 16px;
+  color: #111;
+  white-space: nowrap;
+}
+
+.overall-score__footer {
+  border-top: 1px solid #9ca3af;
+  padding: 6px 12px 8px;
+}
+
+.description {
+  margin: 0;
+  font-size: 14px;
+  color: #111;
+}
+
+/* ===============================
+   Actions
+=================================*/
+.actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.cancel,
+.save {
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancel {
+  background: #9ca3af;
+}
+
+.save {
+  background: #22c55e;
+}
+
+/* ===============================
+   Responsive
+=================================*/
+@media (max-width: 1100px) {
+  .edit-score-page {
+    grid-template-columns: 1fr;
+  }
+
+  .page-title,
+  .student-card,
+  .overall-score,
+  .actions {
+    grid-column: span 1;
+  }
+
+  .score-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .score-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .score-slider {
+    max-width: 100%;
+  }
+
+  .score-value {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
