@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { Credentials } from "../../types/common/Auth";
 import Logo from "../../assets/Logo.png";
 
-export default function LoginPage() {
+export function LoginPage() {
 
 
     // Extract login function from auth context
