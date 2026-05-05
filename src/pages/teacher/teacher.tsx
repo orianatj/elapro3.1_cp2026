@@ -33,21 +33,21 @@ const submissionView: MenuData[] = [
     id: "4",
     title: "Steven Stone",
     status: "On Time",
-    avatarSrc: "src/assets/ClipboardList.png",
+    avatarSrc: "/src/assets/ClipboardList.png",
     isAvatar: true,
   },
   {
     id: "5",
     title: "Joyle Jackie",
     status: "On Time",
-    avatarSrc: "src/assets/ClipboardList.png",
+    avatarSrc: "/src/assets/ClipboardList.png",
     isAvatar: true,
   },
   {
     id: "6",
     title: "Kyle Cone",
     status: "LATE",
-    avatarSrc: "src/assets/ClipboardList.png",
+    avatarSrc: "/src/assets/ClipboardList.png",
     isAvatar: true,
   },
 ];
@@ -63,15 +63,15 @@ export default function Dashboard() {
 
       <div className="charts">
         <div className="chart-box">
-          <img src="src/assets/Student-Statistic.png" alt="Student Statistic" />
+          <img src="/src/assets/Student-Statistic.png" alt="Student Statistic" />
         </div>
 
         <div className="chart-box">
-          <img src="src/assets/Class-Progress.png" alt="Class Progress" />
+          <img src="/src/assets/Class-Progress.png" alt="Class Progress" />
         </div>
 
         <div className="chart-box large">
-          <img src="src/assets/Attendance.png" alt="Attendance" />
+          <img src="/src/assets/Attendance.png" alt="Attendance" />
         </div>
       </div>
 
