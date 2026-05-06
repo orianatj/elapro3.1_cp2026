@@ -5,7 +5,6 @@ import { AdminDashboardPage } from "../pages/admin/adminDashboard.tsx";
 import TeacherLayout from "../layouts/TeacherLayout";
 import TeacherDashboard from "../pages/teacher/teacher.tsx";
 import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
-//import AuthLayout from "../layouts/AuthLayout";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
@@ -31,8 +30,9 @@ export default function AppRouter() {
           <Route index element={<StudentDashboardPage />} />
           <Route path="essay-submission" element={<EssaySubmissionPage />} />
           <Route path="practice-writing" element={<PracticeWritingPage />} />
-          <Route path="submissions" element={<SubmissionsPage />} />
-          <Route path="submissions/:submissionId" element={<SubmissionAnalysisPage />} />
+          <Route path="submissions" element={<SubmissionsPage />} >
+            <Route path=":submissionId" element={<SubmissionAnalysisPage />} />
+          </Route>
         </Route>
 
         {/* Teacher Dashboard */}
