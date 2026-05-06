@@ -1,23 +1,15 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../common/Navbar";
-import Sidebar from "../common/SideBarTeacher";
-import { GreetingBanner } from "../studentDashboard/GreetingBanner";
-
-
-
+import SideBarAdmin from "../common/SideBarAdmin";
+import "../pages/admin/adminDashboard.css";
 
 export default function AdminLayout() {
-    return (
-        <div className="container">
-            {/*<Sidebar />*/}
+  return (
+    <div className="admin-container">
+      <SideBarAdmin />
 
-            <div className="main">
-                <div><GreetingBanner name={"Oriana"} /></div>
-
-                <main>
-                    <Outlet />
-                </main>
-            </div>
-        </div>
-    )
-};
+      <main className="admin-main">
+        <Outlet />
+      </main>
+    </div>
+  );
+}
