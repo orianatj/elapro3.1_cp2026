@@ -25,6 +25,7 @@ export interface SubmissionAnalysis {
     submissionSummary: SubmissionSummary;   // Contains the task description and the submitted essay response
     scoreExplanation: ScoreExplanation;     // Detailed explanations for overall and criteria scores, with enhancement suggestions.
     criterionBreakdown: CriterionBreakdown; // Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
+    actions: SubmissionActions;             // Available actions the student can take related to this submission (e.g. download report, request review)
 }
 
 /*===================== SubmissionMeta =====================*/
