@@ -5,12 +5,12 @@ import { PageHeaderView } from "../../common/PageHeaderView";
 
 // Import page-specific child components,
 // responsible for rendering distinct sections of the page.
-import { SubmissionMetaBar } from "./SubmissionMetaBar";
-import { ScoreOverviewSection } from "./ScoreOverviewSection";
-import { SubmissionSummarySection } from "./SubmissionSummarySection";
-import { ScoreExplanationSection } from "./ScoreExplanationSection";
-import { CriterionBreakdownSection } from "./CriterionBreakdownSection";
-import { SubmissionActionsBar } from "./SubmissionActionsBar";
+import { SubmissionMetaBar } from "../../studentDashboard/SubmissionMetaBar";
+import { ScoreOverviewSection } from "../../studentDashboard/SubmissionScoreOverview";
+import { SubmissionSummarySection } from "../../studentDashboard/SubmissionSummary";
+import { ScoreExplanationSection } from "../../studentDashboard/SubmissionScoreExplanation";
+import { CriterionBreakdownSection } from "../../studentDashboard/SubmissionCriterionBreakdown";
+import { SubmissionActionsBar } from "../../studentDashboard/SubmissionActionsBar";
 
 type SubmissionAnalysisProps = {
   viewData: SubmissionAnalysis;
