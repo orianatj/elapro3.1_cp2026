@@ -34,15 +34,38 @@ The codebase follows a feature-based structure, where components and related fil
   
   `pages/`         # Route-level components composing features and common components
 
-## Branch Naming Convention 
+## Pull Request (PR) Workflow
 
-When naming a branch use the following convention:
-  
-  - `feature/` for new functionality 
-  - `bugfix/` for fixing bugs within the code
-  - `docs/` for updating documentation 
-  - `release/` for preparing release functionality 
+- Create a Jira ticket for the feature or task being implemented
+- Create a feature branch using the Jira ticket number in the branch name (see branch naming convention below)
+- Implement and test changes locally
+- Push commits to GitHub
+- Open a Pull Request (PR)
+- Add a meaningful PR title and description summarising the work completed
+- Add your co-dashboard team member as a reviewer (this will notify them of the PR)
+- Move the associated Jira task to `In Review` and leave a comment referencing the PR  
+  Example: `Please review PR #60`
+- Attach testing evidence to the Jira ticket (e.g. screenshots, console output, or test results)
+- Reviewer checks:
+  - the implementation and files changed in the PR
+  - testing evidence attached to the Jira ticket
+- In the `Files changed` tab of the PR, the reviewer selects `Submit review`
+  - Select `Request changes` and leave a comment if changes are required
+  - Otherwise select `Approve` and leave a comment before submitting the review
+- If changes are requested, the reviewee addresses the feedback and notifies the reviewer once complete
+- After approval, merge the PR into `develop` and delete the feature branch
+- The reviewee leaves a brief Jira comment summarising the completed review and referencing the PR number
+  Example: `Reviewed and merged via PR #60`
+
+## Branch Naming Convention 
 
 Add the Jira ticket code associated with work undertaken on the branch:
 
   `feature/AD-274-feature-name`
+
+When naming a branch use the following convention:
+  
+  - `feature/` for new functionality
+  - `chore` non-functional maintenance tasks such as renaming files/folders, restructuring directories, or project cleanup
+  - `bugfix/` for fixing bugs within the code
+  - `docs/` for updating documentation 
