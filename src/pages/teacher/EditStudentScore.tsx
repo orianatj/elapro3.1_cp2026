@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./editScore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
+import AssignmentPanel from "../../common/AssignmentPanel";
 
 export default function EditStudentScore() {
   const [taskResponse, setTaskResponse] = useState(8.0);
@@ -18,7 +19,6 @@ export default function EditStudentScore() {
       <h2 className="page-title">Edit Student Score</h2>
 
       <div className="student-card">
-
         <div className="student-avatar"></div>
         <div>
           <h3>Emily Parker</h3>
@@ -50,26 +50,7 @@ export default function EditStudentScore() {
         />
       </div>
 
-      <div className="assignment-panel">
-        <h3>View Assignment</h3>
-        <p>
-          <strong>Assignment:</strong> IELTS Practice Test 2
-        </p>
-
-        <div className="dummy-text"></div>
-
-        <div className="resources">
-          <div className="resource">
-            <span>Reading Passage PDF</span>
-            <button>View</button>
-          </div>
-
-          <div className="resource">
-            <span>Listening MP3</span>
-            <button>Play</button>
-          </div>
-        </div>
-      </div>
+      <AssignmentPanel />
 
       <div className="overall-score">
         <div className="overall-score__header">Overall Score</div>
