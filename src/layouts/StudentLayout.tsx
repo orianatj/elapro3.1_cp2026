@@ -8,7 +8,7 @@ const studentNavItems = [
     { label: "Dashboard", path: "/student" },
     { label: "Essay Submission", path: "/student/essay-submission" },
     { label: "Practice Writing", path: "/student/practice-writing" },
-    { label: "Reports", path: "/student/reports" },
+    { label: "Submissions", path: "/student/submissions" },
 ]
 
 
@@ -21,7 +21,7 @@ export default function StudentLayout() {
             <Navbar pageNames={studentNavItems} />
 
             <div className="student-layout-body">
-                <header className="greeting-banner"><GreetingBanner name={"Oriana"} />
+                <header className="greeting-banner"><GreetingBanner name={"[firstName]"} />
                 </header>
                 <main className="page-content">
                     <Outlet />

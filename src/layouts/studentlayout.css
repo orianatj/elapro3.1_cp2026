@@ -38,7 +38,6 @@
 
 /* Main content wrapper */
 .page-content {
-  flex: 1; /* Takes remaining horizontal space */
   padding: 20px; /* Inner spacing */
   border: 1px solid black;
   border-radius: 5px;
