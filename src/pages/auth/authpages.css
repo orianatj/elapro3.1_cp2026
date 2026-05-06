@@ -1,0 +1,61 @@
+/* ================= LOGIN PAGE ================= */
+
+/* Full page */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+/* Login box/card */
+.login-card {
+    display: flex;
+    flex-direction: column;
+    width: 450PX;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.login-card img {
+    margin: 0 auto 5px auto;
+
+}
+
+/* Keep title close to logo */
+.login-header {
+  margin-top: 10px;
+  margin-bottom: 40px; /* creates the gap before form */
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+
+.login-form input {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-title {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
