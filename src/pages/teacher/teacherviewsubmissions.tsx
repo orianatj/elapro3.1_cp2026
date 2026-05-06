@@ -103,62 +103,58 @@ const submissions: Submission[] = [
 
 export default function SubmissionsOverview() {
   return (
-    <div className="container">
-      <Sidebar />
+    <>
+      <div className="header">Submissions Overview</div>
 
-      <main className="main">
-        <div className="header">Submissions Overview</div>
-
-        {/* Top Controls */}
-        <div className="toolbar">
-          <div className="search-box">
-            <img
-              src="src\assets\search.png"
-              alt="search"
-              className="search-icon"
-            />
-            <input
-              type="text"
-              placeholder="Search by Student"
-              className="search-input"
-            />
-          </div>
-
-          <div className="toolbar-right">
-            <select className="sort-dropdown">
-              <option>Sort By</option>
-              <option>Name</option>
-              <option>Date</option>
-            </select>
-
-            <ToolbarButton
-              icon="src/assets/funnel.png"
-              label="Filter"
-              onClick={() => console.log("Filter clicked")}
-            />
-
-            <ToolbarButton
-              icon="src/assets/download.png"
-              label="Export"
-              onClick={() => console.log("Export clicked")}
-            />
-          </div>
+      {/* Top Controls */}
+      <div className="toolbar">
+        <div className="search-box">
+          <img
+            src="/src/assets/search.png"
+            alt="search"
+            className="search-icon"
+          />
+          <input
+            type="text"
+            placeholder="Search by Student"
+            className="search-input"
+          />
         </div>
 
-        <SubmissionTable submissions={submissions} />
+        <div className="toolbar-right">
+          <select className="sort-dropdown">
+            <option>Sort By</option>
+            <option>Name</option>
+            <option>Date</option>
+          </select>
 
-        {/* Pagination */}
-        <div className="pagination">
-          <button>{"<"}</button>
-          <span className="active">1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>...</span>
-          <span>12</span>
-          <button>{">"}</button>
+          <ToolbarButton
+            icon="/src/assets/funnel.png"
+            label="Filter"
+            onClick={() => console.log("Filter clicked")}
+          />
+
+          <ToolbarButton
+            icon="/src/assets/download.png"
+            label="Export"
+            onClick={() => console.log("Export clicked")}
+          />
         </div>
-      </main>
-    </div>
+      </div>
+
+      <SubmissionTable submissions={submissions} />
+
+      {/* Pagination */}
+      <div className="pagination">
+        <button>{"<"}</button>
+        <span className="active">1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>...</span>
+        <span>12</span>
+        <button>{">"}</button>
+      </div>
+    </>
   );
 }
