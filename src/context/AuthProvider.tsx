@@ -93,8 +93,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Provide auth state and actions (user, login, logout) to all child components via context
     return (
-        <AuthContext value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
-        </AuthContext>
+        </AuthContext.Provider>
     )
 };
