@@ -4,6 +4,7 @@ import StudentLayout from "../layouts/StudentLayout";
 import { AdminDashboardPage } from "../pages/admin/adminDashboard.tsx";
 import TeacherLayout from "../layouts/TeacherLayout";
 import TeacherDashboard from "../pages/teacher/teacher.tsx";
+import ViewSubmissions from "../pages/teacher/teacherviewsubmissions.tsx";
 import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
