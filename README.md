@@ -53,7 +53,7 @@ The codebase follows a feature-based structure, where components and related fil
   - Select `Request changes` and leave a comment if changes are required
   - Otherwise select `Approve` and leave a comment before submitting the review
 - If changes are requested, the reviewee addresses the feedback and notifies the reviewer once complete
-- After approval, merge the PR into `develop` and delete the feature branch
+- After approval, merge the PR into `main` and delete the feature branch
 - The reviewee leaves a brief Jira comment summarising the completed review and referencing the PR number
   Example: `Reviewed and merged via PR #60`
 
