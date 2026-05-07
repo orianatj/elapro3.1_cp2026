@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import "./editScore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
+import OverallScore from "../../common/OverallScore";
 
 export default function EditStudentScore() {
-  const [taskResponse, setTaskResponse] = useState(8.0);
-  const [coherence, setCoherence] = useState(6.5);
-  const [lexicalResource, setLexicalResource] = useState(7.5);
-  const [grammar, setGrammar] = useState(4.0);
+  const [taskResponse, setTaskResponse] = useState<number>(8.0);
+  const [coherence, setCoherence] = useState<number>(6.5);
+  const [lexicalResource, setLexicalResource] = useState<number>(7.5);
+  const [grammar, setGrammar] = useState<number>(4.0);
 
-  const overallScore = (
-    (taskResponse + coherence + lexicalResource + grammar) / 4
-  ).toFixed(1);
+  const overallScore =
+    (taskResponse + coherence + lexicalResource + grammar) / 4;
 
   return (
     <div className="edit-score-page">
       <h2 className="page-title">Edit Student Score</h2>
 
       <div className="student-card">
-
         <div className="student-avatar"></div>
+
         <div>
           <h3>Emily Parker</h3>
           <p>ID: 173657</p>
@@ -33,16 +33,19 @@ export default function EditStudentScore() {
           score={taskResponse}
           onScoreChange={setTaskResponse}
         />
+
         <ScoreBox
           title="Coherence & Cohesion"
           score={coherence}
           onScoreChange={setCoherence}
         />
+
         <ScoreBox
           title="Lexical Resource"
           score={lexicalResource}
           onScoreChange={setLexicalResource}
         />
+
         <ScoreBox
           title="Grammatical Range + Accuracy"
           score={grammar}
@@ -52,6 +55,7 @@ export default function EditStudentScore() {
 
       <div className="assignment-panel">
         <h3>View Assignment</h3>
+
         <p>
           <strong>Assignment:</strong> IELTS Practice Test 2
         </p>
@@ -71,20 +75,7 @@ export default function EditStudentScore() {
         </div>
       </div>
 
-      <div className="overall-score">
-        <div className="overall-score__header">Overall Score</div>
-
-        <div className="overall-score__body">
-          <div className="score-value">
-            <span className="score-badge">{overallScore}</span>
-            <p className="level-text">Level: Good User</p>
-          </div>
-        </div>
-
-        <div className="overall-score__footer">
-          <p className="description">Description here</p>
-        </div>
-      </div>
+      <OverallScore score={overallScore} />
     </div>
   );
 }
