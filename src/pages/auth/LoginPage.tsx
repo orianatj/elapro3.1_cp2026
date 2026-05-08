@@ -29,13 +29,32 @@ export function LoginPage() {
         };
 
         try {
+
             // Attempt authentication request using AuthContext login function
             await login(credentials);
+
         } catch (error: any) {
+
             // Display user-friendly error message for invalid login credentials
             if (error.response?.status === 401) {
                 setError("Invalid email or password");
             }
+
+            // No account exists for the provided email 
+            else if (error.response?.status === 404) {
+                setError("It looks like you don't have an account yet. Sign up to get started.")
+            }
+
+            // Missing or invalid field-level data for email and/or passowrd
+            else if (error.response?.status === 422) {
+                setError("Please enter a valid email and password");
+            }
+
+            // Fallback for unexpected errors
+            else {
+                setError("Something went wrong. Please try again.");
+            }
+
         }
 
     }
