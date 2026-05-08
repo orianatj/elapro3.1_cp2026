@@ -50,7 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             const res = await loginMutation(credentials);
 
             // Extract data propery containing token and assign to variable 
-            const { accessToken } = res.data;
+            const { accessToken } = res.data.data;
 
             // Persist access token for the current session to authenticate API calls
             sessionStorage.setItem("token", accessToken);
