@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { Credentials } from "../../types/common/Auth";
 import Logo from "../../assets/Logo.png";
 import "./authpages.css"
+import { Link } from "react-router-dom";
 
 export function LoginPage() {
 
@@ -80,6 +81,7 @@ export function LoginPage() {
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
+                            id="email"
                             type="email"
                             value={email}
 
@@ -93,6 +95,7 @@ export function LoginPage() {
                         <label htmlFor="password">Password</label>
 
                         <input
+                            id="password"
                             type="password"
                             value={password}
 
@@ -106,6 +109,10 @@ export function LoginPage() {
 
                     {/* Submit login request */}
                     <button className="auth-button" type="submit">Login</button>
+
+                    {/* TODO: Add interactable link to Sign-up page once created*/}
+
+                    {/*<p><Link to="/"></Link>Sign-up</p>*/}
 
                 </form>
             </div>
