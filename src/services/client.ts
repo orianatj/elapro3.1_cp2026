@@ -8,14 +8,14 @@ export const api = axios.create({
 
 
 // Define request interceptor: for adding auth headers
-axios.interceptors.request.use((config) => {
+api.interceptors.request.use((config) => {
 
   // Retrieve session authentication token and assign to variable
   const token = sessionStorage.getItem("token");
 
   // If a token exists (authenticated session) add it to the request header 
   if (token) {
-    config.headers.set("Authorization", `Bearer ${token}`);
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   // Return request with header added
@@ -25,7 +25,7 @@ axios.interceptors.request.use((config) => {
 /* TODO: implement token refresh using /auth/refresh-session when backend expiry/401 behaviour is confirmed */
 
 // Define reponse interceptor
-axios.interceptors.response.use(
+api.interceptors.response.use(
   // Success handler: any 2xx response is returned unchanged 
   (response) => response,
   // Error handler: any non-2xx (only 422 and 401 currently) response and rethrow it 

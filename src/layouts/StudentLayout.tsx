@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../common/Navbar";
-import Sidebar from "../common/SideBarTeacher";
 import { GreetingBanner } from "../studentDashboard/GreetingBanner";
+import "./studentlayout.css"
 
 
 const studentNavItems = [
     { label: "Dashboard", path: "/student" },
     { label: "Essay Submission", path: "/student/essay-submission" },
     { label: "Practice Writing", path: "/student/practice-writing" },
-    { label: "Reports", path: "/student/reports" },
+    { label: "Submissions", path: "/student/submissions" },
 ]
 
 
@@ -16,17 +16,18 @@ const studentNavItems = [
 
 export default function StudentLayout() {
     return (
-        <div className="container">
+        <div className="student-container">
+            {/* Navigation Menu */}
             <Navbar pageNames={studentNavItems} />
-            {/*<Sidebar />*/}
 
-            <div className="main">
-                <div><GreetingBanner name={"Oriana"} /></div>
-
-                <main>
+            <div className="student-layout-body">
+                <header className="greeting-banner"><GreetingBanner name={"[firstName]"} />
+                </header>
+                <main className="page-content">
                     <Outlet />
                 </main>
             </div>
         </div>
+
     )
 };
