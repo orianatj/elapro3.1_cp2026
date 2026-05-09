@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { Credentials } from "../../types/common/Auth";
 import Logo from "../../assets/Logo.png";
 import "./authpages.css"
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 export function LoginPage() {
 
