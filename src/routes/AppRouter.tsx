@@ -6,6 +6,7 @@ import TeacherLayout from "../layouts/TeacherLayout";
 import TeacherDashboard from "../pages/teacher/teacher.tsx";
 import ViewSubmissions from "../pages/teacher/teacherviewsubmissions.tsx";
 import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
+import IndividualSubmission from "../pages/teacher/IndividualSubmission.tsx";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
@@ -40,6 +41,7 @@ export default function AppRouter() {
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<TeacherDashboard />} />
           <Route path="edit-score" element={<EditStudentScorePage />} />
+          <Route path="individual-submission" element={<IndividualSubmission />} />
         </Route>
 
         {/* Admin Dashboard */}

@@ -1,0 +1,15 @@
+.flex-container {
+  display: flex;             /* Establishes the flex context */
+  flex-direction: row;       /* Items go left to right (default) */
+  justify-content: center;   /* Centers items horizontally */
+  gap: 10px;                 /* Adds space between items */
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #f3f4f6;
+}
+
+
+.item {
+  padding: 10px 20px;
+  border-radius: 12px;
+}
