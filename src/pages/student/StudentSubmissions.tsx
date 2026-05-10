@@ -14,8 +14,20 @@ export default function SubmissionsPage() {
     const { viewData, isPending, error } =
         useStudentSubmissions("debug-UserId");
 
-    return (
+    // Explicitly handle loading and error states to ensure the page doesn't attempt to render with incomplete data.
+    if (isPending) {
+        return <div>Loading submissions...</div>;
+    }
 
+    if (error) {
+        return <div>Error loading submissions</div>;
+    }
+
+    if (!viewData) {
+        return null;
+    }
+
+    return (
         <>
             <h1>This is the Submissions Page</h1>
         </>
