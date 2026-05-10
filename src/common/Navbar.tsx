@@ -16,7 +16,7 @@ export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
             <div className="top-section">
                 <div className="logo">
                     <img src="/src/assets/logo.png" alt="dashboard logo" />
-                    <p>Teacher</p>
+                    <p>Student</p>
                 </div>
 
                 <div className="top-icons">

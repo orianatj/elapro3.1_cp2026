@@ -17,30 +17,34 @@ import type {TaskDescription} from "./common/TaskDescriptionDTO";
 * ------------------------------------------------------------------- 
 */ 
 // Main page-level ViewData for the Submission Analysis screen
-// Acts as the UI contract between the ViewModel and the React components
+// Acts as the UI contract between the page-level data source and the React components
 export interface SubmissionAnalysis {      
-    pageHeader: PageHeaderViewData;        // Shared page header (title + breadcrumb)
-    scoreOverview: ScoreOverview;          // Displays overall and criteria scores, as well as writing metrics.
-    submissionSummary: SubmissionSummary;  // Contains the task description and the submitted essay response
-    scoreExplanation: ScoreExplanation;    // Detailed explanations for overall and criteria scores, with enhancement suggestions.
+    pageHeader: PageHeaderViewData;         // Shared page header (title + breadcrumb)
+    submissionMeta: SubmissionMeta;         // Metadata about the submission (e.g. Academic/General, Task 1/2)
+    scoreOverview: ScoreOverview;           // Displays overall and criteria scores, as well as writing metrics.
+    submissionSummary: SubmissionSummary;   // Contains the task description and the submitted essay response
+    scoreExplanation: ScoreExplanation;     // Detailed explanations for overall and criteria scores, with enhancement suggestions.
+    criterionBreakdown: CriterionBreakdown; // Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
+    actions: SubmissionActions;             // Available actions the student can take related to this submission (e.g. download report, request review)
 }
 
+/*===================== SubmissionMeta =====================*/
+// Metadata about the submission, used to contextualize the analysis and for conditional rendering logic.
+export type SubmissionMeta = {
+  taskLabel: string;                  // Derived from backend submission data (ieltsType + taskType), e.g. "Academic Task 2"
+};
 
-/* ------------------------------------------------------------------ 
-* Score Overview
-* ------------------------------------------------------------------- 
-*/ 
+
+/* ===================== Score Overview ==================== */
 // Summary of scoring-related information displayed at the top of the analysis page.
 // This section provides a high-level overview of how the submission was scored.
 export type ScoreOverview = {
-  taskLabel: string;                  // Derived in ViewModel from ieltsType + taskType, e.g. "Academic Task 2"
-
   overallScore: number;               // Overall score for the submission, e.g. 6.5
   overallScoreBar: ScoreBarSegment[]; // Data for rendering the overall score bar visualization  
   criteriaScores: CriterionScore[];   // List of scores for each criterion
   
-  submissionDate: string;             // Derived in ViewModel from backend 'timestamp', formatted for display, e.g. "Mar 17, 2026"  
-  writingDuration: string;            // Derived in ViewModel from backend 'submissionDuration', formatted for display, e.g. "45 mins"
+  submissionDate: string;             // Derived from backend 'timestamp', formatted for display, e.g. "Mar 17, 2026"  
+  writingDuration: string;            // Derived from backend 'submissionDuration', formatted for display, e.g. "45 mins"
 };
 
 // Represents the score for an individual IELTS assessment criterion
@@ -66,10 +70,7 @@ export type ScoreBarSegment = {
 };
 
 
-/* ------------------------------------------------------------------ 
-* Submission Summary
-* ------------------------------------------------------------------- 
-*/ 
+/* ===================== Submission Summary ===================== */
 // Summary of the submitted content displayed, 
 // including the original task description and the student's written response
 export type SubmissionSummary = {
@@ -83,37 +84,20 @@ export type SubmittedResponse = {
 };
 
 
-/* ------------------------------------------------------------------ 
-* Score Explanation
-* ------------------------------------------------------------------- 
-*/ 
+/* ===================== Score Explanation ===================== */
 // Score explanation section, includes detailed overall, and per-criterion explanations.
 export type ScoreExplanation = {
-  title: string;                                 // e.g. "Score Explanation"
-  overallExplanation: OverallExplanation;        // Aggregated explanation for the overall score, combining feedback across all criteria
-  criteriaSelector: CriteriaSelector;            // Data for rendering the criterion toggle controls
-  criteriaExplanations: CriterionExplanation[];  // One explanation block per criterion, rendered based on criteriaSelector state
-};
-
-// Overall explanation for the submission score.
-// Aggregates AI feedback across all criteria into a single narrative explanation.
-export type OverallExplanation = {  
+  title: string;                      // e.g. "Score Explanation"
   overallScore: number;               // Overall band score, e.g. 4.0
   overallScoreBar: ScoreBarSegment[]; // Visual representation of the overall score
   explanationText: string;            // AI-generated overall explanation (multi-paragraph)
 };
 
-// Data used to render the criterion toggle controls.
-// Determines which criterion explanations are currently visible.
-export type CriteriaSelector = {
-  availableCriteria: CriterionToggle[];  // List of all criteria with their toggle state (isSelected)
-};
 
-// Represents a single toggle option for an IELTS criterion.
-export type CriterionToggle = {
-  criterion: CriterionType;  // e.g. "task-response"
-  label: string;             // e.g. "Task Response"
-  isSelected: boolean;       // Controlled by UI state (ViewModel)
+/* ===================== Criterion Breakdown ===================== */
+// Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
+export type CriterionBreakdown = {  
+  criteria: CriterionExplanation[]; // List of detailed breakdowns for each criterion
 };
 
 // Detailed explanation block for a single IELTS criterion.
@@ -121,21 +105,15 @@ export type CriterionToggle = {
 export type CriterionExplanation = {
   criterion: CriterionType;     // Internal identifier
   titleLabel: string;           // UI label, e.g. "Task Response"
-  score: number;                // Criterion band score, e.g. 4.0
+  score: number;                // Criterion band score, e.g. 4.0 
   scoreBar: ScoreBarSegment[];  // Visual band bar for this criterion
   explanationText: string;      // AI-generated criterion explanation
-  enhancementSuggestions: EnhancementSuggestions;  // Extracted examples and AI-generated suggestions for improving this criterion
 };
 
-// Enhancement suggestions shown under each criterion explanation.
-export type EnhancementSuggestions = {
-  fromSubmission: SuggestionItem[];         // Extracted examples from the student's essay
-  suggestedEnhancements: SuggestionItem[];  // AI-generated improvement suggestions
-};
-
-// Represents a single suggestion entry.
-export type SuggestionItem = {
-  id: string;    // Stable identifier for rendering lists
-  text: string;  // Suggestion or excerpt text
-};
-
+/* ===================== Submission Actions ===================== */
+// Data structure for actions that students can take related to their submission, e.g. "Download Report", "Request Re-evaluation"
+export type SubmissionActions = {
+  canDownloadReport: boolean;   // Whether the student can download a PDF report of this submission
+  canRequestReview: boolean;    // Whether the student is eligible to request a review for this submission
+  canReattempt: boolean;         // Whether the student can reattempt this task for re-evaluation
+}

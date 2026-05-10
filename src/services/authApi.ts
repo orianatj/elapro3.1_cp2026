@@ -8,16 +8,16 @@ export const register = (data: Registration) =>
   api.post("/auth/register", data);
 
 export const forgotPassword = (data: EmailRequest) =>
-  api.post("/api/v1/auth/forgot-password", data);
+  api.post("/auth/forgot-password", data);
 
 export const resetPassword = (data: PasswordReset) =>
-  api.post("/api/v1/auth/reset-password", data);
+  api.post("/auth/reset-password", data);
 
 export const resendVerify = (data: EmailRequest) =>
-  api.post("/api/v1/auth/resend-verify-email", data);
+  api.post("/auth/resend-verify-email", data);
 
 export const sendVerify = () =>
-  api.get("/api/v1/auth/verify-email");
+  api.get("/auth/verify-email");
 
 export const refreshToken = () =>
   api.post("/auth/refresh-session");

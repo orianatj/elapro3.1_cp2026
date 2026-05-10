@@ -3,6 +3,7 @@ import "./editScore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
+import AssignmentPanel from "../../common/AssignmentPanel";
 
 export default function EditStudentScore() {
   const [taskResponse, setTaskResponse] = useState<number>(8.0);
@@ -53,27 +54,7 @@ export default function EditStudentScore() {
         />
       </div>
 
-      <div className="assignment-panel">
-        <h3>View Assignment</h3>
-
-        <p>
-          <strong>Assignment:</strong> IELTS Practice Test 2
-        </p>
-
-        <div className="dummy-text"></div>
-
-        <div className="resources">
-          <div className="resource">
-            <span>Reading Passage PDF</span>
-            <button>View</button>
-          </div>
-
-          <div className="resource">
-            <span>Listening MP3</span>
-            <button>Play</button>
-          </div>
-        </div>
-      </div>
+      <AssignmentPanel />
 
       <OverallScore score={overallScore} />
     </div>
