@@ -28,8 +28,10 @@ export default function SubmissionsPage() {
     }
 
     return (
-        <>
+        <div>
             <PageHeaderView header={viewData.pageHeader} />
-        </>
-    )
+            <SubmissionsFilters filters={viewData.filters} />
+            <SubmissionsTable table={viewData.submissionsTable} />
+        </div>
+    );
 };
