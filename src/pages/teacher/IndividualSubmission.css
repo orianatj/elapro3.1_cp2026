@@ -13,3 +13,14 @@
   padding: 10px 20px;
   border-radius: 12px;
 }
+
+.total-score-info {
+  gap: 10px;                 /* Adds space between items */
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #EBEBF0;
+}
+
+.submission-view-card {
+
+}
