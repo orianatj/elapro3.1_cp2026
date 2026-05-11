@@ -126,7 +126,7 @@ export function SignupPage() {
                         <label className="required" htmlFor="firstName">First Name</label>
                         <input
                             id="firstName"
-                            type="firstName"
+                            type="text"
                             value={firstName}
 
                             // Update first name state when user types
@@ -139,7 +139,7 @@ export function SignupPage() {
                         <label className="required" htmlFor="lastName">Last Name</label>
                         <input
                             id="lastName"
-                            type="lastName"
+                            type="text"
                             value={lastName}
 
                             // Update first name state when user types
@@ -149,10 +149,10 @@ export function SignupPage() {
 
                     {/* Middle Name input field - optional */}
                     <div className="form-group">
-                        <label htmlFor="middleName">Middle Name (optional)</label>
+                        <label htmlFor="middleName">Middle Name(optional)</label>
                         <input
                             id="middleName"
-                            type="middleName"
+                            type="text"
                             value={middleName}
 
                             // Update first name state when user types
@@ -179,7 +179,7 @@ export function SignupPage() {
                         <label htmlFor="phone">Phone number (optional)</label>
                         <input
                             id="phone"
-                            type="phone"
+                            type="tel"
                             value={phoneNumber}
 
                             // Update first name state when user types
@@ -205,7 +205,7 @@ export function SignupPage() {
 
                     {/* Confirm Password input field */}
                     <div className="form-group">
-                        <label className="required" htmlFor="confirmPassword">Confirm password </label>
+                        <label className="required" htmlFor="confirmPassword">Confirm password</label>
                         <input
                             id="confirmPassword"
                             type="password"
