@@ -68,7 +68,7 @@
 
 /* Row Hover Effect */
 .student-submissions-table tbody tr:hover { 
-    background-color: #FEE6E6; /* Slightly darker shade for hover effect */
+    background-color: #FBEAEA; /* Slightly darker shade for hover effect */
 }
 
 /* Table cell styling */
@@ -89,7 +89,9 @@
 /* Score column */
 .student-submissions-table th:nth-child(5),    
 .student-submissions-table td:nth-child(5) { 
-    text-align: center; }
+    text-align: center; 
+    width: 80px;        /* Fixed width for score column to maintain consistent sizing */
+}
 
 /* Analysis Report Action column */
 .student-submissions-table th:nth-child(6),
@@ -97,4 +99,25 @@
     text-align: right; 
 }     
 
+/* Action button styling */
+.student-submissions-table button {
+    background-color: #6476A1; /* Match Figma Menu Colour */
+    color: white;
+    /*border: 1px solid #C62828;*/
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;          /* Prevent button text from wrapping */
+    transition: 
+      background-color 0.2s ease, /* Smooth transition for hover effect */
+      color 0.2s ease, 
+      border-color 0.2s ease;     /* Smooth transition for hover effect */      
+}
 
+/* Action button hover effect */
+.student-submissions-table button:hover {
+    background-color: #E57373; /* Match Figma 'Error' Colour */
+    color: white;              /* Figma 'PCP Main': Darker color for better contrast */
+    border-color: #C62828;     /* Red accent on hover */
+}
