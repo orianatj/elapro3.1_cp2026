@@ -6,6 +6,7 @@
 }
 
 /* ===== Header section ===== */
+/* Header container styling */
 .student-submissions-header {
     padding: 16px 24px;
     border-radius: 10px;    
@@ -16,18 +17,32 @@
     gap: 8px;
 }
 
-.student-submissions-header nav,
-.student-submissions-header .breadcrumb {
-    opacity: 0.9;       /* Subtle styling for navigation/breadcrumbs */
-    font-size: 0.8rem;  /* Slightly smaller font for breadcrumbs */
-}
-
+/* Header title styling */
 .student-submissions-header h1 {
     margin: 0;         /* Tighten spacing below the main title */
     font-size: 2rem;   /* Slightly smaller than the default h1 for better hierarchy */
     line-height: 1.2;  /* Reduce line height for a more compact header */
     font-weight: 600;  /* Semi-bold for better emphasis without being too heavy */
 }
+
+/* Subtle styling for navigation and breadcrumbs within the header */
+.student-submissions-header nav,
+.student-submissions-header .breadcrumb {
+    opacity: 0.8;       /* Subtle styling for navigation/breadcrumbs */
+    font-size: 0.8rem;  /* Slightly smaller font for breadcrumbs */
+}
+
+/* Breadcrumb item styling */
+.student-submissions-header nav span {
+    cursor: pointer;    /* Indicate that breadcrumb items are clickable */
+}
+
+/* Breadcrumb hover styling */
+.student-submissions-header nav span:hover {
+    text-decoration: underline; /* Add underline on hover for better interactivity */    
+    font-weight: 600;   /* Semi-bold for better emphasis without being too heavy */
+}
+
 
 /* ===== Filters section ===== */
 .student-submissions-filters {
