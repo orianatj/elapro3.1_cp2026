@@ -2,24 +2,42 @@
 .student-submissions-page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
 /* Header section */
 .student-submissions-header {
-  padding: 24px;
-  border-radius: 8px;
+  padding: 16px 24px;
+  border-radius: 10px;  
+  background-color: #6476A1; /* Match Figma Menu Colour*/
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.student-submissions-header nav,
+.student-submissions-header .breadcrumb {
+  opacity: 0.9;        /* Subtle styling for navigation/breadcrumbs */                         
+  font-size: 0.8rem;   /* Slightly smaller font for breadcrumbs */
+}
+
+.student-submissions-header h1 {
+  margin: 0;         /* Tighten spacing below the main title */ 
+  font-size: 2rem; /* Slightly smaller than the default h1 for better hierarchy */
+  line-height: 1.2;  /* Reduce line height for a more compact header */
+  font-weight: 600;  /* Semi-bold for better emphasis without being too heavy */
 }
 
 /* Filters section */
 .student-submissions-filters {
-  padding: 16px;
+  padding: 16px 24px;
   background-color: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 /* Table section */
 .student-submissions-table {
-  padding: 16px;
-  border-radius: 8px;
+  padding: 16px 0;
+  border-radius: 10px;
 }
