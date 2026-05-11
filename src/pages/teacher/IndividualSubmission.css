@@ -1,26 +1,32 @@
 .flex-container {
   display: flex;             /* Establishes the flex context */
-  flex-direction: row;       /* Items go left to right (default) */
-  justify-content: center;   /* Centers items horizontally */
-  gap: 10px;                 /* Adds space between items */
+  gap: 20px;                 /* Adds space between items */
+  width: 100%;              /* Full width of the parent container */
+  min-height: 100vh;            /* Full viewport height */
+  padding: 20px;            /* Adds padding around the container */
   border-radius: 12px;
-  padding: 20px;
-  background-color: #f3f4f6;
+  box-sizing: border-box;         /* Ensures padding is included in width/height */
+  background: #f3f4f6;
 }
 
-
-.item {
-  padding: 10px 20px;
-  border-radius: 12px;
+.submission-view-card {
+  font-family: "DM Sans", sans-serif;
+  flex: 1;                 /* Each card takes equal space */
+  display: flex;
+  flex-direction: column;
 }
 
-.total-score-info {
+.total-score-card {
   gap: 10px;                 /* Adds space between items */
   border-radius: 12px;
   padding: 20px;
   background-color: #EBEBF0;
 }
 
-.submission-view-card {
-
+.button-container {
+  display: flex;
+  gap: 10px;                 /* Adds space between buttons */
+  margin-top: 20px;          /* Adds space above the button container */
+  width : 100%;              /* Full width of the parent container */
+  justify-content: center;     /* Centers the buttons horizontally */
 }
