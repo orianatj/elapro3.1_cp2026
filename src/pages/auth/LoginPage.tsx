@@ -110,6 +110,7 @@ export function LoginPage() {
                         <input
                             id="password"
                             type="password"
+                            autoComplete="new-password"
                             value={password}
 
                             // Update password state when user types
