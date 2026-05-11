@@ -15,7 +15,31 @@ type SubmissionsTableProps = {
 };
 
 // Define static and Submissions specific table headers
-const tableHeaders = ["Date", "Essay Type", "IELTS Type", "Task Type", "Score", "Analysis Report"];
+const tableHeaders = ["Date",
+  "Essay Type",
+
+  // IELTS Type filter rendered inline within the table header
+  <label>
+    IELTS Type
+    <select>
+      <option value="all">Show All</option>
+      <option value="academic">Academic</option>
+      <option value="general">General</option>
+    </select>
+  </label>,
+
+  // Task Type filter rendered inline within the table header
+  <label>
+    Task Type
+    <select>
+      <option value="all">Show All</option>
+      <option value="task1">Task 1</option>
+      <option value="task2">Task 2</option>
+    </select>
+  </label>,
+
+  "Score",
+  "Analysis Report"];
 
 // SubmissionsTable is a presentational component responsible for rendering
 // the submissions table on the Student Submissions page.
