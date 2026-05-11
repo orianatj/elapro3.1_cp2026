@@ -22,7 +22,7 @@ const tableHeaders = ["Date",
   <label>
     IELTS Type
     <select>
-      <option value="all">Show All</option>
+      <option value="all">All</option>
       <option value="academic">Academic</option>
       <option value="general">General</option>
     </select>
@@ -32,7 +32,7 @@ const tableHeaders = ["Date",
   <label>
     Task Type
     <select>
-      <option value="all">Show All</option>
+      <option value="all">All</option>
       <option value="task1">Task 1</option>
       <option value="task2">Task 2</option>
     </select>
