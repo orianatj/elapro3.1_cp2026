@@ -10,6 +10,9 @@ import { SubmissionsTable } from "../../studentDashboard/SubmissionsTable";
 // Import the page-level data hook responsible for fetching submissions and producing ViewData
 import { useStudentSubmissions } from "../../hooks/useStudentSubmissions";
 
+// Import page-specific styles
+import './studentsubmissions.css';
+
 export default function SubmissionsPage() {
     const { viewData, isPending, error } =
         useStudentSubmissions("debug-UserId");

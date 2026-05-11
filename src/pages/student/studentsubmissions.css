@@ -1,0 +1,25 @@
+/* Page-level layout */
+.student-submissions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header section */
+.student-submissions-header {
+  padding: 24px;
+  border-radius: 8px;
+}
+
+/* Filters section */
+.student-submissions-filters {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Table section */
+.student-submissions-table {
+  padding: 16px;
+  border-radius: 8px;
+}
