@@ -11,7 +11,7 @@ import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
-import { SubmissionsPage } from "../pages/student/Submissions";
+import SubmissionsPage from "../pages/student/StudentSubmissions";
 import { LoginPage } from "../pages/auth/LoginPage.tsx"
 
 // TODO: Confirm if student are the only user type that require an account management page
