@@ -1,43 +1,100 @@
-/* Page-level layout */
+/* ===== Page-level layout ===== */
 .student-submissions-page {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
 }
 
-/* Header section */
+/* ===== Header section ===== */
 .student-submissions-header {
-  padding: 16px 24px;
-  border-radius: 10px;  
-  background-color: #6476A1; /* Match Figma Menu Colour*/
-  color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    padding: 16px 24px;
+    border-radius: 10px;    
+    background-color: #6476A1;    /* Match Figma Menu Colour*/
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .student-submissions-header nav,
 .student-submissions-header .breadcrumb {
-  opacity: 0.9;        /* Subtle styling for navigation/breadcrumbs */                         
-  font-size: 0.8rem;   /* Slightly smaller font for breadcrumbs */
+    opacity: 0.9;       /* Subtle styling for navigation/breadcrumbs */
+    font-size: 0.8rem;  /* Slightly smaller font for breadcrumbs */
 }
 
 .student-submissions-header h1 {
-  margin: 0;         /* Tighten spacing below the main title */ 
-  font-size: 2rem; /* Slightly smaller than the default h1 for better hierarchy */
-  line-height: 1.2;  /* Reduce line height for a more compact header */
-  font-weight: 600;  /* Semi-bold for better emphasis without being too heavy */
+    margin: 0;         /* Tighten spacing below the main title */
+    font-size: 2rem;   /* Slightly smaller than the default h1 for better hierarchy */
+    line-height: 1.2;  /* Reduce line height for a more compact header */
+    font-weight: 600;  /* Semi-bold for better emphasis without being too heavy */
 }
 
-/* Filters section */
+/* ===== Filters section ===== */
 .student-submissions-filters {
-  padding: 16px 24px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
+    padding: 16px 24px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
 }
 
-/* Table section */
+/* ===== Table section =====*/
 .student-submissions-table {
-  padding: 16px 0;
-  border-radius: 10px;
+    padding: 16px;
+    border-radius: 10px;
 }
+
+/* Table styling */
+.student-submissions-table table {
+    width: 100%;                /* Full width for better use of space */
+    border-collapse: separate;  /* Use separate borders for better styling control */
+    border-spacing: 0 8px;      /* Add vertical spacing between rows */
+}
+
+/* Table header styling */
+.student-submissions-table th {
+    text-align: left;   /* Left-align text for better readability */
+    font-size: 0.8rem;  /* Slightly smaller font for headers */
+    font-weight: 600;   /* Semi-bold for better emphasis */
+    color: #113058;   /* Figma 'PCP Main': Darker color for better contrast */
+    padding: 0 16px 8px 16px;   /* Add padding and space below headers */
+}
+
+/* Table body styling */
+.student-submissions-table tbody tr {
+    background-color: #fafafc;                 /* Match Figma 'Light 3' Colour */
+    border-radius: 8px;                          /* Rounded corners for a softer look */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+    transition: background-color 0.2s ease;      /* Smooth transition for hover effect */
+}
+
+/* Row Hover Effect */
+.student-submissions-table tbody tr:hover { 
+    background-color: #FEE6E6; /* Slightly darker shade for hover effect */
+}
+
+/* Table cell styling */
+.student-submissions-table td {
+    text-align: left;    /* Left-align text for better readability */
+    font-size: 0.8rem;   /* Slightly smaller font for table cells */
+    color: #113058;    /* Figma 'PCP Main': Darker color for better contrast */
+    padding: 10px 16px;  /* Add padding for better spacing */
+}
+
+/* Column specific header and row alignment for non-text columns */
+/* Date column */
+.student-submissions-table th:nth-child(1),
+.student-submissions-table td:nth-child(1) {
+    white-space: nowrap; 
+}
+
+/* Score column */
+.student-submissions-table th:nth-child(5),    
+.student-submissions-table td:nth-child(5) { 
+    text-align: center; }
+
+/* Analysis Report Action column */
+.student-submissions-table th:nth-child(6),
+.student-submissions-table td:nth-child(6) { 
+    text-align: right; 
+}     
+
+
