@@ -37,14 +37,21 @@ export default function SubmissionsPage() {
     // Render the main content once all data is available
     return (
         <div className="student-submissions-page">
+
             {/* Page header: title and breadcrumb navigation */}
-            <PageHeaderView header={viewData.pageHeader} />
+            <div className="student-submissions-header">
+                <PageHeaderView header={viewData.pageHeader} />
+            </div>
 
             {/* Filters: IELTS and Task filtering controls */}
-            <SubmissionsFilters filters={viewData.filters} />
+            <div className="student-submissions-filters">
+                <SubmissionsFilters filters={viewData.filters} />
+            </div>
 
             {/* Submissions table: displays the list of student submissions based on current filters */}
-            <SubmissionsTable table={viewData.submissionsTable} />
+            <div className="student-submissions-table">
+                <SubmissionsTable table={viewData.submissionsTable} />
+            </div>
         </div>
     );
 };
