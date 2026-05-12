@@ -1,16 +1,16 @@
-import React from "react";
-import Sidebar from "../../common/SideBarTeacher";
-import SubmissionTable from "../../common/TableViewTeacher";
+import React, { useMemo, useState } from "react";
 import ToolbarButton from "../../common/ToolbarButton";
-import Pagination from "../../common/PageChanger";
+import TableView from "../../common/TableViewTeacher";
 import "./teacher.css";
 import "./teachersubmission.css";
+import Pagination from "../../common/PageChanger";
 
-interface Submission {
+export interface Submission {
   firstName: string;
   lastName: string;
   className: string;
   time: string;
+  submittedAt: number;
   status: "On Time" | "Late" | "Extension";
 }
 
@@ -20,6 +20,7 @@ const submissions: Submission[] = [
     lastName: "Johnson",
     className: "IELTS Writing Practice",
     time: "Today, 11:15 AM",
+    submittedAt: new Date("2026-05-12T11:15:00").getTime(),
     status: "On Time",
   },
   {
@@ -27,6 +28,7 @@ const submissions: Submission[] = [
     lastName: "Lee",
     className: "IELTS Listening",
     time: "Today, 9:30 PM",
+    submittedAt: new Date("2026-05-12T21:30:00").getTime(),
     status: "Late",
   },
   {
@@ -34,6 +36,7 @@ const submissions: Submission[] = [
     lastName: "Kilm",
     className: "IELTS Reading A",
     time: "Yesterday, 4:50 PM",
+    submittedAt: new Date("2026-05-11T16:50:00").getTime(),
     status: "Extension",
   },
   {
@@ -41,6 +44,7 @@ const submissions: Submission[] = [
     lastName: "Patel",
     className: "IELTS Speaking B",
     time: "Yesterday, 2:50 PM",
+    submittedAt: new Date("2026-05-11T14:50:00").getTime(),
     status: "On Time",
   },
   {
@@ -48,6 +52,7 @@ const submissions: Submission[] = [
     lastName: "Davis",
     className: "IELTS Speaking Practice",
     time: "April 22, 2:10 PM",
+    submittedAt: new Date("2026-04-22T14:10:00").getTime(),
     status: "Late",
   },
   {
@@ -55,106 +60,93 @@ const submissions: Submission[] = [
     lastName: "Chen",
     className: "Listening Practice",
     time: "April 21, 2:35 PM",
-    status: "On Time",
-  },
-  {
-    firstName: "John",
-    lastName: "Patel",
-    className: "IELTS Speaking B",
-    time: "Yesterday, 2:50 PM",
-    status: "On Time",
-  },
-  {
-    firstName: "Emily",
-    lastName: "Davis",
-    className: "IELTS Speaking Practice",
-    time: "April 22, 2:10 PM",
-    status: "Late",
-  },
-  {
-    firstName: "David",
-    lastName: "Chen",
-    className: "Listening Practice",
-    time: "April 21, 2:35 PM",
-    status: "On Time",
-  },
-  {
-    firstName: "John",
-    lastName: "Patel",
-    className: "IELTS Speaking B",
-    time: "Yesterday, 2:50 PM",
-    status: "On Time",
-  },
-  {
-    firstName: "Emily",
-    lastName: "Davis",
-    className: "IELTS Speaking Practice",
-    time: "April 22, 2:10 PM",
-    status: "Late",
-  },
-  {
-    firstName: "David",
-    lastName: "Chen",
-    className: "Listening Practice",
-    time: "April 21, 2:35 PM",
+    submittedAt: new Date("2026-04-21T14:35:00").getTime(),
     status: "On Time",
   },
 ];
 
+type SortOption = "" | "name" | "date";
+
 export default function SubmissionsOverview() {
+  const [sortBy, setSortBy] = useState<SortOption>("");
+  const [search, setSearch] = useState("");
+
+  const filteredAndSorted = useMemo(() => {
+    let list = [...submissions];
+
+    // search filter
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter((s) =>
+        `${s.firstName} ${s.lastName}`.toLowerCase().includes(q),
+      );
+    }
+
+    // sort
+    if (sortBy === "name") {
+      list.sort((a, b) =>
+        `${a.firstName} ${a.lastName}`.localeCompare(
+          `${b.firstName} ${b.lastName}`,
+        ),
+      );
+    } else if (sortBy === "date") {
+      list.sort((a, b) => b.submittedAt - a.submittedAt);
+    }
+
+    return list;
+  }, [sortBy, search]);
+
   return (
-    <>
-      <div className="header">Submissions Overview</div>
+    <div className="container">
+      <main className="main">
+        <div className="header">Submissions Overview</div>
 
-      {/* Top Controls */}
-      <div className="toolbar">
-        <div className="search-box">
-          <img
-            src="/src/assets/search.png"
-            alt="search"
-            className="search-icon"
-          />
-          <input
-            type="text"
-            placeholder="Search by Student"
-            className="search-input"
-          />
+        <div className="toolbar">
+          <div className="search-box">
+            <img
+              src="/src/assets/search.png"
+              alt="search"
+              className="search-icon"
+            />
+            <input
+              type="text"
+              placeholder="Search by Student"
+              className="search-input"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+
+          <div className="toolbar-right">
+            <select
+              className="sort-dropdown"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              aria-label="sort by"
+            >
+              <option value="">Sort By</option>
+              <option value="name">Name</option>
+              <option value="date">Date</option>
+            </select>
+
+            <ToolbarButton
+              icon="/src/assets/funnel.png"
+              label="Filter"
+              onClick={() => console.log("Filter clicked")}
+            />
+
+            <ToolbarButton
+              icon="/src/assets/download.png"
+              label="Export"
+              onClick={() => console.log("Export clicked")}
+            />
+          </div>
         </div>
 
-        <div className="toolbar-right">
-          <select className="sort-dropdown">
-            <option>Sort By</option>
-            <option>Name</option>
-            <option>Date</option>
-          </select>
+        <TableView submissions={filteredAndSorted} />
 
-          <ToolbarButton
-            icon="/src/assets/funnel.png"
-            label="Filter"
-            onClick={() => console.log("Filter clicked")}
-          />
-
-          <ToolbarButton
-            icon="/src/assets/download.png"
-            label="Export"
-            onClick={() => console.log("Export clicked")}
-          />
-        </div>
-      </div>
-
-      <SubmissionTable submissions={submissions} />
-
-      {/* Pagination */}
-      <div className="pagination">
-        <button>{"<"}</button>
-        <span className="active">1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>...</span>
-        <span>12</span>
-        <button>{">"}</button>
-      </div>
-    </>
+        <Pagination />
+      </main>
+    </div>
   );
 }
