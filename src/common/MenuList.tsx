@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 
 type Status = "Upcoming" | "On Time" | "LATE";
@@ -24,7 +25,10 @@ export default function MenuList({ title, items }: MenuListProps) {
     <div className="list">
       <div className="list-header">
         <h3>{title}</h3>
-        <span className="see-all">See all</span>
+
+        <Link to="/MenuItem" className="see-all">
+          See all
+        </Link>
       </div>
 
       <div className="divider"></div>

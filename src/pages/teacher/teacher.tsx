@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./teacher.css";
 import Stats from "../../types/teacher/StatisticBoxTemplate";
 import MenuList from "./../../common/MenuList.tsx";
@@ -53,25 +53,44 @@ const submissionView: MenuData[] = [
 ];
 
 export default function Dashboard() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div className="dashboard-page">
-    <div className="header">Welcome back, [[USER NAME]]</div>
-
+      <div className="header">Welcome back, [[USER NAME]]</div>
 
       <h3>Overall Performance</h3>
       <Stats />
 
       <div className="charts">
         <div className="chart-box">
-          <img src="/src/assets/Student-Statistic.png" alt="Student Statistic" />
+          <img
+            src="/src/assets/Student-Statistic.png"
+            alt="Student Statistic"
+            onClick={() =>
+              setSelectedImage("/src/assets/Student-Statistic.png")
+            }
+          />
         </div>
 
         <div className="chart-box">
-          <img src="/src/assets/Class-Progress.png" alt="Class Progress" />
+          <img
+            src="/src/assets/Class-Progress.png"
+            alt="Class Progress"
+            onClick={() =>
+              setSelectedImage("/src/assets/Class-Progress.png")
+            }
+          />
         </div>
 
         <div className="chart-box large">
-          <img src="/src/assets/Attendance.png" alt="Attendance" />
+          <img
+            src="/src/assets/Attendance.png"
+            alt="Attendance"
+            onClick={() =>
+              setSelectedImage("/src/assets/Attendance.png")
+            }
+          />
         </div>
       </div>
 
@@ -79,6 +98,20 @@ export default function Dashboard() {
         <MenuList title="Recent Assignments" items={recentAssignments} />
         <MenuList title="Submission View" items={submissionView} />
       </div>
+
+      {/* Zoom Modal */}
+      {selectedImage && (
+        <div
+          className="image-modal"
+          onClick={() => setSelectedImage(null)}
+        >
+          <img
+            src={selectedImage}
+            alt="Zoomed Chart"
+            className="zoomed-image"
+          />
+        </div>
+      )}
     </div>
   );
 }

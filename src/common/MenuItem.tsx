@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 type Status = "Upcoming" | "On Time" | "LATE";
 
@@ -21,8 +22,14 @@ export default function MenuItem({
   avatarAlt = "item",
   isAvatar = false,
 }: MenuItemProps) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/teacher/edit-score");
+  };
+
   return (
-    <li className="assignment-item">
+    <li className="assignment-item" onClick={handleClick}>
       <div className={`assignment-date ${isAvatar ? "avatar-box" : ""}`}>
         {isAvatar ? (
           <img src={avatarSrc} alt={avatarAlt} />
@@ -37,6 +44,7 @@ export default function MenuItem({
 
       <div className="assignment-meta">
         {time && <span className="time">{time}</span>}
+
         <span className={`status ${status === "LATE" ? "late" : ""}`}>
           {status}
         </span>

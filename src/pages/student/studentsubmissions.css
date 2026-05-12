@@ -1,0 +1,119 @@
+/* ===== Page-level layout ===== */
+.student-submissions-page {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+
+/* ===== Table section =====*/
+.student-submissions-table {
+    padding: 16px;
+    border-radius: 10px;
+}
+
+/* Table styling */
+.student-submissions-table table {
+    width: 100%;                /* Full width for better use of space */
+    border-collapse: separate;  /* Use separate borders for better styling control */
+    border-spacing: 0 8px;      /* Add vertical spacing between rows */
+}
+
+/* Table header styling */
+.student-submissions-table th {
+    text-align: left;   /* Left-align text for better readability */
+    font-size: 0.8rem;  /* Slightly smaller font for headers */
+    font-weight: 600;   /* Semi-bold for better emphasis */
+    color: #113058;   /* Figma 'PCP Main': Darker color for better contrast */
+    padding: 0 16px 8px 16px;   /* Add padding and space below headers */
+}
+
+/* Table body styling */
+.student-submissions-table tbody tr {
+    background-color: #fafafc;                 /* Match Figma 'Light 3' Colour */
+    border-radius: 8px;                          /* Rounded corners for a softer look */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+    transition: background-color 0.2s ease;      /* Smooth transition for hover effect */
+}
+
+/* Row Hover Effect */
+.student-submissions-table tbody tr:hover { 
+    background-color: #FBEAEA; /* Slightly darker shade for hover effect */
+}
+
+/* Table cell styling */
+.student-submissions-table td {
+    text-align: left;    /* Left-align text for better readability */
+    font-size: 0.8rem;   /* Slightly smaller font for table cells */
+    color: #113058;    /* Figma 'PCP Main': Darker color for better contrast */
+    padding: 10px 16px;  /* Add padding for better spacing */
+}
+
+/* Column specific header and row alignment for non-text columns */
+/* Date column */
+.student-submissions-table th:nth-child(1),
+.student-submissions-table td:nth-child(1) {
+    white-space: nowrap; 
+}
+
+/* Score column */
+.student-submissions-table th:nth-child(5),    
+.student-submissions-table td:nth-child(5) { 
+    text-align: center; 
+    width: 80px;        /* Fixed width for score column to maintain consistent sizing */
+}
+
+/* Analysis Report Action column */
+.student-submissions-table th:nth-child(6),
+.student-submissions-table td:nth-child(6) { 
+    text-align: right; 
+}     
+
+/* Action button styling */
+.student-submissions-table button {
+    background-color: #6476A1; /* Match Figma Menu Colour */
+    color: white;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;          /* Prevent button text from wrapping */
+    transition: 
+      background-color 0.2s ease, /* Smooth transition for hover effect */
+      color 0.2s ease, 
+      border-color 0.2s ease;     /* Smooth transition for hover effect */      
+}
+
+/* Action button hover effect */
+.student-submissions-table button:hover {
+    background-color: #E57373; /* Red accent hover colour */
+    color: white;              /* Figma 'PCP Main': Darker color for better contrast */
+    border-color: #C62828;     /* Red accent on hover */
+}
+
+/* ===== Inline Table Header Filters section ===== */
+/* Styling for filter labels within the table headers */
+.student-submissions-table th label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;  /* Center-align text within the dropdown */
+    gap: 6px;
+    font-size: 0.8rem;   /* Smaller font size for filter labels */
+    font-weight: 600;    /* Semi-bold weight for better emphasis */
+    color: #113058;    /* Match Figma font colours */
+    cursor: pointer;     /* Indicate that filter labels are interactive */
+    white-space: nowrap; /* Prevent label text from wrapping */
+}
+
+/* Styling for select dropdowns within the table headers */
+.student-submissions-table th select {
+    color: #6b7280;   /* softer neutral */
+    border-radius: 6px; /* Rounded corners for better aesthetics */    
+}
+
+/* Hover and focus styles for select dropdowns to enhance interactivity */
+.student-submissions-table th select:hover,
+.student-submissions-table th select:focus {
+  color: #113058;
+  border-color: #C62828; /* Match Figma Menu Colour for consistency */
+}
