@@ -25,6 +25,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         {/* Protected Routes */}
         {/*<Route element={<ProtectedRoute />}>*/}
