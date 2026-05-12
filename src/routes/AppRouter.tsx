@@ -41,6 +41,7 @@ export default function AppRouter() {
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<TeacherDashboard />} />
           <Route path="edit-score" element={<EditStudentScorePage />} />
+          <Route path="submissions" element={<ViewSubmissions />} />
         </Route>
 
         {/* Admin Dashboard */}
