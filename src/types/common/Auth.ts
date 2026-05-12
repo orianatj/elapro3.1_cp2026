@@ -21,8 +21,12 @@ export type PasswordReset = {
     confirmPassword: string;
 };
 
-// Define a type used for resending verification email and for resetting a user's password
+// Define a type used for resending verification email 
 export type EmailRequest = {
     emailAddress: string;
 };
 
+// Define a type used for sending an email to reset a forgotten password
+export type ForgotPassword = {
+    emailAddress: string;
+};
