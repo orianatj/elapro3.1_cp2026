@@ -1,5 +1,5 @@
 import { api } from "./client";
-import type { Credentials, Registration, PasswordReset, EmailRequest } from "../types/common/Auth.ts"
+import type { Credentials, Registration, PasswordReset, EmailRequest, ForgotPassword } from "../types/common/Auth.ts"
 
 export const login = (credentials: Credentials) =>
   api.post("/auth/login", credentials);
@@ -7,8 +7,10 @@ export const login = (credentials: Credentials) =>
 export const register = (data: Registration) =>
   api.post("/auth/register", data);
 
-export const forgotPassword = (data: EmailRequest) =>
-  api.post("/auth/forgot-password", data);
+export const forgotPassword = async (data: ForgotPassword) => {
+  const response = await api.post("/auth/forgot-password", data);
+  return response.data;
+};
 
 export const resetPassword = (data: PasswordReset) =>
   api.post("/auth/reset-password", data);
