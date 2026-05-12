@@ -33,4 +33,5 @@
 .student-header-bar nav span:hover {
     text-decoration: underline; /* Add underline on hover for better interactivity */    
     font-weight: 600;   /* Semi-bold for better emphasis without being too heavy */
+    color: blue
 }
