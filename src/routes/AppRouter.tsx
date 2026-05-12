@@ -6,12 +6,14 @@ import TeacherLayout from "../layouts/TeacherLayout";
 import TeacherDashboard from "../pages/teacher/teacher.tsx";
 import ViewSubmissions from "../pages/teacher/teacherviewsubmissions.tsx";
 import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
+import IndividualSubmission from "../pages/teacher/IndividualSubmission.tsx";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
 import { LoginPage } from "../pages/auth/LoginPage.tsx"
+import { SignupPage } from "../pages/auth/SignupPage.tsx";
 import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
 
 // TODO: Confirm if student are the only user type that require an account management page
@@ -22,7 +24,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/sign-up" element={<SignupPage />} />
 
         {/* Protected Routes */}
         {/*<Route element={<ProtectedRoute />}>*/}
@@ -41,6 +43,8 @@ export default function AppRouter() {
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<TeacherDashboard />} />
           <Route path="edit-score" element={<EditStudentScorePage />} />
+          <Route path="individual-submission" element={<IndividualSubmission />} />
+          <Route path="submissions" element={<ViewSubmissions />} />
         </Route>
 
         {/* Admin Dashboard */}
