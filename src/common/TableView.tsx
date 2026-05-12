@@ -11,7 +11,7 @@ import React from "react";
 
 // Column labels displayed in the table header.
 type TableProps = {  
-  headers: string[];   
+  headers: React.ReactNode[]; // Allow JSX table headers to be rendered in the table header  
   children: React.ReactNode;  // supplied by the caller
 };
 
@@ -28,8 +28,8 @@ export function Table({ headers, children }: TableProps) {
       {/* Table header section */}
       <thead>
         <tr>
-          {headers.map((header) => (
-            <th key = {header}>
+          {headers.map((header, index) => (
+            <th key = {index}>
               {header}
             </th>
           ))}
