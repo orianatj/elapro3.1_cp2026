@@ -1,10 +1,8 @@
 
-// Import the shared PageHeaderView component
-import { PageHeaderView } from "../../common/PageHeaderView";
+// Import shared header bar
+import { StudentHeaderBar } from "../../common/StudentHeaderBar";
 
-// Import page-specific child components,
-// responsible for rendering distinct sections of the page.
-import { SubmissionsFilters } from "../../studentDashboard/SubmissionsFilters";
+// Import page-specific SubmissionsTable child component.
 import { SubmissionsTable } from "../../studentDashboard/SubmissionsTable";
 
 // Import the page-level data hook responsible for fetching submissions and producing ViewData
@@ -41,10 +39,8 @@ export default function SubmissionsPage() {
     return (
         <div className="student-submissions-page">
 
-            {/* Page header: title and breadcrumb navigation */}
-            <div className="student-submissions-header">
-                <PageHeaderView header={viewData.pageHeader} />
-            </div>
+            {/* Shared Page header: title and breadcrumb navigation */}
+            <StudentHeaderBar header={viewData.pageHeader} />
 
             {/* Submissions table: displays the list of student submissions based on current filters */}
             <div className="student-submissions-table">
