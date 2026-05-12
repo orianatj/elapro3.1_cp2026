@@ -46,11 +46,6 @@ export default function SubmissionsPage() {
                 <PageHeaderView header={viewData.pageHeader} />
             </div>
 
-            {/* Filters: IELTS and Task filtering controls */}
-            <div className="student-submissions-filters">
-                <SubmissionsFilters filters={viewData.filters} />
-            </div>
-
             {/* Submissions table: displays the list of student submissions based on current filters */}
             <div className="student-submissions-table">
                 <SubmissionsTable table={viewData.submissionsTable} />
