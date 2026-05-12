@@ -7,10 +7,10 @@ export type Credentials = {
 // Define a type for user registration data
 export type Registration = {
     firstName: string;
-    middleName: string;
+    middleName?: string;
     lastName: string;
     emailAddress: string;
-    phoneNumber: string;
+    phoneNumber?: string;
     password: string;
     confirmPassword: string;
 };

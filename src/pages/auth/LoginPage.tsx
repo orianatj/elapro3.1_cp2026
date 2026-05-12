@@ -23,16 +23,29 @@ export function LoginPage() {
         // Prevent browser from performing default page refresh on form submit
         event.preventDefault();
 
+        // Clear previous error before new submission
+        setError("");
+
         // Construct credentials object from controlled form input state
         const credentials: Credentials = {
             emailAddress: email,
             password: password,
         };
 
+        // Only allow form submission if fields are populated
+        if (!email || !password) {
+            setError("Please enter your email and password.")
+            return
+        }
+
         try {
 
             // Attempt authentication request using AuthContext login function
             await login(credentials);
+
+            // Rest form fields on success
+            setEmail("");
+            setPassword("");
 
         } catch (error: any) {
 
@@ -97,6 +110,7 @@ export function LoginPage() {
                         <input
                             id="password"
                             type="password"
+                            autoComplete="new-password"
                             value={password}
 
                             // Update password state when user types

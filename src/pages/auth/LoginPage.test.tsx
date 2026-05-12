@@ -2,8 +2,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { LoginPage } from "./LoginPage";
 import { vi } from "vitest";
-import { useAuth } from "../../hooks/useAuth";
-import { login } from "../../services/authApi";
 
 // 1. Test Component Rendering 
 
@@ -54,6 +52,7 @@ test("updates email and password fields when user types", async () => {
 
 })
 
+
 test('submits entered credentials when login button is clicked', async () => {
 
     // Configure a user event instance 
@@ -80,13 +79,77 @@ test('submits entered credentials when login button is clicked', async () => {
 
 })
 
+test("prevent form submission if both fields are empty", async () => {
+
+    // Configure a user event instance 
+    const user = userEvent.setup()
+
+    // Render component prior to testing 
+    render(<LoginPage />)
+
+    const loginButton = screen.getByRole("button", { name: /Login/i })
+
+    await user.click(loginButton)
+
+    expect(mockLogin).not.toHaveBeenCalled();
+
+    expect(await screen.findByText("Please enter your email and password.")).toBeInTheDocument()
+});
+
+
+
+test("prevent form submission if password field is empty", async () => {
+
+    // Configure a user event instance 
+    const user = userEvent.setup()
+
+    // Render component prior to testing 
+    render(<LoginPage />)
+
+    const emailInput = screen.getByLabelText("Email")
+
+    const loginButton = screen.getByRole("button", { name: /Login/i })
+
+    await user.type(emailInput, "test123@gmail.com")
+
+    await user.click(loginButton)
+
+    expect(mockLogin).not.toHaveBeenCalled();
+
+    expect(await screen.findByText("Please enter your email and password.")).toBeInTheDocument()
+});
+
+
+test("prevent form submission if email field is empty", async () => {
+
+    // Configure a user event instance 
+    const user = userEvent.setup()
+
+    // Render component prior to testing 
+    render(<LoginPage />)
+
+    const passwordInput = screen.getByLabelText("Password")
+
+    const loginButton = screen.getByRole("button", { name: /Login/i })
+
+    await user.type(passwordInput, "password123")
+
+    await user.click(loginButton)
+
+    expect(mockLogin).not.toHaveBeenCalled();
+
+    expect(await screen.findByText("Please enter your email and password.")).toBeInTheDocument()
+});
+
+
+
 describe('trigger each error handled by the login page', () => {
 
     test.each([
         [401, "Invalid email or password"],
         [404, "It looks like you don't have an account yet. Sign up to get started."],
         [422, "Please enter a valid email and password"],
-        [500, "Something went wrong. Please try again.",]
+        [500, "Something went wrong. Please try again."]
     ])(
 
         'renders correct error message for status %s',
@@ -107,9 +170,19 @@ describe('trigger each error handled by the login page', () => {
             // Render component prior to testing 
             render(<LoginPage />)
 
-            await user.click(
-                screen.getByRole('button', { name: /Login/i })
-            )
+
+            const emailInput = screen.getByLabelText("Email")
+
+            const passwordInput = screen.getByLabelText("Password")
+
+            const loginButton = screen.getByRole("button", { name: /Login/i })
+
+            await user.type(passwordInput, "password123")
+
+            await user.type(emailInput, "test123@gmail.com")
+
+            // Submit form
+            await user.click(loginButton)
 
             expect(
                 await screen.findByText(expectedMessage)).toBeInTheDocument()
