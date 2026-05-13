@@ -183,7 +183,7 @@ label.required::after {
   background: white;
 }
 
-/* Registration box/card */
+/* Forgot password box/card */
 .forgot-password-card {
     display: flex;
     flex-direction: column;
@@ -202,6 +202,9 @@ label.required::after {
   margin-bottom: 40px; /* creates the gap before form */
 }
 
+.sent-email-icon {
+    margin: 0 auto 5px auto;
+}
 
 .forgot-password-form {
   display: flex;
@@ -240,3 +243,5 @@ label.required::after {
   content: " *";
   color: red;
 }
+
+
