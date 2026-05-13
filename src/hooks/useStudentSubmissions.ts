@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getStudentSubmissions } from "../services/StudentSubmissionsService";
 import { formatDateTime } from "../utils/dateUtils";
+import { mapGradingStatus } from "../utils/gradingStatus";
 
 import type { StudentSubmissions } from "../types/student/StudentSubmissionsViewData";
 
@@ -81,14 +82,14 @@ export function useStudentSubmissions(userId: string) {
                 },
             },
             submissionsTable: {
-                rows: submissions.map((submission) => ({
+                rows: (submissions ?? []).map((submission) => ({
                     submissionId: submission.id,
                     date: formatDateTime(submission.submittedAt),
                     essayType: submission.essayType,
                     ieltsType: submission.ieltsType,
                     taskType: submission.taskType,
                     score: submission.score ?? null,
-                    status: submission.status,
+                    status: mapGradingStatus(submission?.status),
                 })),
             },
         }),
