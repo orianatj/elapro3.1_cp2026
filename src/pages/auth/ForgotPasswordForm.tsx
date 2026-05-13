@@ -1,6 +1,9 @@
 import { useState } from "react";
 import type { ForgotPassword } from "../../types/common/Auth";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
+import forgotpassword from "../../assets/auth/forgotpassword.png"
+
+
 
 type ForgotPasswordProps = {
     // Define parent callback function
@@ -61,16 +64,18 @@ export function ForgotPasswordForm({ onSuccess }: ForgotPasswordProps) {
     return (
 
         // Card container for forgot password content and form 
-        < div className="forgot-password-card" >
+        < div className="auth-card" >
+
+            <img className="auth-icon" src={forgotpassword} alt="Forgot password icon" width={130} height={130} />
 
             {/* Header section for forgot password page title */}
-            < div className="forgot-password-header" >
-                <h2 className="forgot-password-title">Forgot password?</h2>
-                <p className="forgot-password-instruction">Enter the email associated with your account, and we'll email you a verification link to reset your password.</p>
+            < div className="auth-header" >
+                <h2 className="auth-title">Forgot password?</h2>
+                <p className="auth-instruction">Enter the email associated with your account, and we'll email you a verification link to reset your password.</p>
             </div >
 
             {/* Forgot password form (single field) */}
-            < form onSubmit={handleSubmit} className="forgot-password-form" >
+            < form onSubmit={handleSubmit} className="auth-form" >
 
                 {/* Email input field */}
                 < div className="form-group" >

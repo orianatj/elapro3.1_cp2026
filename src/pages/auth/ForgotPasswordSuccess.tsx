@@ -10,12 +10,12 @@ export function ForgotPasswordSuccess({ email }: ForgotPwProps) {
 
     return (
 
-        <div className="forgot-password-page">
-            <div className="forgot-password-card">
-                <img className="sent-email-icon" src={letter} alt="Sent email icon" width={150} height={150} />
-                <div className="forgot-password-header">
-                    <h2 className="forgot-password-title">Check your email!</h2>
-                    <p className="forgot-password-instruction">We've sent a password reset link to {email}.</p>
+        <div className="auth-page">
+            <div className="auth-card">
+                <img className="auth-icon" src={letter} alt="Sent email icon" width={150} height={150} />
+                <div className="auth-header">
+                    <h2 className="auth-title">Check your email!</h2>
+                    <p className="auth-instruction">We've sent a password reset link to {email}.</p>
                 </div>
             </div>
         </div>
