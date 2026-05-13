@@ -17,6 +17,7 @@ export type Registration = {
 
 // Define a type for password reset 
 export type PasswordReset = {
+    token: string;
     newPassword: string;
     confirmPassword: string;
 };
