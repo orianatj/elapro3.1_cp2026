@@ -2,24 +2,24 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const navItems = [
-  { icon: "/src/assets/grid.png", label: "Dashboard", path: "/dashboard" },
+  { icon: "/src/assets/grid.png", label: "Dashboard", path: "/teacher" },
   {
     icon: "/src/assets/create.png",
     label: "Assignments",
-    path: "/assignments",
+    path: "/teacher/assignments",
   },
   {
     icon: "/src/assets/file-tray-full.png",
     label: "Resources",
-    path: "/resources",
+    path: "/teacher/resources",
   },
   {
     icon: "/src/assets/documents.png",
     label: "Submissions",
-    path: "/submissions",
+    path: "/teacher/submissions",
   },
-  { icon: "/src/assets/vector.png", label: "Settings", path: "/settings" },
-  { icon: "/src/assets/help.png", label: "Help", path: "/help" },
+  { icon: "/src/assets/vector.png", label: "Settings", path: "/teacher/settings" },
+  { icon: "/src/assets/help.png", label: "Help", path: "/teacher/help" },
 ];
 
 export default function Sidebar() {
@@ -49,8 +49,12 @@ export default function Sidebar() {
         <ul>
           {navItems.map((item) => (
             <li key={item.label}>
-              <NavLink to={item.path}>
-                <img src={item.icon} />
+              <NavLink
+                to={item.path}
+                className={({ isActive }) => (isActive ? "active" : "")}
+                end={item.label === "Dashboard"}
+              >
+                <img src={item.icon} alt={item.label} />
                 {item.label}
               </NavLink>
             </li>

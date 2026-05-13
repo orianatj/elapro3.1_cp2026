@@ -239,6 +239,51 @@ nav ul {
   /*border: 1px solid #C7C9D9;  Light outline */
 }
 
+/* Make charts clickable */
+.chart-box img {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.chart-box img:hover {
+  transform: scale(1.03);
+}
+
+/* Modal background */
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* Zoomed image */
+.zoomed-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 16px;
+  animation: zoomIn 0.3s ease;
+}
+
+/* Smooth zoom animation */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
 /* ================= BOTTOM LISTS ================= */
 
 /* Bottom section container */
