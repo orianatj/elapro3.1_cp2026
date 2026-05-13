@@ -5,6 +5,7 @@ export interface Submission {
   lastName: string;
   className: string;
   time: string;
+  submittedAt: number;
   status: "On Time" | "Late" | "Extension";
 }
 
@@ -12,9 +13,10 @@ interface SubmissionTableProps {
   submissions: Submission[];
 }
 
-export default function SubmissionTable({
-  submissions,
-}: SubmissionTableProps) {
+export default function SubmissionTable({ submissions }: SubmissionTableProps) {
+  // Assuming filteredAndSorted is derived here (adjust if you already pass it in)
+  const filteredAndSorted = submissions;
+
   return (
     <div className="table-container">
       <table className="submission-table">
@@ -29,7 +31,7 @@ export default function SubmissionTable({
         </thead>
 
         <tbody>
-          {submissions.map((s, index) => (
+          {filteredAndSorted.map((s, index) => (
             <tr key={index}>
               <td>{s.firstName}</td>
               <td>{s.lastName}</td>
