@@ -12,7 +12,7 @@ export function ForgotPasswordPage() {
 
 
     return (
-        // Full-page container used for centering the registration card
+        // Full-page container used for centering the forgot password card
         <div className="auth-page">
 
             {isSubmitted ? (
