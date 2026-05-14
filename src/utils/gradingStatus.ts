@@ -20,3 +20,11 @@ export function mapGradingStatus(value?: string): SafeGradingStatus {
     }
 }
 
+// Determines if the score can be shown based on the grading status
+export function canShowScore(status: SafeGradingStatus): boolean {
+    return (
+        status === GradingStatus.ai_graded ||
+        status === GradingStatus.teacher_validated ||
+        status === GradingStatus.teacher_reviewed
+    );
+}
