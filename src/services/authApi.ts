@@ -19,8 +19,11 @@ export const resetPassword = async (data: PasswordReset) => {
   return response.data;
 };
 
-export const resendVerify = (data: EmailRequest) =>
-  api.post("/auth/resend-verify-email", data);
+export const resendVerify = async (data: EmailRequest) => {
+  const response = await api.post("/auth/resend-verify-email", data);
+  return response.data;
+}
+
 
 export const verifyEmail = () =>
   api.get("/auth/verify-email");
