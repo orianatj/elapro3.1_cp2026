@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { ForgotPassword } from "../../types/common/Auth";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
-import forgotpassword from "../../assets/auth/forgotpassword.png"
+import forgotpassword from "../../assets/auth/forgotpassword.png";
+import { Link } from "react-router-dom";
 
 
 
@@ -98,7 +99,9 @@ export function ForgotPasswordForm({ onSuccess }: ForgotPasswordProps) {
                 {/* Submit forgot password request */}
                 <button className="auth-button" type="submit">Reset password</button>
 
-
+                <p className="auth-redirect">Back to
+                    <Link to="/" className="auth-link"> Login</Link>
+                </p>
             </form >
         </div >
 

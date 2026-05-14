@@ -1,6 +1,7 @@
 import type { Registration } from "../../types/common/Auth";
 import { useRegister } from "../../hooks/useRegister";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 export function SignupPage() {
@@ -222,10 +223,9 @@ export function SignupPage() {
 
                     {/* Submit login request */}
                     <button className="auth-button" type="submit">Sign-up</button>
-
-                    {/* TODO: Add interactable link to Login page once created*/}
-
-                    {/*<p><Link to="/"></Link>Login</p>*/}
+                    <p className="auth-redirect">Already have an account?
+                        <Link to="/" className="auth-link auth-link-center"> Login</Link>
+                    </p>
 
                 </form>
             </div>
