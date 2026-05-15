@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import passwordsuccess from "../../assets/auth/passwordsuccess.png"
+import success from "../../assets/auth/success.png"
 
 
 
@@ -10,7 +10,7 @@ export function ResetPasswordSuccess() {
     return (
         <div className="auth-page" >
             <div className="auth-card">
-                <img className="auth-icon" src={passwordsuccess} alt="Reset password success icon" width={100} height={100} />
+                <img className="auth-icon" src={success} alt="Reset password success icon" width={100} height={100} />
                 <div className="auth-header">
                     <h2 className="auth-title">Password Changed!</h2>
                     <p className="auth-instruction">Your password has been successfully changed!</p>
