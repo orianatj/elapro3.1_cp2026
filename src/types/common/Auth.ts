@@ -31,3 +31,8 @@ export type EmailRequest = {
 export type ForgotPassword = {
     emailAddress: string;
 };
+
+// Define a type for verifying the user's email address 
+export type VerifySignup = {
+    token: string;
+};
