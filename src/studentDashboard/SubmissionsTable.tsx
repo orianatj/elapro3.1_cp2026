@@ -65,7 +65,11 @@ export function SubmissionsTable({ table }: SubmissionsTableProps) {
             <td>{row.essayType}</td>
             <td>{ieltsTypeLabels[row.ieltsType]}</td>
             <td>{taskTypeLabels[row.taskType]}</td>
-            <td>{gradingStatusLabels[row.status]}</td>
+            <td>
+              <span className={`status-badge ${row.status}`}>
+                {gradingStatusLabels[row.status]}
+              </span>
+            </td>
             {/* Display score or "-" if not available */}
             <td>{canShowScore(row.status) ? row.score : "-"}</td>
             <td>
