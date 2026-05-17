@@ -35,7 +35,6 @@ export default function SubmissionsPage() {
         );
     }
 
-
     // Guard against rendering before ViewData is available
     if (!viewData) {
         return <div className="empty-state">No submission data available.</div>;

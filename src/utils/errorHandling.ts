@@ -15,7 +15,7 @@ export function getErrorMessage(error: any): string {
   }
 
   if (status === 404) {
-    return "No data found.";
+    return "No submissions found.";
   }
 
   if (status === 500) {
