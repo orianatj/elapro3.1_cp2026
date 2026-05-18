@@ -23,7 +23,7 @@ export function VerifyEmailSent({ email, onResendRequested }: VerifyEmailProps) 
                         className="auth-link-button"
                         type="button"
                         onClick={onResendRequested}
-                    >  Resend verification email
+                    >Resend verification email
                     </button>
 
                 </p>
