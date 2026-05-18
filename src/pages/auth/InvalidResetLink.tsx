@@ -21,8 +21,7 @@ export function InvalidResetLink() {
                     onClick={() => {
                         navigate("/forgot-password");
                     }}
-                >
-                    Request a new reset link
+                >Request a new reset link
 
                 </button>
             </div>
