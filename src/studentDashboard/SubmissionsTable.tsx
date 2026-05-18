@@ -2,6 +2,8 @@
 // Import the generic reusable Table component
 import { Table } from "../common/TableView";
 
+import { useNavigate } from "react-router-dom";
+
 import { canShowScore } from "../utils/gradingStatus";
 
 // Import the ViewData types used by this component
@@ -22,27 +24,8 @@ type SubmissionsTableProps = {
 const tableHeaders = [
   "Date",
   "Essay Type",
-
-  // IELTS Type filter rendered inline within the table header
-  <label>
-    IELTS Type
-    <select>
-      <option value="all">All</option>
-      <option value="academic">Academic</option>
-      <option value="general">General</option>
-    </select>
-  </label>,
-
-  // Task Type filter rendered inline within the table header
-  <label>
-    Task Type
-    <select>
-      <option value="all">All</option>
-      <option value="task1">Task 1</option>
-      <option value="task2">Task 2</option>
-    </select>
-  </label>,
-
+  "IELTS Type",
+  "Task Type",
   "Status",
   "Score",
   "Analysis Report"
@@ -51,6 +34,8 @@ const tableHeaders = [
 // SubmissionsTable is a presentational component responsible for rendering
 // the submissions table on the Student Submissions page.
 export function SubmissionsTable({ table }: SubmissionsTableProps) {
+
+  const navigate = useNavigate();
 
   const rows = table.rows;
 
@@ -73,9 +58,14 @@ export function SubmissionsTable({ table }: SubmissionsTableProps) {
             {/* Display score or "-" if not available */}
             <td>{canShowScore(row.status) ? row.score : "-"}</td>
             <td>
-              {/* TODO: replace with navigation once routing exists */}
-              <button>View Analysis</button>
+              {/* Navigate to Submission Analysis page using submissionId */}
+              <button
+                onClick={() => navigate(`/submissions/${row.submissionId}`)}
+              >
+                View Analysis
+              </button>
             </td>
+
           </tr>
         ))}
       </Table>
