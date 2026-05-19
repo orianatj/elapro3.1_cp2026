@@ -46,7 +46,7 @@ export function useSubmissionAnalysis(submissionId: string) {
             },
 
             submissionMeta: {
-                taskLabel: `${ieltsTypeLabels[submission.ieltsType as IeltsType]} ${taskTypeLabels[submission.taskType as TaskType]}`,
+                taskLabel: `Task Type: ${ieltsTypeLabels[submission.ieltsType as IeltsType]} ${taskTypeLabels[submission.taskType as TaskType]}`,
             },
 
 

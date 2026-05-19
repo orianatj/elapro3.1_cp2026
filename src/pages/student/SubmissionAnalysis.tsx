@@ -1,12 +1,9 @@
-//import { useParams } from "react-router-dom";
+// Import routing and hook
+import { useParams } from "react-router-dom";
+import { useSubmissionAnalysis } from "../../hooks/useSubmissionAnalysis";
 
-//import { useSubmissionAnalysis } from "../../hooks/useSubmissionAnalysis";
-
-// Import the shared PageHeaderView component
+// Import UI components
 import { PageHeaderView } from "../../common/PageHeaderView";
-
-// Import page-specific child components,
-// responsible for rendering distinct sections of the page.
 import { SubmissionMetaBar } from "../../studentDashboard/SubmissionMetaBar";
 import { ScoreOverviewSection } from "../../studentDashboard/SubmissionScoreOverview";
 import { SubmissionSummarySection } from "../../studentDashboard/SubmissionSummary";
@@ -14,52 +11,68 @@ import { ScoreExplanationSection } from "../../studentDashboard/SubmissionScoreE
 import { CriterionBreakdownSection } from "../../studentDashboard/SubmissionCriterionBreakdown";
 import { SubmissionActionsBar } from "../../studentDashboard/SubmissionActionsBar";
 
+// Import page-specific styles
+import './submissionanalysis.css';
+
 
 // Page entry component for the Student Submissions screen.
 export default function SubmissionAnalysisPage() {
-  /*const { submissionId } = useParams();
+  // Extract submissionId from the URL parameters to fetch the correct submission analysis data.
+  const { submissionId } = useParams();
+
+  // Use the custom hook to fetch and prepare the ViewData for this page based on the submissionId.
   const { viewData, isPending, error } = useSubmissionAnalysis(submissionId ?? "");
 
-   // Explicitly handle loading and error states to ensure the page doesn't attempt to render with incomplete data.
-    // Render loading state while student submissions are being fetched
-    if (isPending) {
-        return <div>
-            Loading submissions...
-        </div>;
-    }
+  // Explicitly handle loading and error states to ensure the page doesn't attempt to render with incomplete data.
+  // Render loading state while student submissions are being fetched
+  if (isPending) {
+    return <div>
+      Loading submissions...
+    </div>;
+  }
 
-    // Render error state if there was an issue loading submissions
-    if (error) {
-        return <div>
-            Error loading submissions
-        </div>;
-    }
+  // Render error state if there was an issue loading submissions
+  if (error) {
+    return <div>
+      Error loading submissions
+    </div>;
+  }
 
-    // Guard against rendering before ViewData is available
-    if (!viewData) {
-        return null;
-    }
-        */
+  // Guard against rendering before ViewData is available
+  if (!viewData) {
+    return null;
+  }
 
+  // Render the submission analysis page using the structured ViewData provided by the custom hook.
   return (
     <div className="submission-analysis-page">
-      <>
-            <h1>This is the Submission Analysis Page</h1>
-        </>
-      {/*<PageHeaderView header={viewData.pageHeader} />
+      <div className="section">
+        <PageHeaderView header={viewData.pageHeader} />
+      </div>
 
-      <SubmissionMetaBar meta={viewData.submissionMeta} />
+      <div className="section">
+        <SubmissionMetaBar meta={viewData.submissionMeta} />
+      </div>
 
-      <ScoreOverviewSection data={viewData.scoreOverview} />
+      <div className="section">
+        <ScoreOverviewSection data={viewData.scoreOverview} />
+      </div>
 
-      <SubmissionSummarySection data={viewData.submissionSummary} />
+      <div className="section">
+        <SubmissionSummarySection data={viewData.submissionSummary} />
+      </div>
 
-      <ScoreExplanationSection data={viewData.scoreExplanation} />
+      <div className="section">
+        <ScoreExplanationSection data={viewData.scoreExplanation} />
+      </div>
 
-      <CriterionBreakdownSection data={viewData.criterionBreakdown} />
+      <div className="section">
+        <CriterionBreakdownSection data={viewData.criterionBreakdown} />
+      </div>
 
-      <SubmissionActionsBar actions={viewData.actions} />
-      */}
+      <div className="section">
+        <SubmissionActionsBar actions={viewData.actions} />
+      </div>
     </div>
   );
 }
