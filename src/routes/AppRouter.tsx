@@ -33,9 +33,8 @@ export default function AppRouter() {
           <Route index element={<StudentDashboardPage />} />
           <Route path="essay-submission" element={<EssaySubmissionPage />} />
           <Route path="practice-writing" element={<PracticeWritingPage />} />
-          <Route path="submissions" element={<SubmissionsPage />} >
-            {/*<Route path=":submissionId" element={<SubmissionAnalysisPage />} />*/}
-          </Route>
+          <Route path="submissions" element={<SubmissionsPage />} />            
+          <Route path="submission/:submissionId" element={<SubmissionAnalysisPage />} />          
         </Route>
 
         {/* Teacher Dashboard */}

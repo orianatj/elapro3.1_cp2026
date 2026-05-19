@@ -60,7 +60,7 @@ export function SubmissionsTable({ table }: SubmissionsTableProps) {
             <td>
               {/* Navigate to Submission Analysis page using submissionId */}
               <button
-                onClick={() => navigate(`/submissions/${row.submissionId}`)}
+                onClick={() => navigate(`../submission/${row.submissionId}`)}
               >
                 View Analysis
               </button>
