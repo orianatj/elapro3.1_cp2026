@@ -8,6 +8,9 @@ import { SubmissionsTable } from "../../studentDashboard/SubmissionsTable";
 // Import the page-level data hook responsible for fetching submissions and producing ViewData
 import { useStudentSubmissions } from "../../hooks/useStudentSubmissions";
 
+// Import the error handling utility to extract user-friendly messages from error objects
+import { getErrorMessage } from "../../utils/errorHandling";
+
 // Import page-specific styles
 import './studentsubmissions.css';
 
@@ -23,16 +26,18 @@ export default function SubmissionsPage() {
         </div>;
     }
 
-    // Render error state if there was an issue loading submissions
+    // Render error states if there was an issue loading submissions
     if (error) {
-        return <div>
-            Error loading submissions
-        </div>;
+        return (
+            <div className="error-state">
+                {getErrorMessage(error)}
+            </div>
+        );
     }
 
     // Guard against rendering before ViewData is available
     if (!viewData) {
-        return null;
+        return <div className="empty-state">No submission data available.</div>;
     }
 
     // Render the main content once all data is available
