@@ -1,0 +1,16 @@
+
+/* ===== Page Layout ===== */
+.submission-analysis-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* spacing between sections */
+  padding: 16px;
+}
+
+/* ===== Section Spacing ===== */
+.section {
+  margin-bottom: 32px;
+}
+
+
+
