@@ -15,7 +15,7 @@ import { getErrorMessage } from "../../utils/errorHandling";
 import './studentsubmissions.css';
 
 export default function SubmissionsPage() {
-    const { viewData, isPending, error } =
+    const { viewData, isPending, error, actions } =
         useStudentSubmissions("debug-UserId");
 
     // Explicitly handle loading and error states to ensure the page doesn't attempt to render with incomplete data.
@@ -49,7 +49,10 @@ export default function SubmissionsPage() {
 
             {/* Submissions table: displays the list of student submissions based on current filters */}
             <div className="student-submissions-table">
-                <SubmissionsTable table={viewData.submissionsTable} />
+                <SubmissionsTable 
+                table={viewData.submissionsTable} 
+                filters={viewData.filters}
+                actions={actions} />
             </div>
         </div>
     );

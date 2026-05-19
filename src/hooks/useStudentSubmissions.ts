@@ -46,9 +46,9 @@ export function useStudentSubmissions(userId: string) {
         queryFn: () =>
             getStudentSubmissions({
                 userId,
-                ieltsType,
-                taskType,
-            }),
+                ieltsType: ieltsType === "all" ? undefined : ieltsType,
+                taskType: taskType === "all" ? undefined : taskType,
+            }),                
 
         // Prevents the query from running until a valid userId is available
         enabled: Boolean(userId),
