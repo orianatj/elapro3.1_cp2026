@@ -14,7 +14,6 @@ interface SubmissionTableProps {
 }
 
 export default function SubmissionTable({ submissions }: SubmissionTableProps) {
-  // Assuming filteredAndSorted is derived here (adjust if you already pass it in)
   const filteredAndSorted = submissions;
 
   return (
