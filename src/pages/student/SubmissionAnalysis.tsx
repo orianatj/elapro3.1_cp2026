@@ -4,6 +4,7 @@ import { useSubmissionAnalysis } from "../../hooks/useSubmissionAnalysis";
 
 // Import UI components
 import { PageHeaderView } from "../../common/PageHeaderView";
+import { QueryStateHandler } from "../../common/QueryStateHandler";
 import { SubmissionMetaBar } from "../../studentDashboard/SubmissionMetaBar";
 import { ScoreOverviewSection } from "../../studentDashboard/SubmissionScoreOverview";
 import { SubmissionSummarySection } from "../../studentDashboard/SubmissionSummary";
@@ -17,62 +18,59 @@ import './submissionanalysis.css';
 
 // Page entry component for the Student Submissions screen.
 export default function SubmissionAnalysisPage() {
+
   // Extract submissionId from the URL parameters to fetch the correct submission analysis data.
   const { submissionId } = useParams();
 
   // Use the custom hook to fetch and prepare the ViewData for this page based on the submissionId.
-  const { viewData, isPending, error } = useSubmissionAnalysis(submissionId ?? "");
+  const { viewData, isPending, isError, error } = useSubmissionAnalysis(submissionId ?? "");
 
-  // Explicitly handle loading and error states to ensure the page doesn't attempt to render with incomplete data.
-  // Render loading state while student submissions are being fetched
-  if (isPending) {
-    return <div>
-      Loading submissions...
-    </div>;
-  }
-
-  // Render error state if there was an issue loading submissions
-  if (error) {
-    return <div>
-      Error loading submissions
-    </div>;
-  }
-
-  // Guard against rendering before ViewData is available
-  if (!viewData) {
-    return null;
-  }
-
-  // Render the submission analysis page using the structured ViewData provided by the custom hook.
+  // Delegate loading, error, and empty state handling to QueryStateHandler
   return (
-    <div className="submission-analysis-page">
-      <div className="section">
-        <PageHeaderView header={viewData.pageHeader} />
-      </div>
+    <QueryStateHandler
+      isPending={isPending}
+      isError={isError}
+      error={error}
+      data={viewData}
+      emptyMessage="No report data available."
+    >
+      {
+        // Render the main page content using the structured ViewData provided by the custom hook.
+        // Only renders when data is available and there are no loading or error states.
+        (data) => (
+          <div className="submission-analysis-page">
+            <div className="analysis-page-header">
+              <PageHeaderView header={data.pageHeader} />
+            </div>
 
-      <div className="section">
-        <SubmissionMetaBar meta={viewData.submissionMeta} />
-      </div>
+            <div className="analysis-page-meta">
+              <SubmissionMetaBar meta={data.submissionMeta} />
+            </div>
 
-      <div className="section">
-        <ScoreOverviewSection data={viewData.scoreOverview} />
-      </div>
+            <div className="analysis-page-score-overview">
+              <ScoreOverviewSection data={data.scoreOverview} />
+            </div>
 
-      <div className="section">
-        <SubmissionSummarySection data={viewData.submissionSummary} />
-      </div>
+            <div className="analysis-page-submission-summary">
+              <SubmissionSummarySection data={data.submissionSummary} />
+            </div>
 
-      <div className="section">
-        <ScoreExplanationSection data={viewData.scoreExplanation} />
-      </div>
+            <div className="analysis-page-score-explanation">
+              <ScoreExplanationSection data={data.scoreExplanation} />
+            </div>
 
-      <div className="section">
-        <CriterionBreakdownSection data={viewData.criterionBreakdown} />
-      </div>
+            <div className="analysis-page-criterion-breakdown">
+              <CriterionBreakdownSection data={data.criterionBreakdown} />
+            </div>
 
-      <div className="section">
-        <SubmissionActionsBar actions={viewData.actions} />
-      </div>
-    </div>
+            <div className="analysis-page-action-buttons">
+              <SubmissionActionsBar actions={data.actions} />
+            </div>
+          </div>
+        )
+      }
+    </QueryStateHandler>
   );
 }
+
+

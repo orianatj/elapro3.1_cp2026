@@ -4,10 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 // Import the ViewData type used by the Submission Analysis page
 import type { CriterionType, SubmissionAnalysis } from "../types/student/StudentSubmissionAnalysisViewData";
 
+// Import utilities for formatting and labeling
 import { formatDateTime } from "../utils/dateUtils";
 import { ieltsTypeLabels, taskTypeLabels } from "../utils/studentSubmissionLabels";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
-``
 
 import { mockSubmissionAnalysis } from "../studentDashboard/SubmissionAnalysisMock";
 
@@ -22,7 +22,7 @@ const labels: Record<CriterionType, string> = {
 export function useSubmissionAnalysis(submissionId: string) {
 
     // Use TanStack Query to fetch and manage submission data.
-    const { data, isPending, error } = useQuery({
+    const { data, isPending, isError, error } = useQuery({
         queryKey: ["submissionAnalysis", submissionId], // Unique key for caching and refetching
 
         // Prevent the query from running if submissionId is not provided
@@ -107,6 +107,7 @@ export function useSubmissionAnalysis(submissionId: string) {
     return {
         viewData: data,
         isPending,
+        isError,
         error,
     };
 }
