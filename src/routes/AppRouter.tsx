@@ -9,6 +9,7 @@ import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
 import IndividualSubmission from "../pages/teacher/IndividualSubmission.tsx";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
+import CreateAssignment from "../pages/teacher/createAssignment.tsx";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
@@ -43,6 +44,7 @@ export default function AppRouter() {
           <Route index element={<TeacherDashboard />} />
           <Route path="edit-score" element={<EditStudentScorePage />} />
           <Route path="individual-submission" element={<IndividualSubmission />} />
+          <Route path="create-assignment" element={<CreateAssignment />} />
           <Route path="submissions" element={<ViewSubmissions />} />
         </Route>
 
