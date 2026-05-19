@@ -9,7 +9,7 @@ export function InvalidResetLink() {
     return (
         <div className="auth-page" >
             <div className="auth-card">
-                <img className="auth-icon" src={failure} alt="Reset password failure icon" width={100} height={100} />
+                <img className="auth-icon" src={failure} alt="Reset password link expired icon" width={100} height={100} />
                 <div className="auth-header">
                     <h2 className="auth-title">Password Reset Link Expired</h2>
                     <p className="auth-instruction">Your password reset link is invalid or has expired.</p>
