@@ -30,8 +30,17 @@ export function useSubmissionAnalysis(submissionId: string) {
 
         // Simulate an API call to fetch submission analysis data
         queryFn: async () => {
+            // Simulate error handling by throwing an error for certain submissionIds (e.g., "error-case")
+            const simulateError = false; // Toggle to true to test error handling 
+            if (simulateError) {
+                throw {
+                    response: { status: 403 },
+                };
+            }
+
             // Simulate API response (no backend yet)
             return mockSubmissionAnalysis;
+
         },
 
         // transform the raw API response into the ViewData format expected by the page components
