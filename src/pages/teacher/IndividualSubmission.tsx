@@ -2,8 +2,45 @@ import "./teacher.css";
 import "./IndividualSubmission.css";
 import ToolbarButton from "../../common/ToolbarButton";
 import ToolbarButtonConfirm from "../../common/ToolbarButtonConfirm";
+import { useSubmissionIndividual } from "../../hooks/useSubmissionIndividual";
+import { useSubmissionResult } from "../../hooks/useSubmissionResult";
 
-export default function IndividualSubmission() {
+export function IndividualSubmission({ submissionId }: { submissionId: string }) {
+  const submissionIndividualQuery = useSubmissionIndividual(submissionId);
+  const submission = submissionIndividualQuery.data; // now the actual object
+
+  if (submissionIndividualQuery.isLoading) return <div>Loading...</div>;
+  if (submissionIndividualQuery.isError) return <div>Error: {String(submissionIndividualQuery.error)}</div>;
+
+  return (
+    <div>
+      <h3>{submission?.data.title ?? "Untitled"}</h3>
+      <p>Word Count: {submission?.data.wordCount ?? "N/A"}</p>
+      <p>Essay Text: {submission?.data.essayText ?? "N/A"}</p>
+      <pre>{JSON.stringify(submission, null, 2)}</pre>
+    </div>
+  );
+}
+
+export function SubmissionResult({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    <div>
+      <h3>Submission Result</h3>
+      <p>Overall Score: {result?.overallScore ?? "N/A"}</p>
+      <p>Task Type: {result?.taskType ?? "N/A"}</p>
+      <pre>{JSON.stringify(result, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default function IndividualSubmissionPage() {
   return (
     <>
       <div className="header">Student's Paper</div>
@@ -48,10 +85,14 @@ Lorem ipsum dolor sit amet consectetur  adipiscing elit. Quisque faucibus ex sap
             />
           </div>
           
-
+        
         </div>
+        
       </div>
-
+      <div style={{ width: "200px" }}>
+          <SubmissionResult submissionId="9ec9b32e-7e2f-4f63-887b-c95bc3cefb33" />
+          <IndividualSubmission submissionId="9ec9b32e-7e2f-4f63-887b-c95bc3cefb33" />
+      </div>
     </>
   );
 }
