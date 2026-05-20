@@ -6,8 +6,8 @@ import type { UserRole } from "../types/common/User";
 const ROLE_DASHBOARD_MAP: Record<UserRole, string> = {
     student: "/student",
     admin: "/admin",
-    "supervisory-teacher": "/teacher",
-    "external-teacher": "/teacher"
+    "supervisory_teacher": "/teacher",
+    "external_teacher": "/teacher"
 };
 
 // Define props for protected route component 
