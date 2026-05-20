@@ -1,12 +1,13 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import type { UserRole } from "../types/common/User";
+import { LoginPage } from "../pages/auth/LoginPage";
 
 const ROLE_DASHBOARD_MAP: Record<UserRole, string> = {
     student: "/student",
     admin: "/admin",
-    "supervisory-teacher": "/teacher",
-    "external-teacher": "/teacher"
+    "supervisory_teacher": "/teacher",
+    "external_teacher": "/teacher"
 };
 
 export function DashboardRedirect() {
@@ -28,14 +29,14 @@ export function DashboardRedirect() {
     // Redirect unauthenticated users to login
     if (!isAuthenticated || !user) {
         return (
-            <Navigate to="/" replace />
+            <LoginPage />
         )
     }
 
     // Redirect users with restricted account states
     if (user.accountStatus !== "active") {
         return (
-            <Navigate to="/" replace />
+            <LoginPage />
         )
     }
 
