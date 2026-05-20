@@ -15,6 +15,9 @@ import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
 import { LoginPage } from "../pages/auth/LoginPage.tsx"
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
+import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
+import { ResetPasswordPage } from "../pages/auth/ResetPasswordPage.tsx";
+import { VerifyEmailPage } from "../pages/auth/VerifyEmailPage.tsx";
 
 // TODO: Confirm if student are the only user type that require an account management page
 
@@ -25,6 +28,10 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+
 
         {/* Protected Routes */}
         {/*<Route element={<ProtectedRoute />}>*/}
