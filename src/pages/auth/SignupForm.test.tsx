@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { SignupPage } from "./SignupPage";
+import { MemoryRouter } from "react-router-dom";
+import { SignupForm } from "./SignupForm";
 import { vi } from "vitest";
 
 
@@ -10,10 +11,14 @@ function setup() {
 
     const user = userEvent.setup();
 
-    render(<SignupPage />);
+    // Mock SignupForm props 
+    const mockOnSuccess = vi.fn()
+
+    render(<MemoryRouter><SignupForm onSuccess={mockOnSuccess} /></MemoryRouter>);
 
     return {
         user,
+        mockOnSuccess,
         firstNameInput: screen.getByLabelText("First Name"),
         lastNameInput: screen.getByLabelText("Last Name"),
         middleNameInput: screen.getByLabelText("Middle Name(optional)"),
@@ -26,7 +31,7 @@ function setup() {
 }
 
 
-// 1. Test Component Rendering 
+// Test Component Rendering 
 
 // Mock useRegister mutation function returned by useRegister hook
 const mockRegister = vi.fn()
@@ -39,8 +44,8 @@ vi.mock("../../hooks/useRegister", () => ({
 
 // Clear call history
 beforeEach(() => {
-    mockRegister.mockReset()
-})
+    vi.clearAllMocks();
+});
 
 test('renders sign-up form fields', () => {
 
@@ -334,3 +339,40 @@ describe("maps backend status code to correct user-facing error message", () => 
     )
 
 });
+
+test("calls onSuccess after sign-up form has been succesfully submitted", async () => {
+
+    const {
+        user,
+        mockOnSuccess,
+        firstNameInput,
+        lastNameInput,
+        emailInput,
+        passwordInput,
+        confirmPasswordInput,
+        signupButton,
+    } = setup();
+
+    // Mock successful registration 
+    mockRegister.mockResolvedValue({});
+
+    // Fill required fields
+    await user.type(firstNameInput, "Joe");
+
+    await user.type(lastNameInput, "Bloggs");
+
+    await user.type(emailInput, "joebloggs@gmail.com");
+
+    await user.type(passwordInput, "testPassword123$");
+
+    await user.type(confirmPasswordInput, "testPassword123$");
+
+    // Submit form
+    await user.click(signupButton);
+
+    // Verify parent callback triggered
+    expect(mockOnSuccess).toHaveBeenCalledWith(
+        "joebloggs@gmail.com"
+    );
+
+})

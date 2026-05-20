@@ -1,7 +1,7 @@
 // src/api/client.js
 import axios from "axios";
 
-// Create axios isntance that references the ELA Pro FastAPI Wrapper 
+// Create axios instance that references the ELA Pro FastAPI Wrapper 
 export const api = axios.create({
   baseURL: "http://52.65.46.84:9000/api/v1"
 });
