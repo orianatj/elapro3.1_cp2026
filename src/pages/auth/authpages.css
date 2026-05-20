@@ -27,7 +27,7 @@
 
 /* Keep title close to logo */
 .login-header {
-  margin-top: 10px;
+  margin-top: 0;
   margin-bottom: 40px; /* creates the gap before form */
 }
 
@@ -60,7 +60,7 @@
 }
 
 
-/* ================= REGISTRATION PAGE ================= */
+/* ================= SIGN-UP PAGE ================= */
 
 
 /* Full page */
@@ -129,6 +129,79 @@ label.required::after {
 /* ================= SHARED ================= */
 
 
+/* Auth full page */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  background: white;
+}
+
+/* Auth box/card */
+.auth-card {
+    display: flex;
+    flex-direction: column;
+    width: 500PX;
+    padding: 2rem;
+    background: white;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+/* Keep title close to logo */
+.auth-header {
+  margin-top: 10px;
+  margin-bottom: 40px; /* creates the gap before form */
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+
+.auth-form input {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-title {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+.auth-instruction {
+  font-size: 17px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Form icon */
+.auth-icon {
+    margin: 0 auto 5px auto;
+}
+
+label.required::after {
+  content: " *";
+  color: red;
+}
+ 
+
 /* Error message */
 .auth-error {
   width: 100%;
@@ -169,4 +242,80 @@ label.required::after {
 .auth-button:disabled {
   background-color: #a5b0c7;
   cursor: not-allowed;
+}
+
+/* Link styling and layout */
+
+.auth-link {
+    color: #3366cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+.auth-link-center {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.auth-link-right {
+  margin-top: 0.5rem;
+  text-align: right;
+}
+/* Stlying for paragraph that wraps link */
+
+.auth-redirect {
+    margin-top: 0;
+    text-align: center;
+}
+
+.auth-redirect-left {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+
+/* ================= SIGN-UP: VERIFY EMAIL SENT ================= */
+
+/* Styling for Resend verification email button*/
+.auth-link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #3366cc;
+    cursor: pointer;
+    font: inherit;
+}
+
+.auth-link-button:hover {
+    text-decoration: underline;
+}
+
+/* Styling for the second redirect option to Login */
+.auth-link-secondary {
+    margin-top: 0;
+    text-align: center;
+    color: rgb(97, 93, 93);
+}
+
+.auth-link-secondary:hover {
+  text-decoration: underline;
+}
+
+.auth-redirect-secondary {
+  margin-top: 0;
+  text-align: center;
+  color: rgb(97, 93, 93);
+}
+
+/* ================= SIGN-UP: RESEND VERIFICATION FORM ================= */
+
+.title-resend-verify {
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 0;
 }

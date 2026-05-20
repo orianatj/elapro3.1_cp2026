@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { Credentials } from "../../types/common/Auth";
 import Logo from "../../assets/Logo.png";
 import "./authpages.css"
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function LoginPage() {
 
@@ -116,6 +116,7 @@ export function LoginPage() {
                             // Update password state when user types
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        <Link to="/forgot-password" className="auth-link auth-link-right">Forgot password?</Link>
                     </div>
 
                     {/* Conditionally render authentication error message */}
@@ -124,9 +125,9 @@ export function LoginPage() {
                     {/* Submit login request */}
                     <button className="auth-button" type="submit">Login</button>
 
-                    {/* TODO: Add interactable link to Sign-up page once created*/}
-
-                    {/*<p><Link to="/"></Link>Sign-up</p>*/}
+                    <p className="auth-redirect">Don't have an account?
+                        <Link to="/sign-up" className="auth-link"> Sign-up</Link>
+                    </p>
 
                 </form>
             </div>
