@@ -30,7 +30,7 @@ export function VerifyEmailSent({ email, onResendRequested }: VerifyEmailProps) 
 
 
                 <p className="auth-redirect-secondary">Already have an account?{" "}
-                    <Link to="/" className="auth-link-secondary">Login</Link>
+                    <Link to="/login" className="auth-link-secondary">Login</Link>
                 </p>
 
             </div>

@@ -20,7 +20,7 @@ export function ResetPasswordSuccess() {
                     className="auth-button"
                     type="button"
                     onClick={() => {
-                        navigate("/");
+                        navigate("/login");
                     }}
                 >
                     Proceed to login
