@@ -1,7 +1,7 @@
 import React from "react";
 import "./adminDashboard.css";
 import { useAdminDashboard } from "../../hooks/useAdminDashboard";
-import type { RecentAdminActivity } from "../../services/adminApi";
+import type { AdminRecentLog } from "../../services/adminApi";
 
 type AdminStatCardProps = {
   title: string;
@@ -19,36 +19,25 @@ function AdminStatCard({ title, value, description }: AdminStatCardProps) {
   );
 }
 
-function formatActivity(activity: RecentAdminActivity): string {
-  if (typeof activity === "string") {
-    return activity;
-  }
+function formatActivity(log: AdminRecentLog): string {
+  const userName =
+    log.firstName && log.lastName
+      ? `${log.firstName} ${log.lastName}`
+      : log.emailAddress || "System";
 
-  return (
-    activity.message ||
-    activity.action ||
-    activity.description ||
-    "Recent admin activity"
-  );
+  return `${userName} - ${log.logAction}`;
 }
 
 export function AdminDashboardPage() {
-  const {
-    dashboardData,
-    loading,
-    error,
-    refetchDashboard,
-  } = useAdminDashboard();
+  const { dashboardData, loading, error, refetchDashboard } =
+    useAdminDashboard();
 
-  const recentActivities =
-    dashboardData?.recentUserActicty ||
-    dashboardData?.recentUserActivity ||
-    [];
+  const recentActivities = dashboardData?.recentLogs || [];
 
   const systemUpdates = [
     {
-      label: "Platform Status",
-      value: dashboardData?.systemHealth || "Unknown",
+      label: "Database Health",
+      value: dashboardData?.dbHealth || "Unknown",
     },
     {
       label: "Last Sync",
@@ -106,8 +95,8 @@ export function AdminDashboardPage() {
         />
 
         <AdminStatCard
-          title="System Health"
-          value={dashboardData?.systemHealth || "Unknown"}
+          title="Database Health"
+          value={dashboardData?.dbHealth || "Unknown"}
           description="Current backend status"
         />
       </section>
@@ -122,7 +111,7 @@ export function AdminDashboardPage() {
           <ul className="admin-activity-list">
             {recentActivities.length > 0 ? (
               recentActivities.map((activity, index) => (
-                <li key={index}>
+                <li key={activity.logId || index}>
                   <span>[{index + 1}]</span>
                   <p>{formatActivity(activity)}</p>
                 </li>
