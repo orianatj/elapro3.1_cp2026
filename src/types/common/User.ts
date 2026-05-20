@@ -1,5 +1,5 @@
 // Define a union type to strongly type user roles
-export type UserRole = "student" | "admin" | "supervisory-teacher" | "external-teacher";
+export type UserRole = "student" | "admin" | "supervisory_teacher" | "external_teacher";
 
 // Define a union type to strongly type account status
 export type AccountStatus = "active" | "pending" | "inactive" | "active" | "cancelled";
