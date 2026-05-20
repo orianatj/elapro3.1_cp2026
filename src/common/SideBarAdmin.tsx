@@ -23,11 +23,11 @@ const adminNavItems = [
     label: "Reports",
     path: "/admin/reports",
   },
-  {
+  /*{
     icon: "/src/assets/vector.png",
     label: "Settings",
     path: "/admin/settings",
-  },
+  },*/
 ];
 
 export default function SideBarAdmin() {
