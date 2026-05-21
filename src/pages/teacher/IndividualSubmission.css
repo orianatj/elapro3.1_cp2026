@@ -2,7 +2,6 @@
   display: flex;             /* Establishes the flex context */
   gap: 20px;                 /* Adds space between items */
   width: 100%;              /* Full width of the parent container */
-  min-height: 100vh;            /* Full viewport height */
   padding: 20px;            /* Adds padding around the container */
   border-radius: 12px;
   box-sizing: border-box;         /* Ensures padding is included in width/height */
@@ -20,6 +19,8 @@
   gap: 10px;                 /* Adds space between items */
   border-radius: 12px;
   padding: 20px;
+  padding-top: 0px;
+  flex: 1;
   background-color: #EBEBF0;
 }
 
