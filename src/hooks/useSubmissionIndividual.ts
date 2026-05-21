@@ -4,7 +4,7 @@ import { submissionIndividual as submissionIndividualApi } from "../services/sub
 
 export function useSubmissionIndividual(id: string) {
     return useQuery({
-        queryKey: ['submission', id],
+        queryKey: ['submissionIndividual', id],
         queryFn: async () => (await submissionIndividualApi(id)).data
     });
 }

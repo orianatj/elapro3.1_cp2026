@@ -3,11 +3,10 @@
   --score-card-bg: #ebebf0;
 }
 .flex-container {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  min-height: 100vh;
-  padding: 20px;
+  display: flex;           
+  gap: 20px;            
+  width: 100%;            
+  padding: 20px;            
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--page-bg);
@@ -24,6 +23,8 @@
   gap: 10px;
   border-radius: 12px;
   padding: 20px;
+  padding-top: 0px;
+  flex: 1;
   background-color: var(--score-card-bg);
 }
 
