@@ -1,245 +1,241 @@
+/* ================= THEME COLORS ================= */
+:root {
+  --bg-start: #c7d2fe;
+  --bg-end: #e5e7eb;
+  --text-main: #000000;
+
+  --sidebar-bg: #6476a1;
+  --sidebar-text: #ffffff;
+  --sidebar-hover: #215dab;
+
+  --badge-red: #f70406;
+
+  --header-bg: #f3f4f6;
+
+  --card-bg: #ffffff;
+  --border-light: #c7c9d9;
+  --divider-light: #e5e7eb;
+
+  --link-blue: #4f46e5;
+
+  --assignment-bg: #eef0f5;
+  --assignment-hover: #fee6e6;
+
+  --date-bg: #16396b;
+  --date-hover: #b00303;
+
+
+  --text-time: #374151;
+  --text-muted: #6b7280;
+
+  --status-late: #b00303;
+}
+
 /* ================= RESET + BASE ================= */
 
 /* Universal reset for consistent sizing */
 * {
-  box-sizing: border-box; /* Includes padding and border in element width/height */
+  box-sizing: border-box;
 }
 
 /* Overall page styling */
 body {
-  margin: 0; /* Removes default browser spacing */
-  font-family: Arial, sans-serif; /* Sets a clean default font */
-  background: linear-gradient(to bottom, #c7d2fe, #e5e7eb); /* Soft gradient background */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
   display: block;
-  color: black;
+  color: var(--text-main);
 }
 
 /* Makes all images responsive by default */
 img {
-  max-width: 100%; /* Prevents images from overflowing their containers */
-  display: block; /* Removes inline spacing under images */
+  max-width: 100%;
+  display: block;
 }
 
 h3 {
-  font-family: "Source Serif Pro", serif; /* Serif font for section titles */
-  font-size: 24px; /* Size for section headers */
-  font-weight: 600; /* Semi-bold */
+  font-family: "Source Serif Pro", serif;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 /* ================= LAYOUT WRAPPER ================= */
 
-/* Main layout container holding sidebar + main content */
 .teacher-container {
-  display: flex; /* Places sidebar and main content side by side */
-  min-height: 100vh; /* Makes layout fill full viewport height */
+  display: flex;
+  min-height: 100vh;
 }
 
 /* ================= SIDEBAR ================= */
 
-/* Sidebar panel container */
 .sidebar {
-  width: 240px; /* Fixed sidebar width */
-  margin: 10px; /* Space around sidebar */
-  padding: 20px; /* Inner spacing */
-  background: #6476a1; /* Sidebar background color */
-  color: #fff; /* Default text color */
-  border-radius: 20px; /* Rounded corners */
+  width: 240px;
+  margin: 10px;
+  padding: 20px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  border-radius: 20px;
 }
 
-/* Wrapper for top sidebar content */
 .top-section {
-  display: flex; /* Enables flex layout */
-  flex-direction: column; /* Stacks children vertically */
-  align-items: center; /* Centers items horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Logo container */
 .logo {
-  display: flex; /* Enables flex layout */
-  flex-direction: column; /* Stacks image and text vertically */
-  align-items: center; /* Centers content horizontally */
-  text-align: center; /* Centers text alignment */
-  margin-bottom: 20px; /* Space below logo block */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Logo image styling */
 .logo img {
-  max-width: 300px; /* Controls logo size */
-  height: auto; /* Maintains aspect ratio */
-  margin-bottom: 0; /* Removes extra spacing under image */
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 0;
 }
 
-/* Logo text styling */
 .logo p {
-  margin-top: -80px; /* Pulls text upward toward logo image */
-  font-family: "Source Serif Pro", serif; /* Serif font style */
-  font-size: 28px; /* Text size */
-  line-height: 1; /* Reduces vertical spacing */
-  color: #fff; /* White text color */
+  margin-top: -80px;
+  font-family: "Source Serif Pro", serif;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--sidebar-text);
 }
 
-/* Highlighted logo text span */
-.logo span {
-  color: #ff3b3b; /* Red accent color */
-}
 
-/* Top icon row container */
 .top-icons {
-  display: flex; /* Places icons in a row */
-  align-items: center; /* Vertically centers items */
-  justify-content: space-between; /* Spreads items apart */
-  width: 100%; /* Full width of sidebar */
-  padding: 0 10px; /* Horizontal padding */
-  margin-bottom: 20px; /* Space below icon row */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 20px;
 }
 
-/* Avatar image */
 .avatar {
-  width: 40px; /* Avatar size */
-  height: 40px; /* Avatar size */
-  border-radius: 50%; /* Makes avatar circular */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
-/* Notification wrapper container */
 .notification-wrapper {
-  position: relative; /* Allows badge positioning */
+  position: relative;
 }
 
-/* Notification icon */
 .notification-wrapper img {
-  width: 28px; /* Icon width */
-  height: 28px; /* Icon height */
-  cursor: pointer; /* Pointer cursor on hover */
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
 }
 
-/* Notification badge */
 .badge {
-  position: absolute; /* Positioned relative to wrapper */
-  top: -6px; /* Moves badge upward */
-  right: -8px; /* Moves badge right */
-  background: #f70406; /* Red badge background */
-  color: white; /* White text */
-  font-size: 12px; /* Small text size */
-  font-weight: bold; /* Bold text */
-  padding: 2px 6px; /* Internal spacing */
-  border-radius: 50%; /* Circular badge */
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--badge-red);
+  color: var(--sidebar-text);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
 }
 
-/* Sidebar navigation list reset */
 nav ul {
-  list-style: none; /* Removes bullets */
-  padding: 0; /* Removes default padding */
-  margin: 0; /* Removes default margin */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Sidebar navigation items */
 .sidebar a {
-  display: flex; /* Aligns icon + text horizontally */
-  align-items: center; /* Vertically centers content */
-  gap: 15px; /* Space between icon and text */
-  padding: 0px; /* Inner spacing */
-  margin: 0; /* Space between items */
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  font-family: "DM Sans", sans-serif; /* Clean sans-serif font */
-  font-size: 18px; /* Text size */
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0px;
+  margin: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
 }
 
-/* Hover effect for navigation items */
 .sidebar a:hover {
-  background: #215dab; /* Blue highlight on hover */
+  background: var(--sidebar-hover);
 }
 
-/* Navigation icons */
 .sidebar a img {
-  width: 24px; /* Icon width */
-  height: 24px; /* Icon height */
-  object-fit: contain; /* Prevents distortion */
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .sidebar a,
 .sidebar a:visited {
-  color: inherit;        /* Uses your sidebar text color */
-  text-decoration: none; /* Removes underline */
+  color: inherit;
+  text-decoration: none;
 }
-
 
 /* ================= MAIN CONTENT ================= */
 
-/* Main content wrapper */
 .main {
-  flex: 1; /* Takes remaining horizontal space */
-  padding: 20px; /* Inner spacing */
+  flex: 1;
+  padding: 20px;
 }
 
-/* Header section */
 .header {
-  margin-bottom: 20px; /* Space below header */
-  padding: 20px; /* Inner spacing */
-  background: #f3f4f6; /* Light gray background */
-  border-radius: 12px; /* Rounded corners */
-  font-size: 24px; /* Large text */
+  margin-bottom: 20px;
+  padding: 20px;
+  background: var(--header-bg);
+  border-radius: 12px;
+  font-size: 24px;
 }
 
 /* ================= STATS SECTION ================= */
 
-/* Stats grid container */
 .stats {
-  display: grid; /* Grid layout */
-  grid-template-columns: repeat(5, 1fr); /* Five equal columns */
-  gap: 200px; /* Large spacing between cards */
-  margin-bottom: 20px; /* Space below section */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 200px;
+  margin-bottom: 20px;
 }
 
-/* Individual stat card */
 .card {
-  padding: 5px; /* Inner spacing */
-  background: #fff; /* White background */
-  border-radius: 12px; /* Rounded corners */
-  text-align: center; /* Center text */
-  font-family: "DM Sans", sans-serif; /* Font style */
-  display: flex; /* Flex layout */
-  flex-direction: column; /* Stack content vertically */
-  align-items: center; /* Center horizontally */
-  max-width: 180px; /* Limits card width */
-  gap: 8px; /* Space between elements */
-  border: 1px solid #C7C9D9; /* Light outline */
+  padding: 5px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  text-align: center;
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 180px;
+  gap: 8px;
+  border: 1px solid var(--border-light);
 }
 
-/* Card icon */
 .card img {
-  width: 36px; /* Icon size */
-  height: 36px; /* Icon size */
+  width: 36px;
+  height: 36px;
 }
 
-/* Card value text */
 .card strong {
-  display: block; /* Forces new line */
-  margin-top: 10px; /* Space above value */
-  font-family: "Source Serif Pro", serif; /* Serif font */
-  font-size: 22px; /* Large number text */
+  display: block;
+  margin-top: 10px;
+  font-family: "Source Serif Pro", serif;
+  font-size: 22px;
 }
 
 /* ================= CHARTS SECTION ================= */
 
-/* Charts grid container */
 .charts {
-  display: grid; /* Grid layout */
-  grid-template-columns: 1fr 1fr 1fr; /* Uneven column layout */
-  gap: 100px; /* Space between charts */
-  margin-bottom: 20px; /* Space below section */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 100px;
+  margin-bottom: 20px;
 }
 
-/* Individual chart box */
-.chart-box {
- /* min-height: 150px;  Minimum height */
-  /* padding: 20px; Inner spacing */
-   /* background: #fff; White background */
-  /*  border-radius: 12px; Rounded corners */
-  /*border: 1px solid #C7C9D9;  Light outline */
-}
-
-/* Make charts clickable */
 .chart-box img {
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -249,21 +245,17 @@ nav ul {
   transform: scale(1.03);
 }
 
-/* Modal background */
 .image-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-
+  background: var(--overlay-bg);
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 9999;
   padding: 20px;
 }
 
-/* Zoomed image */
 .zoomed-image {
   max-width: 90%;
   max-height: 90%;
@@ -271,7 +263,6 @@ nav ul {
   animation: zoomIn 0.3s ease;
 }
 
-/* Smooth zoom animation */
 @keyframes zoomIn {
   from {
     transform: scale(0.7);
@@ -283,242 +274,200 @@ nav ul {
   }
 }
 
-
 /* ================= BOTTOM LISTS ================= */
 
-/* Bottom section container */
 .bottom {
-  display: flex; /* Horizontal layout */
-  gap: 20px; /* Space between panels */
+  display: flex;
+  gap: 20px;
 }
 
-/* List panel */
 .list {
-  flex: 1; /* Equal width panels */
-  padding: 15px; /* Inner spacing */
-  background: #fff; /* White background */
-  border: 1px solid #C7C9D9; /* Light outline */
-  border-radius: 12px; /* Rounded corners */
+  flex: 1;
+  padding: 15px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
 }
 
-/* Header row (title + see all) */
 .list-header {
-  display: flex; /* Put title and link in one row */
-  justify-content: space-between; /* Push them to opposite sides */
-  align-items: center; /* Vertically align */
-  margin-bottom: 8px; /* Small spacing before divider */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-/* Section title */
 .list-header h3 {
-  margin: 0; /* Remove default margin */
+  margin: 0;
   font-size: 18px;
 }
 
-/* "See all" link */
 .see-all {
   font-size: 14px;
-  color: #4f46e5; /* Subtle blue */
-  cursor: pointer; /* Makes it feel clickable */
+  color: var(--link-blue);
+  cursor: pointer;
 }
+
 .see-all:hover {
   text-decoration: underline;
 }
 
-/* Divider line */
 .divider {
-  width: 100%; /* Full width line */
-  height: 1px; /* Thin line */
-  background: #e5e7eb; /* Light gray */
-  margin-bottom: 10px; /* Space before list */
+  width: 100%;
+  height: 1px;
+  background: var(--divider-light);
+  margin-bottom: 10px;
 }
 
-/* List reset */
-/* Recent Assignments list container */
-/* Recent Assignments list container */
 .assignment-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Each assignment row/card */
 .assignment-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px; /* Reduced spacing */
-  padding: 10px 12px; /* Smaller padding */
-  margin: 8px 0; /* Less vertical spacing */
-  background: #eef0f5;
-  border-radius: 16px; /* Slightly smaller radius */
+  gap: 12px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  background: var(--assignment-bg);
+  border-radius: 16px;
 }
 
 .assignment-item img {
-  width: 28px; /* Smaller icon size */
-  height: 28px; /* Smaller icon size */
+  width: 28px;
+  height: 28px;
 }
 
-/* Change card color on hover */
 .assignment-item:hover {
-  background: #FEE6E6;
+  background: var(--assignment-hover);
 }
 
-/* Change date box color on hover */
 .assignment-item:hover .assignment-date {
-  background: #B00303;
+  background: var(--date-hover);
 }
 
-/* Date box */
 .assignment-date {
   width: 50px;
   height: 50px;
   flex-shrink: 0;
-  background: #16396b;
+  background: var(--date-bg);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Day number */
 .assignment-date .day {
-  color: #fff;
+  color: var(--sidebar-text);
   font-size: 18px;
   font-weight: 600;
 }
 
-/* Title wrapper (centered in available space) */
 .assignment-title-wrap {
-  flex: 1; /* Take all remaining space */
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center; /* CENTER horizontally */
-  text-align: center; /* Ensure text is centered */
+  justify-content: center;
+  text-align: center;
 }
 
-/* Assignment title */
 .assignment-title-wrap strong {
   font-size: 16px;
   font-weight: 600;
-  color: #111827;
 }
 
-/* Meta section (time + status) */
 .assignment-meta {
-  width: 90px; /* Fixed width to control position */
+  width: 90px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /* Move content LEFT */
-  text-align: left; /* Left-align text */
+  align-items: flex-start;
+  text-align: left;
   gap: 4px;
 }
 
-/* Time text */
 .assignment-meta .time {
   font-size: 13px;
-  color: #374151;
+  color: var(--text-time);
 }
-
-/* Status text */
-.assignment-meta .status {
-  font-size: 14px;
-  color: #6b7280;
-}
-
 
 .status {
-  font-family: "DM Sans", sans-serif; /* Clean sans font */
-  font-size: 10px; /* Requested size */
-  font-weight: 400; /* Regular weight */
-  color: #059669;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
-/* Late text */
 .status.late {
-  font-family: "Jost", sans-serif; /* Jost font */
-  font-size: 14px; /* Adjust if needed */
-  font-weight: 700; /* Bold */
-  color: #B00303;
+  font-family: "Jost", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--status-late);
 }
 
 /* ================= TABLET RESPONSIVE ================= */
 
 @media (max-width: 900px) {
-  .container {
-    flex-direction: column; /* Stack sidebar and main vertically */
+  .teacher-container {
+    flex-direction: column;
   }
 
   .sidebar {
-    width: auto; /* Full width */
-    margin: 10px; /* Maintain spacing */
+    width: auto;
+    margin: 10px;
   }
 
   .stats {
-    grid-template-columns: repeat(2, 1fr); /* Reduce columns */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .charts {
-    grid-template-columns: 1fr; /* Single column */
+    grid-template-columns: 1fr;
   }
 
   .bottom {
-    flex-direction: column; /* Stack panels */
+    flex-direction: column;
   }
 }
 
 /* ================= PHONE RESPONSIVE ================= */
 
 @media (max-width: 600px) {
-
-  /* Sidebar padding adjustment */
   .sidebar {
-    padding: 15px; /* Reduced padding */
+    padding: 15px;
   }
 
-  /* Logo scaling */
   .logo img {
-    width: 240px; /* Smaller logo */
+    width: 240px;
   }
 
-  /* Logo text scaling */
   .logo p {
-    font-size: 22px; /* Smaller text */
+    font-size: 22px;
   }
 
-  /* Header scaling */
   .header {
-    font-size: 18px; /* Smaller header text */
-    padding: 15px; /* Reduced padding */
+    font-size: 18px;
+    padding: 15px;
   }
 
-  /* Stats layout for mobile */
   .stats {
-    grid-template-columns: 1fr; /* Single column */
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  /* Card text scaling */
+  .card {
+    max-width: none;
+    width: 100%;
+  }
+
   .card strong {
-    font-size: 20px; /* Slightly smaller text */
+    font-size: 20px;
   }
 
-  /* Chart box spacing */
   .chart-box {
-    padding: 15px; /* Reduced padding */
-    min-height: 120px; /* Smaller height */
+    padding: 15px;
+    min-height: 120px;
   }
-
-/* Stats layout for mobile */
-.stats {
-  grid-template-columns: 1fr; /* keep single column */
-  gap: 12px; /* reduce huge desktop spacing */
-}
-
-/* Make cards wider and full-width */
-.card {
-  max-width: none;   /* remove width restriction */
-  width: 100%;       /* take full available space */
-}
-
 }
