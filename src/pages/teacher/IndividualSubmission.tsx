@@ -100,7 +100,7 @@ const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submissi
 
   return (
     <>
-      <div className="header">Student's Paper</div>
+      <div className="header">Student's Submission</div>
       <div className="flex-container">
         <div className ="submission-view-card">
             <IndividualSubmission submissionId={submissionId} />
