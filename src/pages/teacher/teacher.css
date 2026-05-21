@@ -470,4 +470,28 @@ nav ul {
     padding: 15px;
     min-height: 120px;
   }
+
+/* Stats layout for mobile */
+.stats {
+  grid-template-columns: 1fr; /* keep single column */
+  gap: 12px; /* reduce huge desktop spacing */
+}
+
+/* Make cards wider and full-width */
+.card {
+  max-width: none;   /* remove width restriction */
+  width: 100%;       /* take full available space */
+}
+
+.submission-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.submission-center > * {
+  width: 100%;
+  max-width: 700px;
+}
+
 }

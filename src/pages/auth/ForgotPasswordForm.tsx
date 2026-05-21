@@ -100,7 +100,7 @@ export function ForgotPasswordForm({ onSuccess }: ForgotPasswordProps) {
                 <button className="auth-button" type="submit">Reset password</button>
 
                 <p className="auth-redirect">Back to
-                    <Link to="/" className="auth-link"> Login</Link>
+                    <Link to="/login" className="auth-link"> Login</Link>
                 </p>
             </form >
         </div >
