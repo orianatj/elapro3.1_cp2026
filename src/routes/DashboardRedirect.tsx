@@ -1,14 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import type { UserRole } from "../types/common/User";
 import { LoginPage } from "../pages/auth/LoginPage";
+import { ROLE_DASHBOARD_MAP } from "../constants/auth";
 
-const ROLE_DASHBOARD_MAP: Record<UserRole, string> = {
-    student: "/student",
-    admin: "/admin",
-    "supervisory_teacher": "/teacher",
-    "external_teacher": "/teacher"
-};
 
 export function DashboardRedirect() {
 

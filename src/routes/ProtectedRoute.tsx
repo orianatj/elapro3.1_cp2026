@@ -1,14 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import type { UserRole } from "../types/common/User";
-
-// Map user roles to their dashboard landing routes
-const ROLE_DASHBOARD_MAP: Record<UserRole, string> = {
-    student: "/student",
-    admin: "/admin",
-    "supervisory_teacher": "/teacher",
-    "external_teacher": "/teacher"
-};
+import { ROLE_DASHBOARD_MAP } from "../constants/auth";
 
 // Define props for protected route component 
 type ProtectedRouteProps = {
