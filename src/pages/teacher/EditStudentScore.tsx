@@ -57,6 +57,10 @@ export default function EditStudentScore() {
       <AssignmentPanel />
 
       <OverallScore score={overallScore} />
+      <div className="actions">
+  <button className="cancel">Cancel</button>
+  <button className="save">Save</button>
+</div>
     </div>
   );
 }

@@ -1,4 +1,48 @@
 /* ===============================
+   THEME VARIABLES
+=================================*/
+:root {
+
+  /* Student Card */
+  --student-card-bg: #f3f4f6;
+  --student-avatar-bg: #d1d5db;
+
+  /* Score Boxes */
+  --score-box-bg: #ffffff;
+  --score-box-border: #c7c9d9;
+
+  /* Assignment Panel */
+  --assignment-panel-bg: #ffffff;
+  --assignment-panel-border: #d1d5db;
+  --assignment-header-bg: #1f4c8f;
+  --assignment-header-text: #ffffff;
+
+  /* Dummy Text */
+  --dummy-text-line: #9ca3af;
+
+  /* Resource */
+  --resource-bg: #f3f4f6;
+  --resource-btn-bg: #1f3b73;
+  --resource-btn-text: #ffffff;
+
+  /* Overall Score */
+  --overall-score-bg: #ffffff;
+  --overall-score-border: #c7c9d9;
+  --overall-score-header-bg: #2f67b2;
+  --overall-score-header-text: #ffffff;
+  --overall-score-footer-border: #9ca3af;
+
+  /* Score Badge */
+  --score-badge-bg: #eef6ff;
+  --score-badge-text: #111111;
+
+  /* Action Buttons */
+  --cancel-btn-bg: #9ca3af;
+  --save-btn-bg: #22c55e;
+  --action-btn-text: #ffffff;
+}
+
+/* ===============================
    Base Layout
 =================================*/
 .edit-score-page {
@@ -28,7 +72,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: #f3f4f6;
+  background: var(--student-card-bg);
   padding: 14px 16px;
   border-radius: 12px;
   min-width: 0;
@@ -38,7 +82,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #d1d5db;
+  background: var(--student-avatar-bg);
   flex-shrink: 0;
 }
 
@@ -47,13 +91,9 @@
 =================================*/
 .score-grid {
   display: grid;
-
-  /* keeps 2 columns but allows shrink if needed */
   grid-template-columns: repeat(2, minmax(220px, 260px));
-
   column-gap: 10px;
   row-gap: 14px;
-
   justify-content: start;
   align-content: start;
 }
@@ -62,26 +102,23 @@
    Score Box
 =================================*/
 .score-box {
-   background: #fff;
+  background: var(--score-box-bg);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid #c7c9d9;
+  border: 1px solid var(--score-box-border);
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  /* KEY FIX */
+  align-items: center;
   justify-content: space-between;
   min-height: 180px;
-  
 }
 
 .score-box > * {
   width: 100%;
   text-align: center;
 }
-
 
 .score-box h4 {
   margin: 0;
@@ -116,94 +153,88 @@
   flex: 1;
 }
 
-
 /* ===============================
-   Assignment Panel (Refined)
+   Assignment Panel
 =================================*/
 .assignment-panel {
-  background: #ffffff;
+  background: var(--assignment-panel-bg);
   border-radius: 10px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--assignment-panel-border);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
 .assignment-panel h3 {
-  background: #1f4c8f;
-  color: #fff;
+  background: var(--assignment-header-bg);
+  color: var(--assignment-header-text);
   margin: 0;
   padding: 12px 16px;
   font-size: 16px;
   font-weight: 600;
 }
 
-/* Inner content wrapper (NEW) */
 .assignment-panel > *:not(h3) {
   margin-left: 16px;
   margin-right: 16px;
 }
 
-/* Assignment text */
 .assignment-panel p {
   margin-top: 12px;
   margin-bottom: 10px;
   font-size: 14px;
 }
 
-/* Fake text lines */
+/* ===============================
+   Dummy Text
+=================================*/
 .dummy-text {
   height: 110px;
   background: repeating-linear-gradient(
     to bottom,
-    #9ca3af,
-    #9ca3af 3px,
+    var(--dummy-text-line),
+    var(--dummy-text-line) 3px,
     transparent 3px,
     transparent 10px
   );
-  margin-bottom: 20px; /* 👈 increase this */
+  margin-bottom: 20px;
   border-radius: 4px;
 }
 
-
-
-/* Resources */
+/* ===============================
+   Resources
+=================================*/
 .resources {
   margin-bottom: 12px;
 }
 
-/* Resource card */
 .resource {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f3f4f6;
+  background: var(--resource-bg);
   padding: 10px 12px;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
-/* Button */
 .resource button {
-  background: #1f3b73;
-  color: white;
+  background: var(--resource-btn-bg);
+  color: var(--resource-btn-text);
   border: none;
   padding: 6px 14px;
   border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
 }
-/* ===============================
-   Overall Score
-=================================*/
+
 /* ===============================
    Overall Score
 =================================*/
 .overall-score {
   grid-column: span 2;
-  background: #fff;
-  border: 1px solid #c7c9d9;
+  background: var(--overall-score-bg);
+  border: 1px solid var(--overall-score-border);
   border-radius: 6px;
   overflow: hidden;
   padding: 0;
@@ -211,8 +242,8 @@
 }
 
 .overall-score__header {
-  background: #2f67b2;
-  color: #fff;
+  background: var(--overall-score-header-bg);
+  color: var(--overall-score-header-text);
   padding: 10px 16px;
   font-size: 18px;
   font-weight: 500;
@@ -236,7 +267,7 @@
 }
 
 .score-badge {
-  background: #eef6ff;
+  background: var(--score-badge-bg);
   padding: 10px 22px;
   min-width: 108px;
   text-align: center;
@@ -244,25 +275,25 @@
   font-weight: 400;
   line-height: 1;
   border-radius: 0;
-  color: #111;
+  color: var(--score-badge-text);
 }
 
 .level-text {
   margin: 0;
   font-size: 16px;
-  color: #111;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
 .overall-score__footer {
-  border-top: 1px solid #9ca3af;
+  border-top: 1px solid var(--overall-score-footer-border);
   padding: 6px 12px 8px;
 }
 
 .description {
   margin: 0;
   font-size: 14px;
-  color: #111;
+  color: var(--text-primary);
 }
 
 /* ===============================
@@ -271,27 +302,29 @@
 .actions {
   grid-column: span 2;
   display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 70px; /* controls distance from edges */
+  box-sizing: border-box;
 }
 
 .cancel,
 .save {
-  color: white;
-  padding: 10px 18px;
+  color: var(--action-btn-text);
+  padding: 12px 24px;
+  min-width: 160px;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
 }
-
 .cancel {
-  background: #9ca3af;
+  background: var(--cancel-btn-bg);
 }
 
 .save {
-  background: #22c55e;
+  background: var(--save-btn-bg);
 }
 
 /* ===============================
