@@ -1,33 +1,37 @@
+:root {
+  --page-bg: #f3f4f6;
+  --score-card-bg: #ebebf0;
+}
 .flex-container {
-  display: flex;             /* Establishes the flex context */
-  gap: 20px;                 /* Adds space between items */
-  width: 100%;              /* Full width of the parent container */
-  padding: 20px;            /* Adds padding around the container */
+  display: flex;           
+  gap: 20px;            
+  width: 100%;            
+  padding: 20px;            
   border-radius: 12px;
-  box-sizing: border-box;         /* Ensures padding is included in width/height */
-  background: #f3f4f6;
+  box-sizing: border-box;
+  background: var(--page-bg);
 }
 
 .submission-view-card {
   font-family: "DM Sans", sans-serif;
-  flex: 1;                 /* Each card takes equal space */
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .total-score-card {
-  gap: 10px;                 /* Adds space between items */
+  gap: 10px;
   border-radius: 12px;
   padding: 20px;
   padding-top: 0px;
   flex: 1;
-  background-color: #EBEBF0;
+  background-color: var(--score-card-bg);
 }
 
 .button-container {
   display: flex;
-  gap: 10px;                 /* Adds space between buttons */
-  margin-top: 20px;          /* Adds space above the button container */
-  width : 100%;              /* Full width of the parent container */
-  justify-content: center;     /* Centers the buttons horizontally */
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
 }
