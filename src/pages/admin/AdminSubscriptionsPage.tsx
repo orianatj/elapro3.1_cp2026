@@ -1,103 +1,139 @@
-import "./AdminSubscriptionsPage.css";
+import React from "react";
+import "./adminDashboard.css";
+import { useAdminSubscriptions } from "../../hooks/useAdminSubscriptions";
+import type { AdminSubscriptionItem } from "../../services/adminApi";
 
-type SubscriptionRow = {
-  organisation: string;
-  plan: string;
-  status: string;
-  usage: string;
-  renewalDate: string;
-  lastUpdated: string;
-};
+function formatUserName(item: AdminSubscriptionItem): string {
+  const fullName = `${item.firstName ?? ""} ${item.lastName ?? ""}`.trim();
 
-const subscriptionData: SubscriptionRow[] = [
-  {
-    organisation: "User 1",
-    plan: "Premium",
-    status: "Active",
-    usage: "34 / 100 submissions",
-    renewalDate: "15-Mar-26",
-    lastUpdated: "2-Feb-26",
-  },
-  {
-    organisation: "User 2",
-    plan: "Basic",
-    status: "Active",
-    usage: "12 / 50 submissions",
-    renewalDate: "28-Feb-26",
-    lastUpdated: "30-Jan-26",
-  },
-  {
-    organisation: "User 3",
-    plan: "Institutional",
-    status: "Active",
-    usage: "420 / 1000 submissions",
-    renewalDate: "1-Apr-26",
-    lastUpdated: "5-Feb-26",
-  },
-  {
-    organisation: "User 4",
-    plan: "Premium",
-    status: "Expiring Soon",
-    usage: "88 / 100 submissions",
-    renewalDate: "20-Feb-26",
-    lastUpdated: "10-Feb-26",
-  },
-  {
-    organisation: "User 4",
-    plan: "Basic",
-    status: "Inactive",
-    usage: "0 / 50 submissions",
-    renewalDate: "—",
-    lastUpdated: "15-Jan-26",
-  },
-  {
-    organisation: "User 5",
-    plan: "Institutional",
-    status: "Active",
-    usage: "610 / 1000 submissions",
-    renewalDate: "12-May-26",
-    lastUpdated: "8-Feb-26",
-  },
-  {
-    organisation: "User 6",
-    plan: "Premium",
-    status: "Active",
-    usage: "56 / 100 submissions",
-    renewalDate: "9-Mar-26",
-    lastUpdated: "1-Feb-26",
-  },
-];
+  if (fullName) {
+    return fullName;
+  }
 
-export default function AdminSubscriptionsPage() {
-  return (
-    <div className="admin-subscriptions-page">
-      <section className="admin-subscriptions-header">
-        <div>
+  return item.emailAddress || "Unknown user";
+}
+
+function formatPlan(item: AdminSubscriptionItem): string {
+  return item.planName || item.billingPlan || "Not assigned";
+}
+
+function formatStatus(item: AdminSubscriptionItem): string {
+  return item.subscriptionStatus || item.billingStatus || "Unknown";
+}
+
+function formatUsage(item: AdminSubscriptionItem): string {
+  const used = item.submissionsUsed ?? 0;
+  const quota = item.submissionQuota ?? 0;
+
+  if (!quota) {
+    return "Not provided";
+  }
+
+  return `${used} / ${quota} submissions`;
+}
+
+function formatDate(dateValue?: string | null): string {
+  if (!dateValue) {
+    return "—";
+  }
+
+  const date = new Date(dateValue);
+
+  if (Number.isNaN(date.getTime())) {
+    return dateValue;
+  }
+
+  return date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "2-digit",
+  });
+}
+
+export function AdminSubscriptionsPage() {
+  const {
+    subscriptions,
+    page,
+    loading,
+    error,
+    searchText,
+    billingStatus,
+    setSearchText,
+    setBillingStatus,
+    setPage,
+    refetchSubscriptions,
+  } = useAdminSubscriptions({
+    date_range: "30d",
+    sort_by: "nextBillingDate",
+    sort_order: "desc",
+    limit: 25,
+    page: 1,
+  });
+
+  if (loading) {
+    return (
+      <div className="admin-dashboard-page">
+        <section className="admin-header">
           <h1>Subscriptions</h1>
+          <p>Loading subscription data...</p>
+        </section>
+      </div>
+    );
+  }
 
-          <div className="admin-subscriptions-breadcrumb">
-            <span className="home-icon">⌂</span>
-            <strong>Home &gt; Subscriptions</strong>
-          </div>
-        </div>
+  if (error) {
+    return (
+      <div className="admin-dashboard-page">
+        <section className="admin-header">
+          <h1>Subscriptions</h1>
+          <p>{error}</p>
+          <button type="button" onClick={refetchSubscriptions}>
+            Try Again
+          </button>
+        </section>
+      </div>
+    );
+  }
 
-        <button className="filter-icon-button">≡</button>
+  return (
+    <div className="admin-dashboard-page">
+      <section className="admin-header">
+        <h1>Subscriptions</h1>
+        <p>Home &gt; Subscriptions</p>
       </section>
 
-      <section className="admin-subscriptions-toolbar">
-        <div className="subscription-search-box">
-          <span>☰</span>
-          <input type="text" placeholder="Hinted search txt" />
-          <span>⌕</span>
+      <section className="admin-panel">
+        <div className="admin-subscription-toolbar">
+          <input
+            type="text"
+            placeholder="Search user or email"
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          />
+
+          <select
+            value={billingStatus ?? ""}
+            onChange={(event) =>
+              setBillingStatus(
+                event.target.value
+                  ? (event.target.value as "pending" | "paid" | "failed" | "refunded")
+                  : undefined
+              )
+            }
+          >
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="paid">Paid</option>
+            <option value="failed">Failed</option>
+            <option value="refunded">Refunded</option>
+          </select>
+
+          <button type="button" onClick={refetchSubscriptions}>
+            Refresh
+          </button>
         </div>
 
-        <button className="export-button" title="Export CSV">
-          ⇩
-        </button>
-      </section>
-
-      <section className="subscriptions-table-wrapper">
-        <table className="subscriptions-table">
+        <table className="admin-subscription-table">
           <thead>
             <tr>
               <th>User / Organisation</th>
@@ -111,24 +147,48 @@ export default function AdminSubscriptionsPage() {
           </thead>
 
           <tbody>
-            {subscriptionData.map((item, index) => (
-              <tr key={`${item.organisation}-${index}`}>
-                <td>{item.organisation}</td>
-                <td>{item.plan}</td>
-                <td>{item.status}</td>
-                <td>{item.usage}</td>
-                <td>{item.renewalDate}</td>
-                <td>{item.lastUpdated}</td>
-                <td>
-                  <button className="view-button">View</button>
-                </td>
+            {subscriptions.length > 0 ? (
+              subscriptions.map((item, index) => (
+                <tr key={item.userId || index}>
+                  <td>{formatUserName(item)}</td>
+                  <td>{formatPlan(item)}</td>
+                  <td>{formatStatus(item)}</td>
+                  <td>{formatUsage(item)}</td>
+                  <td>
+                    {formatDate(
+                      item.nextBillingDate || item.renewalDate || item.periodEnd
+                    )}
+                  </td>
+                  <td>{formatDate(item.lastUpdated || item.updatedAt)}</td>
+                  <td>
+                    <button type="button" className="admin-table-link-button">
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>No subscription records found.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
 
-        <div className="subscriptions-pagination">
-          « Prev | <strong>1</strong> | 2 | Next »
+        <div className="admin-pagination">
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => setPage(page - 1)}
+          >
+            « Prev
+          </button>
+
+          <span>Page {page}</span>
+
+          <button type="button" onClick={() => setPage(page + 1)}>
+            Next »
+          </button>
         </div>
       </section>
     </div>
