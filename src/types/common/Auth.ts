@@ -17,12 +17,22 @@ export type Registration = {
 
 // Define a type for password reset 
 export type PasswordReset = {
+    token: string;
     newPassword: string;
     confirmPassword: string;
 };
 
-// Define a type used for resending verification email and for resetting a user's password
+// Define a type used for resending verification email 
 export type EmailRequest = {
     emailAddress: string;
 };
 
+// Define a type used for sending an email to reset a forgotten password
+export type ForgotPassword = {
+    emailAddress: string;
+};
+
+// Define a type for verifying the user's email address 
+export type VerifySignup = {
+    token: string;
+};

@@ -1,4 +1,4 @@
-# ELAPRO3.1 – CP2026 Student Database Project
+#  Capstone 2026 Group B Project: ELA Pro 3.1 Frontend Rebuild with React and TypeScript. 
 
 This repository contains the React codebase for our CP2026 group project.
 
