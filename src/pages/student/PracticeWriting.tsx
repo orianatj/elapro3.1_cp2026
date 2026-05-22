@@ -1,8 +1,85 @@
-export default function PracticeWritingPage() {
+// Shared header
+import { StudentHeaderBar } from "../../common/StudentHeaderBar";
+
+// Types (ViewData)
+import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";
+
+
+type PracticeWritingPageProps = {
+    viewData: PracticeWriting;
+};
+
+export default function PracticeWritingPage({ viewData }: PracticeWritingPageProps) {
     return (
 
-        <>
-            <h1>This is the Practice Writing Page</h1>
-        </>
+        <div className="practice-writing-page">
+
+            {/* Page Header */}
+            <StudentHeaderBar header={viewData.pageHeader} />
+
+            {/* Task Utility Bar */}
+            <div className="task-utility-bar">
+                {/*TODO: "Implement TaskUtilityBar"*/}
+            </div>
+
+            {/* Main content layout */}
+            <div className="practice-page-content-layout">
+
+                {/* Task Section */}
+                <div className="practice-writing-task">
+
+                    <div className="task-selection-section">
+
+                        {/* Section Header */}
+                        <div className="section-header">
+                            {/*TODO: "Implement SectionHeader"*/}
+                        </div>
+
+                        {/* Dropdown Selection Group */}
+                        <div className="task-dropdown-selection">
+                            {/*TODO: "Implement DropdownSelectionGroup"*/}
+                        </div>
+
+                        {/* Generate Question Button */}
+                        <div className="get-task-button">
+                            {/*TODO: "Implement GetTaskButton"*/}
+                        </div>
+
+                    </div>
+
+                    {/* Task Description Section*/}
+                    <div className="task-description-section">
+
+                        {/* Section Header */}
+                        <div className="section-header">
+                            {/*TODO: "Implement SectionHeader"*/}
+                        </div>
+
+                        <div className="task-description">
+                            {/*TODO: "Implement TaskDescription"*/}
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Answer Section */}
+                <div className="practice-writing-answer">
+
+                    {/* Section Header */}
+                    <div className="section-header">
+                        {/*TODO: "Implement SectionHeader"*/}
+                    </div>
+
+                    <div className="answer-text-editor">
+                        {/*TODO: "Implement AnswerEditor"*/}
+                    </div>
+
+                    {/* Submit Answer Button */}
+                    <div className="submit-answer-button">
+                        {/*TODO: "Implement SubmitAnswerButton"*/}
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 };

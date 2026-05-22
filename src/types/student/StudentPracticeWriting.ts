@@ -1,3 +1,4 @@
+import type { PageHeaderViewData } from "../common/PageHeaderDTO"; 
 import type {TaskUtilityBar} from "./common/TaskUtilBar";
 import type {TaskDescription} from "./common/TaskDescriptionDTO";
 import type {TaskAnswer} from "./common/TaskAnswerDTO";
@@ -8,6 +9,7 @@ import type { IeltsType, TaskType, StudentFilter} from "./common/StudentFilter";
  * the Practice Writing page. It is comprised of data type objects defined in this file & imported re-useables DTOs.
  */
 export interface PracticeWriting {
+    pageHeader: PageHeaderViewData; 
     taskBar: TaskUtilityBar;
     ieltsSelection: StudentFilter<IeltsType | undefined>;
     taskSelection: StudentFilter<TaskType | undefined>;    
