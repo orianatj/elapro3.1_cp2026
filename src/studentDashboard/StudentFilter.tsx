@@ -3,6 +3,7 @@ type FilterData = {
     title: string;  // ex. "Choose an IELTS Type"
     selected: string;  // ex. 'General/Task 1/Weekly'
     options: string[];
+    placeholder?: string  // ex. "Please select an option" (optional)
 };
 
 type FilterBarProps = {
@@ -17,7 +18,8 @@ export function FilterBar({ filters }: FilterBarProps) {
                     key={filter.title}
                     title={filter.title}
                     selected={filter.selected}
-                    options={filter.options}>
+                    options={filter.options}
+                    placeholder={filter.placeholder}>
                 </ChartFilter>
             ))}
         </div>
@@ -26,12 +28,15 @@ export function FilterBar({ filters }: FilterBarProps) {
 
 type ChartFilterProps = FilterData;
 
-function ChartFilter({ title, selected, options }: ChartFilterProps) {
+function ChartFilter({ title, selected, options, placeholder }: ChartFilterProps) {
     return (
         <div className="filter-item">
             <label>{title}</label>
-            <select className="filter-dropdown" value={selected}>
-                <option>--Please choose an option--</option>
+            <select className="filter-dropdown" value={selected ?? ""}>
+                <option value="" disabled>
+                    {placeholder ?? "--Please choose an option--"}
+                </option>
+
                 {options.map((option) => (
                     <option
                         key={option}

@@ -2,7 +2,6 @@ import type {TaskUtilityBar} from "./common/TaskUtilBar";
 import type {TaskDescription} from "./common/TaskDescriptionDTO";
 import type {TaskAnswer} from "./common/TaskAnswerDTO";
 import type { IeltsType, TaskType, StudentFilter} from "./common/StudentFilter";
-import type { TaskOneQuestionType, TaskTwoQuestionType, QuestionSelectionMenu} from "./common/QuestionSelection.ts";
 
 /**
  * This view data represents the data required to render
@@ -10,9 +9,8 @@ import type { TaskOneQuestionType, TaskTwoQuestionType, QuestionSelectionMenu} f
  */
 export interface PracticeWriting {
     taskBar: TaskUtilityBar;
-    ieltsSelection: StudentFilter<IeltsType>;
-    taskSelection: StudentFilter<TaskType>;
-    questionMenu: QuestionSelectionMenu<TaskOneQuestionType | TaskTwoQuestionType>;
+    ieltsSelection: StudentFilter<IeltsType | undefined>;
+    taskSelection: StudentFilter<TaskType | undefined>;    
     taskDescription: TaskDescription;
     answer: TaskAnswer;
 };
