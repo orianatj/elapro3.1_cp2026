@@ -130,7 +130,7 @@
 
 /* ===== Inline Table Header Filters section ===== */
 /* Styling for filter labels within the table headers */
-.student-submissions-table th label {
+.student-submissions-table .submissions-filters > div {
     display: inline-flex;
     align-items: center;
     justify-content: center;  /* Center-align text within the dropdown */
@@ -143,14 +143,14 @@
 }
 
 /* Styling for select dropdowns within the table headers */
-.student-submissions-table th select {
+.student-submissions-table .submissions-filters select {
     color: #6b7280;   /* softer neutral */
     border-radius: 6px; /* Rounded corners for better aesthetics */    
 }
 
 /* Hover and focus styles for select dropdowns to enhance interactivity */
-.student-submissions-table th select:hover,
-.student-submissions-table th select:focus {
+.student-submissions-table .submissions-filters select:hover,
+.student-submissions-table .submissions-filters select:focus {
   color: #113058;
   border-color: #C62828; /* Match Figma Menu Colour for consistency */
 }

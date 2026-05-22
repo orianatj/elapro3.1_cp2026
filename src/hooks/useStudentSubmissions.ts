@@ -39,16 +39,16 @@ export function useStudentSubmissions(userId: string) {
 
     /* ==================== SERVER STATE ==================== */
     // Loading, error, caching, and refetch behaviour is handled automatically by TanStack Query.
-    const { data, isPending, error } = useQuery({
+    const { data, isPending, isError, error } = useQuery({
         queryKey: ["studentSubmissions", userId, ieltsType, taskType],
 
         // Query function responsible for retrieving data from the backend API based on the current user and filter states.
         queryFn: () =>
             getStudentSubmissions({
                 userId,
-                ieltsType,
-                taskType,
-            }),
+                ieltsType: ieltsType === "all" ? undefined : ieltsType,
+                taskType: taskType === "all" ? undefined : taskType,
+            }),                
 
         // Prevents the query from running until a valid userId is available
         enabled: Boolean(userId),
@@ -107,6 +107,7 @@ export function useStudentSubmissions(userId: string) {
     return {
         viewData: data,
         isPending,
+        isError,
         error,
         actions: {
             setIeltsType,
