@@ -117,3 +117,126 @@ export const getAdminSubscriptions = async (
 
   return normaliseSubscriptionsResponse(response.data);
 };
+
+export type AdminLogCategory =
+  | "AUTH"
+  | "USERS"
+  | "BILLING"
+  | "SUBMISSIONS"
+  | "ADMIN"
+  | "SYSTEM";
+
+export type AdminLogStatus = "success" | "failure";
+
+export type AdminLogSortBy =
+  | "log_creation_date"
+  | "log_status"
+  | "log_category"
+  | "log_action"
+  | "user_id"
+  | "target_user_id"
+  | "resource_type"
+  | "resource_id"
+  | "request_id"
+  | "ip_address";
+
+export interface AdminLogsQuery {
+  userId?: string;
+  targetUserId?: string;
+  logCategory?: AdminLogCategory;
+  logStatus?: AdminLogStatus;
+  dateRange?: "all" | "7d" | "30d" | "90d" | "6m" | "1y" | "3y";
+  sortBy?: AdminLogSortBy;
+  sortOrder?: "asc" | "desc";
+  limit?: number;
+  page?: number;
+}
+
+export interface AdminLogItem {
+  logId: string;
+  logCreationDate: string;
+  logStatus: string;
+  logCategory: string;
+  logAction: string;
+
+  userId: string | null;
+  emailAddress: string | null;
+  firstName: string | null;
+  lastName: string | null;
+
+  targetUserId: string | null;
+  targetUserEmail: string | null;
+  targetUserFirstName: string | null;
+  targetUserLastName: string | null;
+
+  resourceType: string | null;
+  resourceId: string | null;
+  requestId: string;
+  ipAddress: string;
+}
+
+export interface AdminLogsResponse {
+  logs: AdminLogItem[];
+  page: number;
+  limit: number;
+  total?: number;
+}
+
+function normaliseAdminLogsResponse(raw: any): AdminLogsResponse {
+  const data = raw?.data ?? raw;
+
+  return {
+    logs: data?.logs ?? data?.items ?? [],
+    page: data?.page ?? 1,
+    limit: data?.limit ?? 25,
+    total: data?.total,
+  };
+}
+
+export const getAdminLogs = async (
+  params: AdminLogsQuery = {}
+): Promise<AdminLogsResponse> => {
+  const response = await api.get("/admin/logs", {
+    params: {
+      userId: params.userId,
+      targetUserId: params.targetUserId,
+      logCategory: params.logCategory,
+      logStatus: params.logStatus,
+      dateRange: params.dateRange ?? "30d",
+      sortBy: params.sortBy ?? "log_creation_date",
+      sortOrder: params.sortOrder ?? "desc",
+      limit: params.limit ?? 25,
+      page: params.page ?? 1,
+    },
+  });
+
+  return normaliseAdminLogsResponse(response.data);
+};
+
+export const exportAdminLogs = async (
+  params: Omit<AdminLogsQuery, "limit" | "page"> = {}
+): Promise<void> => {
+  const response = await api.get("/admin/logs/export", {
+    params: {
+      userId: params.userId,
+      targetUserId: params.targetUserId,
+      logCategory: params.logCategory,
+      logStatus: params.logStatus,
+      dateRange: params.dateRange ?? "30d",
+      sortBy: params.sortBy ?? "log_creation_date",
+      sortOrder: params.sortOrder ?? "desc",
+    },
+    responseType: "blob",
+  });
+
+  const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+  const link = document.createElement("a");
+
+  link.href = downloadUrl;
+  link.setAttribute("download", "admin-logs-export.csv");
+  document.body.appendChild(link);
+  link.click();
+
+  link.remove();
+  window.URL.revokeObjectURL(downloadUrl);
+};

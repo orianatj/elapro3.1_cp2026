@@ -1,82 +1,113 @@
 import "./AdminReportsPage.css";
+import { useAdminReports } from "../../hooks/useAdminReports";
+import type { AdminLogItem } from "../../services/adminApi";
 
-type ReportRow = {
-  reportName: string;
-  type: string;
-  generatedBy: string;
-  dateGenerated: string;
-  scope: string;
-  status: string;
-};
+function formatDate(dateValue?: string | null): string {
+  if (!dateValue) {
+    return "—";
+  }
 
-const reportData: ReportRow[] = [
-  {
-    reportName: "Weekly Usage Summary",
-    type: "Usage",
-    generatedBy: "System",
-    dateGenerated: "10-Feb-26",
-    scope: "System-wide",
-    status: "Ready",
-  },
-  {
-    reportName: "Student Progress – Feb",
-    type: "Performance",
-    generatedBy: "Admin",
-    dateGenerated: "8-Feb-26",
-    scope: "Cohort",
-    status: "Ready",
-  },
-  {
-    reportName: "Subscription Activity",
-    type: "Subscription",
-    generatedBy: "System",
-    dateGenerated: "7-Feb-26",
-    scope: "System-wide",
-    status: "Ready",
-  },
-  {
-    reportName: "Essay Feedback Trends",
-    type: "Performance",
-    generatedBy: "Admin",
-    dateGenerated: "5-Feb-26",
-    scope: "Cohort",
-    status: "Ready",
-  },
-  {
-    reportName: "Audit Activity Log",
-    type: "Activity",
-    generatedBy: "System",
-    dateGenerated: "3-Feb-26",
-    scope: "System-wide",
-    status: "Ready",
-  },
-  {
-    reportName: "Monthly Engagement",
-    type: "Usage",
-    generatedBy: "Admin",
-    dateGenerated: "1-Feb-26",
-    scope: "Cohort",
-    status: "Ready",
-  },
-  {
-    reportName: "System Health Snapshot",
-    type: "Activity",
-    generatedBy: "System",
-    dateGenerated: "30-Jan-26",
-    scope: "System-wide",
-    status: "Ready",
-  },
-  {
-    reportName: "System Health Snapshot",
-    type: "Activity",
-    generatedBy: "System",
-    dateGenerated: "30-Jan-26",
-    scope: "System-wide",
-    status: "Ready",
-  },
-];
+  const date = new Date(dateValue);
+
+  if (Number.isNaN(date.getTime())) {
+    return dateValue;
+  }
+
+  return date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "2-digit",
+  });
+}
+
+function formatGeneratedBy(log: AdminLogItem): string {
+  const fullName = `${log.firstName ?? ""} ${log.lastName ?? ""}`.trim();
+
+  if (fullName) {
+    return fullName;
+  }
+
+  if (log.emailAddress) {
+    return log.emailAddress;
+  }
+
+  return "System";
+}
+
+function formatReportName(log: AdminLogItem): string {
+  if (log.logAction) {
+    return log.logAction.replaceAll("_", " ");
+  }
+
+  return "System Activity";
+}
+
+function formatScope(log: AdminLogItem): string {
+  if (log.targetUserEmail || log.targetUserFirstName || log.targetUserLastName) {
+    return "User-specific";
+  }
+
+  if (log.resourceType) {
+    return log.resourceType;
+  }
+
+  return "System-wide";
+}
 
 export default function AdminReportsPage() {
+  const {
+    logs,
+    page,
+    loading,
+    exporting,
+    error,
+    searchText,
+    logCategory,
+    logStatus,
+    setSearchText,
+    setLogCategory,
+    setLogStatus,
+    setPage,
+    refetchReports,
+    exportReports,
+  } = useAdminReports();
+
+  if (loading) {
+    return (
+      <div className="admin-reports-page">
+        <section className="admin-reports-header">
+          <h1>Reports</h1>
+          <div className="admin-reports-breadcrumb">
+            <span className="reports-home-icon">⌂</span>
+            <strong>Loading reports...</strong>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="admin-reports-page">
+        <section className="admin-reports-header">
+          <h1>Reports</h1>
+          <div className="admin-reports-breadcrumb">
+            <span className="reports-home-icon">⌂</span>
+            <strong>{error}</strong>
+          </div>
+
+          <button
+            type="button"
+            className="reports-retry-button"
+            onClick={refetchReports}
+          >
+            Try Again
+          </button>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="admin-reports-page">
       <section className="admin-reports-header">
@@ -91,17 +122,66 @@ export default function AdminReportsPage() {
       <section className="admin-reports-toolbar">
         <div className="reports-search-box">
           <span className="reports-menu-icon">☰</span>
-          <input type="text" placeholder="Hinted search text" />
+          <input
+            type="text"
+            placeholder="Search reports"
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          />
           <span className="reports-search-icon">⌕</span>
         </div>
 
-        <button className="reports-export-button" title="Export report">
+        <button
+          className="reports-export-button"
+          title="Export report"
+          type="button"
+          onClick={exportReports}
+          disabled={exporting}
+        >
           ⇩
         </button>
 
-        <button className="reports-filter-button" title="Filter reports">
-          ≡
-        </button>
+        <select
+          className="reports-filter-select"
+          value={logCategory ?? ""}
+          onChange={(event) =>
+            setLogCategory(
+              event.target.value
+                ? (event.target.value as
+                    | "AUTH"
+                    | "USERS"
+                    | "BILLING"
+                    | "SUBMISSIONS"
+                    | "ADMIN"
+                    | "SYSTEM")
+                : undefined
+            )
+          }
+        >
+          <option value="">All Types</option>
+          <option value="AUTH">Auth</option>
+          <option value="USERS">Users</option>
+          <option value="BILLING">Billing</option>
+          <option value="SUBMISSIONS">Submissions</option>
+          <option value="ADMIN">Admin</option>
+          <option value="SYSTEM">System</option>
+        </select>
+
+        <select
+          className="reports-filter-select"
+          value={logStatus ?? ""}
+          onChange={(event) =>
+            setLogStatus(
+              event.target.value
+                ? (event.target.value as "success" | "failure")
+                : undefined
+            )
+          }
+        >
+          <option value="">All Status</option>
+          <option value="success">Success</option>
+          <option value="failure">Failure</option>
+        </select>
       </section>
 
       <section className="reports-table-wrapper">
@@ -119,24 +199,50 @@ export default function AdminReportsPage() {
           </thead>
 
           <tbody>
-            {reportData.map((report, index) => (
-              <tr key={`${report.reportName}-${index}`}>
-                <td>{report.reportName}</td>
-                <td>{report.type}</td>
-                <td>{report.generatedBy}</td>
-                <td>{report.dateGenerated}</td>
-                <td>{report.scope}</td>
-                <td>{report.status}</td>
-                <td>
-                  <button className="reports-view-button">View</button>
-                </td>
+            {logs.length > 0 ? (
+              logs.map((log) => (
+                <tr key={log.logId}>
+                  <td>{formatReportName(log)}</td>
+                  <td>{log.logCategory}</td>
+                  <td>{formatGeneratedBy(log)}</td>
+                  <td>{formatDate(log.logCreationDate)}</td>
+                  <td>{formatScope(log)}</td>
+                  <td>{log.logStatus}</td>
+                  <td>
+                    <button
+                      className="reports-view-button"
+                      type="button"
+                      onClick={() => console.log("Selected log:", log)}
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>No reports found.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
 
         <div className="reports-pagination">
-          « Prev | <strong>1</strong> | 2 | Next »
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => setPage(page - 1)}
+          >
+            « Prev
+          </button>
+
+          <span>
+            | <strong>{page}</strong> |
+          </span>
+
+          <button type="button" onClick={() => setPage(page + 1)}>
+            Next »
+          </button>
         </div>
       </section>
     </div>
