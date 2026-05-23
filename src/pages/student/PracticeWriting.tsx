@@ -1,5 +1,6 @@
-// Shared header
+// Shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
+import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingDropdownSelection";
 
 // Types (ViewData)
 import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";
@@ -30,21 +31,15 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
 
                     <div className="task-selection-section">
 
-                        {/* Section Header */}
-                        <div className="section-header">
-                            {/*TODO: "Implement SectionHeader"*/}
-                        </div>
-
-                        {/* Dropdown Selection Group */}
+                        {/* Dropdown Selection Group 
+                        (includes section-header and action button) */}
                         <div className="task-dropdown-selection">
-                            {/*TODO: "Implement DropdownSelectionGroup"*/}
+                            <PracticeTaskSelectionGroup
+                                ieltsFilter={viewData.ieltsSelection}
+                                taskFilter={viewData.taskSelection}
+                            />                            
                         </div>
-
-                        {/* Generate Question Button */}
-                        <div className="get-task-button">
-                            {/*TODO: "Implement GetTaskButton"*/}
-                        </div>
-
+                        
                     </div>
 
                     {/* Task Description Section*/}
