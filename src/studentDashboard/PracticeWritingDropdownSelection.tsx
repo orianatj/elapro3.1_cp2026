@@ -1,6 +1,10 @@
+
+import { useState } from "react";
+
 import { FilterGroup } from "./FilterGroup"
 import type { StudentFilter, IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
+// Props for the component received from page viewData
 type PracticeTaskSelectionProps = {
     ieltsFilter: StudentFilter<IeltsType | undefined>;
     taskFilter: StudentFilter<TaskType | undefined>;
@@ -13,7 +17,12 @@ export function PracticeTaskSelectionGroup({
     onGenerate
 }: PracticeTaskSelectionProps) {
 
-    const isDisabled = !ieltsFilter.selected || !taskFilter.selected;
+    // Local state to track current selections (initialised from viewData)
+    const [ielts, setIelts] = useState < IeltsType | undefined> (ieltsFilter.selected);
+    const [task, setTask] = useState<TaskType | undefined> (taskFilter.selected);
+
+    // Button disabled until both selections are made
+    const isDisabled = !ielts || !task;
 
     return (
         <div className="practice-task-selection">
@@ -26,9 +35,27 @@ export function PracticeTaskSelectionGroup({
             {/* Filters */}
             <FilterGroup
                 filters={[
-                    ieltsFilter,
-                    taskFilter
+                    {
+                        ...ieltsFilter,
+                        selected: ielts
+                    },
+                    {
+                        ...taskFilter,
+                        selected: task
+                    } 
                 ]}
+
+                // Handle dropdown changes coming from FilterGroup
+                onChange={(title: string, value: IeltsType | TaskType | undefined) => {
+
+                    if (title === ieltsFilter.title) {
+                        setIelts(value as IeltsType | undefined)
+                    }
+
+                    if (title === taskFilter.title) {
+                        setTask(value as TaskType | undefined)
+                    }
+                }}
             />
 
             {/* Get Task Button */}

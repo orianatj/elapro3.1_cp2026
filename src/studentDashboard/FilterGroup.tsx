@@ -1,8 +1,14 @@
 import type { StudentFilter } from "../types/student/common/StudentFilter";
 
 type FilterGroupProps<T extends string | undefined> = {
-        filters: StudentFilter<T>[];  // Array of filters to render (e.g. IELTS type + Task type)
-    placeholder?: string              // Optional custom placeholder text (defaults to "Please Select")
+    // Array of filters to render (e.g. IELTS type + Task type)
+    filters: StudentFilter<T>[];
+
+    // onChange handler so parent can react to selection changes
+    onChange: (title: string, value: T | undefined) => void
+
+    // Optional custom placeholder text (defaults to "Please Select")
+    placeholder?: string
 };
 
 /* Renders a group of dropdown filters using the StudentFilter data structure.
@@ -14,6 +20,7 @@ type FilterGroupProps<T extends string | undefined> = {
  */
 export function FilterGroup<T extends string | undefined>({
     filters,
+    onChange,
     placeholder = "Please Select"
 }: FilterGroupProps<T>) {
     return (
@@ -26,7 +33,18 @@ export function FilterGroup<T extends string | undefined>({
 
                     <select
                         className="filter-dropdown"
-                        value={filter.selected ?? ""}>
+                        value={filter.selected ?? ""}
+
+                        onChange={(event) => {
+                            const value = event.target.value;
+
+                            onChange(
+                                filter.title,
+                                value === "" ? undefined : (value as T)
+                            );
+                        }}
+                    >
+
                         {/* Placeholder */}
                         <option value="" disabled>
                             {placeholder}
