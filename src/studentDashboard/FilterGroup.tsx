@@ -1,13 +1,13 @@
 import type { StudentFilter } from "../types/student/common/StudentFilter";
 
-type FilterGroupProps<T extends string | undefined> = {
+type FilterGroupProps<T extends string> = {
     // Array of filters to render (e.g. IELTS type + Task type)
-    filters: StudentFilter<T>[];
+    filters: StudentFilter<T | undefined>[];
 
     // onChange handler so parent can react to selection changes
     onChange: (title: string, value: T | undefined) => void
 
-    // Optional custom placeholder text (defaults to "Please Select")
+    // Placeholder shown when no option is selected (defaults to "Please Select")
     placeholder?: string
 };
 
@@ -18,30 +18,32 @@ type FilterGroupProps<T extends string | undefined> = {
  * - placeholder for unselected state
  * - mapped options from backend-ready FilterOption
  */
-export function FilterGroup<T extends string | undefined>({
+export function FilterGroup<T extends string>({
     filters,
     onChange,
-    placeholder = "Please Select"
+    placeholder = "Please Select",
 }: FilterGroupProps<T>) {
     return (
         <div className="filter-group">
 
+            // Iterates over each filter (e.g. IELTS Type, Task Type)
+            // to render a labeled dropdown container
             {filters.map((filter) => (
                 <div key={filter.title} className="filter-item">
 
                     <label>{filter.title}</label>
 
                     <select
+                        // Use empty string when no value is selected so the placeholder is shown
                         className="filter-dropdown"
                         value={filter.selected ?? ""}
 
+                        // Handle user selection changes and propagate the updated value to parent state
                         onChange={(event) => {
-                            const value = event.target.value;
-
-                            onChange(
-                                filter.title,
-                                value === "" ? undefined : (value as T)
-                            );
+                            const rawValue = event.target.value;
+                            const newValue = rawValue === "" ? undefined : (rawValue as T);
+                            
+                            onChange(filter.title, newValue);
                         }}
                     >
 
@@ -52,7 +54,11 @@ export function FilterGroup<T extends string | undefined>({
 
                         {/* Options */}
                         {filter.options.map((option) => (
-                            <option key={option.value} value={option.value}>
+                            <option
+                                key={option.value}
+                                value={option.value}
+                                disabled={!!option.disabled}
+                            >
                                 {option.label}
                             </option>
                         ))}

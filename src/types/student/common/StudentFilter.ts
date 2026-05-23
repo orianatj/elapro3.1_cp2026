@@ -16,8 +16,9 @@ export type FilterValue<T extends string> = T | "all";
 
 // Type defines a filter option
 export type FilterOption<T extends string> = {
-    value: T;  // ex. "academic" or "task-one"
-    label: string;  // ex. "Academic" or "Task 1"
+    value: T;           // ex. "academic" or "task-one"
+    label: string;      // ex. "Academic" or "Task 1"
+    disabled?: boolean  // allows UI to disable options
 };
 
 

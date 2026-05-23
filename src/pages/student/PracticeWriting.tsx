@@ -1,6 +1,6 @@
 // Shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
-import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingDropdownSelection";
+import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
 
 // Types (ViewData)
 import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";

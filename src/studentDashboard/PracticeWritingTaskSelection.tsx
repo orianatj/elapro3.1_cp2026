@@ -24,6 +24,32 @@ export function PracticeTaskSelectionGroup({
     // Button disabled until both selections are made
     const isDisabled = !ielts || !task;
 
+    // Apply constraint: Academic cannot have Task 2
+    const constraintTaskFilter = {
+        ...taskFilter,
+        options: taskFilter.options.map((option) => {
+
+            if (ielts === "academic" && option.value === "task-two") {
+                return {...option, disabled: true};
+            }
+
+            return {...option, disabled:false}
+        })
+    };
+
+    // Reverse constraint: Task 2 cannot have Academic
+    const constraintIeltsFilter = {
+        ...ieltsFilter,
+        options: ieltsFilter.options.map((option) => {
+
+            if (task === "task-two" && option.value === "academic") {
+                return {...option, disabled: true};
+            }
+
+            return {...option, disabled:false}
+        })
+    };
+
     return (
         <div className="practice-task-selection">
 
@@ -36,11 +62,11 @@ export function PracticeTaskSelectionGroup({
             <FilterGroup
                 filters={[
                     {
-                        ...ieltsFilter,
+                        ...constraintIeltsFilter,
                         selected: ielts
                     },
                     {
-                        ...taskFilter,
+                        ...constraintTaskFilter,
                         selected: task
                     } 
                 ]}
