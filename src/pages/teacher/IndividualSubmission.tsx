@@ -110,11 +110,6 @@ const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submissi
             <h2>Overall Score: <SubmissionResultScore submissionId={submissionId} /></h2>
             <SubmissionResult submissionId={submissionId} />
             <div className="button-container">
-            <ToolbarButton
-              icon="/src/assets/comment.png"
-              label="Add Comment"
-              onClick={() => console.log("Comment clicked")}
-              />
               <ToolbarButton
                 icon="/src/assets/pencil.png"
                 label="Edit Grade"
@@ -122,8 +117,8 @@ const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submissi
               />
               <ToolbarButtonConfirm
                 icon="/src/assets/checkmark.png"
-                label="Verify"
-                onClick={() => console.log("Verify clicked")}
+                label="OK"
+                onClick={() => console.log("OK clicked")}
               />
             </div>
         </div>
