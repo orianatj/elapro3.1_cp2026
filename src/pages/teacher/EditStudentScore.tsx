@@ -1,11 +1,19 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./editScore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
 import AssignmentPanel from "../../common/AssignmentPanel";
 
+interface EditStudentScoreLocationState {
+  submissionId?: string;
+}
+
 export default function EditStudentScore() {
+  const location = useLocation();
+  const state = location.state as EditStudentScoreLocationState | null;
+  const submissionId = state?.submissionId;
   const [taskResponse, setTaskResponse] = useState<number>(8.0);
   const [coherence, setCoherence] = useState<number>(6.5);
   const [lexicalResource, setLexicalResource] = useState<number>(7.5);
@@ -25,6 +33,7 @@ export default function EditStudentScore() {
           <h3>Emily Parker</h3>
           <p>ID: 173657</p>
           <p>Class: Advanced English</p>
+          {submissionId ? <p>Submission ID: {submissionId}</p> : null}
         </div>
       </div>
 
