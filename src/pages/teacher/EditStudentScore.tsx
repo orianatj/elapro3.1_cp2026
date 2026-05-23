@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./editScore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
@@ -65,6 +65,7 @@ export function GetGrammarScore({ submissionId }: { submissionId: string }) {
 
 export default function EditStudentScore() {
   const location = useLocation();
+  const navigate = useNavigate();
   const state = location.state as EditStudentScoreLocationState | null;
   const submissionId = state?.submissionId;
   const [taskResponse, setTaskResponse] = useState<number>(GetTaskResponseScore({ submissionId: submissionId ?? "default-submission-id" }) || 5.0);
@@ -75,6 +76,10 @@ export default function EditStudentScore() {
   
   const overallScore =
     (taskResponse + coherence + lexicalResource + grammar) / 4;
+
+  const handleSave = () => {
+    navigate("/teacher/individual-submission", { state: { submissionId } });
+  }; 
 
   return (
     <div className="edit-score-page">
@@ -120,9 +125,9 @@ export default function EditStudentScore() {
 
       <OverallScore score={overallScore} />
       <div className="actions">
-  <button className="cancel">Cancel</button>
-  <button className="save">Save</button>
-</div>
+        <button className="cancel">Cancel</button>
+        <button className="save" onClick={handleSave}>Save</button>
+      </div>
     </div>
   );
 }
