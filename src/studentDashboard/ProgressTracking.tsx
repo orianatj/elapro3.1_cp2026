@@ -1,7 +1,7 @@
 import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
 import './ProgressTracking.css';
-
-
+import { EmptyState } from '../common/EmptyState';
+import { useStudentProgressTracking } from '../hooks/useStudentProgressTracking';
 
 // ProgressTracking component is a container for several smaller components that are dependant on the same data.
 //function ProgressTracking({}){
