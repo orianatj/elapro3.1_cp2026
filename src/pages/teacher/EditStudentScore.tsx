@@ -81,6 +81,10 @@ export default function EditStudentScore() {
     navigate("/teacher/individual-submission", { state: { submissionId } });
   }; 
 
+    const handleCancel = () => {
+    navigate("/teacher/individual-submission", { state: { submissionId } });
+  }; 
+
   return (
     <div className="edit-score-page">
       <h2 className="page-title">Edit Student Score</h2>
@@ -125,7 +129,7 @@ export default function EditStudentScore() {
 
       <OverallScore score={overallScore} />
       <div className="actions">
-        <button className="cancel">Cancel</button>
+        <button className="cancel" onClick={handleCancel}>Cancel</button>
         <button className="save" onClick={handleSave}>Save</button>
       </div>
     </div>
