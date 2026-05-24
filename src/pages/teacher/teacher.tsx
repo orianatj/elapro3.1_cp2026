@@ -74,7 +74,7 @@ export default function TeacherDashboard({
       }`}
     >
       <div className="header">
-      Welcome back ${userName}
+      Welcome back {userName}
       </div>
 
       <h3>Overall Performance</h3>
@@ -117,7 +117,7 @@ export default function TeacherDashboard({
       {isSupervisory ? (
         <div className="bottom supervisory-bottom">
           <MenuList
-            title="Recent Assignments"
+            title="Created Assignments"
             items={recentAssignments}
           />
 
