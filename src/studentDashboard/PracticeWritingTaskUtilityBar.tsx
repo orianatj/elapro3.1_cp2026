@@ -51,7 +51,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
 
                 {/* Session label */}
                 <div className="task-title">
-                    <span>{utilData.taskTitle}</span>
+                    <h4>{utilData.taskTitle}</h4>
                 </div>
 
             </div>

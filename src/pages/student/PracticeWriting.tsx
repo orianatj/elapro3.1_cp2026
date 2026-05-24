@@ -1,12 +1,15 @@
+import { useState } from "react";
+
 // Shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
 import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
 import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
+import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor";
 
 // Types (ViewData)
 import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";
 
-import "./practicewriting.css";
+// import "./practicewriting.css";
 
 
 type PracticeWritingPageProps = {
@@ -14,6 +17,8 @@ type PracticeWritingPageProps = {
 };
 
 export default function PracticeWritingPage({ viewData }: PracticeWritingPageProps) {
+
+    const [wordCount, setWordCount] = useState(viewData.answer.wordCount);
 
     return (
 
@@ -24,7 +29,10 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
 
             {/* Task Utility Bar */}
             <div className="task-utility-bar">
-                <TaskUtilityBar utilData={viewData.taskBar} />                
+                <TaskUtilityBar utilData={{
+                    ...viewData.taskBar,
+                    userWordCount: wordCount
+                }} />
             </div>
 
             {/* Main content layout */}
@@ -33,16 +41,14 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
                 {/* Task Section */}
                 <div className="practice-writing-task">
 
+                    {/* Dropdown Selection Group 
+                        (includes section-header and action button) */}
                     <div className="task-selection-section">
 
-                        {/* Dropdown Selection Group 
-                        (includes section-header and action button) */}
-                        <div className="task-dropdown-selection">
-                            <PracticeTaskSelectionGroup
-                                ieltsFilter={viewData.ieltsSelection}
-                                taskFilter={viewData.taskSelection}
-                            />
-                        </div>
+                        <PracticeTaskSelectionGroup
+                            ieltsFilter={viewData.ieltsSelection}
+                            taskFilter={viewData.taskSelection}
+                        />
 
                     </div>
 
@@ -51,11 +57,11 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
 
                         {/* Section Header */}
                         <div className="section-header">
-                            {/*TODO: "Implement SectionHeader"*/}
+                            <h4>Task Description</h4>
                         </div>
 
                         <div className="task-description">
-                            {/*TODO: "Implement TaskDescription"*/}
+                            {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
                         </div>
                     </div>
                 </div>
@@ -66,11 +72,14 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
 
                     {/* Section Header */}
                     <div className="section-header">
-                        {/*TODO: "Implement SectionHeader"*/}
+                        <h4>Your Answer</h4>
                     </div>
 
                     <div className="answer-text-editor">
-                        {/*TODO: "Implement AnswerEditor"*/}
+                        <AnswerEditor
+                            answer={viewData.answer}
+                            onWordCountChange={setWordCount}
+                        />
                     </div>
 
                     {/* Submit Answer Button */}

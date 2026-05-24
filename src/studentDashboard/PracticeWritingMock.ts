@@ -43,7 +43,7 @@ export const mockPracticeWriting: PracticeWriting = {
     placeHolderText: "",
     taskID: 1,
     questionID: 1,
-    questionText: ""
+    questionText: "This is the task description genereated from mockData."
   },
 
   answer: {
