@@ -1,9 +1,12 @@
 // Shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
 import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
+import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
 
 // Types (ViewData)
 import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";
+
+import "./practicewriting.css";
 
 
 type PracticeWritingPageProps = {
@@ -11,6 +14,7 @@ type PracticeWritingPageProps = {
 };
 
 export default function PracticeWritingPage({ viewData }: PracticeWritingPageProps) {
+
     return (
 
         <div className="practice-writing-page">
@@ -20,7 +24,7 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
 
             {/* Task Utility Bar */}
             <div className="task-utility-bar">
-                {/*TODO: "Implement TaskUtilityBar"*/}
+                <TaskUtilityBar utilData={viewData.taskBar} />                
             </div>
 
             {/* Main content layout */}
@@ -37,9 +41,9 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
                             <PracticeTaskSelectionGroup
                                 ieltsFilter={viewData.ieltsSelection}
                                 taskFilter={viewData.taskSelection}
-                            />                            
+                            />
                         </div>
-                        
+
                     </div>
 
                     {/* Task Description Section*/}

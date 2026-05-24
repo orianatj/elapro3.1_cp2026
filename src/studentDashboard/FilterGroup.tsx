@@ -26,19 +26,17 @@ export function FilterGroup<T extends string>({
     return (
         <div className="filter-group">
 
-            // Iterates over each filter (e.g. IELTS Type, Task Type)
-            // to render a labeled dropdown container
+            {/* Iterates over each filter (e.g. IELTS Type, Task Type)
+            to render a labeled dropdown container */} 
             {filters.map((filter) => (
                 <div key={filter.title} className="filter-item">
 
                     <label>{filter.title}</label>
 
-                    <select
-                        // Use empty string when no value is selected so the placeholder is shown
+                    <select                        
                         className="filter-dropdown"
                         value={filter.selected ?? ""}
-
-                        // Handle user selection changes and propagate the updated value to parent state
+                        
                         onChange={(event) => {
                             const rawValue = event.target.value;
                             const newValue = rawValue === "" ? undefined : (rawValue as T);
