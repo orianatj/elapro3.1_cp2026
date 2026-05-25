@@ -36,7 +36,7 @@ export type AggregatedChartPoint = {
     meanOverallScore: number;
     meanTaskResponse: number;
     meanCoherenceCohesion: number;
-    meanLexicalResources: number;
+    meanLexicalResource: number;
     meanGrammaticalRangeAccuracy: number;
 };
 
@@ -48,3 +48,14 @@ export type ProgressChartData = {
     chartData?: AggregatedChartPoint[];
 };
 
+// Define a union type to strongly type for chart visbility state
+export type CriterionKey = "meanOverallScore" | "meanTaskResponse" | "meanCoherenceCohesion" | "meanLexicalResource" | "meanGrammaticalRangeAccuracy";
+
+// Define a union type to strongly type toggle labels 
+export type ToggleLabel = "Overall Score" | "Task Response" | "Coherence & Cohesion" | "Lexical Resource" | "Grammatical Range & Accuracy";
+
+// Define type for criterion toggle object
+export type CriterionToggleConfig = {
+    key: CriterionKey;
+    label: ToggleLabel;
+};
