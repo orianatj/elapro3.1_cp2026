@@ -9,11 +9,11 @@ TODO: Subscribe uwith query key to new submission marked notification endpoint u
 */
 export function useStudentProgressChart(params: StudentProgressTracking) {
     return useQuery({
-        queryKey: ["progresschart", params],
+        queryKey: ["student-progress-chart", params],
         queryFn: () => StudentProgressTrackingApi(params),
         select: (response) => {
 
-            const series = response.data.series;
+            const series = response.series;
 
             const shouldRender = shouldRenderProgressChart(series);
 
