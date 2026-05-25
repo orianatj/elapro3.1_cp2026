@@ -11,7 +11,7 @@ export const mockPracticeWriting: PracticeWriting = {
 
   taskBar: {
     taskTitle: "Task Session",
-    taskTimeLimit: 1200,
+    taskTimeLimit: 1200,       // 20 minutes
     timeRemaining: 1200,
     isActive: false,
     isPaused: false,
@@ -23,7 +23,7 @@ export const mockPracticeWriting: PracticeWriting = {
 
   ieltsSelection: {
     title: "Choose an IELTS Type",
-    selected: undefined,
+    selected: "academic", // default selected
     options: [
       { value: "academic", label: "Academic" },
       { value: "general", label: "General" }
@@ -32,7 +32,7 @@ export const mockPracticeWriting: PracticeWriting = {
 
   taskSelection: {
     title: "Choose a Task Type",
-    selected: undefined,
+    selected: "task-two", // default selected
     options: [
       { value: "task-one", label: "Task 1" },
       { value: "task-two", label: "Task 2" }
@@ -42,17 +42,19 @@ export const mockPracticeWriting: PracticeWriting = {
   taskDescription: {
     placeHolderText: "",
     taskID: 1,
-    questionID: 1,
-    questionText: "This is the task description genereated from mockData."
+    questionID: 101,
+    questionText:
+      "Rich countries often give money to poorer countries, but this does not always solve poverty. Discuss why this is the case and suggest solutions."
   },
 
   answer: {
-    placeHolderText: "",
-    taskID: "",
-    submissionGroup: 0,
-    ieltsType: "",
-    taskType: "",
-    questionCategory: "",
+
+    placeHolderText: "Write your answer here...",
+    taskID: "1", 
+    submissionGroup: 0, 
+    ieltsType: "Academic", 
+    taskType: "Task 2", 
+    questionCategory: "Essay",
     answerText: "",
     wordCount: 0,
     submissionDate: "",
@@ -60,3 +62,4 @@ export const mockPracticeWriting: PracticeWriting = {
     sections: []
   }
 };
+

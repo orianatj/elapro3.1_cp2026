@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 // Shared components
@@ -19,6 +20,25 @@ type PracticeWritingPageProps = {
 export default function PracticeWritingPage({ viewData }: PracticeWritingPageProps) {
 
     const [wordCount, setWordCount] = useState(viewData.answer.wordCount);
+
+    const [answerText, setAnswerText] = useState(viewData.answer.answerText ?? "");
+
+    const handleSubmit = () => {
+        if (!answerText.trim()) {
+            alert("Please write an answer before submitting.");
+            return;
+        }
+
+        const payload = {
+            ieltsType: viewData.answer.ieltsType,
+            taskType: viewData.answer.taskType,
+            taskId: viewData.answer.taskID,
+            essayResponse: answerText,
+            questionId: viewData.taskDescription.questionID
+        };
+
+        console.log("Submitting answer:", payload);
+    };
 
     return (
 
@@ -79,12 +99,15 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
                         <AnswerEditor
                             answer={viewData.answer}
                             onWordCountChange={setWordCount}
+                            onTextChange={setAnswerText}
                         />
                     </div>
 
                     {/* Submit Answer Button */}
                     <div className="submit-answer-button">
-                        {/*TODO: "Implement SubmitAnswerButton"*/}
+                        <button onClick={handleSubmit}>
+                            Submit Answer
+                        </button>
                     </div>
                 </div>
             </div>

@@ -5,9 +5,10 @@ import type { TaskAnswer } from "../types/student/common/TaskAnswerDTO";
 type AnswerEditorProps = {
     answer: TaskAnswer;
     onWordCountChange: (count: number) => void;
+    onTextChange: (text: string) => void;
 };
 
-export function AnswerEditor({ answer, onWordCountChange }: AnswerEditorProps) {
+export function AnswerEditor({ answer, onWordCountChange, onTextChange }: AnswerEditorProps) {
 
     // Local state for answer text
     const [text, setText] = useState(answer.answerText ?? "");
@@ -18,7 +19,7 @@ export function AnswerEditor({ answer, onWordCountChange }: AnswerEditorProps) {
     // Calculate word count from text
     const trimmed = text.trim();
     const wordCount = trimmed ? trimmed.split(/\s+/).length : 0;
-    
+
     // Notify parent whenever count changes
     useEffect(() => {
         onWordCountChange(wordCount);
@@ -32,7 +33,12 @@ export function AnswerEditor({ answer, onWordCountChange }: AnswerEditorProps) {
             <textarea
                 className="answer-textarea"
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    setText(value);
+                    onTextChange(value);
+                }}
+
                 placeholder="Write your answer here"
             />
 
