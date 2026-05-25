@@ -3,7 +3,11 @@ import { BsArrowUp, BsArrowDown, BsArrowDownUp } from "react-icons/bs";
 import { StatsSummary } from "../../studentDashboard/StatsSummary";
 import './studentdb.css';
 import { FilterBar } from "../../studentDashboard/StudentFilter";
-import { CriterionSelector } from "../../studentDashboard/CriterionToggles";
+import { useState } from "react";
+import type { IeltsType, TaskType } from "../../types/common/Dashboard";
+import { ProgressTracking } from "../../studentDashboard/ProgressTracking";
+import { useAuth } from "../../hooks/useAuth";
+import { GreetingBanner } from "../../studentDashboard/GreetingBanner";
 
 
 const STATS = [
@@ -13,25 +17,25 @@ const STATS = [
     { label: "Average Score", value: 0, icon: <BsArrowDownUp /> }
 ];
 
-const CHART_DATA = [
-    { ielts: "general", task: "task one", week: "05/01", overallScore: 6, taskAchievement: 5.5, GrammaticalRA: 6, lexicalResource: 5, coheranceAndCohesion: 7 },
-    { ielts: "general", task: "task one", week: "19/01", overallScore: 5, taskAchievement: 4, GrammaticalRA: 4, lexicalResource: 5, coheranceAndCohesion: 6 },
-    { ielts: "general", task: "task one", week: "26/01", overallScore: 5, taskAchievement: 4, GrammaticalRA: 4, lexicalResource: 5, coheranceAndCohesion: 6 },
-]
-
-const CRITERIA = [
-    "Overall Score",
-    "Task Achievement",
-    "Grammatical Range & Accuracy",
-    "Lexical Resource",
-    "Coherence & Cohesion",
-];
 
 
 export default function StudentDashboardPage() {
+
+    // Fetch current user's details 
+    const { user } = useAuth();
+
+    const [ieltsType, setIeltsType] = useState<IeltsType>();
+
+    const [taskType, setTaskType] = useState<TaskType>();
+
+    if (!user) {
+        return <div>Unable to load user data.</div>;
+    }
+
     return (
 
         <div className="container">
+            <div><GreetingBanner name={user.firstName} /></div>
             <div><StatsSummary stats={STATS} /></div>
             <div><FilterBar filters={[
                 {
@@ -44,17 +48,10 @@ export default function StudentDashboardPage() {
                     selected: "",
                     options: ["Task 1", "Task 2"]
 
-                },
-                {
-                    title: "View By:",
-                    selected: "",
-                    options: ["Weekly", "Monthly", "Quarterly"]
-
                 }
             ]} />
-                <CriterionSelector toggles={CRITERIA} />
-
             </div>
+            <ProgressTracking userId={user.userId} ieltsType={ieltsType} taskType={taskType} />
         </div>
     )
 };
