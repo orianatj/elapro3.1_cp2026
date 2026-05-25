@@ -1,6 +1,4 @@
 
-import { useState } from "react";
-
 import { FilterGroup } from "./FilterGroup"
 import type { StudentFilter, IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
@@ -8,28 +6,28 @@ import type { StudentFilter, IeltsType, TaskType } from "../types/student/common
 type PracticeTaskSelectionProps = {
     ieltsFilter: StudentFilter<IeltsType | undefined>;
     taskFilter: StudentFilter<TaskType | undefined>;
+    onIeltsTypeChange?: (value: IeltsType | undefined) => void;
+    onTaskTypeChange?: (value: TaskType | undefined) => void;
     onGenerate?: () => void;
 }
 
 export function PracticeTaskSelectionGroup({
     ieltsFilter,
     taskFilter,
+    onIeltsTypeChange,
+    onTaskTypeChange,
     onGenerate
-}: PracticeTaskSelectionProps) {
-
-    // Local state to track current selections (initialised from viewData)
-    const [ielts, setIelts] = useState < IeltsType | undefined> (ieltsFilter.selected);
-    const [task, setTask] = useState<TaskType | undefined> (taskFilter.selected);
+}: PracticeTaskSelectionProps) {   
 
     // Button disabled until both selections are made
-    const isDisabled = !ielts || !task;
+    const isDisabled = !ieltsFilter.selected || !taskFilter.selected;
 
     // Apply constraint: Academic cannot have Task 2
     const constraintTaskFilter = {
         ...taskFilter,
         options: taskFilter.options.map((option) => {
 
-            if (ielts === "academic" && option.value === "task-two") {
+            if (ieltsFilter.selected === "academic" && option.value === "task-two") {
                 return {...option, disabled: true};
             }
 
@@ -42,7 +40,7 @@ export function PracticeTaskSelectionGroup({
         ...ieltsFilter,
         options: ieltsFilter.options.map((option) => {
 
-            if (task === "task-two" && option.value === "academic") {
+            if (taskFilter.selected === "task-two" && option.value === "academic") {
                 return {...option, disabled: true};
             }
 
@@ -63,11 +61,11 @@ export function PracticeTaskSelectionGroup({
                 filters={[
                     {
                         ...constraintIeltsFilter,
-                        selected: ielts
+                        selected: ieltsFilter.selected
                     },
                     {
                         ...constraintTaskFilter,
-                        selected: task
+                        selected: taskFilter.selected
                     } 
                 ]}
 
@@ -75,11 +73,11 @@ export function PracticeTaskSelectionGroup({
                 onChange={(title: string, value: IeltsType | TaskType | undefined) => {
 
                     if (title === ieltsFilter.title) {
-                        setIelts(value as IeltsType | undefined)
+                        onIeltsTypeChange?.(value as IeltsType | undefined)
                     }
 
                     if (title === taskFilter.title) {
-                        setTask(value as TaskType | undefined)
+                        onTaskTypeChange?.(value as TaskType | undefined)
                     }
                 }}
             />
@@ -94,9 +92,6 @@ export function PracticeTaskSelectionGroup({
                     Get Task
                 </button>
             </div>
-
         </div>
-
-
     )
 }

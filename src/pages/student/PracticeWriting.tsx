@@ -23,16 +23,29 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
 
     const [answerText, setAnswerText] = useState(viewData.answer.answerText ?? "");
 
+    // Local state to track current selections (initialised from viewData)
+    const [ieltsType, setIeltsType] = useState(viewData.ieltsSelection.selected);
+    const [taskType, setTaskType] = useState(viewData.taskSelection.selected);
+
     const handleSubmit = () => {
+
+        // Basic validation: Ensure answer is not empty
         if (!answerText.trim()) {
             alert("Please write an answer before submitting.");
             return;
         }
 
+        // Map selected values to expected payload format
+        const mappedIeltsType =
+            ieltsType === "academic" ? "Academic" : "General";
+        const mappedTaskType =
+            taskType === "task-two" ? "Task 2" : "Task 1";
+
+        // Construct payload for submission 
         const payload = {
-            ieltsType: viewData.answer.ieltsType,
-            taskType: viewData.answer.taskType,
-            taskId: viewData.answer.taskID,
+            ieltsType: mappedIeltsType,
+            taskType: mappedTaskType,
+            taskId: viewData.taskDescription.taskID,
             essayResponse: answerText,
             questionId: viewData.taskDescription.questionID
         };
@@ -66,8 +79,16 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
                     <div className="task-selection-section">
 
                         <PracticeTaskSelectionGroup
-                            ieltsFilter={viewData.ieltsSelection}
-                            taskFilter={viewData.taskSelection}
+                            ieltsFilter={{
+                                ...viewData.ieltsSelection,
+                                selected: ieltsType
+                            }}
+                            taskFilter={{
+                                ...viewData.taskSelection,
+                                selected: taskType
+                            }}
+                            onIeltsTypeChange={setIeltsType}
+                            onTaskTypeChange={setTaskType}
                         />
 
                     </div>
