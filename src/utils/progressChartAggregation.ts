@@ -166,7 +166,6 @@ export function aggregateProgressSeries({ series, aggregationLevel }: AggProgres
         }
 
         // Transform date label
-        // aggChartPoint.datelabel = function(bucketKey)
 
         function createLabel(bucketKey: string, aggLevel: string) {
 
@@ -223,7 +222,7 @@ export function aggregateProgressSeries({ series, aggregationLevel }: AggProgres
             meanOverallScore: calcMean(totalOverallScore, totalSubmissions),
             meanTaskResponse: calcMean(totalTaskResponse, totalSubmissions),
             meanCoherenceCohesion: calcMean(totalCoheranceCohesion, totalSubmissions),
-            meanLexicalResources: calcMean(totalLexicalResource, totalSubmissions),
+            meanLexicalResource: calcMean(totalLexicalResource, totalSubmissions),
             meanGrammaticalRangeAccuracy: calcMean(totalGrammaticalRangeAccuracy, totalSubmissions),
         }
 
