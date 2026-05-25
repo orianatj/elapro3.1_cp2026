@@ -3,6 +3,7 @@ import "./teacher.css";
 import Stats from "../../types/teacher/StatisticBoxTemplate";
 import MenuList from "./../../common/MenuList.tsx";
 import type { MenuData } from "./../../common/MenuList.tsx";
+import DashboardBandDistribution from "../../common/BandDistribution.tsx";
 
 type TeacherRole = "supervisory_teacher" | "external_teacher";
 
@@ -83,13 +84,7 @@ export default function TeacherDashboard({
 
       <div className="charts">
         <div className="chart-box">
-          <img
-            src="/src/assets/Student-Statistic.png"
-            alt="Student Statistic"
-            onClick={() =>
-              setSelectedImage("/src/assets/Student-Statistic.png")
-            }
-          />
+          <><DashboardBandDistribution /></>
         </div>
 
         <div className="chart-box">
