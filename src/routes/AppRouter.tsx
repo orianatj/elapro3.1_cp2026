@@ -72,6 +72,7 @@ export default function AppRouter() {
               }
             >
               <Route path="edit-score" element={<EditStudentScorePage />} />
+              <Route path="create-assignment" element={<CreateAssignment />} />
 
             </Route>
             {/* External Teacher Only Routes */}

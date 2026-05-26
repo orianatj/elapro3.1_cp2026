@@ -4,7 +4,7 @@ import Stats from "../../types/teacher/StatisticBoxTemplate";
 import MenuList from "./../../common/MenuList.tsx";
 import type { MenuData } from "./../../common/MenuList.tsx";
 import DashboardBandDistribution from "../../common/BandDistribution.tsx";
-
+import { WeaknessTrends } from "../../common/WeaknessTrends.tsx";
 type TeacherRole = "supervisory_teacher" | "external_teacher";
 
 type TeacherDashboardProps = {
@@ -97,14 +97,8 @@ export default function TeacherDashboard({
           />
         </div>
 
-        <div className="chart-box large">
-          <img
-            src="/src/assets/Attendance.png"
-            alt="Attendance"
-            onClick={() =>
-              setSelectedImage("/src/assets/Attendance.png")
-            }
-          />
+        <div className="chart-box">
+          <><WeaknessTrends title="Weakness Trends" /></>
         </div>
       </div>
 

@@ -1,14 +1,19 @@
+// services/DashboardBandDistribution.ts
 import { api } from "./client";
 
-interface BandDistributionParams {
+export interface BandDistributionParams {
   fromDate?: string;
   toDate?: string;
   ieltsType?: string;
   taskType?: string;
 }
 
-export const bandDistribution = (params?: BandDistributionParams) => {
-  return api.get("/dashboard/band-distribution", {
+export const bandDistribution = async (
+  params?: BandDistributionParams
+) => {
+  const response = await api.get("/dashboard/band-distribution", {
     params,
   });
+
+  return response.data;
 };

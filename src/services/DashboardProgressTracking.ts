@@ -1,20 +1,19 @@
 import { api } from "./client";
 
-type ProgressParams = {
-  userId?: string;
-  fromDate?: string;
-  toDate?: string;
-  ieltsType?: "academic" | "general";
-  taskType?: "task1" | "task2";
+export type WeaknessTrendsFilters = {
+  fromDate?: string | null;
+  toDate?: string | null;
+  ieltsType?: "academic" | "general" | null;
+  taskType?: "task1" | "task2" | null;
 };
 
-export const progressTracking = (
-  params?: ProgressParams
+export const weaknessTrends = (
+  params: WeaknessTrendsFilters = {}
 ) => {
   return api.get(
-    "/dashboard/progress-tracking",
+    "/dashboard/student-progress-tracking",
     {
-      params,
+      params
     }
   );
 };

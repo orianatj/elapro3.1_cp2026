@@ -1,0 +1,113 @@
+.weakness-trends {
+  --wt-task-response: #f2b705;
+  --wt-coherence-cohesion: #2f66d0;
+  --wt-lexical-resource: #27c93f;
+  --wt-range-accuracy: #d10000;
+
+  background: #ffffff;
+  border: 1px solid #e6edf5;
+  border-radius: 20px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  padding: 16px 16px 12px;
+  width: 100%;
+}
+
+.weakness-trends__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.weakness-trends__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.weakness-trends__subtitle {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.weakness-trends__chart {
+  width: 100%;
+  height: 320px;
+}
+
+.weakness-trends__state {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.weakness-trends__state--error {
+  color: #b91c1c;
+}
+
+.weakness-trends__tooltip {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #dbe4ee;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  padding: 12px 14px;
+  min-width: 210px;
+}
+
+.weakness-trends__tooltip-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.weakness-trends__tooltip-row {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.weakness-trends__tooltip-row:last-child {
+  margin-bottom: 0;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.dot--task-response {
+  background: var(--wt-task-response);
+}
+
+.dot--coherence {
+  background: var(--wt-coherence-cohesion);
+}
+
+.dot--lexical {
+  background: var(--wt-lexical-resource);
+}
+
+.dot--range {
+  background: var(--wt-range-accuracy);
+}
+
+/* Recharts legend styling */
+.weakness-trends .recharts-legend-item-text {
+  color: #334155 !important;
+  font-size: 12px;
+}
+
+.weakness-trends .recharts-cartesian-axis-tick-value {
+  fill: #64748b;
+}
