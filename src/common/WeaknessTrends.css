@@ -4,6 +4,11 @@
   --wt-lexical-resource: #27c93f;
   --wt-range-accuracy: #d10000;
 
+  --wt-axis-color: #64748b;
+  --wt-grid-color: rgba(15, 23, 42, 0.18);
+  --wt-legend-opacity-disabled: 0.45;
+  --wt-legend-text: #334155;
+
   background: #ffffff;
   border: 1px solid #e6edf5;
   border-radius: 20px;
@@ -50,10 +55,10 @@
 }
 
 .weakness-trends__tooltip {
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255,255,255,.98);
   border: 1px solid #dbe4ee;
   border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 12px 28px rgba(15,23,42,.12);
   padding: 12px 14px;
   min-width: 210px;
 }
@@ -83,7 +88,6 @@
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  display: inline-block;
 }
 
 .dot--task-response {
@@ -102,12 +106,45 @@
   background: var(--wt-range-accuracy);
 }
 
-/* Recharts legend styling */
-.weakness-trends .recharts-legend-item-text {
-  color: #334155 !important;
-  font-size: 12px;
+.weakness-trends__grid line {
+  stroke: var(--wt-grid-color);
 }
 
 .weakness-trends .recharts-cartesian-axis-tick-value {
-  fill: #64748b;
+  fill: var(--wt-axis-color);
+  font-size: 12px;
+}
+
+.weakness-trends__legend {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+}
+
+.weakness-trends__legend-item {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: opacity .2s ease;
+}
+
+.weakness-trends__legend-item--active {
+  opacity: 1;
+}
+
+.weakness-trends__legend-item--inactive {
+  opacity: var(--wt-legend-opacity-disabled);
+}
+
+.weakness-trends__legend-text {
+  color: var(--wt-legend-text);
+  font-size: 12px;
 }

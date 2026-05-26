@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -27,37 +27,116 @@ type TooltipProps = {
   label?: string;
 };
 
-const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
+type SeriesKey =
+  | "taskResponse"
+  | "coherenceCohesion"
+  | "lexicalResource"
+  | "rangeAccuracy";
+
+type LegendProps = {
+  visibility: Record<SeriesKey, boolean>;
+  onToggle: (key: SeriesKey) => void;
+};
+
+const LINE_PROPS = {
+  type: "monotone" as const,
+  strokeWidth: 2.5,
+  dot: false,
+  activeDot: { r: 4 },
+};
+
+const SERIES = [
+  {
+    key: "taskResponse" as const,
+    name: "Task Response",
+    dotClass: "dot--task-response",
+    stroke: "var(--wt-task-response)",
+  },
+  {
+    key: "coherenceCohesion" as const,
+    name: "Coherence + Cohesion",
+    dotClass: "dot--coherence",
+    stroke: "var(--wt-coherence-cohesion)",
+  },
+  {
+    key: "lexicalResource" as const,
+    name: "Lexical Resource",
+    dotClass: "dot--lexical",
+    stroke: "var(--wt-lexical-resource)",
+  },
+  {
+    key: "rangeAccuracy" as const,
+    name: "Range + Accuracy",
+    dotClass: "dot--range",
+    stroke: "var(--wt-range-accuracy)",
+  },
+];
+
+const CustomTooltip: React.FC<TooltipProps> = ({
+  active,
+  payload,
+  label,
+}) => {
   if (!active || !payload?.length) return null;
+
+  const getValue = (key: SeriesKey) =>
+    payload.find((item) => item.dataKey === key)?.value ?? 0;
 
   return (
     <div className="weakness-trends__tooltip">
-      <div className="weakness-trends__tooltip-title">{label}</div>
-      <div className="weakness-trends__tooltip-row">
-        <span className="dot dot--task-response" />
-        <span>Task Response:</span>
-        <strong>{payload[0]?.value ?? 0}</strong>
+      <div className="weakness-trends__tooltip-title">
+        {label}
       </div>
-      <div className="weakness-trends__tooltip-row">
-        <span className="dot dot--coherence" />
-        <span>Coherence + Cohesion:</span>
-        <strong>{payload[1]?.value ?? 0}</strong>
-      </div>
-      <div className="weakness-trends__tooltip-row">
-        <span className="dot dot--lexical" />
-        <span>Lexical Resource:</span>
-        <strong>{payload[2]?.value ?? 0}</strong>
-      </div>
-      <div className="weakness-trends__tooltip-row">
-        <span className="dot dot--range" />
-        <span>Range + Accuracy:</span>
-        <strong>{payload[3]?.value ?? 0}</strong>
-      </div>
+
+      {SERIES.map((series) => (
+        <div
+          key={series.key}
+          className="weakness-trends__tooltip-row"
+        >
+          <span className={`dot ${series.dotClass}`} />
+          <span>{series.name}:</span>
+          <strong>{getValue(series.key)}</strong>
+        </div>
+      ))}
     </div>
   );
 };
 
-export const WeaknessTrends: React.FC<WeaknessTrendsProps> = ({
+const CustomLegend: React.FC<LegendProps> = ({
+  visibility,
+  onToggle,
+}) => {
+  return (
+    <div className="weakness-trends__legend">
+      {SERIES.map((series) => {
+        const active = visibility[series.key];
+
+        return (
+          <button
+            key={series.key}
+            type="button"
+            onClick={() => onToggle(series.key)}
+            aria-pressed={active}
+            className={`weakness-trends__legend-item ${
+              active
+                ? "weakness-trends__legend-item--active"
+                : "weakness-trends__legend-item--inactive"
+            }`}
+          >
+            <span className={`dot ${series.dotClass}`} />
+            <span className="weakness-trends__legend-text">
+              {series.name}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+export const WeaknessTrends: React.FC<
+  WeaknessTrendsProps
+> = ({
   fromDate,
   toDate,
   ieltsType,
@@ -65,96 +144,113 @@ export const WeaknessTrends: React.FC<WeaknessTrendsProps> = ({
   title = "Weakness Trends",
   periodLabel,
 }) => {
-  const { data, isLoading, isError } = useWeaknessTrends({
-    fromDate,
-    toDate,
-    ieltsType,
-    taskType,
-  });
+  const { data, isLoading, isError } =
+    useWeaknessTrends({
+      fromDate,
+      toDate,
+      ieltsType,
+      taskType,
+    });
+
+  const [visibility, setVisibility] =
+    useState<Record<SeriesKey, boolean>>({
+      taskResponse: true,
+      coherenceCohesion: true,
+      lexicalResource: true,
+      rangeAccuracy: true,
+    });
+
+  const toggleSeries = (key: SeriesKey) => {
+    setVisibility((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   return (
     <section className="weakness-trends">
       <div className="weakness-trends__header">
         <div>
-          <h3 className="weakness-trends__title">{title}</h3>
-          {periodLabel ? <p className="weakness-trends__subtitle">{periodLabel}</p> : null}
+          <h3 className="weakness-trends__title">
+            {title}
+          </h3>
+
+          {periodLabel && (
+            <p className="weakness-trends__subtitle">
+              {periodLabel}
+            </p>
+          )}
         </div>
       </div>
 
       <div className="weakness-trends__chart">
         {isLoading ? (
-          <div className="weakness-trends__state">Loading chart...</div>
+          <div className="weakness-trends__state">
+            Loading chart...
+          </div>
         ) : isError ? (
           <div className="weakness-trends__state weakness-trends__state--error">
             Failed to load weakness trends.
           </div>
         ) : !data?.length ? (
-          <div className="weakness-trends__state">No trend data available.</div>
+          <div className="weakness-trends__state">
+            No trend data available.
+          </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
-              margin={{ top: 10, right: 12, left: 0, bottom: 0 }}
+              margin={{
+                top: 10,
+                right: 12,
+                left: 0,
+                bottom: 0,
+              }}
             >
-              <CartesianGrid vertical={false} stroke="rgba(15, 23, 42, 0.18)" />
+              <CartesianGrid
+                vertical={false}
+                className="weakness-trends__grid"
+              />
+
               <XAxis
                 dataKey="label"
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 12, fill: "#64748b" }}
                 interval={0}
               />
+
               <YAxis
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 12, fill: "#64748b" }}
                 domain={[0, 10]}
                 allowDecimals={false}
               />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend
-                verticalAlign="bottom"
-                align="center"
-                iconType="circle"
-                wrapperStyle={{ paddingTop: 12 }}
+
+              <Tooltip
+                content={<CustomTooltip />}
               />
 
-              <Line
-                type="monotone"
-                dataKey="taskResponse"
-                name="Task Response"
-                stroke="var(--wt-task-response)"
-                strokeWidth={2.5}
-                dot={false}
-                activeDot={{ r: 4 }}
+              <Legend
+                content={
+                  <CustomLegend
+                    visibility={visibility}
+                    onToggle={toggleSeries}
+                  />
+                }
               />
-              <Line
-                type="monotone"
-                dataKey="coherenceCohesion"
-                name="Coherence + Cohesion"
-                stroke="var(--wt-coherence-cohesion)"
-                strokeWidth={2.5}
-                dot={false}
-                activeDot={{ r: 4 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="lexicalResource"
-                name="Lexical Resource"
-                stroke="var(--wt-lexical-resource)"
-                strokeWidth={2.5}
-                dot={false}
-                activeDot={{ r: 4 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="rangeAccuracy"
-                name="Range + Accuracy"
-                stroke="var(--wt-range-accuracy)"
-                strokeWidth={2.5}
-                dot={false}
-                activeDot={{ r: 4 }}
-              />
+
+              {SERIES.map(
+                (series) =>
+                  visibility[series.key] && (
+                    <Line
+                      key={series.key}
+                      {...LINE_PROPS}
+                      dataKey={series.key}
+                      name={series.name}
+                      stroke={series.stroke}
+                    />
+                  )
+              )}
             </LineChart>
           </ResponsiveContainer>
         )}
