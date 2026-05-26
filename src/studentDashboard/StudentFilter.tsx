@@ -1,9 +1,9 @@
 
 type FilterData = {
-    title: string;  // ex. "Choose an IELTS Type"
-    selected: string;  // ex. 'General/Task 1/Weekly'
-    options: string[];
-    placeholder?: string  // ex. "Please select an option" (optional)
+    title: string;        // Label shown above dropdown. ex. "Choose an IELTS Type"
+    selected: string;     // Current selected value. ex. 'General/Task 1/Weekly'
+    options: string[];    // Dropdown options. ex. ['General', 'Academic']
+    placeholder?: string  // Optional placeholder for unselected state. ex. "Please select an option"
 };
 
 type FilterBarProps = {
@@ -26,25 +26,31 @@ export function FilterBar({ filters }: FilterBarProps) {
     );
 };
 
+// Extend FilterData with optional onChange behaviour
 type ChartFilterProps = FilterData & {
     onChange?: (title: string, value: string | undefined) => void;
 };
 
+// Reusable dropdown filter component
 function ChartFilter({ title, selected, options, placeholder, onChange }: ChartFilterProps) {
     return (
         <div className="filter-item">
             <label>{title}</label>
+
+            {/* Controlled select input (fixes React warning) */}
             <select className="filter-dropdown" 
             value={selected ?? ""}
             onChange={(e) => {
                 const value = e.target.value || undefined; // Convert empty string to undefined
-                onChange?.(title, value);
+                onChange?.(title, value);  // Only passes title and value if parent handler is provided
             }}
             >
+                {/* Placeholder shown when no selection is made */}
                 <option value="" disabled>
                     {placeholder ?? "--Please choose an option--"}
                 </option>
 
+                {/* Render dropdown options */}
                 {options.map((option) => (
                     <option
                         key={option}
