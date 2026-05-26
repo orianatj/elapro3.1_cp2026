@@ -17,7 +17,7 @@ export function PracticeTaskSelectionGroup({
     onIeltsTypeChange,
     onTaskTypeChange,
     onGenerate
-}: PracticeTaskSelectionProps) {   
+}: PracticeTaskSelectionProps) {
 
     // Button disabled until both selections are made
     const isDisabled = !ieltsFilter.selected || !taskFilter.selected;
@@ -28,10 +28,10 @@ export function PracticeTaskSelectionGroup({
         options: taskFilter.options.map((option) => {
 
             if (ieltsFilter.selected === "academic" && option.value === "task-two") {
-                return {...option, disabled: true};
+                return { ...option, disabled: true };
             }
 
-            return {...option, disabled:false}
+            return option;
         })
     };
 
@@ -41,10 +41,10 @@ export function PracticeTaskSelectionGroup({
         options: ieltsFilter.options.map((option) => {
 
             if (taskFilter.selected === "task-two" && option.value === "academic") {
-                return {...option, disabled: true};
+                return { ...option, disabled: true };
             }
 
-            return {...option, disabled:false}
+            return option;
         })
     };
 
@@ -66,7 +66,7 @@ export function PracticeTaskSelectionGroup({
                     {
                         ...constraintTaskFilter,
                         selected: taskFilter.selected
-                    } 
+                    }
                 ]}
 
                 // Handle dropdown changes coming from FilterGroup

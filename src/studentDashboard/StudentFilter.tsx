@@ -26,13 +26,21 @@ export function FilterBar({ filters }: FilterBarProps) {
     );
 };
 
-type ChartFilterProps = FilterData;
+type ChartFilterProps = FilterData & {
+    onChange?: (title: string, value: string | undefined) => void;
+};
 
-function ChartFilter({ title, selected, options, placeholder }: ChartFilterProps) {
+function ChartFilter({ title, selected, options, placeholder, onChange }: ChartFilterProps) {
     return (
         <div className="filter-item">
             <label>{title}</label>
-            <select className="filter-dropdown" value={selected ?? ""}>
+            <select className="filter-dropdown" 
+            value={selected ?? ""}
+            onChange={(e) => {
+                const value = e.target.value || undefined; // Convert empty string to undefined
+                onChange?.(title, value);
+            }}
+            >
                 <option value="" disabled>
                     {placeholder ?? "--Please choose an option--"}
                 </option>
