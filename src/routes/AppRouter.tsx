@@ -14,7 +14,7 @@ import PracticeWritingPage from "../pages/student/PracticeWriting";
 import ExternalPage from "../pages/teacher/externalTeacher.tsx";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
-import { LoginPage } from "../pages/auth/LoginPage.tsx"
+import { LoginPage } from "../pages/auth/LoginPage.tsx";
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
 import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
 import { ResetPasswordPage } from "../pages/auth/ResetPasswordPage.tsx";
@@ -29,22 +29,17 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
-
         {/* Dashboard Redirect */}
         <Route path="/" element={<DashboardRedirect />} />
-
         {/* Student Protected Routes */}
         <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-
           <Route path="/student" element={<StudentLayout />}>
-
             <Route index element={<StudentDashboardPage />} />
 
             <Route path="essay-submission" element={<EssaySubmissionPage />} />
@@ -56,39 +51,47 @@ export default function AppRouter() {
             {/*<Route path="submission:submissionId" element={<SubmissionAnalysisPage />} />*/}
           </Route>
         </Route>
-
-
-        {/* Teacher Protected Routes */}
-        <Route element={<ProtectedRoute allowedRoles={["supervisory_teacher", "external_teacher"]} />}>
-
-          <Route path="/teacher" element={<TeacherLayout />}>
-
-            <Route index element={<TeacherDashboard />} />
-
-            <Route path="edit-score" element={<EditStudentScorePage />} />
-
-            <Route path="individual-submission" element={<IndividualSubmission />} />
-
-            <Route path="create-assignment" element={<CreateAssignment />} />
-
-            <Route path="submissions" element={<ViewSubmissions />} />
-            
-            <Route path="external" element={<ExternalPage />} />
-
-          </Route>
         
-        </Route>
+        
+        {/* Teacher Protected Routes */}
+        <Route
+          element={
+            <ProtectedRoute
+              allowedRoles={["supervisory_teacher", "external_teacher"]}
+            />
+          }
+        >
+          <Route path="/teacher" element={<TeacherLayout />}>
+            {/* Shared Teacher Routes */}
+            <Route index element={<TeacherDashboard />} />
+            <Route path="submissions" element={<ViewSubmissions />} />
+            <Route
+              path="individual-submission"
+              element={<IndividualSubmission />}
+            />
+            {/* Supervisory Teacher Only Routes */}
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["supervisory_teacher"]} />
+              }
+            >
+              <Route path="edit-score" element={<EditStudentScorePage />} />
 
-        {/* Admin Protected Routes */}
-        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-
-          <Route path="/admin" element={<AdminLayout />}>
-
-            <Route index element={<AdminDashboardPage />} />
-
+            </Route>
+            {/* External Teacher Only Routes */}
+            <Route
+              element={<ProtectedRoute allowedRoles={["external_teacher"]} />}
+            >
+               <Route path="create-assignment" element={<CreateAssignment />} />
+            </Route>
           </Route>
         </Route>
-
+        ;{/* Admin Protected Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardPage />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
