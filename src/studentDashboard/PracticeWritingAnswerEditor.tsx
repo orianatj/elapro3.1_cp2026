@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { getWordCount } from "../utils/wordCounter";
 import type { TaskAnswer } from "../types/student/common/TaskAnswerDTO";
 
 type AnswerEditorProps = {
@@ -17,8 +18,7 @@ export function AnswerEditor({ answer, onWordCountChange, onTextChange }: Answer
     }, [answer.answerText]);
 
     // Calculate word count from text
-    const trimmed = text.trim();
-    const wordCount = trimmed ? trimmed.split(/\s+/).length : 0;
+    const wordCount = getWordCount(text);
 
     // Notify parent whenever count changes
     useEffect(() => {
