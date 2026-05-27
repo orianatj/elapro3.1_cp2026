@@ -5,6 +5,7 @@ import MenuList from "./../../common/MenuList.tsx";
 import type { MenuData } from "./../../common/MenuList.tsx";
 import DashboardBandDistribution from "../../common/BandDistribution.tsx";
 import { WeaknessTrends } from "../../common/WeaknessTrends.tsx";
+import ProgressBar from "../../common/ProgressBar.tsx";
 type TeacherRole = "supervisory_teacher" | "external_teacher";
 
 type TeacherDashboardProps = {
@@ -88,13 +89,7 @@ export default function TeacherDashboard({
         </div>
 
         <div className="chart-box">
-          <img
-            src="/src/assets/Class-Progress.png"
-            alt="Class Progress"
-            onClick={() =>
-              setSelectedImage("/src/assets/Class-Progress.png")
-            }
-          />
+          <><ProgressBar /></>
         </div>
 
         <div className="chart-box">

@@ -1,7 +1,6 @@
 // hooks/useBandDistribution.ts
 import { useQuery } from "@tanstack/react-query";
 import { bandDistribution } from "../services/DashboardBandDistribution";
-import type { BandDistributionParams } from "../services/DashboardBandDistribution";
 
 export interface BandBucket {
   band: string | number;
@@ -9,12 +8,12 @@ export interface BandBucket {
 }
 
 export const useBandDistribution = (
-  params?: BandDistributionParams
+  params?: Record<string, unknown>
 ) => {
   return useQuery({
     queryKey: ["band-distribution", params],
     queryFn: async () => {
-      const data = await bandDistribution(params);
+      const { data } = await bandDistribution(params);
 
       const payload = data?.data ?? data;
       const bands = payload?.bands ?? [];
