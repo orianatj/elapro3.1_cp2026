@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { TaskUtilityBar } from "../types/student/common/TaskUtilBar"
 
 import { formatTimer, decrementTimer, shouldContinue } from "../utils/countdownTimer";
-import { FiClock, FiPause, FiRotateCw } from "react-icons/fi";
+import { FiClock, FiPlay, FiPause, FiRotateCw } from "react-icons/fi";
 
 type TaskUtilityBarProps = {
     utilData: TaskUtilityBar;
@@ -13,19 +13,37 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
 
     // Local state for countdown timer
     const [time, setTime] = useState(utilData.timeRemaining);
+    const [isRunning, setIsRunning] = useState(false);
+
+    // Button handlers
+    // Start button initiates countdown
+    const handleStart = () => {
+        setIsRunning(true);
+    };
+
+    // Pause button stops the timer without resetting time
+    // Toggles between pause and resume
+    const handlePause = () => {
+        setIsRunning((prev) => !prev);
+    };
+
+    // Stop timer and reset time back to initial value
+    const handleReset = () => {
+        setTime(utilData.timeRemaining);
+        setIsRunning(false);
+    };
 
     // Countdown effect
     useEffect(() => {
 
         // Only run timer if session is active and not paused
-        if (!utilData.isActive || utilData.isPaused) return;
+        if (!isRunning || utilData.isPaused) return;
 
         const interval = setInterval(() => {
             setTime((prev) => {
 
                 // Stop at 0
-                if (!shouldContinue(prev)) {
-                    clearInterval(interval);
+                if (!shouldContinue(prev)) {                    
                     return 0;
                 }
 
@@ -35,7 +53,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
 
         // Cleanup to avoid memory leaks
         return () => clearInterval(interval)
-    }, [utilData.isActive, utilData.isPaused]);
+    }, [isRunning, utilData.isPaused]);
 
 
     // Sync if reset from parent
@@ -70,9 +88,17 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
 
                 {/* Controls Group */}
                 <div className="controls-group">
+                    {/* Play button */}
+                    <button className="icon-button" onClick={handleStart} disabled={isRunning || utilData.isPaused}>
+                        <FiPlay />
+                        <span>Start Timer</span>
+                    </button>
+
+                    {/* Small divider */}
+                    <span className="mini-divider"></span>
 
                     {/* Pause button */}
-                    <button className="icon-button">
+                    <button className="icon-button" onClick={handlePause}>
                         <FiPause />
                     </button>
 
@@ -80,7 +106,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
                     <span className="mini-divider"></span>
 
                     {/* Reset Button */}
-                    <button className="icon-button">
+                    <button className="icon-button" onClick={handleReset}>
                         <FiRotateCw />
                     </button>
 
