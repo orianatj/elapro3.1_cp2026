@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import type { TaskUtilityBar } from "../types/student/common/TaskUtilBar"
 
-import { formatTimer } from "../utils/dateUtils";
+import { formatTimer, decrementTimer, shouldContinue } from "../utils/countdownTimer";
 import { FiClock, FiPause, FiRotateCw } from "react-icons/fi";
 
 type TaskUtilityBarProps = {
@@ -24,12 +24,12 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
             setTime((prev) => {
 
                 // Stop at 0
-                if (prev <= 1) {
+                if (!shouldContinue(prev)) {
                     clearInterval(interval);
                     return 0;
                 }
 
-                return prev - 1;
+                return decrementTimer(prev);
             });
         }, 1000);
 

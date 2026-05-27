@@ -15,14 +15,3 @@ export function formatDateTime(isoString: string): string {
     });
 }
 
-
-/**
- * Formats a number of seconds into mm:ss format.
- * Used for countdown timers (e.g. 1200 → "20:00")
- */
-export function formatTimer(seconds: number): string {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-}
