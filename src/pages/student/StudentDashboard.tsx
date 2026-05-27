@@ -4,10 +4,12 @@ import { StatsSummary } from "../../studentDashboard/StatsSummary";
 import './studentdb.css';
 import { FilterBar } from "../../studentDashboard/StudentFilter";
 import { useState } from "react";
-import type { IeltsType, TaskType } from "../../types/common/Dashboard";
+import type { IeltsType, RuntimeFilter, TaskType } from "../../types/common/StudentDashboard";
 import { ProgressTracking } from "../../studentDashboard/ProgressTracking";
 import { useAuth } from "../../hooks/useAuth";
 import { GreetingBanner } from "../../studentDashboard/GreetingBanner";
+import type { FilterKey } from "../../types/common/StudentDashboard";
+import { IELTS_TYPE_OPTIONS, TASK_TYPE_OPTIONS } from "../../constants/studentProgressChartConfig";
 
 
 const STATS = [
@@ -28,28 +30,68 @@ export default function StudentDashboardPage() {
 
     const [taskType, setTaskType] = useState<TaskType>();
 
+    const availableIeltsOptions = IELTS_TYPE_OPTIONS.map((option) => {
+
+        return {
+            ...option,
+
+            disabled:
+                taskType === "task1" && option.value === "academic"
+        };
+    });
+
+    const availableTaskOptions = TASK_TYPE_OPTIONS.map((option) => {
+
+        return {
+            ...option,
+
+            disabled:
+                ieltsType === "academic" && option.value === "task1"
+        };
+    })
+
+    const filters: RuntimeFilter[] = [
+
+        {
+            filterKey: "ieltsType",
+            label: "IELTS Type",
+            selected: ieltsType,
+            options: availableIeltsOptions
+        },
+
+        {
+            filterKey: "taskType",
+            label: "Task Type",
+            selected: taskType,
+            options: availableTaskOptions
+
+        }
+    ]
+
+    function handleFilterChange(key: FilterKey, value: string) {
+
+        if (key === "ieltsType") {
+
+            setIeltsType(value as IeltsType)
+        };
+
+        if (key === "taskType") {
+
+            setTaskType(value as TaskType)
+        };
+    }
+
     if (!user) {
         return <div>Unable to load user data.</div>;
-    }
+    };
 
     return (
 
         <div className="container">
             <div><GreetingBanner name={user.firstName} /></div>
             <div><StatsSummary stats={STATS} /></div>
-            <div><FilterBar filters={[
-                {
-                    title: "Choose an IELTS Type:",
-                    selected: "",
-                    options: ["General", "Academic"]
-                },
-                {
-                    title: "Choose a Task Type:",
-                    selected: "",
-                    options: ["Task 1", "Task 2"]
-
-                }
-            ]} />
+            <div>
+                <FilterBar filters={filters} onSelect={handleFilterChange} />
             </div>
             <ProgressTracking userId={user.userId} ieltsType={ieltsType} taskType={taskType} />
         </div>
