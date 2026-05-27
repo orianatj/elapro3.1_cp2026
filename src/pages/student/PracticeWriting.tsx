@@ -1,8 +1,137 @@
-export default function PracticeWritingPage() {
+
+import { useState } from "react";
+
+// Shared components
+import { StudentHeaderBar } from "../../common/StudentHeaderBar";
+import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
+import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
+import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor";
+
+// Types (ViewData)
+import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";
+
+// import "./practicewriting.css";
+
+
+type PracticeWritingPageProps = {
+    viewData: PracticeWriting;
+};
+
+export default function PracticeWritingPage({ viewData }: PracticeWritingPageProps) {
+
+    const [wordCount, setWordCount] = useState(viewData.answer.wordCount);
+
+    const [answerText, setAnswerText] = useState(viewData.answer.answerText ?? "");
+
+    // Local state to track current selections (initialised from viewData)
+    const [ieltsType, setIeltsType] = useState(viewData.ieltsSelection.selected);
+    const [taskType, setTaskType] = useState(viewData.taskSelection.selected);
+
+    const handleSubmit = () => {
+
+        // Basic validation: Ensure answer is not empty
+        if (!answerText.trim()) {
+            alert("Please write an answer before submitting.");
+            return;
+        }
+
+        // Map selected values to expected payload format
+        const mappedIeltsType =
+            ieltsType === "academic" ? "Academic" : "General";
+        const mappedTaskType =
+            taskType === "task-two" ? "Task 2" : "Task 1";
+
+        // Construct payload for submission 
+        const payload = {
+            ieltsType: mappedIeltsType,
+            taskType: mappedTaskType,
+            taskId: viewData.taskDescription.taskID,
+            essayResponse: answerText,
+            questionId: viewData.taskDescription.questionID
+        };
+
+        console.log("Submitting answer:", payload);
+    };
+
     return (
 
-        <>
-            <h1>This is the Practice Writing Page</h1>
-        </>
+        <div className="practice-writing-page">
+
+            {/* Page Header */}
+            <StudentHeaderBar header={viewData.pageHeader} />
+
+            {/* Task Utility Bar */}
+            <div className="task-utility-bar">
+                <TaskUtilityBar utilData={{
+                    ...viewData.taskBar,
+                    userWordCount: wordCount
+                }} />
+            </div>
+
+            {/* Main content layout */}
+            <div className="practice-page-content-layout">
+
+                {/* Task Section */}
+                <div className="practice-writing-task">
+
+                    {/* Dropdown Selection Group 
+                        (includes section-header and action button) */}
+                    <div className="task-selection-section">
+
+                        <PracticeTaskSelectionGroup
+                            ieltsFilter={{
+                                ...viewData.ieltsSelection,
+                                selected: ieltsType
+                            }}
+                            taskFilter={{
+                                ...viewData.taskSelection,
+                                selected: taskType
+                            }}
+                            onIeltsTypeChange={setIeltsType}
+                            onTaskTypeChange={setTaskType}
+                        />
+
+                    </div>
+
+                    {/* Task Description Section*/}
+                    <div className="task-description-section">
+
+                        {/* Section Header */}
+                        <div className="section-header">
+                            <h4>Task Description</h4>
+                        </div>
+
+                        <div className="task-description">
+                            {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Answer Section */}
+                <div className="practice-writing-answer">
+
+                    {/* Section Header */}
+                    <div className="section-header">
+                        <h4>Your Answer</h4>
+                    </div>
+
+                    <div className="answer-text-editor">
+                        <AnswerEditor
+                            answer={viewData.answer}
+                            onWordCountChange={setWordCount}
+                            onTextChange={setAnswerText}
+                        />
+                    </div>
+
+                    {/* Submit Answer Button */}
+                    <div className="submit-answer-button">
+                        <button onClick={handleSubmit}>
+                            Submit Answer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 };

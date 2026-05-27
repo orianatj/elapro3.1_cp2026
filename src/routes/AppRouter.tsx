@@ -21,6 +21,8 @@ import { ResetPasswordPage } from "../pages/auth/ResetPasswordPage.tsx";
 import { VerifyEmailPage } from "../pages/auth/VerifyEmailPage.tsx";
 import { DashboardRedirect } from "./DashboardRedirect.tsx";
 import { ProtectedRoute } from "./ProtectedRoute.tsx";
+import { mockPracticeWriting } from "../studentDashboard/PracticeWritingMock.ts";
+
 
 // Defines the application's routing structure, including public and protected routes and nested dashboard layouts
 export default function AppRouter() {
@@ -42,13 +44,15 @@ export default function AppRouter() {
 
             <Route path="essay-submission" element={<EssaySubmissionPage />} />
 
-            <Route path="practice-writing" element={<PracticeWritingPage />} />
+            <Route path="practice-writing" element={<PracticeWritingPage viewData={mockPracticeWriting}/>} />
 
             <Route path="submissions" element={<SubmissionsPage />} />
 
             {/*<Route path="submission:submissionId" element={<SubmissionAnalysisPage />} />*/}
           </Route>
         </Route>
+        
+        
         {/* Teacher Protected Routes */}
         <Route
           element={
