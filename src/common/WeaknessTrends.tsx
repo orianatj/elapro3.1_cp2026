@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import { useWeaknessTrends } from "../hooks/useWeaknessTrends";
-import "./WeaknessTrends.css";
+import "../pages/teacher/WeaknessTrends.css";
 
 type WeaknessTrendsProps = {
   fromDate?: string | null;

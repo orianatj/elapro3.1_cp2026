@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useSubmissionsList } from "../hooks/useSubmissionsList";
-import "./SubmissionProgressChart.css";
+import "../pages/teacher/SubmissionProgressChart.css";
 
 interface Props {
   monthLabel?: string;

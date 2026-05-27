@@ -5,7 +5,7 @@ import {
   useDashboardProgressTracking,
 } from "../hooks/useDashboardProgressTracking";
 
-import "./ProgressTracking.css";
+import "../pages/teacher/SubmissionProgressChart.css";
 
 type Props = {
   defaultUserId?: string;
