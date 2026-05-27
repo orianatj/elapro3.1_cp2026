@@ -19,15 +19,19 @@ export function PracticeTaskSelectionGroup({
     onGenerate
 }: PracticeTaskSelectionProps) {
 
-    // Button disabled until both selections are made
+    // Get Task button disabled until both selections are made
     const isDisabled = !ieltsFilter.selected || !taskFilter.selected;
 
-    // Apply constraint: Academic cannot have Task 2
+    // Business logic for interdependent dropdowns:
+    const isAcademic = ieltsFilter.selected === "academic";
+    const isTaskOne = taskFilter.selected === "task-one";
+
+    // Apply constraint: Academic cannot have Task 1
     const constraintTaskFilter = {
         ...taskFilter,
         options: taskFilter.options.map((option) => {
 
-            if (ieltsFilter.selected === "academic" && option.value === "task-two") {
+            if (isAcademic && option.value === "task-one") {
                 return { ...option, disabled: true };
             }
 
@@ -35,12 +39,12 @@ export function PracticeTaskSelectionGroup({
         })
     };
 
-    // Reverse constraint: Task 2 cannot have Academic
+    // Reverse constraint: Task 1 cannot have Academic
     const constraintIeltsFilter = {
         ...ieltsFilter,
         options: ieltsFilter.options.map((option) => {
 
-            if (taskFilter.selected === "task-two" && option.value === "academic") {
+            if (isTaskOne && option.value === "academic") {
                 return { ...option, disabled: true };
             }
 
