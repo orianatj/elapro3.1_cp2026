@@ -2,7 +2,7 @@ import { IoDocumentsOutline } from "react-icons/io5";
 import { BsArrowUp, BsArrowDown, BsArrowDownUp } from "react-icons/bs";
 import { StatsSummary } from "../../studentDashboard/StatsSummary";
 import './studentdb.css';
-import { FilterBar } from "../../studentDashboard/StudentFilter";
+import { FilterBar } from "../../studentDashboard/StudentChartFilter";
 import { useState } from "react";
 import type { IeltsType, RuntimeFilter, TaskType } from "../../types/common/StudentDashboard";
 import { ProgressTracking } from "../../studentDashboard/ProgressTracking";

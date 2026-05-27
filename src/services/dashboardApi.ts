@@ -1,5 +1,5 @@
 import { api } from "./client";
-import type { StudentProgressTracking } from "../types/common/Dashboard";
+import type { StudentProgressTracking } from "../types/common/StudentDashboard";
 
 // Get progress tracking 
 
