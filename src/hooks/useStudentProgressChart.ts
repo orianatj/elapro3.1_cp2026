@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { studentProgressTracking as StudentProgressTrackingApi } from "../services/dashboardApi";
-import type { StudentProgressTracking } from "../types/common/Dashboard";
-import { shouldRenderProgressChart, determineAggregationLevel, aggregateProgressSeries } from "../utils/progressChartAggregation";
+import type { StudentProgressTracking } from "../types/common/StudentDashboard";
+import { determineAggregationLevel, aggregateProgressSeries, formatRawProgressSeries } from "../utils/progressChartAggregation";
 
 
 /* Define TanStack Query, Query hook to return progress chart data for the user's dashboard. 
@@ -13,26 +13,45 @@ export function useStudentProgressChart(params: StudentProgressTracking) {
         queryFn: () => StudentProgressTrackingApi(params),
         select: (response) => {
 
-            const series = response.series;
 
-            const shouldRender = shouldRenderProgressChart(series);
+            console.log("useStudentProgressChart running");
 
-            if (!shouldRender) {
+            const series = response.data.series;
 
+            const aggregationLevel = determineAggregationLevel({ series });
+
+            console.log("aggregationLevel:", aggregationLevel);
+            console.log("series length:", series.length);
+
+            if (aggregationLevel === "empty") {
                 return {
-                    shouldRender,
-                    message: "Complete more practice submissions to view progress trends.",
+                    chartMode: "empty",
+                    message:
+                        "It looks like you haven't completed any submissions yet."
                 };
             }
 
-            const aggregationLevel =
-                determineAggregationLevel(series);
+            if (aggregationLevel === "raw") {
+
+                const chartData = formatRawProgressSeries({ series, chartMode: "raw" });
+
+                console.log(chartData);
+
+                return {
+                    chartMode: "raw",
+                    message: "",
+                    aggregationLevel,
+                    chartData
+                }
+            };
+
 
             const chartData =
                 aggregateProgressSeries({ series, aggregationLevel });
 
             return {
-                shouldRender,
+                chartMode: "aggregated",
+                message: "",
                 aggregationLevel,
                 chartData
             };

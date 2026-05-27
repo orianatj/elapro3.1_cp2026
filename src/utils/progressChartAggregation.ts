@@ -1,8 +1,5 @@
-import type { ProgressChartPoint } from "../types/common/Dashboard";
+import type { ProgressChartPoint, ChartMode } from "../types/common/StudentDashboard";
 
-
-// Define the minimum number of dates required to render the chart 
-const MIN_UNIQUE_DATES = 5;
 
 // Define the maximum number of data points the chart should display
 const MAX_CHART_POINTS = 12;
@@ -27,38 +24,41 @@ export function calcUniqueSubDates({ series }: ProgChartProps) {
 };
 
 
-/* Return boolean true/false to determine if the chart should render. Minimum of 5 data points/unique submission dates should be available for the chart to render */
-export function shouldRenderProgressChart({ series }: ProgChartProps) {
-    return calcUniqueSubDates({ series }).countUniqueDates >= MIN_UNIQUE_DATES;
+
+export type AggregationLevelProps = {
+    series: ProgressChartPoint[];
 };
 
+export function determineAggregationLevel({ series }: AggregationLevelProps) {
 
-export function determineAggregationLevel({ series }: ProgChartProps) {
+    const uniqueDateCount = calcUniqueSubDates({ series }).countUniqueDates;
 
-    // Obtain the number of unique submission dates
-    const countUniqueDates = calcUniqueSubDates({ series }).countUniqueDates;
+    const totalSubmissionCount = series.length;
 
-    /* Determine the aggregation level that produces 12 data points based on the number of unique submission dates */
-    if (countUniqueDates <= MAX_CHART_POINTS) {
+
+    if (totalSubmissionCount === 0) {
+        return "empty";
+    }
+
+    // Return raw data if number of submissions is less than or equal to max chart points to preserve readability 
+    if (totalSubmissionCount <= MAX_CHART_POINTS) {
+        return "raw";
+    }
+
+    if (uniqueDateCount <= MAX_CHART_POINTS) {
         return "daily";
     }
 
-    if (countUniqueDates / 7 <= 12) {
+    if (uniqueDateCount / 7 <= MAX_CHART_POINTS) {
         return "weekly";
     }
 
-    if (countUniqueDates / 30 <= 12) {
+    if (uniqueDateCount / 30 <= MAX_CHART_POINTS) {
         return "monthly";
     }
 
     return "quarterly";
 };
-
-type AggProgressProps = {
-    series: ProgressChartPoint[];
-    aggregationLevel: string;
-};
-
 
 
 // Define props for getBucketKey
@@ -118,6 +118,91 @@ export function getBucketKey({ point, aggregationLevel }: BucketKeyProps) {
 }
 
 
+// Transform date label
+export function createLabel(bucketKey: string, aggLevel: string) {
+
+    const date = new Date(bucketKey)
+    const day = date.getDate();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const quarter = Math.floor(date.getMonth() / 3) + 1;
+    const months = ["Jan", "Feb", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const monthName = months[date.getMonth()];
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+
+    if (aggLevel === "raw") {
+
+        return `${day}-${month} ${hours}:${minutes}`;
+
+    }
+
+
+    if (aggLevel === "daily") {
+
+        return `${day}-${month}-${year}`;
+
+    }
+
+    if (aggLevel === "weekly") {
+
+        return `WC ${day}-${month}-${year}`;
+
+    }
+
+    if (aggLevel === "monthly") {
+
+        return `${monthName}-${year}`;
+
+    }
+
+    if (aggLevel === "quarterly") {
+
+        return `Q${quarter}-${year}`;
+
+    }
+
+    return "";
+};
+
+export type RawProgressProps = {
+    series: ProgressChartPoint[];
+    chartMode: ChartMode;
+};
+
+
+export function formatRawProgressSeries({ series, chartMode }: RawProgressProps) {
+
+    const rawChartData = [];
+
+    for (const point of series) {
+
+
+        const rawChartPoint = {
+            dateLabel: createLabel(point.submissionTimestamp, chartMode),
+            totalSubmissions: 1,
+            meanOverallScore: point.overallScore,
+            meanTaskResponse: point.taskResponse,
+            meanCoherenceCohesion: point.coherenceCohesion,
+            meanLexicalResource: point.lexicalResource,
+            meanGrammaticalRangeAccuracy: point.grammticalRangeAccuracy
+
+        }
+
+        rawChartData.push(rawChartPoint);
+
+    }
+
+    return rawChartData;
+
+};
+
+export type AggProgressProps = {
+    series: ProgressChartPoint[];
+    aggregationLevel: string;
+};
+
 // Transform chart data to aggregated form 
 export function aggregateProgressSeries({ series, aggregationLevel }: AggProgressProps) {
 
@@ -164,46 +249,6 @@ export function aggregateProgressSeries({ series, aggregationLevel }: AggProgres
             totalGrammaticalRangeAccuracy += point.grammticalRangeAccuracy;
 
         }
-
-        // Transform date label
-
-        function createLabel(bucketKey: string, aggLevel: string) {
-
-            const date = new Date(bucketKey)
-            const day = date.getDate();
-            const month = String(date.getMonth() + 1).padStart(2, "0");
-            const year = date.getFullYear();
-            const quarter = Math.floor(date.getMonth() / 3) + 1;
-            const months = ["Jan", "Feb", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-            const monthName = months[date.getMonth()];
-
-
-            if (aggLevel === "daily") {
-
-                return `${day}-${month}-${year}`;
-
-            }
-
-            if (aggLevel === "weekly") {
-
-                return `WC ${day}-${month}-${year}`;
-
-            }
-
-            if (aggLevel === "monthly") {
-
-                return `${monthName}-${year}`;
-
-            }
-
-            if (aggLevel === "quarterly") {
-
-                return `Q${quarter}-${year}`;
-
-            }
-
-            return "";
-        };
 
 
         // Calculate category mean to 2dp
