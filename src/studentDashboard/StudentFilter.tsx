@@ -14,25 +14,25 @@ export function FilterBar({ filters }: FilterBarProps) {
     return (
         <div className="filter-bar">
             {filters.map((filter) => (
-                <ChartFilter
+                <FilterDropdown
                     key={filter.title}
                     title={filter.title}
                     selected={filter.selected}
                     options={filter.options}
                     placeholder={filter.placeholder}>
-                </ChartFilter>
+                </FilterDropdown>
             ))}
         </div>
     );
 };
 
 // Extend FilterData with optional onChange behaviour
-type ChartFilterProps = FilterData & {
+type FilterDropdownProps = FilterData & {
     onChange?: (title: string, value: string | undefined) => void;
 };
 
 // Reusable dropdown filter component
-function ChartFilter({ title, selected, options, placeholder, onChange }: ChartFilterProps) {
+function FilterDropdown({ title, selected, options, placeholder, onChange }: FilterDropdownProps) {
     return (
         <div className="filter-item">
             <label>{title}</label>
