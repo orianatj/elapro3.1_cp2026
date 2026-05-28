@@ -64,6 +64,7 @@ export type ToggleLabel = "Overall Score" | "Task Response" | "Coherence & Cohes
 export type CriterionToggleConfig = {
     key: CriterionKey;
     label: ToggleLabel;
+    color: string;
 };
 
 // Define a union type to strongly type filter key 
