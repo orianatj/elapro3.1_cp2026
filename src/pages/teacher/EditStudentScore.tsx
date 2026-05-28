@@ -6,6 +6,7 @@ import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
 import AssignmentPanel from "../../common/AssignmentPanel";
 import { useSubmissionResult } from "../../hooks/useSubmissionResult";
+import { useReviewResult } from "../../hooks/useReviewResult";
 
 interface EditStudentScoreLocationState {
   submissionId?: string;
@@ -29,17 +30,54 @@ export default function EditStudentScore() {
   const navigate = useNavigate();
   const state = location.state as EditStudentScoreLocationState | null;
   const submissionId = state?.submissionId;
-  var [taskResponse, setTaskResponse] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "task_response") || 5.0);
-  var [coherence, setCoherence] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "coherence_cohesion") || 6.5);
-  var [lexicalResource, setLexicalResource] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || 7.5);
-  var [grammar, setGrammar] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || 4.0);
+  const reviewResult = useReviewResult();
 
-  
+  const [taskResponse, setTaskResponse] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "task_response") || 5.0);
+  const [coherence, setCoherence] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "coherence_cohesion") || 6.5);
+  const [lexicalResource, setLexicalResource] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || 7.5);
+  const [grammar, setGrammar] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || 4.0);
+
   var overallScore =
     (taskResponse + coherence + lexicalResource + grammar) / 4;
 
   const handleSave = () => {
-    navigate("/teacher/individual-submission", { state: { submissionId } });
+    reviewResult.mutate(
+      {
+        id: submissionId ?? "default-submission-id",
+        competencies: [
+          {
+            competencyName: "task_response",
+            resultScore: taskResponse,
+            //resultFeedback: "Result feedback goes here"
+          },
+          {
+            competencyName: "coherence_cohesion",
+            resultScore: coherence,
+            //resultFeedback: "Result feedback goes here"
+          },
+          {
+            competencyName: "lexical",
+            resultScore: lexicalResource,
+            //resultFeedback: "Result feedback goes here"
+          },
+          {
+            competencyName: "grammar",
+            resultScore: grammar,
+            //resultFeedback: "Result feedback goes here"
+          },
+          {
+            competencyName: "overall",
+            resultScore: overallScore,
+            //resultFeedback: "Result feedback goes here"
+          }
+        ]
+      },
+      {
+        onSuccess: () => {
+          navigate("/teacher/individual-submission", { state: { submissionId } });
+        },
+      }
+    );
   }; 
 
     const handleCancel = () => {
