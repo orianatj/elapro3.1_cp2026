@@ -92,10 +92,23 @@ export function ProgressTracking({ userId, ieltsType, taskType }: ProgressTracki
     return (
 
         // Chart criterion toggles
-        <div>
-            <CriterionSelector toggles={criterionToggleConfig} isVisible={isVisible} onToggle={handleToggle} />
+        <div className="progress-tracking-container">
+
+
+            <div className="criterion-selector-container">
+
+                <div className="criterion-selector-row">
+                    <p className="criterion-title">Criterion selectors:</p>
+
+                    <CriterionSelector toggles={criterionToggleConfig} isVisible={isVisible} onToggle={handleToggle} />
+                </div>
+
+
+
+            </div>
 
             <ProgressTrackingChart chartData={renderableChartData} isVisible={isVisible} toggleObjects={criterionToggleConfig} />
+
         </div>
     )
 };
@@ -112,23 +125,29 @@ type ProgressChartProps = {
 export function ProgressTrackingChart({ chartData, isVisible, toggleObjects }: ProgressChartProps) {
     return (
         <div className="chart-card">
-            {<ResponsiveContainer width="100%" height={400}>
-                <LineChart data={chartData}>
-                    <CartesianGrid />
+
+            <div className="chart-header">
+
+                <h2 className="chart-title">IELTS Progress Tracking</h2>
+
+            </div>
+            {<ResponsiveContainer width="100%" height={500}>
+                <LineChart data={chartData} accessibilityLayer={true} margin={{ top: 10, right: 5, bottom: 5, left: 5 }}>
+                    <CartesianGrid strokeDasharray={"5 5"} />
                     <XAxis dataKey="dateLabel" label="" />
-                    <YAxis domain={[0, 9]} type="number" label="Mean IELTS Score" />
-                    <Tooltip />
+                    <YAxis domain={[0, 9]} interval={0} ticks={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]} type="number" label={{ value: "IELTS Score", position: 'insideLeft', dx: 0, dy: 20, angle: -90 }} />
+                    <Tooltip cursor={false} />
                     <Legend />
 
                     {toggleObjects.map((toggle) => (
-                        <Line dataKey={toggle.key} name={toggle.label} hide={!isVisible[toggle.key]} dot={isVisible[toggle.key]} activeDot={isVisible[toggle.key]}
+                        <Line type="monotone" dataKey={toggle.key} name={toggle.label} stroke={toggle.color} hide={!isVisible[toggle.key]} dot={isVisible[toggle.key] ? { r: 6, fill: toggle.color, stroke: "#ffffff", strokeWidth: 2 } : false} activeDot={isVisible[toggle.key] ? { r: 8, fill: toggle.color } : false}
                         />
 
                     ))}
                 </LineChart>
             </ResponsiveContainer>
             }
-        </div>
+        </div >
 
     );
 };
