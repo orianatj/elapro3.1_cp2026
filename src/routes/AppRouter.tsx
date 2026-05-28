@@ -3,7 +3,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import StudentLayout from "../layouts/StudentLayout";
 import { AdminDashboardPage } from "../pages/admin/adminDashboard.tsx";
 import AdminUsersPage from "../pages/admin/AdminUsersPage";
-import AdminSubscriptionsPage from "../pages/admin/AdminSubscriptionsPage";
+import { AdminSubscriptionsPage } from "../pages/admin/AdminSubscriptionsPage";
 import AdminReportsPage from "../pages/admin/AdminReportsPage";
 import TeacherLayout from "../layouts/TeacherLayout";
 import TeacherDashboard from "../pages/teacher/teacher.tsx";
@@ -93,6 +93,9 @@ export default function AppRouter() {
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboardPage />} />
+            <Route path="users" element={<AdminUsersPage />} />
+            <Route path="subscriptions" element={<AdminSubscriptionsPage />} />
+            <Route path="reports" element={<AdminReportsPage />} />
           </Route>
         </Route>
       </Routes>
