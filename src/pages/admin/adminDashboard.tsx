@@ -1,5 +1,7 @@
 import React from "react";
 import "./adminDashboard.css";
+import { useAdminDashboard } from "../../hooks/useAdminDashboard";
+import type { AdminRecentLog } from "../../services/adminApi";
 
 type AdminStatCardProps = {
   title: string;
@@ -17,53 +19,85 @@ function AdminStatCard({ title, value, description }: AdminStatCardProps) {
   );
 }
 
-const recentActivities = [
-  "New teacher account created",
-  "Student subscription updated",
-  "IELTS report generated",
-  "Pending user verification reviewed",
-];
+function formatActivity(log: AdminRecentLog): string {
+  const userName =
+    log.firstName && log.lastName
+      ? `${log.firstName} ${log.lastName}`
+      : log.emailAddress || "System";
 
-const systemUpdates = [
-  {
-    label: "Platform Status",
-    value: "Operational",
-  },
-  {
-    label: "Last Sync",
-    value: "10:42 AM",
-  },
-  {
-    label: "Active Sessions",
-    value: "24 users online",
-  },
-];
+  return `${userName} - ${log.logAction}`;
+}
 
 export function AdminDashboardPage() {
+  const { dashboardData, loading, error, refetchDashboard } =
+    useAdminDashboard();
+
+  const recentActivities = dashboardData?.recentLogs || [];
+
+  const systemUpdates = [
+    {
+      label: "Database Health",
+      value: dashboardData?.dbHealth || "Unknown",
+    },
+    {
+      label: "Last Sync",
+      value: loading ? "Loading..." : new Date().toLocaleTimeString(),
+    },
+    {
+      label: "Active Sessions",
+      value: "Not provided by API",
+    },
+  ];
+
+  if (loading) {
+    return (
+      <div className="admin-dashboard-page">
+        <section className="admin-header">
+          <h1>Admin Dashboard</h1>
+          <p>Loading dashboard data...</p>
+        </section>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="admin-dashboard-page">
+        <section className="admin-header">
+          <h1>Admin Dashboard</h1>
+          <p>{error}</p>
+          <button type="button" onClick={refetchDashboard}>
+            Try Again
+          </button>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="admin-dashboard-page">
       <section className="admin-header">
-        <h1>Hi, User Name</h1>
+        <h1>Hi, Admin</h1>
         <p>Welcome back to the ELA Pro admin dashboard.</p>
       </section>
 
       <section className="admin-stats">
         <AdminStatCard
           title="Total Users"
-          value="8"
+          value={String(dashboardData?.totalUsers ?? 0)}
           description="Registered platform users"
         />
 
         <AdminStatCard
           title="Active Subscriptions"
-          value="3"
+          value={String(dashboardData?.activeSubscriptions ?? 0)}
           description="Current paid users"
         />
 
         <AdminStatCard
-          title="Reports Generated"
-          value="2"
-          description="Reports created this week"
+          title="Database Health"
+          value={dashboardData?.dbHealth || "Unknown"}
+          description="Current backend status"
         />
       </section>
 
@@ -71,23 +105,32 @@ export function AdminDashboardPage() {
         <div className="admin-panel">
           <div className="admin-panel-header">
             <h2>Recent Activity</h2>
-            <button>View All</button>
+            <button type="button">View All</button>
           </div>
 
           <ul className="admin-activity-list">
-            {recentActivities.map((activity, index) => (
-              <li key={activity}>
-                <span>[{index + 1}]</span>
-                <p>{activity}</p>
+            {recentActivities.length > 0 ? (
+              recentActivities.map((activity, index) => (
+                <li key={activity.logId || index}>
+                  <span>[{index + 1}]</span>
+                  <p>{formatActivity(activity)}</p>
+                </li>
+              ))
+            ) : (
+              <li>
+                <span>[0]</span>
+                <p>No recent activity found.</p>
               </li>
-            ))}
+            )}
           </ul>
         </div>
 
         <div className="admin-panel">
           <div className="admin-panel-header">
             <h2>System Status</h2>
-            <button>Refresh</button>
+            <button type="button" onClick={refetchDashboard}>
+              Refresh
+            </button>
           </div>
 
           <div className="admin-status-list">
