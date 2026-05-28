@@ -2,6 +2,7 @@ import "./teacher.css";
 import "./IndividualSubmission.css";
 import ToolbarButton from "../../common/ToolbarButton";
 import ToolbarButtonConfirm from "../../common/ToolbarButtonConfirm";
+import { useNavigate } from "react-router-dom";
 import { useSubmissionIndividual } from "../../hooks/useSubmissionIndividual";
 import { useSubmissionResult } from "../../hooks/useSubmissionResult";
 
@@ -96,7 +97,8 @@ export function SubmissionResultFull({ submissionId }: { submissionId: string })
 }
 
 export default function IndividualSubmissionPage() {
-const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submission ID
+  const navigate = useNavigate();
+  const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submission ID
 
   return (
     <>
@@ -110,20 +112,15 @@ const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submissi
             <h2>Overall Score: <SubmissionResultScore submissionId={submissionId} /></h2>
             <SubmissionResult submissionId={submissionId} />
             <div className="button-container">
-            <ToolbarButton
-              icon="/src/assets/comment.png"
-              label="Add Comment"
-              onClick={() => console.log("Comment clicked")}
-              />
               <ToolbarButton
                 icon="/src/assets/pencil.png"
                 label="Edit Grade"
-                onClick={() => console.log("Edit grade clicked")}
+                onClick={() => navigate("/teacher/edit-score", { state: { submissionId } })}
               />
               <ToolbarButtonConfirm
                 icon="/src/assets/checkmark.png"
-                label="Verify"
-                onClick={() => console.log("Verify clicked")}
+                label="OK"
+                onClick={() => navigate("/teacher/submissions")}
               />
             </div>
         </div>

@@ -1,18 +1,89 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./editScore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
 import AssignmentPanel from "../../common/AssignmentPanel";
+import { useSubmissionResult } from "../../hooks/useSubmissionResult";
+
+interface EditStudentScoreLocationState {
+  submissionId?: string;
+}
+
+export function GetTaskResponseScore({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    result?.competencies?.[0]?.score
+  );
+}
+
+export function GetCoherenceScore({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    result?.competencies?.[1]?.score
+  );
+}
+
+export function GetLexicalResourceScore({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    result?.competencies?.[2]?.score
+  );
+}
+
+export function GetGrammarScore({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    result?.competencies?.[3]?.score
+  );
+}
 
 export default function EditStudentScore() {
-  const [taskResponse, setTaskResponse] = useState<number>(8.0);
-  const [coherence, setCoherence] = useState<number>(6.5);
-  const [lexicalResource, setLexicalResource] = useState<number>(7.5);
-  const [grammar, setGrammar] = useState<number>(4.0);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state as EditStudentScoreLocationState | null;
+  const submissionId = state?.submissionId;
+  const [taskResponse, setTaskResponse] = useState<number>(GetTaskResponseScore({ submissionId: submissionId ?? "default-submission-id" }) || 5.0);
+  const [coherence, setCoherence] = useState<number>(GetCoherenceScore({ submissionId: submissionId ?? "default-submission-id" }) || 6.5);
+  const [lexicalResource, setLexicalResource] = useState<number>(GetLexicalResourceScore({ submissionId: submissionId ?? "default-submission-id" }) || 7.5);
+  const [grammar, setGrammar] = useState<number>(GetGrammarScore({ submissionId: submissionId ?? "default-submission-id" }) || 4.0);
 
+  
   const overallScore =
     (taskResponse + coherence + lexicalResource + grammar) / 4;
+
+  const handleSave = () => {
+    navigate("/teacher/individual-submission", { state: { submissionId } });
+  }; 
+
+    const handleCancel = () => {
+    navigate("/teacher/individual-submission", { state: { submissionId } });
+  }; 
 
   return (
     <div className="edit-score-page">
@@ -58,9 +129,9 @@ export default function EditStudentScore() {
 
       <OverallScore score={overallScore} />
       <div className="actions">
-  <button className="cancel">Cancel</button>
-  <button className="save">Save</button>
-</div>
+        <button className="cancel" onClick={handleCancel}>Cancel</button>
+        <button className="save" onClick={handleSave}>Save</button>
+      </div>
     </div>
   );
 }
