@@ -46,7 +46,7 @@ export function FilterGroup<T extends string>({
                     >
 
                         {/* Placeholder */}
-                        <option value="" disabled>
+                        <option value="">
                             {placeholder}
                         </option>
 

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 
 // API services
@@ -25,8 +25,8 @@ export function usePracticeWriting() {
     const [viewData, setViewData] = useState<PracticeWriting>(mockPracticeWriting);
 
     // UI State for current selections
-    const [ieltsType, setIeltsType] = useState(viewData.ieltsSelection.selected);
-    const [taskType, setTaskType] = useState(viewData.taskSelection.selected);
+    const [ieltsType, setIeltsType] = useState<string | undefined>(undefined);
+    const [taskType, setTaskType] = useState<string | undefined>(undefined);
     const [answerText, setAnswerText] = useState(viewData.answer.answerText ?? "");
     const [wordCount, setWordCount] = useState(viewData.answer.wordCount);
 
@@ -66,7 +66,6 @@ export function usePracticeWriting() {
         }
     });
 
-
     // Mutation to submit the answer
     const submitAnswerMutation = useMutation({
         mutationFn: async () => {
@@ -95,6 +94,31 @@ export function usePracticeWriting() {
         }
     });
 
+    
+    // Auto-clear generate question error after 3 seconds
+    useEffect(() => {
+        if (generateQuestionMutation.error) {
+
+            const timer = setTimeout(() => {
+                generateQuestionMutation.reset();
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [generateQuestionMutation.error]);
+
+    // Auto-clear submission success/error after 3 seconds
+    useEffect(() => {
+        if (submitAnswerMutation.isSuccess || submitAnswerMutation.error) {
+
+            const timer = setTimeout(() => {
+                submitAnswerMutation.reset(); // clears success + error state
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [submitAnswerMutation.isSuccess, submitAnswerMutation.error]);
+
 
     // Derived ViewData (combines base data with current UI state)
     const updatedViewData: PracticeWriting = {
@@ -111,7 +135,7 @@ export function usePracticeWriting() {
 
         answer: {
             ...viewData.answer,
-            answerText, 
+            answerText,
             wordCount
         }
     };
