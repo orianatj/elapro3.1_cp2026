@@ -22,7 +22,7 @@ export type ProgressChartPoint = {
     taskResponse: number;
     coherenceCohesion: number;
     lexicalResource: number;
-    grammticalRangeAccuracy: number;
+    grammaticalRangeAccuracy: number;
     overallScore: number;
 };
 

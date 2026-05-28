@@ -186,7 +186,7 @@ export function formatRawProgressSeries({ series, chartMode }: RawProgressProps)
             meanTaskResponse: point.taskResponse,
             meanCoherenceCohesion: point.coherenceCohesion,
             meanLexicalResource: point.lexicalResource,
-            meanGrammaticalRangeAccuracy: point.grammticalRangeAccuracy
+            meanGrammaticalRangeAccuracy: point.grammaticalRangeAccuracy
 
         }
 
@@ -246,7 +246,7 @@ export function aggregateProgressSeries({ series, aggregationLevel }: AggProgres
             totalTaskResponse += point.taskResponse;
             totalCoheranceCohesion += point.coherenceCohesion;
             totalLexicalResource += point.lexicalResource;
-            totalGrammaticalRangeAccuracy += point.grammticalRangeAccuracy;
+            totalGrammaticalRangeAccuracy += point.grammaticalRangeAccuracy;
 
         }
 
