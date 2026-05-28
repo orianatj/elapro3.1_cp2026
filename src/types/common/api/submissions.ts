@@ -4,6 +4,6 @@ export type SubmitAnswerPayload = {
   taskType: string;         
   taskId: number;
   essayResponse: string;
-  questionId: number;
+  questionId: string; 
   customQuestionText: string;
 };

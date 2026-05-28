@@ -18,6 +18,10 @@ export function getErrorMessage(error: any): string {
     return "No submissions found.";
   }
 
+  if (status === 422) {
+    return "Invalid input. Please check your selection and try again.";
+  }
+
   if (status === 500) {
     return "Server error. Please try again later.";
   }

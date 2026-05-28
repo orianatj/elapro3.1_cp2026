@@ -2,7 +2,6 @@
 export type TaskAnswer = {
     placeHolderText: string;
     taskID: string;
-    submissionGroup: number;
     ieltsType: string;
     taskType: string;
     questionCategory: string;

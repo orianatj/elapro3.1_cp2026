@@ -1,6 +1,6 @@
 // Response from GET /api/v1/questions
 export type GetQuestionResponse = {
-  questionId: number;
+  questionId: string;
   taskId: number;
   questionText: string;
 };
