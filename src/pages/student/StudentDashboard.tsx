@@ -87,13 +87,18 @@ export default function StudentDashboardPage() {
 
     return (
 
-        <div className="container">
+        <div className="dashboard-container">
             <div><GreetingBanner name={user.firstName} /></div>
             <div><StatsSummary stats={STATS} /></div>
-            <div>
-                <FilterBar filters={filters} onSelect={handleFilterChange} />
+
+            <div className="dashboard-content">
+
+                <div className="filters-container">
+                    <FilterBar filters={filters} onSelect={handleFilterChange} />
+                </div>
+
+                <ProgressTracking userId={user.userId} ieltsType={ieltsType} taskType={taskType} />
             </div>
-            <ProgressTracking userId={user.userId} ieltsType={ieltsType} taskType={taskType} />
         </div>
     )
 };
