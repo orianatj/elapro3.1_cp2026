@@ -2,15 +2,15 @@ import type { CriterionToggleConfig, FilterMetadata, IeltsFilterOptions, TaskFil
 
 export const criterionToggleConfig: CriterionToggleConfig[] = [
 
-    { key: "meanOverallScore", label: "Overall Score" },
+    { key: "meanOverallScore", label: "Overall Score", color: "#A9A9A9" },
 
-    { key: "meanTaskResponse", label: "Task Response" },
+    { key: "meanTaskResponse", label: "Task Response", color: "#E5B800" },
 
-    { key: "meanCoherenceCohesion", label: "Coherence & Cohesion" },
+    { key: "meanCoherenceCohesion", label: "Coherence & Cohesion", color: "#215DAB" },
 
-    { key: "meanLexicalResource", label: "Lexical Resource" },
+    { key: "meanLexicalResource", label: "Lexical Resource", color: "#33CC33" },
 
-    { key: "meanGrammaticalRangeAccuracy", label: "Grammatical Range & Accuracy" }
+    { key: "meanGrammaticalRangeAccuracy", label: "Grammatical Range & Accuracy", color: "#B00303" }
 
 ];
 
