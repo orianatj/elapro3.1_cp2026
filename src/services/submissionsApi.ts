@@ -7,3 +7,7 @@ export const submissionsList = () => {
 export const submissionIndividual = (id: string) => {
     return api.get(`/submissions/${id}`);
 };
+
+export const submissionStatus = () => {
+    return api.get("/submissions/status");
+}

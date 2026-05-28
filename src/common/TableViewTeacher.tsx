@@ -1,56 +1,48 @@
 import React from "react";
+import { useSubmissionsList } from "../hooks/useSubmissionsList";
 
-export interface Submission {
-  firstName: string;
-  lastName: string;
-  className: string;
-  time: string;
-  submittedAt: number;
-  status: "On Time" | "Late" | "Extension";
-}
+type Submission = {
+  submissionId: string;
+  userId: string;
+  ieltsType: string;
+  taskType: string;
+  customQuestionText: string | null;
+  status: string;
+};
 
-interface SubmissionTableProps {
-  submissions: Submission[];
-}
+export default function SubmissionTable() {
+  const { data, isLoading, isError } = useSubmissionsList();
 
-export default function SubmissionTable({ submissions }: SubmissionTableProps) {
-  const filteredAndSorted = submissions;
+  const submissions: Submission[] = data?.data?.items ?? [];
+
+  console.log("SUBMISSIONS:", submissions);
+
+  if (isLoading) return <p>Loading submissions...</p>;
+  if (isError) return <p>Failed to load submissions.</p>;
 
   return (
     <div className="table-container">
       <table className="submission-table">
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Class</th>
-            <th>Submission Time</th>
+            <th>Student ID</th>
+            <th>IELTS Type</th>
+            <th>Task Type</th>
+            <th>Submission Type</th>
             <th>Status</th>
           </tr>
         </thead>
 
         <tbody>
-          {filteredAndSorted.map((s, index) => (
-            <tr key={index}>
-              <td>{s.firstName}</td>
-              <td>{s.lastName}</td>
-              <td>{s.className}</td>
-              <td>{s.time}</td>
+          {submissions.map((s) => (
+            <tr key={s.submissionId}>
+              <td>{s.userId}</td>
+              <td>{s.ieltsType}</td>
+              <td>{s.taskType}</td>
               <td>
-                <span
-                  className={`status-badge ${
-                    s.status === "Late"
-                      ? "late"
-                      : s.status === "Extension"
-                      ? "extension"
-                      : "on-time"
-                  }`}
-                >
-                  {s.status === "Extension"
-                    ? "On Time (Extension Approved)"
-                    : s.status}
-                </span>
+                {s.customQuestionText ? "Custom" : "Standard"}
               </td>
+              <td>{s.status}</td>
             </tr>
           ))}
         </tbody>
