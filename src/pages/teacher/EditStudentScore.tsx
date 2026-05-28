@@ -29,13 +29,13 @@ export default function EditStudentScore() {
   const navigate = useNavigate();
   const state = location.state as EditStudentScoreLocationState | null;
   const submissionId = state?.submissionId;
-  const [taskResponse, setTaskResponse] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "task_response") || 5.0);
-  const [coherence, setCoherence] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "coherence_cohesion") || 6.5);
-  const [lexicalResource, setLexicalResource] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || 7.5);
-  const [grammar, setGrammar] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || 4.0);
+  var [taskResponse, setTaskResponse] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "task_response") || 5.0);
+  var [coherence, setCoherence] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "coherence_cohesion") || 6.5);
+  var [lexicalResource, setLexicalResource] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || 7.5);
+  var [grammar, setGrammar] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || 4.0);
 
   
-  const overallScore =
+  var overallScore =
     (taskResponse + coherence + lexicalResource + grammar) / 4;
 
   const handleSave = () => {
