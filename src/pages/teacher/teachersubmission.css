@@ -93,6 +93,19 @@
   width: 200px;
 }
 
+.btn-confirm {
+  display: grid;
+  grid-template-columns: auto 1fr auto; 
+  align-items: center;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #38B538;
+  color: white;
+  width: 200px;
+}
+
 .btn img {
   justify-self: start;
 }

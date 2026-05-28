@@ -1,0 +1,265 @@
+.admin-users-page {
+  width: 100%;
+}
+
+/* ===============================
+   Header
+================================= */
+
+.admin-users-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  border: 1px solid #e5e7eb;
+}
+
+.admin-users-header h1 {
+  margin: 0 0 14px;
+  font-size: 34px;
+  font-family: "Source Serif Pro", serif;
+  color: #111827;
+}
+
+.admin-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.admin-home-icon {
+  width: 36px;
+  height: 36px;
+  background: #d1d5db;
+  color: #111827;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* ===============================
+   Toolbar
+================================= */
+
+.admin-users-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 14px;
+}
+
+.admin-search-box {
+  width: 620px;
+  max-width: 100%;
+  height: 42px;
+  background: #eee4f1;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 14px;
+}
+
+.admin-search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #374151;
+}
+
+.search-menu-icon,
+.search-icon {
+  color: #374151;
+  font-size: 18px;
+}
+
+.admin-user-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 130px);
+  gap: 34px;
+}
+
+.admin-user-actions button {
+  background: #4878f2;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.admin-user-actions button:hover {
+  background: #215dab;
+}
+
+/* ===============================
+   Table
+================================= */
+
+.admin-users-table-wrapper {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  padding: 13px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+.admin-users-table th {
+  font-weight: 700;
+  background: #f9fafb;
+}
+
+.table-action {
+  border: none;
+  background: transparent;
+  color: #31578f;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.table-action:hover {
+  text-decoration: underline;
+}
+
+.admin-pagination {
+  text-align: center;
+  padding: 12px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.admin-pagination strong {
+  color: #111827;
+  margin: 0 6px;
+}
+
+/* ===============================
+   Feedback Cards
+================================= */
+
+.admin-feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 360px));
+  justify-content: center;
+  gap: 42px;
+}
+
+.admin-feedback-card {
+  min-height: 330px;
+  background: #ffffff;
+  border: 1px solid #111827;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.feedback-card-header {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: start;
+  gap: 14px;
+}
+
+.feedback-card-header img {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.feedback-card-header h3 {
+  margin: 8px 0 2px;
+  font-size: 18px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.feedback-card-header span {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.star-rating {
+  margin: 0;
+  color: #f6c400;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.fake-text-lines {
+  margin-top: 55px;
+}
+
+.fake-text-lines div {
+  height: 4px;
+  background: #6b7280;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.fake-text-lines .short-line {
+  width: 35%;
+}
+
+/* ===============================
+   Responsive
+================================= */
+
+@media (max-width: 900px) {
+  .admin-user-actions {
+    grid-template-columns: repeat(2, 130px);
+    gap: 16px;
+  }
+
+  .admin-feedback-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-users-table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-user-actions {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .admin-user-actions button {
+    width: 100%;
+  }
+
+  .feedback-card-header {
+    grid-template-columns: 60px 1fr;
+  }
+
+  .feedback-card-header span {
+    grid-column: 2;
+    margin-top: 0;
+  }
+}
