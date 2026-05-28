@@ -1,57 +1,20 @@
 
-import { useState } from "react";
-
 // Shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
 import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
 import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
 import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor";
 
-// Types (ViewData)
-import type { PracticeWriting } from "../../types/student/StudentPracticeWriting";
+// Hooks
+import { usePracticeWriting } from "../../hooks/usePracticeWriting";
 
+//Styles
 // import "./practicewriting.css";
 
 
-type PracticeWritingPageProps = {
-    viewData: PracticeWriting;
-};
+export default function PracticeWritingPage() {
 
-export default function PracticeWritingPage({ viewData }: PracticeWritingPageProps) {
-
-    const [wordCount, setWordCount] = useState(viewData.answer.wordCount);
-
-    const [answerText, setAnswerText] = useState(viewData.answer.answerText ?? "");
-
-    // Local state to track current selections (initialised from viewData)
-    const [ieltsType, setIeltsType] = useState(viewData.ieltsSelection.selected);
-    const [taskType, setTaskType] = useState(viewData.taskSelection.selected);
-
-    const handleSubmit = () => {
-
-        // Basic validation: Ensure answer is not empty
-        if (!answerText.trim()) {
-            alert("Please write an answer before submitting.");
-            return;
-        }
-
-        // Map selected values to expected payload format
-        const mappedIeltsType =
-            ieltsType === "academic" ? "Academic" : "General";
-        const mappedTaskType =
-            taskType === "task-two" ? "Task 2" : "Task 1";
-
-        // Construct payload for submission 
-        const payload = {
-            ieltsType: mappedIeltsType,
-            taskType: mappedTaskType,
-            taskId: viewData.taskDescription.taskID,
-            essayResponse: answerText,
-            questionId: viewData.taskDescription.questionID
-        };
-
-        console.log("Submitting answer:", payload);
-    };
+    const { viewData, actions, state } = usePracticeWriting();
 
     return (
 
@@ -64,7 +27,7 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
             <div className="task-utility-bar">
                 <TaskUtilityBar utilData={{
                     ...viewData.taskBar,
-                    userWordCount: wordCount
+                    userWordCount: viewData.answer.wordCount
                 }} />
             </div>
 
@@ -79,17 +42,18 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
                     <div className="task-selection-section">
 
                         <PracticeTaskSelectionGroup
-                            ieltsFilter={{
-                                ...viewData.ieltsSelection,
-                                selected: ieltsType
-                            }}
-                            taskFilter={{
-                                ...viewData.taskSelection,
-                                selected: taskType
-                            }}
-                            onIeltsTypeChange={setIeltsType}
-                            onTaskTypeChange={setTaskType}
+                            ieltsFilter={viewData.ieltsSelection}
+                            taskFilter={viewData.taskSelection}
+                            onIeltsTypeChange={actions.setIeltsType}
+                            onTaskTypeChange={actions.setTaskType}
+                            onGenerate={actions.generateQuestion}                            
                         />
+
+                        {state.generateQuestionErrorMessage && (
+                            <div className="error">
+                                {state.generateQuestionErrorMessage}
+                            </div>
+                        )}
 
                     </div>
 
@@ -119,16 +83,34 @@ export default function PracticeWritingPage({ viewData }: PracticeWritingPagePro
                     <div className="answer-text-editor">
                         <AnswerEditor
                             answer={viewData.answer}
-                            onWordCountChange={setWordCount}
-                            onTextChange={setAnswerText}
+                            onWordCountChange={actions.setWordCount}
+                            onTextChange={actions.setAnswerText}
                         />
                     </div>
 
-                    {/* Submit Answer Button */}
-                    <div className="submit-answer-button">
-                        <button onClick={handleSubmit}>
-                            Submit Answer
-                        </button>
+                    {/* Submit Answer Section */}
+                    <div className="submit-answer-section">
+
+                        <div className="submit-answer-button">
+                            <button onClick={() => actions.submitAnswer()}
+                                disabled={state.isSubmittingAnswer}>
+                                {state.isSubmittingAnswer ? "Submitting..." : "Submit Answer"}
+                            </button>
+                        </div>
+
+
+                        {state.submitAnswerErrorMessage && (
+                            <div className="error">
+                                {state.submitAnswerErrorMessage}
+                            </div>
+                        )}
+
+                        {!state.submitAnswerErrorMessage && state.submitSuccessMessage && (
+                            <div className="success">
+                                {state.submitSuccessMessage}
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>
