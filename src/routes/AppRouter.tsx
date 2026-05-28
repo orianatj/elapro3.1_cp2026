@@ -12,49 +12,88 @@ import EditStudentScorePage from "../pages/teacher/EditStudentScore.tsx";
 import IndividualSubmission from "../pages/teacher/IndividualSubmission.tsx";
 import EssaySubmissionPage from "../pages/student/EssaySubmission";
 import StudentDashboardPage from "../pages/student/StudentDashboard";
+import CreateAssignment from "../pages/teacher/createAssignment.tsx";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
+import ExternalPage from "../pages/teacher/externalTeacher.tsx";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
-import { LoginPage } from "../pages/auth/LoginPage.tsx"
+import { LoginPage } from "../pages/auth/LoginPage.tsx";
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
+import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
+import { ResetPasswordPage } from "../pages/auth/ResetPasswordPage.tsx";
+import { VerifyEmailPage } from "../pages/auth/VerifyEmailPage.tsx";
+import { DashboardRedirect } from "./DashboardRedirect.tsx";
+import { ProtectedRoute } from "./ProtectedRoute.tsx";
+import { mockPracticeWriting } from "../studentDashboard/PracticeWritingMock.ts";
 
-// TODO: Confirm if student are the only user type that require an account management page
 
 // Defines the application's routing structure, including public and protected routes and nested dashboard layouts
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        {/* Public Routes */}
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        {/* Dashboard Redirect */}
+        <Route path="/" element={<DashboardRedirect />} />
+        {/* Student Protected Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+          <Route path="/student" element={<StudentLayout />}>
+            <Route index element={<StudentDashboardPage />} />
 
-        {/* Protected Routes */}
-        {/*<Route element={<ProtectedRoute />}>*/}
+            <Route path="essay-submission" element={<EssaySubmissionPage />} />
 
-        {/* Studnet Dashboard */}
-        <Route path="/student" element={<StudentLayout />}>
-          <Route index element={<StudentDashboardPage />} />
-          <Route path="essay-submission" element={<EssaySubmissionPage />} />
-          <Route path="practice-writing" element={<PracticeWritingPage />} />
-          <Route path="submissions" element={<SubmissionsPage />} >
-            {/*<Route path=":submissionId" element={<SubmissionAnalysisPage />} />*/}
+            <Route path="practice-writing" element={<PracticeWritingPage viewData={mockPracticeWriting}/>} />
+
+            <Route path="submissions" element={<SubmissionsPage />} />
+
+            {/*<Route path="submission:submissionId" element={<SubmissionAnalysisPage />} />*/}
           </Route>
         </Route>
+        
+        
+        {/* Teacher Protected Routes */}
+        <Route
+          element={
+            <ProtectedRoute
+              allowedRoles={["supervisory_teacher", "external_teacher"]}
+            />
+          }
+        >
+          <Route path="/teacher" element={<TeacherLayout />}>
+            {/* Shared Teacher Routes */}
+            <Route index element={<TeacherDashboard />} />
+            <Route path="submissions" element={<ViewSubmissions />} />
+            <Route
+              path="individual-submission"
+              element={<IndividualSubmission />}
+            />
+            {/* Supervisory Teacher Only Routes */}
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["supervisory_teacher"]} />
+              }
+            >
+              <Route path="edit-score" element={<EditStudentScorePage />} />
 
-        {/* Teacher Dashboard */}
-        <Route path="/teacher" element={<TeacherLayout />}>
-          <Route index element={<TeacherDashboard />} />
-          <Route path="edit-score" element={<EditStudentScorePage />} />
-          <Route path="individual-submission" element={<IndividualSubmission />} />
-          <Route path="submissions" element={<ViewSubmissions />} />
+            </Route>
+            {/* External Teacher Only Routes */}
+            <Route
+              element={<ProtectedRoute allowedRoles={["external_teacher"]} />}
+            >
+               <Route path="create-assignment" element={<CreateAssignment />} />
+            </Route>
+          </Route>
         </Route>
-
-        {/* Admin Dashboard */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboardPage />} />
-          <Route path="users" element={<AdminUsersPage />} />
-          <Route path="subscriptions" element={<AdminSubscriptionsPage />} />
-          <Route path="reports" element={<AdminReportsPage />} />
+        ;{/* Admin Protected Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardPage />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

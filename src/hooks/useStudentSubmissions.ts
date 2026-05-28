@@ -4,6 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getStudentSubmissions } from "../services/StudentSubmissionsService";
 import { formatDateTime } from "../utils/dateUtils";
+import { mapGradingStatus } from "../utils/gradingStatus";
+
+import { mockSubmissionRows } from "../studentDashboard/submissionTable.mock";
 
 import type { StudentSubmissions } from "../types/student/StudentSubmissionsViewData";
 
@@ -12,6 +15,7 @@ import type {
     IeltsType,
     TaskType,
 } from "../types/student/common/StudentFilter";
+
 
 
 /**
@@ -35,16 +39,16 @@ export function useStudentSubmissions(userId: string) {
 
     /* ==================== SERVER STATE ==================== */
     // Loading, error, caching, and refetch behaviour is handled automatically by TanStack Query.
-    const { data, isPending, error } = useQuery({
+    const { data, isPending, isError, error } = useQuery({
         queryKey: ["studentSubmissions", userId, ieltsType, taskType],
 
         // Query function responsible for retrieving data from the backend API based on the current user and filter states.
         queryFn: () =>
             getStudentSubmissions({
                 userId,
-                ieltsType,
-                taskType,
-            }),
+                ieltsType: ieltsType === "all" ? undefined : ieltsType,
+                taskType: taskType === "all" ? undefined : taskType,
+            }),                
 
         // Prevents the query from running until a valid userId is available
         enabled: Boolean(userId),
@@ -81,15 +85,18 @@ export function useStudentSubmissions(userId: string) {
                 },
             },
             submissionsTable: {
-                rows: submissions.map((submission) => ({
-                    submissionId: submission.id,
-                    date: formatDateTime(submission.submittedAt),
-                    essayType: submission.essayType,
-                    ieltsType: submission.ieltsType,
-                    taskType: submission.taskType,
-                    score: submission.score ?? null,
-                    status: submission.status,
-                })),
+                rows:
+                    submissions && submissions.length > 0
+                        ? submissions.map((submission) => ({
+                            submissionId: submission.id,
+                            date: formatDateTime(submission.submittedAt),
+                            essayType: submission.essayType,
+                            ieltsType: submission.ieltsType,
+                            taskType: submission.taskType,
+                            score: submission.score ?? null,
+                            status: mapGradingStatus(submission?.status),
+                        }))
+                        : mockSubmissionRows,
             },
         }),
     });
@@ -100,6 +107,7 @@ export function useStudentSubmissions(userId: string) {
     return {
         viewData: data,
         isPending,
+        isError,
         error,
         actions: {
             setIeltsType,

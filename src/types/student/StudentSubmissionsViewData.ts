@@ -1,6 +1,9 @@
 // Import shared PageHeader DTO
 import type { PageHeaderViewData } from "../common/PageHeaderDTO";
 
+// Import shared GradingStatus type and mapping function
+import type { SafeGradingStatus } from "../../utils/gradingStatus";
+
 // Import shared StudentFilter DTO from student/common folder. 
 import type {
   StudentFilter,
@@ -50,12 +53,13 @@ export type SubmissionsTable = {
 // Represents a single row in the Student Submissions table that describes one submission including.
 // its metadata, score, and the identifier needed to open the submission analysis page.
 export type SubmissionTableRow = {
-  submissionId: string;   // backend: submissionId - unique identifier for this submission, used for navigation to the analysis page
-  date: string;           // formatted from submission timestamp, e.g. "2024-05-01 14:30"
-  essayType: string;      // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
-  ieltsType: IeltsType;   // from backend 'submissions': "academic" | "general"
-  taskType: TaskType;     // from backend 'submissions': "task-one" | "task-two"
-  score?: number;         // numeric score from backend 'results'; omitted if not yet available
+  submissionId: string;       // backend: submissionId - unique identifier for this submission, used for navigation to the analysis page
+  date: string;               // formatted from submission timestamp, e.g. "2024-05-01 14:30"
+  essayType: string;          // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
+  ieltsType: IeltsType;       // from backend 'submissions': "academic" | "general"
+  taskType: TaskType;         // from backend 'submissions': "task-one" | "task-two"
+  status: SafeGradingStatus;  // safe grading lifecycle status used for UI rendering and behaviour
+  score?: number;             // numeric score from backend 'results'; omitted if not yet available
 };
 
 

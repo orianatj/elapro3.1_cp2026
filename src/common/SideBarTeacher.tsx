@@ -6,7 +6,7 @@ const navItems = [
   {
     icon: "/src/assets/create.png",
     label: "Assignments",
-    path: "/teacher/assignments",
+    path: "/teacher/create-assignment",
   },
   {
     icon: "/src/assets/file-tray-full.png",
@@ -18,7 +18,11 @@ const navItems = [
     label: "Submissions",
     path: "/teacher/submissions",
   },
-  { icon: "/src/assets/vector.png", label: "Settings", path: "/teacher/settings" },
+  {
+    icon: "/src/assets/vector.png",
+    label: "Settings",
+    path: "/teacher/settings",
+  },
   { icon: "/src/assets/help.png", label: "Help", path: "/teacher/help" },
 ];
 

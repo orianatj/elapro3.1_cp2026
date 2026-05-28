@@ -2,56 +2,131 @@ import "./teacher.css";
 import "./IndividualSubmission.css";
 import ToolbarButton from "../../common/ToolbarButton";
 import ToolbarButtonConfirm from "../../common/ToolbarButtonConfirm";
+import { useNavigate } from "react-router-dom";
+import { useSubmissionIndividual } from "../../hooks/useSubmissionIndividual";
+import { useSubmissionResult } from "../../hooks/useSubmissionResult";
 
-export default function IndividualSubmission() {
+export function IndividualSubmission({ submissionId }: { submissionId: string }) {
+  const submissionIndividualQuery = useSubmissionIndividual(submissionId);
+  const submission = submissionIndividualQuery.data; // now the actual object
+
+  if (submissionIndividualQuery.isLoading) return <div>Loading...</div>;
+  if (submissionIndividualQuery.isError) return <div>Error: {String(submissionIndividualQuery.error)}</div>;
+
+  return (
+    <div>
+      <h2>Question:</h2>
+      <p>{submission?.data.questionText ?? submission?.data.customQuestionText}</p>
+      <h2>Response:</h2>
+      <p>{submission?.data.essayText ?? "N/A"}</p>
+    </div>
+  );
+}
+
+export function IndividualSubmissionFull({ submissionId }: { submissionId: string }) {
+  const submissionIndividualQuery = useSubmissionIndividual(submissionId);
+  const submission = submissionIndividualQuery.data; // now the actual object
+
+  if (submissionIndividualQuery.isLoading) return <div>Loading...</div>;
+  if (submissionIndividualQuery.isError) return <div>Error: {String(submissionIndividualQuery.error)}</div>;
+
+  return (
+    <div>
+      <pre>{JSON.stringify(submission, null, 2)}</pre>
+    </div>
+  );
+}
+
+export function IndividualSubmissionWordCount({ submissionId }: { submissionId: string }) {
+  const submissionIndividualQuery = useSubmissionIndividual(submissionId);
+  const submission = submissionIndividualQuery.data; // now the actual object
+
+  if (submissionIndividualQuery.isLoading) return <div>Loading...</div>;
+  if (submissionIndividualQuery.isError) return <div>Error: {String(submissionIndividualQuery.error)}</div>;
+
+  return (
+    <div>
+      Word Count: {submission?.data.wordCount ?? "N/A"}
+    </div>  
+  );
+}
+
+export function SubmissionResult({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    <div>
+      <p><strong>Task Response:</strong> <strong>{result?.competencies?.[0]?.score ?? "N/A"}</strong> - {result?.competencies?.[0]?.feedback ?? "N/A"}</p>
+      <p><strong>Coherence & Cohesion:</strong> <strong>{result?.competencies?.[1]?.score ?? "N/A"}</strong> - {result?.competencies?.[1]?.feedback ?? "N/A"}</p>
+      <p><strong>Lexical Resource:</strong> <strong>{result?.competencies?.[2]?.score ?? "N/A"}</strong> - {result?.competencies?.[2]?.feedback ?? "N/A"}</p>
+      <p><strong>Grammatical Range & Accuracy:</strong> <strong>{result?.competencies?.[3]?.score ?? "N/A"}</strong> - {result?.competencies?.[3]?.feedback ?? "N/A"}</p>
+      <p><strong>Overall:</strong> <strong>{result?.competencies?.[4]?.score ?? "N/A"}</strong> - {result?.competencies?.[4]?.feedback ?? "N/A"}</p>
+    </div>
+  );
+}
+
+export function SubmissionResultScore({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return <>{result?.overallScore ?? "N/A"}</>;
+}
+
+export function SubmissionResultFull({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    <div>
+      <pre>{JSON.stringify(result, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default function IndividualSubmissionPage() {
+  const navigate = useNavigate();
+  const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submission ID
+
   return (
     <>
-      <div className="header">Student's Paper</div>
+      <div className="header">Student's Submission</div>
       <div className="flex-container">
         <div className ="submission-view-card">
-            <h2>Task 2</h2>
-            <p>Vestibulum ac dictum risus. Praesent eget aliquam ligula. Mauris nisi  eros, dignissim ut velit vitae, facilisis luctus nisl. Morbi lacinia ex  eu tortor condimentum tempus. Quisque sagittis blandit leo, in rhoncus  erat rhoncus vitae. Vivamus purus turpis, consequat vel arcu vitae,  rutrum congue massa. Suspendisse id ipsum nec nunc lobortis viverra ac ultricies sapien. Maecenas at mauris non quam lobortis molestie. Vivamus euismod urna ac nisi posuere, in condimentum tellus posuere. Proin id  vehicula risus, dapibus pellentesque metus. Quisque eleifend auctor diam vel facilisis. Nulla facilisi. In venenatis ligula sit amet odio  pulvinar, id feugiat enim pellentesque. In faucibus tempus nulla, nec  aliquet libero tincidunt sit amet. </p>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque  faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi  pretium tellus duis convallis. Tempus leo eu aenean sed diam urna  tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.  Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit  semper vel class aptent taciti sociosqu. Ad litora torquent per conubia  nostra inceptos himenaeos.
-Lorem ipsum dolor sit amet consectetur  adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu  aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus </p>
-          <div className="flex-container">
-            <p>Word Count: 1200</p>
-            <p>Errors Found: 5</p>
-            <p>Suggestions: 4</p>
-          </div>
-        </div>
-        
-        <div>
-          <div className="total-score-card">
-            <h2>Total Score</h2>
-            <p>Task Response: 6.0 - Addresses the topic but lacks depth in argumentation.</p>
-            <p>Coherence & Cohesion: 6.0 - Well structured with clear paragraphs</p>
-            <p>Lexical Resource: 6.5 - Limited range of vocabulary, some errors.</p>
-            <p>Grammatical Range & Accuracy 6.0 - Several grammar mistakes and sentence errors</p>
-
-          </div>
-
-          <div className="button-container">
-            <ToolbarButton
-            icon="/src/assets/comment.png"
-            label="Add Comment"
-            onClick={() => console.log("Comment clicked")}
-            />
-            <ToolbarButton
-              icon="/src/assets/pencil.png"
-              label="Edit Grade"
-              onClick={() => console.log("Edit grade clicked")}
-            />
-            <ToolbarButtonConfirm
-              icon="/src/assets/checkmark.png"
-              label="Verify"
-              onClick={() => console.log("Verify clicked")}
-            />
-          </div>
-          
-
+            <IndividualSubmission submissionId={submissionId} />
+            <IndividualSubmissionWordCount submissionId={submissionId} />
+        </div>    
+        <div className="total-score-card">
+            <h2>Overall Score: <SubmissionResultScore submissionId={submissionId} /></h2>
+            <SubmissionResult submissionId={submissionId} />
+            <div className="button-container">
+              <ToolbarButton
+                icon="/src/assets/pencil.png"
+                label="Edit Grade"
+                onClick={() => navigate("/teacher/edit-score", { state: { submissionId } })}
+              />
+              <ToolbarButtonConfirm
+                icon="/src/assets/checkmark.png"
+                label="OK"
+                onClick={() => navigate("/teacher/submissions")}
+              />
+            </div>
         </div>
       </div>
 
+    
     </>
   );
 }

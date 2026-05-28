@@ -1,5 +1,5 @@
 // Type defines reusable filter DTO for student dashboard pages
-export type StudentFilter<T extends string> = {
+export type StudentFilter<T extends string | undefined> = {
     title: string;  // ex. "Choose an IELTS Type"
     selected: T;  // ex. "task-one"
     options: FilterOption<T>[];
@@ -16,8 +16,9 @@ export type FilterValue<T extends string> = T | "all";
 
 // Type defines a filter option
 export type FilterOption<T extends string> = {
-    value: T;  // ex. "academic" or "task-one"
-    label: string;  // ex. "Academic" or "Task 1"
+    value: T;           // ex. "academic" or "task-one"
+    label: string;      // ex. "Academic" or "Task 1"
+    disabled?: boolean  // allows UI to disable options
 };
 
 
