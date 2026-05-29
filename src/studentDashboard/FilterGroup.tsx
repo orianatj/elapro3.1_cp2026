@@ -2,7 +2,7 @@ import type { StudentFilter } from "../types/student/common/StudentFilter";
 
 type FilterGroupProps<T extends string> = {
     // Array of filters to render (e.g. IELTS type + Task type)
-    filters: StudentFilter<T | undefined>[];
+    filters: StudentFilter<T>[];
 
     // onChange handler so parent can react to selection changes
     onChange: (title: string, value: T | undefined) => void
@@ -27,20 +27,20 @@ export function FilterGroup<T extends string>({
         <div className="filter-group">
 
             {/* Iterates over each filter (e.g. IELTS Type, Task Type)
-            to render a labeled dropdown container */} 
+            to render a labeled dropdown container */}
             {filters.map((filter) => (
                 <div key={filter.title} className="filter-item">
 
                     <label>{filter.title}</label>
 
-                    <select                        
+                    <select
                         className="filter-dropdown"
                         value={filter.selected ?? ""}
-                        
+
                         onChange={(event) => {
                             const rawValue = event.target.value;
                             const newValue = rawValue === "" ? undefined : (rawValue as T);
-                            
+
                             onChange(filter.title, newValue);
                         }}
                     >

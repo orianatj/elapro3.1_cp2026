@@ -4,8 +4,8 @@ import type { StudentFilter, IeltsType, TaskType } from "../types/student/common
 
 // Props for the component received from page viewData
 type PracticeTaskSelectionProps = {
-    ieltsFilter: StudentFilter<IeltsType | undefined>;
-    taskFilter: StudentFilter<TaskType | undefined>;
+    ieltsFilter: StudentFilter<IeltsType>;
+    taskFilter: StudentFilter<TaskType>;
     onIeltsTypeChange?: (value: IeltsType | undefined) => void;
     onTaskTypeChange?: (value: TaskType | undefined) => void;
     onGenerate?: () => void;
