@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSubmissionsList } from "../hooks/useSubmissionsList";
 
 type Student = {

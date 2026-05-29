@@ -27,20 +27,20 @@ export function FilterGroup<T extends string>({
         <div className="filter-group">
 
             {/* Iterates over each filter (e.g. IELTS Type, Task Type)
-            to render a labeled dropdown container */} 
+            to render a labeled dropdown container */}
             {filters.map((filter) => (
                 <div key={filter.title} className="filter-item">
 
                     <label>{filter.title}</label>
 
-                    <select                        
+                    <select
                         className="filter-dropdown"
                         value={filter.selected ?? ""}
-                        
+
                         onChange={(event) => {
                             const rawValue = event.target.value;
                             const newValue = rawValue as T;
-                            
+
                             onChange(filter.title, newValue);
                         }}
                     >
