@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import "./createAssignment.css";
+import { useQuestion } from "../../hooks/useQuestions";
+
+type IELTSType = "Academic" | "General";
+type TaskType = "Task 1" | "Task 2";
 
 export default function CreateAssignment() {
-  const [ieltsType, setIeltsType] = useState<"Academic" | "General">(
-    "Academic",
-  );
+  const { mutate, isPending } = useQuestion();
 
+  const [ieltsType, setIeltsType] = useState<IELTSType>("Academic");
   const [assignType, setAssignType] = useState<"all" | "specific">("all");
+
+  const [taskType, setTaskType] = useState<TaskType>("Task 1");
+  const [questionText, setQuestionText] = useState("");
 
   const [settings, setSettings] = useState({
     timerEnabled: true,
@@ -22,24 +28,33 @@ export default function CreateAssignment() {
     }));
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    mutate({
+      ieltsType,
+      taskType,
+      questionText,
+    });
+  };
+
   return (
-    <div className="create-assignment-page">
-      {/* HEADER */}
+    <form className="create-assignment-page" onSubmit={handleSubmit}>
       <div className="assignment-header">
         <div>
           <h1>Create Assignment</h1>
           <p className="breadcrumb">Assignments &gt; Create New</p>
         </div>
 
-        <button className="back-btn">← Back to Assignments</button>
+        <button type="button" className="back-btn">
+          ← Back to Assignments
+        </button>
       </div>
 
       <div className="assignment-layout">
-        {/* LEFT SIDE */}
         <div className="assignment-main-card">
           <h2>Overall Performance</h2>
 
-          {/* TITLE */}
           <div className="form-group">
             <label>
               Assignment Title <span className="required-star">*</span>
@@ -47,7 +62,6 @@ export default function CreateAssignment() {
             <input type="text" placeholder="Overall Performance" />
           </div>
 
-          {/* IELTS TYPE */}
           <div className="form-group">
             <label>
               Choose IELTS Type <span className="required-star">*</span>
@@ -78,14 +92,15 @@ export default function CreateAssignment() {
             </div>
           </div>
 
-          {/* DROPDOWNS */}
           <div className="double-grid">
             <div className="form-group">
               <label>Task Number</label>
-              <select>
-                <option>Select Task Number</option>
-                <option>Task 1</option>
-                <option>Task 2</option>
+              <select
+                value={taskType}
+                onChange={(e) => setTaskType(e.target.value as TaskType)}
+              >
+                <option value="Task 1">Task 1</option>
+                <option value="Task 2">Task 2</option>
               </select>
             </div>
 
@@ -100,16 +115,18 @@ export default function CreateAssignment() {
             </div>
           </div>
 
-          {/* DESCRIPTION */}
           <div className="form-group">
             <label>
-              Description / Instructions{" "}
-              <span className="required-star">*</span>
+              Description / Instructions <span className="required-star">*</span>
             </label>
-            <textarea rows={7} placeholder="Enter instructions for students" />
+            <textarea
+              rows={7}
+              value={questionText}
+              onChange={(e) => setQuestionText(e.target.value)}
+              placeholder="Enter instructions for students"
+            />
           </div>
 
-          {/* DATE + TIME */}
           <div className="double-grid">
             <div className="form-group">
               <label>
@@ -134,20 +151,19 @@ export default function CreateAssignment() {
             </div>
           </div>
 
-          {/* ACTIONS */}
           <div className="assignment-actions">
-            <button className="cancel-btn">Cancel</button>
+            <button type="button" className="cancel-btn">
+              Cancel
+            </button>
 
-            <button className="create-btn">
+            <button type="submit" className="create-btn" disabled={isPending}>
               <img src="/src/assets/send-plane-fill.png" alt="send" />
-              Create Assignment
+              {isPending ? "Creating..." : "Create Assignment"}
             </button>
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="assignment-sidebar">
-          {/* UPLOAD */}
           <div className="side-card">
             <h3>Upload Resources</h3>
 
@@ -160,15 +176,20 @@ export default function CreateAssignment() {
                 />
                 <p>Drag & drop files here</p>
                 <span>or</span>
-                <button className="browse-btn">Browse Files</button>
+                <button type="button" className="browse-btn">
+                  Browse Files
+                </button>
               </div>
             </div>
 
             <div className="resource-list">
-              <p>  <img src="/src/assets/document-text.png" alt="document" />No resources uploaded yet</p>
+              <p>
+                <img src="/src/assets/document-text.png" alt="document" />
+                No resources uploaded yet
+              </p>
             </div>
           </div>
-          {/* ASSIGN TO */}
+
           <div className="side-card">
             <h3>Assign To</h3>
             <p className="sub-text">
@@ -200,7 +221,6 @@ export default function CreateAssignment() {
             </div>
           </div>
 
-          {/* SETTINGS */}
           <div className="side-card">
             <h3>Additional Settings</h3>
 
@@ -255,6 +275,6 @@ export default function CreateAssignment() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

@@ -68,18 +68,18 @@ export default function AppRouter() {
             {/* Shared Teacher Routes */}
             <Route index element={<TeacherDashboard />} />
             <Route path="submissions" element={<ViewSubmissions />} />
-            <Route
-              path="individual-submission"
-              element={<IndividualSubmission />}
-            />
+            <Route path="individual-submission" element={<IndividualSubmission />} />
+            <Route path="edit-score" element={<EditStudentScorePage />} />
+            <Route path="create-assignment" element={<CreateAssignment />} />
             {/* Supervisory Teacher Only Routes */}
             <Route
               element={
                 <ProtectedRoute allowedRoles={["supervisory_teacher"]} />
               }
+  
             >
               <Route path="edit-score" element={<EditStudentScorePage />} />
-
+              
             </Route>
             {/* External Teacher Only Routes */}
             <Route
