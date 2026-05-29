@@ -11,24 +11,25 @@ import type { PracticeWriting } from "../types/student/StudentPracticeWriting";
 import type { GetQuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
 
+// Constants
+import { PRACTICE_WRITING_INITIAL_STATE } from "../constants/PracticeWritingInitialState";
+
 // Utils
 import { getErrorMessage } from "../utils/errorHandling";
 import { mapTaskTypeToApi, mapIeltsTypeToApi } from "../utils/ieltsTaskApiMapper";
-
-// Mock (temporary until API integration is complete)
-import { mockPracticeWriting } from "../studentDashboard/PracticeWritingMock";
+import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 
 export function usePracticeWriting() {
 
-    // Base view data (initially from mock, will be updated via API)
-    const [viewData, setViewData] = useState<PracticeWriting>(mockPracticeWriting);
+    // Base view data structure, populated with API responses and user input
+    const [viewData, setViewData] = useState<PracticeWriting>(PRACTICE_WRITING_INITIAL_STATE);
 
     // UI State for current selections
-    const [ieltsType, setIeltsType] = useState<string | undefined>(undefined);
-    const [taskType, setTaskType] = useState<string | undefined>(undefined);
-    const [answerText, setAnswerText] = useState(viewData.answer.answerText ?? "");
-    const [wordCount, setWordCount] = useState(viewData.answer.wordCount);
+    const [ieltsType, setIeltsType] = useState<IeltsType | undefined>(undefined);
+    const [taskType, setTaskType] = useState<TaskType | undefined>(undefined);
+    const [answerText, setAnswerText] = useState("");
+    const [wordCount, setWordCount] = useState(0);
 
     // Mutation to fetch a new question based on current selections
     const generateQuestionMutation = useMutation({
@@ -70,14 +71,20 @@ export function usePracticeWriting() {
     const submitAnswerMutation = useMutation({
         mutationFn: async () => {
 
-            // Basic validation: Ensure answer is not empty before making API call
-            if (!answerText.trim()) {
-                throw new Error("Please write an answer before submitting.");
-            }
-
-            // Ensure required selections are made
+            // Basic validations
+            // Ensure required selections are made before making API call
             if (!ieltsType || !taskType) {
                 throw new Error("Please select IELTS type and task type.");
+            }
+
+            // Ensure a task has been generated before allowing submission
+            if (!viewData.taskDescription.questionID) {
+                throw new Error("Please generate a question before submitting an answer.");
+            }
+
+            // Ensure answer is not empty before making API call
+            if (!answerText.trim()) {
+                throw new Error("Please write an answer before submitting.");
             }
 
             // Map UI selections to expected API payload format
@@ -91,10 +98,24 @@ export function usePracticeWriting() {
             };
 
             return createSubmission(payload);
+        },
+
+        onSuccess: () => {
+            // Update Submission metadata
+            setViewData((prev) => ({
+                ...prev,
+                answer: {
+                    ...prev.answer,
+                    submissionDate: new Date().toISOString(),
+                    ieltsType: ieltsType!,
+                    taskType: taskType!,
+                    taskID: prev.taskDescription.taskID
+                }
+            }));
         }
     });
 
-    
+
     // Auto-clear generate question error after 3 seconds
     useEffect(() => {
         if (generateQuestionMutation.error) {
