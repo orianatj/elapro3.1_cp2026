@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSubmissionsList } from "../hooks/useSubmissionsList";
 
 type Student = {
@@ -75,6 +76,8 @@ export default function TableView({
   currentPage = 1,
   itemsPerPage = 25,
 }: Props) {
+  const navigate = useNavigate();
+
   const { data, isLoading, isError } = useSubmissionsList({ limit: 100 });
 
   const submissions = useMemo(() => getItems(data), [data]);
@@ -103,8 +106,12 @@ export default function TableView({
       }
 
       if (sortBy === "name") {
-        const nameA = `${a.student?.firstName ?? ""} ${a.student?.lastName ?? ""}`.trim();
-        const nameB = `${b.student?.firstName ?? ""} ${b.student?.lastName ?? ""}`.trim();
+        const nameA =
+          `${a.student?.firstName ?? ""} ${a.student?.lastName ?? ""}`.trim();
+
+        const nameB =
+          `${b.student?.firstName ?? ""} ${b.student?.lastName ?? ""}`.trim();
+
         return nameA.localeCompare(nameB);
       }
 
@@ -120,6 +127,7 @@ export default function TableView({
   }, [sortedSubmissions, currentPage, itemsPerPage]);
 
   if (isLoading) return <p>Loading submissions...</p>;
+
   if (isError) return <p>Failed to load submissions.</p>;
 
   return (
@@ -143,16 +151,25 @@ export default function TableView({
             </tr>
           ) : (
             visibleSubmissions.map((s) => (
-              <tr key={s.submissionId}>
+              <tr
+                key={s.submissionId}
+                onClick={() => navigate(`/teacher/individual-submission/${s.submissionId}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <td>{s.student?.firstName ?? "-"}</td>
+
                 <td>{s.student?.lastName ?? "-"}</td>
+
                 <td>{capitalizeWords(s.ieltsType)}</td>
+
                 <td>{capitalizeWords(s.taskType)}</td>
+
                 <td>
                   <span className={getStatusClass(s.status)}>
                     {capitalizeWords(s.status)}
                   </span>
                 </td>
+
                 <td>
                   {s.submittedAt
                     ? new Date(s.submittedAt).toLocaleString()

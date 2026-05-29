@@ -69,7 +69,7 @@ export default function AppRouter() {
             <Route index element={<TeacherDashboard />} />
             <Route path="submissions" element={<ViewSubmissions />} />
             <Route
-              path="individual-submission"
+              path="individual-submission/:submissionId"
               element={<IndividualSubmission />}
             />
             {/* Supervisory Teacher Only Routes */}
