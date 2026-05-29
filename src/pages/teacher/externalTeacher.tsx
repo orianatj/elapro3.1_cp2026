@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./teacher.css";
 import Stats from "../../types/teacher/StatisticBoxTemplate";
 import MenuList from "../../common/MenuList.tsx";

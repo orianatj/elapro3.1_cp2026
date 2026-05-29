@@ -1,36 +1,30 @@
 import './ProgressTracking.css';
-import { useState } from "react";
+import type { CriterionKey, CriterionToggleConfig } from '../types/common/StudentDashboard';
 
 
 // Define props for CriterionSelector component
 type CriterionSelectorProps = {
-    toggles: string[];
+    toggles: CriterionToggleConfig[];
+    isVisible: Record<CriterionKey, boolean>;
+    onToggle: (key: CriterionKey) => void;
 };
 
 
-/* Component takes a list of crtierion labels and maps them to a toggle. Custom event handler 'handleToggle' adds interactivity to the toggle components. This comonent is the parent component of CriterionToggle.
+/* CriterionSelector maps criterion toggle configuration objects to
+interactive CriterionToggle components. Toggle visibility state and
+event handlers are controlled by the parent ProgressTracking component
+and passed down as props.
 */
-export function CriterionSelector({ toggles }: CriterionSelectorProps) {
-
-    const [selected, setSelected] = useState(toggles.map(() => true));
-
-    const handleToggle = (index: number) => {
-        setSelected((prev) =>
-            prev.map((value, i) =>
-                i === index ? !value : value
-
-            )
-        );
-    };
+export function CriterionSelector({ toggles, isVisible, onToggle }: CriterionSelectorProps) {
 
     return (
         <div className='toggle-box'>
-            {toggles.map((toggle, index) => (
+            {toggles.map((toggle) => (
                 <CriterionToggle
-                    key={toggle}
-                    label={toggle}
-                    isOn={selected[index]}
-                    onToggle={() => handleToggle(index)}
+                    key={toggle.key}
+                    label={toggle.label}
+                    isOn={isVisible[toggle.key]}
+                    onToggle={() => onToggle(toggle.key)}
                 />
             ))}
         </div>

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./teacher.css";
 import Stats from "../../types/teacher/StatisticBoxTemplate";
 import MenuList from "./../../common/MenuList.tsx";
 import type { MenuData } from "./../../common/MenuList.tsx";
-
+import DashboardBandDistribution from "../../common/BandDistribution.tsx";
+import { WeaknessTrends } from "../../common/WeaknessTrends.tsx";
+import ProgressBar from "../../common/ProgressBar.tsx";
 type TeacherRole = "supervisory_teacher" | "external_teacher";
 
 type TeacherDashboardProps = {
@@ -13,7 +15,7 @@ type TeacherDashboardProps = {
 
 export default function TeacherDashboard({
   role = "supervisory_teacher",
-  userName= "Paul",
+  userName = "Paul",
 }: TeacherDashboardProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -69,12 +71,11 @@ export default function TeacherDashboard({
 
   return (
     <div
-      className={`dashboard-page ${
-        isSupervisory ? "supervisory-layout" : "external-layout"
-      }`}
+      className={`dashboard-page ${isSupervisory ? "supervisory-layout" : "external-layout"
+        }`}
     >
       <div className="header">
-      Welcome back {userName}
+        Welcome back {userName}
       </div>
 
       <h3>Overall Performance</h3>
@@ -83,33 +84,15 @@ export default function TeacherDashboard({
 
       <div className="charts">
         <div className="chart-box">
-          <img
-            src="/src/assets/Student-Statistic.png"
-            alt="Student Statistic"
-            onClick={() =>
-              setSelectedImage("/src/assets/Student-Statistic.png")
-            }
-          />
+          <><DashboardBandDistribution /></>
         </div>
 
         <div className="chart-box">
-          <img
-            src="/src/assets/Class-Progress.png"
-            alt="Class Progress"
-            onClick={() =>
-              setSelectedImage("/src/assets/Class-Progress.png")
-            }
-          />
+          <><ProgressBar /></>
         </div>
 
-        <div className="chart-box large">
-          <img
-            src="/src/assets/Attendance.png"
-            alt="Attendance"
-            onClick={() =>
-              setSelectedImage("/src/assets/Attendance.png")
-            }
-          />
+        <div className="chart-box">
+          <><WeaknessTrends title="Weakness Trends" /></>
         </div>
       </div>
 

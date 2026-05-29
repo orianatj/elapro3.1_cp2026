@@ -3,7 +3,7 @@
 export const mockSubmissionAnalysis = {
     id: "mock-1",
     ieltsType: "academic",
-    taskType: "task-two",
+    taskType: "task2",
     submittedAt: "2026-05-01T10:00:00Z",
     duration: "45 mins",
 
@@ -39,7 +39,7 @@ export const mockSubmissionAnalysis = {
 
     question: {
         placeHolderText: "Task Description",
-        id: 1,
+        id: "1",
         taskID: 1,
         text: "Some people think technology is making people less social. Discuss both views.",
     },
