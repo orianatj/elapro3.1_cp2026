@@ -13,15 +13,9 @@ export function useStudentProgressChart(params: StudentProgressTracking) {
         queryFn: () => StudentProgressTrackingApi(params),
         select: (response) => {
 
-
-            console.log("useStudentProgressChart running");
-
             const series = response.data.series;
 
             const aggregationLevel = determineAggregationLevel({ series });
-
-            console.log("aggregationLevel:", aggregationLevel);
-            console.log("series length:", series.length);
 
             if (aggregationLevel === "empty") {
                 return {
@@ -35,7 +29,6 @@ export function useStudentProgressChart(params: StudentProgressTracking) {
 
                 const chartData = formatRawProgressSeries({ series, chartMode: "raw" });
 
-                console.log(chartData);
 
                 return {
                     chartMode: "raw",

@@ -67,7 +67,7 @@ export function ProgressTracking({ userId, ieltsType, taskType }: ProgressTracki
         }
     };
 
-    console.log("all data", chartData);
+
 
     if (!chartData) {
         return null;
@@ -81,7 +81,6 @@ export function ProgressTracking({ userId, ieltsType, taskType }: ProgressTracki
 
     const renderableChartData = chartData.chartData;
 
-    console.log("just chart data", renderableChartData);
 
 
     if (!renderableChartData) {
