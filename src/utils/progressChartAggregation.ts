@@ -126,7 +126,7 @@ export function createLabel(bucketKey: string, aggLevel: string) {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     const quarter = Math.floor(date.getMonth() / 3) + 1;
-    const months = ["Jan", "Feb", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     const monthName = months[date.getMonth()];
     const hours = date.getHours();
     const minutes = date.getMinutes();
