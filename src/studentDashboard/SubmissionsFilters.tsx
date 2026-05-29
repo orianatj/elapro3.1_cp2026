@@ -41,7 +41,7 @@ export function SubmissionsFilters({ filters, actions, showIelts, showTask }: Su
         <div>
           {/* e.g. "Choose a Task Type" */}
           <label>{filters.taskType.title}</label>
-          {/* e.g. "task-one", "task-two", or "all" */}
+          {/* e.g. "task1", "task2", or "all" */}
           <select value={filters.taskType.selected}
             onChange={(e) => actions.setTaskType(e.target.value as TaskType | "all")}>
             {filters.taskType.options.map((option) => (

@@ -1,7 +1,7 @@
 // Type defines the Task Answer DTO
 export type TaskAnswer = {
     placeHolderText: string;
-    taskID: string;
+    taskID: number;
     ieltsType: string;
     taskType: string;
     questionCategory: string;

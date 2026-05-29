@@ -1,7 +1,7 @@
 import type { StudentFilter, IeltsType, TaskType } 
 from "../types/student/common/StudentFilter";
 
-export const DEFAULT_IELTS_FILTER: StudentFilter<IeltsType | undefined> = {
+export const DEFAULT_IELTS_FILTER: StudentFilter<IeltsType> = {
   title: "IELTS Type",
   selected: undefined,
   options: [
@@ -10,11 +10,11 @@ export const DEFAULT_IELTS_FILTER: StudentFilter<IeltsType | undefined> = {
   ]
 };
 
-export const DEFAULT_TASK_FILTER: StudentFilter<TaskType | undefined> = {
+export const DEFAULT_TASK_FILTER: StudentFilter<TaskType> = {
   title: "Task Type",
   selected: undefined,
   options: [
-    { label: "Task 1", value: "task-one" },
-    { label: "Task 2", value: "task-two" }
+    { label: "Task 1", value: "task1" },
+    { label: "Task 2", value: "task2" }
   ]
 };

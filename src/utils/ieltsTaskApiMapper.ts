@@ -6,9 +6,9 @@ export const mapIeltsTypeToApi = (
   return ieltsType === "academic" ? "academic" : "general";
 };
 
-// Maps UI task type ("task-one", "task-two") to API format ("task1", "task2")
+// Maps UI task type ("task1", "task2") to API format ("task1", "task2")
 export const mapTaskTypeToApi = (
   taskType: string | undefined
 ): string => {
-  return taskType === "task-two" ? "task2" : "task1";
+  return taskType === "task2" ? "task2" : "task1";
 };

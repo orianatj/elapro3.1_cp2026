@@ -3,7 +3,7 @@
 export const mockSubmissionAnalysis = {
     id: "mock-1",
     ieltsType: "academic",
-    taskType: "task-two",
+    taskType: "task2",
     submittedAt: "2026-05-01T10:00:00Z",
     duration: "45 mins",
 
