@@ -21,6 +21,6 @@ export const ieltsTypeLabels: Record<IeltsType, string> = {
 
 // Maps Task type values to user-friendly labels for display in UI
 export const taskTypeLabels: Record<TaskType, string> = {
-    "task-one": "Task 1",
-    "task-two": "Task 2",
+    "task1": "Task 1",
+    "task2": "Task 2",
 };

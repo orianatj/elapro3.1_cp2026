@@ -35,7 +35,7 @@ export function useStudentSubmissions(userId: string) {
         useState<FilterValue<IeltsType>>("all");  // Accepted values: "all", "academic", or "general". Default set to "all"
 
     const [taskType, setTaskType] =
-        useState<FilterValue<TaskType>>("all");   // Accepted values: "all", "task-one", or "task-two". Default set to "all"
+        useState<FilterValue<TaskType>>("all");   // Accepted values: "all", "task1", or "task2". Default set to "all"
 
     /* ==================== SERVER STATE ==================== */
     // Loading, error, caching, and refetch behaviour is handled automatically by TanStack Query.
@@ -79,8 +79,8 @@ export function useStudentSubmissions(userId: string) {
                     selected: taskType,
                     options: [
                         { value: "all", label: "All" },
-                        { value: "task-one", label: "Task 1" },
-                        { value: "task-two", label: "Task 2" },
+                        { value: "task1", label: "Task 1" },
+                        { value: "task2", label: "Task 2" },
                     ],
                 },
             },

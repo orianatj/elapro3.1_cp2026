@@ -11,8 +11,8 @@ import type { IeltsType, TaskType, StudentFilter} from "./common/StudentFilter";
 export interface PracticeWriting {
     pageHeader: PageHeaderViewData; 
     taskBar: TaskUtilityBar;
-    ieltsSelection: StudentFilter<IeltsType | undefined>;
-    taskSelection: StudentFilter<TaskType | undefined>;    
+    ieltsSelection: StudentFilter<IeltsType>;
+    taskSelection: StudentFilter<TaskType>;    
     taskDescription: TaskDescription;
     answer: TaskAnswer;
 };
