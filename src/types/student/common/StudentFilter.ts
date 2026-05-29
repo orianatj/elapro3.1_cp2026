@@ -2,7 +2,7 @@
 export type StudentFilter<T extends string | undefined> = {
     title: string;  // ex. "Choose an IELTS Type"
     selected: T;  // ex. "task-one"
-    options: FilterOption<T>[];
+    options: FilterOption<T extends string | undefined>[];
 };
 
 // Define union types for filters 
