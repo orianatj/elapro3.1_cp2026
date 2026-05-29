@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./editScore.css";
+import "./editscore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
@@ -16,7 +16,7 @@ export function GetCompetencyScore({ submissionId }: { submissionId: string }, c
   const responsePayload = submissionResultQuery.data;
   const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
   const competencyName = competencyname;
-  const competency = result?.competencies.find((c: any) => c.competency === competencyName)  ?? { score: "N/A" };
+  const competency = result?.competencies.find((c: any) => c.competency === competencyName) ?? { score: "N/A" };
 
   if (submissionResultQuery.isLoading) return <div>Loading...</div>;
   if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
@@ -34,17 +34,17 @@ export default function EditStudentScore() {
   var [lexicalResource, setLexicalResource] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || 7.5);
   var [grammar, setGrammar] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || 4.0);
 
-  
+
   var overallScore =
     (taskResponse + coherence + lexicalResource + grammar) / 4;
 
   const handleSave = () => {
     navigate("/teacher/individual-submission", { state: { submissionId } });
-  }; 
+  };
 
-    const handleCancel = () => {
+  const handleCancel = () => {
     navigate("/teacher/individual-submission", { state: { submissionId } });
-  }; 
+  };
 
   return (
     <div className="edit-score-page">
