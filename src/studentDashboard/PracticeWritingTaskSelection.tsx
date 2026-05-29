@@ -6,8 +6,8 @@ import type { StudentFilter, IeltsType, TaskType } from "../types/student/common
 type PracticeTaskSelectionProps = {
     ieltsFilter: StudentFilter<IeltsType>;
     taskFilter: StudentFilter<TaskType>;
-    onIeltsTypeChange?: (value: IeltsType | undefined) => void;
-    onTaskTypeChange?: (value: TaskType | undefined) => void;
+    onIeltsTypeChange?: (value: IeltsType) => void;
+    onTaskTypeChange?: (value: TaskType) => void;
     onGenerate?: () => void;
 }
 
@@ -24,14 +24,14 @@ export function PracticeTaskSelectionGroup({
 
     // Business logic for interdependent dropdowns:
     const isAcademic = ieltsFilter.selected === "academic";
-    const isTaskOne = taskFilter.selected === "task-one";
+    const isTaskOne = taskFilter.selected === "task1";
 
     // Apply constraint: Academic cannot have Task 1
     const constraintTaskFilter = {
         ...taskFilter,
         options: taskFilter.options.map((option) => {
 
-            if (isAcademic && option.value === "task-one") {
+            if (isAcademic && option.value === "task1") {
                 return { ...option, disabled: true };
             }
 
@@ -77,11 +77,11 @@ export function PracticeTaskSelectionGroup({
                 onChange={(title: string, value: IeltsType | TaskType | undefined) => {
 
                     if (title === ieltsFilter.title) {
-                        onIeltsTypeChange?.(value as IeltsType | undefined)
+                        onIeltsTypeChange?.(value as IeltsType)
                     }
 
                     if (title === taskFilter.title) {
-                        onTaskTypeChange?.(value as TaskType | undefined)
+                        onTaskTypeChange?.(value as TaskType)
                     }
                 }}
             />
