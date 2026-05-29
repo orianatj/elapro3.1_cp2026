@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -117,11 +117,10 @@ const CustomLegend: React.FC<LegendProps> = ({
             type="button"
             onClick={() => onToggle(series.key)}
             aria-pressed={active}
-            className={`weakness-trends__legend-item ${
-              active
+            className={`weakness-trends__legend-item ${active
                 ? "weakness-trends__legend-item--active"
                 : "weakness-trends__legend-item--inactive"
-            }`}
+              }`}
           >
             <span className={`dot ${series.dotClass}`} />
             <span className="weakness-trends__legend-text">
@@ -144,117 +143,117 @@ export const WeaknessTrends: React.FC<
   title = "Weakness Trends",
   periodLabel,
 }) => {
-  const { data, isLoading, isError } =
-    useWeaknessTrends({
-      fromDate,
-      toDate,
-      ieltsType,
-      taskType,
-    });
+    const { data, isLoading, isError } =
+      useWeaknessTrends({
+        fromDate,
+        toDate,
+        ieltsType,
+        taskType,
+      });
 
-  const [visibility, setVisibility] =
-    useState<Record<SeriesKey, boolean>>({
-      taskResponse: true,
-      coherenceCohesion: true,
-      lexicalResource: true,
-      rangeAccuracy: true,
-    });
+    const [visibility, setVisibility] =
+      useState<Record<SeriesKey, boolean>>({
+        taskResponse: true,
+        coherenceCohesion: true,
+        lexicalResource: true,
+        rangeAccuracy: true,
+      });
 
-  const toggleSeries = (key: SeriesKey) => {
-    setVisibility((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
+    const toggleSeries = (key: SeriesKey) => {
+      setVisibility((prev) => ({
+        ...prev,
+        [key]: !prev[key],
+      }));
+    };
 
-  return (
-    <section className="weakness-trends">
-      <div className="weakness-trends__header">
-        <div>
-          <h3 className="weakness-trends__title">
-            {title}
-          </h3>
+    return (
+      <section className="weakness-trends">
+        <div className="weakness-trends__header">
+          <div>
+            <h3 className="weakness-trends__title">
+              {title}
+            </h3>
 
-          {periodLabel && (
-            <p className="weakness-trends__subtitle">
-              {periodLabel}
-            </p>
+            {periodLabel && (
+              <p className="weakness-trends__subtitle">
+                {periodLabel}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="weakness-trends__chart">
+          {isLoading ? (
+            <div className="weakness-trends__state">
+              Loading chart...
+            </div>
+          ) : isError ? (
+            <div className="weakness-trends__state weakness-trends__state--error">
+              Failed to load weakness trends.
+            </div>
+          ) : !data?.length ? (
+            <div className="weakness-trends__state">
+              No trend data available.
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={data}
+                margin={{
+                  top: 10,
+                  right: 12,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  className="weakness-trends__grid"
+                />
+
+                <XAxis
+                  dataKey="label"
+                  tickLine={false}
+                  axisLine={false}
+                  interval={0}
+                />
+
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  domain={[0, 10]}
+                  allowDecimals={false}
+                />
+
+                <Tooltip
+                  content={<CustomTooltip />}
+                />
+
+                <Legend
+                  content={
+                    <CustomLegend
+                      visibility={visibility}
+                      onToggle={toggleSeries}
+                    />
+                  }
+                />
+
+                {SERIES.map(
+                  (series) =>
+                    visibility[series.key] && (
+                      <Line
+                        key={series.key}
+                        {...LINE_PROPS}
+                        dataKey={series.key}
+                        name={series.name}
+                        stroke={series.stroke}
+                      />
+                    )
+                )}
+              </LineChart>
+            </ResponsiveContainer>
           )}
         </div>
-      </div>
-
-      <div className="weakness-trends__chart">
-        {isLoading ? (
-          <div className="weakness-trends__state">
-            Loading chart...
-          </div>
-        ) : isError ? (
-          <div className="weakness-trends__state weakness-trends__state--error">
-            Failed to load weakness trends.
-          </div>
-        ) : !data?.length ? (
-          <div className="weakness-trends__state">
-            No trend data available.
-          </div>
-        ) : (
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={data}
-              margin={{
-                top: 10,
-                right: 12,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid
-                vertical={false}
-                className="weakness-trends__grid"
-              />
-
-              <XAxis
-                dataKey="label"
-                tickLine={false}
-                axisLine={false}
-                interval={0}
-              />
-
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                domain={[0, 10]}
-                allowDecimals={false}
-              />
-
-              <Tooltip
-                content={<CustomTooltip />}
-              />
-
-              <Legend
-                content={
-                  <CustomLegend
-                    visibility={visibility}
-                    onToggle={toggleSeries}
-                  />
-                }
-              />
-
-              {SERIES.map(
-                (series) =>
-                  visibility[series.key] && (
-                    <Line
-                      key={series.key}
-                      {...LINE_PROPS}
-                      dataKey={series.key}
-                      name={series.name}
-                      stroke={series.stroke}
-                    />
-                  )
-              )}
-            </LineChart>
-          </ResponsiveContainer>
-        )}
-      </div>
-    </section>
-  );
-};
+      </section>
+    );
+  };
