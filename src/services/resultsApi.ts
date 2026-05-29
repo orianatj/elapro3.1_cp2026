@@ -7,4 +7,9 @@ export const submissionResult = (id: string) => {
 export const reviewResult = (id: string, competencies?: any[]) => {
     const body = competencies !== undefined ? { competencies } : {};
     return api.patch(`/results/submission/${id}/teacher-review`, body);
+
+};
+
+export const results = (params?: Record<string, unknown>) => {
+  return api.get("/results", { params })
 };

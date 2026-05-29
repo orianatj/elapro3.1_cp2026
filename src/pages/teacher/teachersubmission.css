@@ -173,3 +173,62 @@
   color: var(--pagination-active-text);
   border: 1px solid var(--pagination-active-bg);
 }
+
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.submission-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: white;
+}
+
+.submission-table thead th {
+  background: #f1f3f7;
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  border: 1px solid #cdd6e5;
+}
+
+.submission-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #d8dfeb;
+}
+
+.submission-table tbody tr:nth-child(even) {
+  background: #f7f8fb;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  background: #f4b400;
+}
+
+.status-late {
+  background: #d93025;
+}
+
+.status-default {
+  background: #34a853;
+}
+
+.filter-panel {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
