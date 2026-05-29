@@ -39,7 +39,7 @@ export const mockSubmissionAnalysis = {
 
     question: {
         placeHolderText: "Task Description",
-        id: 1,
+        id: "1",
         taskID: 1,
         text: "Some people think technology is making people less social. Discuss both views.",
     },
