@@ -1,0 +1,13 @@
+
+/* Add all User Account Setting Page & Sub-component styling here */
+
+/* ACCOUNT SETTINGS PAGE */
+.style-settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+};
+
+/* PROFILE SETTINGS PAGE */
+
+/* SUBSCRIPTION & BILLING PAGE */

@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminLayout from "../layouts/AdminLayout";
 import StudentLayout from "../layouts/StudentLayout";
 import { AdminDashboardPage } from "../pages/admin/adminDashboard.tsx";
+import AdminUsersPage from "../pages/admin/AdminUsersPage";
+import { AdminSubscriptionsPage } from "../pages/admin/AdminSubscriptionsPage";
+import AdminReportsPage from "../pages/admin/AdminReportsPage";
 import TeacherLayout from "../layouts/TeacherLayout";
 import TeacherDashboard from "../pages/teacher/teacher.tsx";
 import ViewSubmissions from "../pages/teacher/teacherviewsubmissions.tsx";
@@ -51,8 +54,8 @@ export default function AppRouter() {
             {/*<Route path="submission:submissionId" element={<SubmissionAnalysisPage />} />*/}
           </Route>
         </Route>
-        
-        
+
+
         {/* Teacher Protected Routes */}
         <Route
           element={
@@ -76,13 +79,14 @@ export default function AppRouter() {
               }
             >
               <Route path="edit-score" element={<EditStudentScorePage />} />
+              <Route path="create-assignment" element={<CreateAssignment />} />
 
             </Route>
             {/* External Teacher Only Routes */}
             <Route
               element={<ProtectedRoute allowedRoles={["external_teacher"]} />}
             >
-               <Route path="create-assignment" element={<CreateAssignment />} />
+              <Route path="create-assignment" element={<CreateAssignment />} />
             </Route>
           </Route>
         </Route>
