@@ -1,8 +1,8 @@
 // Type defines reusable filter DTO for student dashboard pages
-export type StudentFilter<T extends string | undefined> = {
+export type StudentFilter<T extends string> = {
     title: string;  // ex. "Choose an IELTS Type"
     selected: T;  // ex. "task-one"
-    options: FilterOption<T extends string | undefined>[];
+    options: FilterOption<T>[];
 };
 
 // Define union types for filters 
