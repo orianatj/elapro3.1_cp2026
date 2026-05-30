@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../common/Navbar";
-import { GreetingBanner } from "../studentDashboard/GreetingBanner";
 import "./studentlayout.css"
 
 
@@ -21,8 +20,6 @@ export default function StudentLayout() {
             <Navbar pageNames={studentNavItems} />
 
             <div className="student-layout-body">
-                <header className="greeting-banner"><GreetingBanner name={"[firstName]"} />
-                </header>
                 <main className="page-content">
                     <Outlet />
                 </main>

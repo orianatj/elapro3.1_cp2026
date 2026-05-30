@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./createAssignment.css";
 import { useQuestion } from "../../hooks/useQuestions";
 

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./editScore.css";
+import "./editscore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
@@ -11,56 +11,17 @@ interface EditStudentScoreLocationState {
   submissionId?: string;
 }
 
-export function GetTaskResponseScore({ submissionId }: { submissionId: string }) {
+export function GetCompetencyScore({ submissionId }: { submissionId: string }, competencyname: string) {
   const submissionResultQuery = useSubmissionResult(submissionId);
   const responsePayload = submissionResultQuery.data;
   const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+  const competencyName = competencyname;
+  const competency = result?.competencies.find((c: any) => c.competency === competencyName) ?? { score: "N/A" };
 
   if (submissionResultQuery.isLoading) return <div>Loading...</div>;
   if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
 
-  return (
-    result?.competencies?.[0]?.score
-  );
-}
-
-export function GetCoherenceScore({ submissionId }: { submissionId: string }) {
-  const submissionResultQuery = useSubmissionResult(submissionId);
-  const responsePayload = submissionResultQuery.data;
-  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
-
-  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
-  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
-
-  return (
-    result?.competencies?.[1]?.score
-  );
-}
-
-export function GetLexicalResourceScore({ submissionId }: { submissionId: string }) {
-  const submissionResultQuery = useSubmissionResult(submissionId);
-  const responsePayload = submissionResultQuery.data;
-  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
-
-  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
-  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
-
-  return (
-    result?.competencies?.[2]?.score
-  );
-}
-
-export function GetGrammarScore({ submissionId }: { submissionId: string }) {
-  const submissionResultQuery = useSubmissionResult(submissionId);
-  const responsePayload = submissionResultQuery.data;
-  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
-
-  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
-  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
-
-  return (
-    result?.competencies?.[3]?.score
-  );
+  return (competency.score);
 }
 
 export default function EditStudentScore() {
@@ -68,22 +29,22 @@ export default function EditStudentScore() {
   const navigate = useNavigate();
   const state = location.state as EditStudentScoreLocationState | null;
   const submissionId = state?.submissionId;
-  const [taskResponse, setTaskResponse] = useState<number>(GetTaskResponseScore({ submissionId: submissionId ?? "default-submission-id" }) || 5.0);
-  const [coherence, setCoherence] = useState<number>(GetCoherenceScore({ submissionId: submissionId ?? "default-submission-id" }) || 6.5);
-  const [lexicalResource, setLexicalResource] = useState<number>(GetLexicalResourceScore({ submissionId: submissionId ?? "default-submission-id" }) || 7.5);
-  const [grammar, setGrammar] = useState<number>(GetGrammarScore({ submissionId: submissionId ?? "default-submission-id" }) || 4.0);
+  var [taskResponse, setTaskResponse] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "task_response") || 5.0);
+  var [coherence, setCoherence] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "coherence_cohesion") || 6.5);
+  var [lexicalResource, setLexicalResource] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || 7.5);
+  var [grammar, setGrammar] = useState<number>(GetCompetencyScore({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || 4.0);
 
-  
-  const overallScore =
+
+  var overallScore =
     (taskResponse + coherence + lexicalResource + grammar) / 4;
 
   const handleSave = () => {
     navigate("/teacher/individual-submission", { state: { submissionId } });
-  }; 
+  };
 
-    const handleCancel = () => {
+  const handleCancel = () => {
     navigate("/teacher/individual-submission", { state: { submissionId } });
-  }; 
+  };
 
   return (
     <div className="edit-score-page">
