@@ -34,7 +34,9 @@ export function GetCompetencyFeedback({ submissionId }: { submissionId: string }
 }
 
 export default function EditStudentScore() {
-  const { submissionId } = useParams<{ submissionId: string }>();
+  const { submissionId, firstName, lastName } = useParams<{ submissionId: string; firstName?: string; lastName?: string }>();
+  const firstNameDecoded = firstName ? decodeURIComponent(firstName) : "Emily";
+  const lastNameDecoded = lastName ? decodeURIComponent(lastName) : "Parker";
   const navigate = useNavigate();
   const reviewResult = useReviewResult();
 
@@ -134,14 +136,14 @@ export default function EditStudentScore() {
       },
       {
         onSuccess: () => {
-          navigate(`/teacher/individual-submission/${submissionId}`);
+          navigate(`/teacher/individual-submission/${submissionId}/${encodeURIComponent(firstNameDecoded)}/${encodeURIComponent(lastNameDecoded)}`);
         },
       }
     );
-  }; 
+  };
 
   const handleCancel = () => {
-    navigate(`/teacher/individual-submission/${submissionId}`);
+    navigate(`/teacher/individual-submission/${submissionId}/${encodeURIComponent(firstNameDecoded)}/${encodeURIComponent(lastNameDecoded)}`);
   };
 
   return (
@@ -152,7 +154,7 @@ export default function EditStudentScore() {
         <div className="student-avatar"></div>
 
         <div>
-          <h3>Emily Parker</h3>
+          <h3>{firstNameDecoded} {lastNameDecoded}</h3>
           <p>ID: 173657</p>
           <p>Class: Advanced English</p>
         </div>
