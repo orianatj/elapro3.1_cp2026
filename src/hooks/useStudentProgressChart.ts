@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { studentProgressTracking as StudentProgressTrackingApi } from "../services/dashboardApi";
-import type { StudentProgressTracking } from "../types/common/StudentDashboard";
+import type { StudentProgressTracking } from "../types/student/StudentDashboard";
 import { determineAggregationLevel, aggregateProgressSeries, formatRawProgressSeries } from "../utils/progressChartAggregation";
 
 
