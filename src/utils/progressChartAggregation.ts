@@ -1,4 +1,4 @@
-import type { ProgressChartPoint, ChartMode } from "../types/common/StudentDashboard";
+import type { ProgressChartPoint, ChartMode } from "../types/student/StudentDashboard";
 
 
 // Define the maximum number of data points the chart should display
