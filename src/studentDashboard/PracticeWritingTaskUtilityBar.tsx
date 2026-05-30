@@ -91,7 +91,6 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
                     {/* Play button */}
                     <button className="icon-button" onClick={handleStart} disabled={isRunning || utilData.isPaused}>
                         <FiPlay />
-                        <span>Start Timer</span>
                     </button>
 
                     {/* Small divider */}
@@ -111,10 +110,6 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
                     </button>
 
                 </div>
-
-
-
-
             </div>
 
             {/* Divider */}

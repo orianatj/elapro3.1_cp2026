@@ -1,4 +1,4 @@
-import React from "react";
+
 
 interface PaginationProps {
   currentPage?: number;
@@ -39,7 +39,7 @@ export default function Pagination({
   className = "pagination",
   activeClassName = "active",
 
-  onPageChange = () => {},
+  onPageChange = () => { },
 }: PaginationProps) {
   const createPageNumbers = () => {
     const pages: (number | string)[] = [];

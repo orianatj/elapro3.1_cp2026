@@ -2,7 +2,7 @@ import "./teacher.css";
 import "./IndividualSubmission.css";
 import ToolbarButton from "../../common/ToolbarButton";
 import ToolbarButtonConfirm from "../../common/ToolbarButtonConfirm";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSubmissionIndividual } from "../../hooks/useSubmissionIndividual";
 import { useSubmissionResult } from "../../hooks/useSubmissionResult";
 
@@ -47,8 +47,8 @@ export function IndividualSubmissionWordCount({ submissionId }: { submissionId: 
   return (
     <div>
       Word Count: {submission?.data.wordCount ?? "N/A"}
-    </div>  
-  );
+    </div>
+  );  
 }
 
 export function SubmissionResult({ submissionId }: { submissionId: string }) {
@@ -59,15 +59,21 @@ export function SubmissionResult({ submissionId }: { submissionId: string }) {
   if (submissionResultQuery.isLoading) return <div>Loading...</div>;
   if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
 
+  const grammar = result?.competencies.find((c: any) => c.competency === "grammar")  ?? { score: "N/A" };
+  const coherence = result?.competencies.find((c: any) => c.competency === "coherence_cohesion")  ?? { score: "N/A" };
+  const lexical = result?.competencies.find((c: any) => c.competency === "lexical")  ?? { score: "N/A" };
+  const taskResponse = result?.competencies.find((c: any) => c.competency === "task_response")  ?? { score: "N/A" };
+  const overall = result?.competencies.find((c: any) => c.competency === "overall")  ?? { score: "N/A" };
+  
   return (
     <div>
-      <p><strong>Task Response:</strong> <strong>{result?.competencies?.[0]?.score ?? "N/A"}</strong> - {result?.competencies?.[0]?.feedback ?? "N/A"}</p>
-      <p><strong>Coherence & Cohesion:</strong> <strong>{result?.competencies?.[1]?.score ?? "N/A"}</strong> - {result?.competencies?.[1]?.feedback ?? "N/A"}</p>
-      <p><strong>Lexical Resource:</strong> <strong>{result?.competencies?.[2]?.score ?? "N/A"}</strong> - {result?.competencies?.[2]?.feedback ?? "N/A"}</p>
-      <p><strong>Grammatical Range & Accuracy:</strong> <strong>{result?.competencies?.[3]?.score ?? "N/A"}</strong> - {result?.competencies?.[3]?.feedback ?? "N/A"}</p>
-      <p><strong>Overall:</strong> <strong>{result?.competencies?.[4]?.score ?? "N/A"}</strong> - {result?.competencies?.[4]?.feedback ?? "N/A"}</p>
+      <p><strong>Task Response:</strong> <strong>{taskResponse.score}</strong> - {taskResponse.feedback}</p>
+      <p><strong>Coherence & Cohesion:</strong> <strong>{coherence.score}</strong> - {coherence.feedback}</p>
+      <p><strong>Lexical Resource:</strong> <strong>{lexical.score}</strong> - {lexical.feedback}</p>
+      <p><strong>Grammatical Range & Accuracy:</strong> <strong>{grammar.score}</strong> - {grammar.feedback}</p>
+      <p><strong>Overall:</strong> <strong>{overall.score}</strong> - {overall.feedback}</p>
     </div>
-  );
+  );  
 }
 
 export function SubmissionResultScore({ submissionId }: { submissionId: string }) {
@@ -98,19 +104,19 @@ export function SubmissionResultFull({ submissionId }: { submissionId: string })
 
 export default function IndividualSubmissionPage() {
   const navigate = useNavigate();
-  const submissionId = "9ec9b32e-7e2f-4f63-887b-c95bc3cefb33"; // Example submission ID
+  const { submissionId } = useParams<{ submissionId: string }>();
 
   return (
     <>
       <div className="header">Student's Submission</div>
       <div className="flex-container">
         <div className ="submission-view-card">
-            <IndividualSubmission submissionId={submissionId} />
-            <IndividualSubmissionWordCount submissionId={submissionId} />
+            <IndividualSubmission submissionId={submissionId!} />
+            <IndividualSubmissionWordCount submissionId={submissionId!} />
         </div>    
         <div className="total-score-card">
-            <h2>Overall Score: <SubmissionResultScore submissionId={submissionId} /></h2>
-            <SubmissionResult submissionId={submissionId} />
+            <h2>Overall Score: <SubmissionResultScore submissionId={submissionId!} /></h2>
+            <SubmissionResult submissionId={submissionId!} />
             <div className="button-container">
               <ToolbarButton
                 icon="/src/assets/pencil.png"
@@ -125,8 +131,6 @@ export default function IndividualSubmissionPage() {
             </div>
         </div>
       </div>
-
-    
     </>
   );
 }
