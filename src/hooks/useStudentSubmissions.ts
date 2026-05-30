@@ -3,11 +3,14 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { submissionsList } from "../services/submissionsApi";
+import { results } from "../services/resultsApi";
+
 import { formatDateTime } from "../utils/dateUtils";
 import { mapGradingStatus } from "../utils/gradingStatus";
 
 import type { StudentSubmissions } from "../types/student/StudentSubmissionsViewData";
 import type { SubmissionResponse } from "../types/common/api/SubmissionResponse";
+import type { ResultsLightResponse } from "../types/common/api/ResultsResponse";
 
 import type {
     FilterValue,
@@ -38,7 +41,10 @@ export function useStudentSubmissions(userId: string) {
 
     /* ==================== MAPPING FUNCTION ==================== */
     // Maps the backend 'submissions' data to the StudentSubmissions ViewData format expected by the UI components.
-    const mapSubmissionToRow = (submission: SubmissionResponse) => {
+    const mapSubmissionToRow = (
+        submission: SubmissionResponse,
+        result?: ResultsLightResponse
+    ) => {
         return {
             submissionId: submission.submissionId,
             date: formatDateTime(submission.submittedAt),
@@ -47,8 +53,8 @@ export function useStudentSubmissions(userId: string) {
             ieltsType: submission.ieltsType as IeltsType, // Type assertion based on backend API contract
             taskType: submission.taskType as TaskType,    // Type assertion based on backend API contract
 
-            score: undefined, // API doesn’t provide it yet
-            status: mapGradingStatus(submission.status),
+            score: result?.overallScore ?? undefined,     // Score from results if available; otherwise undefined until graded
+            status: mapGradingStatus(result?.status ?? submission.status), 
         };
     };
 
@@ -64,27 +70,46 @@ export function useStudentSubmissions(userId: string) {
         return response.data.data.items;
     };
 
+    // Fetches grading results for the student to display scores in the table.
+    const fetchResults = async (): Promise<ResultsLightResponse[]> => {
+        const response = await results({
+            userId,
+        });
+
+        return response.data.data.items;
+    };
+
+
 
 
     /* ==================== SERVER STATE ==================== */
     // Loading, error, caching, and refetch behaviour is handled automatically by TanStack Query.
     const { data, isPending, isError, error } =
         useQuery<
-            SubmissionResponse[],
+            {
+                submissions: SubmissionResponse[];
+                results: ResultsLightResponse[];
+            },
             Error,
             StudentSubmissions
         >({
             queryKey: ["studentSubmissions", userId, ieltsType, taskType],
 
             // Query function responsible for retrieving data from the backend API based on the current user and filter states.
-            queryFn: fetchSubmissions,
+            queryFn: async () => {
+                const [submissions, results] = await Promise.all([
+                    fetchSubmissions(),
+                    fetchResults(),
+                ]);
 
+                return { submissions, results };
+            },
             // Prevents the query from running until a valid userId is available
             enabled: Boolean(userId),
 
             /* ==================== VIEW DATA TRANSFORMATION ==================== */
             // Transform backend submissions into UI-ready StudentSubmissions ViewData when query data changes.
-            select: (submissions): StudentSubmissions => ({
+            select: ({ submissions, results }): StudentSubmissions => ({
                 pageHeader: {
                     title: "Submissions",
                     breadcrumb: [
@@ -114,7 +139,16 @@ export function useStudentSubmissions(userId: string) {
                     },
                 },
                 submissionsTable: {
-                    rows: (submissions ?? []).map(mapSubmissionToRow),
+                    // Joins submissions with their corresponding results (if available) 
+                    // to produce the data rows for the SubmissionsTable component.
+                    rows: (submissions ?? []).map((submission) => {
+                        const result = results.find(
+                            (r) => r.submissionId === submission.submissionId
+                        );
+
+                        return mapSubmissionToRow(submission, result);
+                    }),
+
                 },
             }),
         });
