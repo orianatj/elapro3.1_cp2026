@@ -87,14 +87,14 @@ export default function EditStudentScore() {
       },
       {
         onSuccess: () => {
-          navigate("/teacher/individual-submission", { state: { submissionId } });
+          navigate(`/teacher/individual-submission/${submissionId}`);
         },
       }
     );
   }; 
 
   const handleCancel = () => {
-    navigate("/teacher/individual-submission", { state: { submissionId } });
+    navigate(`/teacher/individual-submission/${submissionId}`);
   };
 
   return (
