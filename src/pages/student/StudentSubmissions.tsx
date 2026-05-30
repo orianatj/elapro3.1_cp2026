@@ -15,7 +15,7 @@ import './studentsubmissions.css';
 export default function SubmissionsPage() {
     // Use the custom hook to fetch and prepare the ViewData for this page based on the current student.
     const { viewData, isPending, isError, error, actions } =
-        useStudentSubmissions("debug-UserId");
+        useStudentSubmissions("732502c3-990d-474b-b1ce-98ae059d6810"); // TODO: replace with actual userId from auth context
 
     // Delegate loading, error, and empty state handling to QueryStateHandler
     return (

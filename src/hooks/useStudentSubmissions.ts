@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { getStudentSubmissions } from "../services/StudentSubmissionsService";
+import { submissionsList } from "../services/submissionsApi";
 import { formatDateTime } from "../utils/dateUtils";
 import { mapGradingStatus } from "../utils/gradingStatus";
 
@@ -52,6 +52,19 @@ export function useStudentSubmissions(userId: string) {
         };
     };
 
+    /* ==================== DATA FETCHING ==================== */
+    // Fetches student submissions from the API based on current filter selections.
+    const fetchSubmissions = async (): Promise<SubmissionResponse[]> => {
+        const response = await submissionsList({
+            userId,
+            ieltsType: ieltsType === "all" ? undefined : ieltsType,
+            taskType: taskType === "all" ? undefined : taskType,
+        });
+
+        return response.data.data.items;
+    };
+
+
 
     /* ==================== SERVER STATE ==================== */
     // Loading, error, caching, and refetch behaviour is handled automatically by TanStack Query.
@@ -64,12 +77,7 @@ export function useStudentSubmissions(userId: string) {
             queryKey: ["studentSubmissions", userId, ieltsType, taskType],
 
             // Query function responsible for retrieving data from the backend API based on the current user and filter states.
-            queryFn: () =>
-                getStudentSubmissions({
-                    userId,
-                    ieltsType: ieltsType === "all" ? undefined : ieltsType,
-                    taskType: taskType === "all" ? undefined : taskType,
-                }),
+            queryFn: fetchSubmissions,
 
             // Prevents the query from running until a valid userId is available
             enabled: Boolean(userId),
