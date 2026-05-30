@@ -15,7 +15,7 @@ export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
         <aside className="sidebar">
             <div className="top-section">
                 <div className="logo">
-                    <img src="/src/assets/logo.png" alt="dashboard logo" />
+                    <img src="/src/assets/Logo.png" alt="dashboard logo" />
                     <p>Student</p>
                 </div>
 
