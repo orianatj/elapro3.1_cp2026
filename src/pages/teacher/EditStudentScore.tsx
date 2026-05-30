@@ -22,7 +22,20 @@ export function GetCompetencyScore({ submissionId }: { submissionId: string }, c
   if (submissionResultQuery.isLoading) return <div>Loading...</div>;
   if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
 
-  return (competency.score);
+  return competency.score;
+}
+
+export function GetCompetencyFeedback({ submissionId }: { submissionId: string }, competencyname: string) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+  const competencyName = competencyname;
+  const competency = result?.competencies.find((c: any) => c.competency === competencyName) ?? { score: "N/A" };
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return competency.feedback;
 }
 
 export default function EditStudentScore() {
@@ -104,7 +117,7 @@ export default function EditStudentScore() {
           score={taskResponse}
           onScoreChange={setTaskResponse}
         />
-
+      
         <ScoreBox
           title="Coherence & Cohesion"
           score={coherence}
