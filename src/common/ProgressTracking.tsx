@@ -1,6 +1,6 @@
 // src/components/ProgressTracking.tsx
 
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   useDashboardProgressTracking,
 } from "../hooks/useDashboardProgressTracking";
@@ -180,8 +180,8 @@ export default function DashboardProgressTracking({
                       item.percentage ??
                       (item.total > 0
                         ? Math.round(
-                            (item.completed / item.total) * 100
-                          )
+                          (item.completed / item.total) * 100
+                        )
                         : 0);
 
                     return (

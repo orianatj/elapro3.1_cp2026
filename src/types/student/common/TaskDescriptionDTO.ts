@@ -2,6 +2,6 @@
 export type TaskDescription = {
     placeHolderText: string;
     taskID: number;
-    questionID: number;
+    questionID: string;
     questionText: string;
 }

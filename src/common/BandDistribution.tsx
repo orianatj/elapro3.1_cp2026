@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useBandDistribution } from "../hooks/useBandDistribution";
 import "./BandDistribution.css";
 
@@ -62,7 +62,7 @@ const BandDistribution: React.FC<Props> = ({
   const average =
     data.length > 0
       ? data.reduce((sum, item) => sum + Number(item.percentage || 0), 0) /
-        data.length
+      data.length
       : 0;
 
   if (error) {

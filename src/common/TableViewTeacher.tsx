@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 import { useSubmissionsList } from "../hooks/useSubmissionsList";
 
 type Student = {

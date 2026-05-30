@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import ToolbarButton from "../../common/ToolbarButton";
 import TableView from "../../common/TableViewTeacher";
 import "./teacher.css";

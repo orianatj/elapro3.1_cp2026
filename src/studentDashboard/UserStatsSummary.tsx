@@ -1,11 +1,12 @@
 // Type defines the structure of a summary score card 
+
+/*
 interface SummaryCard {
     cardLabel: string;  //'Total Submissions', 'Highest Score', etc.
     value: number;  // Coressponding statistic 
 };
 
-
-function UserStatCard({cardLabel, value}: SummaryCard){
+function UserStatCard({ cardLabel, value }: SummaryCard) {
     return (
         <div>
             <p>{cardLabel}</p>
@@ -13,9 +14,9 @@ function UserStatCard({cardLabel, value}: SummaryCard){
         </div>
     );
 }
+  
 
-
-function UserStatsSummary({submission}) {
+function UserStatsSummary() {
     return (
     <div>
         <UserStatCard cardLabel="Total Submissions" value={totalSubmissions} /> 
@@ -27,13 +28,4 @@ function UserStatsSummary({submission}) {
 
     );
 }
-
-const SUBMISSIONS = [
-    {},
-    {}
-
-];
-
-export default function App() {
-  return <UserStatsSummary submission={SUBMISSIONS} />;
-}
+*/
