@@ -72,7 +72,7 @@ export default function AppRouter() {
                 <ProtectedRoute allowedRoles={["supervisory_teacher"]} />
               }
             >
-              <Route path="edit-score" element={<EditStudentScorePage />} />
+              <Route path="edit-score/:submissionId?" element={<EditStudentScorePage />} />
               <Route path="create-assignment" element={<CreateAssignment />} />
             </Route>
 
