@@ -1,5 +1,4 @@
-import './ProgressTracking.css';
-import type { CriterionKey, CriterionToggleConfig } from '../types/common/StudentDashboard';
+import type { CriterionKey, CriterionToggleConfig } from '../types/student/StudentDashboard';
 
 
 // Define props for CriterionSelector component

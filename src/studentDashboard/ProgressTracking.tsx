@@ -1,9 +1,8 @@
 import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
-import './ProgressTracking.css';
 import type { User } from '../types/common/User';
 import { EmptyState } from '../common/EmptyState';
 import { useStudentProgressChart } from '../hooks/useStudentProgressChart';
-import type { IeltsType, AggregatedChartPoint, TaskType, CriterionKey, CriterionToggleConfig } from '../types/common/StudentDashboard';
+import type { IeltsType, AggregatedChartPoint, TaskType, CriterionKey, CriterionToggleConfig } from '../types/student/StudentDashboard';
 import { useState } from "react";
 import axios from "axios";
 import { CriterionSelector } from './CriterionToggles';
@@ -120,7 +119,6 @@ type ProgressChartProps = {
 };
 
 
-// TODO: X-axis label helper function using aggregation level
 export function ProgressTrackingChart({ chartData, isVisible, toggleObjects }: ProgressChartProps) {
     return (
         <div className="chart-card">
