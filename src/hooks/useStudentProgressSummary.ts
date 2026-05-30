@@ -1,20 +1,17 @@
-/*
+
 import { useQuery } from "@tanstack/react-query";
 import { studentProgressTracking as StudentProgressTrackingApi } from "../services/dashboardApi";
-import type { StudentProgressTracking } from "../types/common/StudentDashboard";
+import { calcSummaryStats } from "../utils/studentStatCardsAggregation";
 
-
-
-export function useStudentProgressSummary(params: StudentProgressTracking) {
-
-
+export function useStudentProgressSummary() {
     return useQuery({
-        queryKey: ["student-progress-stats", params],
-        queryFn: () => StudentProgressTrackingApi(params),
+        queryKey: ["student-progress-stats"],
+        queryFn: () => StudentProgressTrackingApi(),
         select: (response) => {
 
-            const series = response.data.series;
+            // Transform and aggregate the series 
+            return calcSummaryStats({ series: response.data.series });
         }
-    })
+    });
 
-};*/
+};
