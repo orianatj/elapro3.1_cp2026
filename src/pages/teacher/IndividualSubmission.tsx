@@ -104,16 +104,18 @@ export function SubmissionResultFull({ submissionId }: { submissionId: string })
 
 export default function IndividualSubmissionPage() {
   const navigate = useNavigate();
-  const { submissionId } = useParams<{ submissionId: string }>();
+  const { submissionId, firstName, lastName } = useParams<{ submissionId: string; firstName?: string; lastName?: string }>();
+  const firstNameDecoded = firstName ? decodeURIComponent(firstName) : undefined;
+  const lastNameDecoded = lastName ? decodeURIComponent(lastName) : undefined;
 
   return (
     <>
-      <div className="header">Student's Submission</div>
+      <div className="header">Submission - {firstNameDecoded} {lastNameDecoded}</div>
       <div className="flex-container">
         <div className ="submission-view-card">
             <IndividualSubmission submissionId={submissionId!} />
             <IndividualSubmissionWordCount submissionId={submissionId!} />
-        </div>    
+        </div>
         <div className="total-score-card">
             <h2>Overall Score: <SubmissionResultScore submissionId={submissionId!} /></h2>
             <SubmissionResult submissionId={submissionId!} />
@@ -121,7 +123,7 @@ export default function IndividualSubmissionPage() {
               <ToolbarButton
                 icon="/src/assets/pencil.png"
                 label="Edit Grade"
-                onClick={() => navigate(`/teacher/edit-score/${submissionId}`)}
+                onClick={() => navigate(`/teacher/edit-score/${submissionId}/${encodeURIComponent(firstNameDecoded ?? '')}/${encodeURIComponent(lastNameDecoded ?? '')}`)}
               />
               <ToolbarButtonConfirm
                 icon="/src/assets/checkmark.png"

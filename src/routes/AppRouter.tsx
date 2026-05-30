@@ -62,7 +62,7 @@ export default function AppRouter() {
             <Route index element={<TeacherDashboard />} />
             <Route path="submissions" element={<ViewSubmissions />} />
             <Route
-              path="individual-submission/:submissionId"
+              path="individual-submission/:submissionId/:firstName?/:lastName?"
               element={<IndividualSubmission />}
             />
 
@@ -72,7 +72,7 @@ export default function AppRouter() {
                 <ProtectedRoute allowedRoles={["supervisory_teacher"]} />
               }
             >
-              <Route path="edit-score/:submissionId?" element={<EditStudentScorePage />} />
+              <Route path="edit-score/:submissionId/:firstName?/:lastName?" element={<EditStudentScorePage />} />
               <Route path="create-assignment" element={<CreateAssignment />} />
             </Route>
 
