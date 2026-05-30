@@ -45,16 +45,22 @@ export function useStudentSubmissions(userId: string) {
         submission: SubmissionResponse,
         result?: ResultsLightResponse
     ) => {
+
+        // Derives the question type based on whether a custom question text is present.
+        const questionType =
+            submission.customQuestionText?.trim()
+                ? "Custom" : "Generated";
+
         return {
             submissionId: submission.submissionId,
             date: formatDateTime(submission.submittedAt),
-            essaySource: "Generated",  // Default for practice submissions.
+            questionType,
 
             ieltsType: submission.ieltsType as IeltsType, // Type assertion based on backend API contract
             taskType: submission.taskType as TaskType,    // Type assertion based on backend API contract
 
             score: result?.overallScore ?? undefined,     // Score from results if available; otherwise undefined until graded
-            status: mapGradingStatus(result?.status ?? submission.status), 
+            status: mapGradingStatus(result?.status ?? submission.status),
         };
     };
 
@@ -78,8 +84,6 @@ export function useStudentSubmissions(userId: string) {
 
         return response.data.data.items;
     };
-
-
 
 
     /* ==================== SERVER STATE ==================== */

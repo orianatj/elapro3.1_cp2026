@@ -44,7 +44,7 @@ export function SubmissionsTable({ table, filters, actions }: SubmissionsTablePr
   // Define static and Submissions specific table headers
   const tableHeaders = [
     "Date",
-    "Essay Type",
+    "Question Type",
 
     // IELTS and Task filters inside header  
     <SubmissionsFilters
@@ -73,7 +73,7 @@ export function SubmissionsTable({ table, filters, actions }: SubmissionsTablePr
         {rows.map((row) => (
           <tr key={row.submissionId}>
             <td>{row.date}</td>
-            <td>{row.essayType}</td>
+            <td>{row.questionType}</td>
             <td>{ieltsTypeLabels[row.ieltsType]}</td>
             <td>{taskTypeLabels[row.taskType]}</td>
             <td>
