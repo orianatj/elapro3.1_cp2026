@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./teacher.css";
 import Stats from "../../types/teacher/StatisticBoxTemplate";
 import MenuList from "./../../common/MenuList.tsx";
@@ -15,7 +15,7 @@ type TeacherDashboardProps = {
 
 export default function TeacherDashboard({
   role = "supervisory_teacher",
-  userName= "Paul",
+  userName = "Paul",
 }: TeacherDashboardProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -71,12 +71,11 @@ export default function TeacherDashboard({
 
   return (
     <div
-      className={`dashboard-page ${
-        isSupervisory ? "supervisory-layout" : "external-layout"
-      }`}
+      className={`dashboard-page ${isSupervisory ? "supervisory-layout" : "external-layout"
+        }`}
     >
       <div className="header">
-      Welcome back {userName}
+        Welcome back {userName}
       </div>
 
       <h3>Overall Performance</h3>

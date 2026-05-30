@@ -1,4 +1,4 @@
-import React from "react";
+
 
 /**
  * TableProps defines the public API for the generic Table component,
@@ -10,7 +10,7 @@ import React from "react";
  */
 
 // Column labels displayed in the table header.
-type TableProps = {  
+type TableProps = {
   headers: React.ReactNode[]; // Allow JSX table headers to be rendered in the table header  
   children: React.ReactNode;  // supplied by the caller
 };
@@ -29,7 +29,7 @@ export function Table({ headers, children }: TableProps) {
       <thead>
         <tr>
           {headers.map((header, index) => (
-            <th key = {index}>
+            <th key={index}>
               {header}
             </th>
           ))}

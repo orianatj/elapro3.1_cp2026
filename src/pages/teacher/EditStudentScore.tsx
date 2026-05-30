@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./editScore.css";
+import "./editscore.css";
 import "./teacher.css";
 import ScoreBox from "../../common/ScoreBox";
 import OverallScore from "../../common/OverallScore";
@@ -17,7 +17,7 @@ export function GetCompetencyScore({ submissionId }: { submissionId: string }, c
   const responsePayload = submissionResultQuery.data;
   const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
   const competencyName = competencyname;
-  const competency = result?.competencies.find((c: any) => c.competency === competencyName)  ?? { score: "N/A" };
+  const competency = result?.competencies.find((c: any) => c.competency === competencyName) ?? { score: "N/A" };
 
   if (submissionResultQuery.isLoading) return <div>Loading...</div>;
   if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
@@ -80,9 +80,9 @@ export default function EditStudentScore() {
     );
   }; 
 
-    const handleCancel = () => {
+  const handleCancel = () => {
     navigate("/teacher/individual-submission", { state: { submissionId } });
-  }; 
+  };
 
   return (
     <div className="edit-score-page">
