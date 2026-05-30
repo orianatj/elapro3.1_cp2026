@@ -121,7 +121,7 @@ export default function IndividualSubmissionPage() {
               <ToolbarButton
                 icon="/src/assets/pencil.png"
                 label="Edit Grade"
-                onClick={() => navigate("/teacher/edit-score", { state: { submissionId } })}
+                onClick={() => navigate(`/teacher/edit-score/${submissionId}`)}
               />
               <ToolbarButtonConfirm
                 icon="/src/assets/checkmark.png"
