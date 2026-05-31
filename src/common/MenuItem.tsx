@@ -24,7 +24,7 @@ export default function MenuItem({
   isAvatar = false,
   onClick,
 }: MenuItemProps){
-
+  const navigate = useNavigate();
 
 const handleClick = () => {
   onClick?.();
