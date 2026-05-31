@@ -14,8 +14,7 @@ export function PageHeaderView({ header }: PageHeaderProps) {
        {/* Page title */}
        <h1>{header.title}</h1>  
        
-       {/* Breadcrumb navigation */}
-       {/* TODO: Replace span with appropriate navigation element once routing exists */}
+       {/* Breadcrumb navigation */}       
        <nav>
         {header.breadcrumb.map((breadcrumb, index) => (
           <span key={index}>
