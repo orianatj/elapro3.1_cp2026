@@ -15,6 +15,7 @@ import StudentDashboardPage from "../pages/student/StudentDashboard";
 import CreateAssignment from "../pages/teacher/createAssignment.tsx";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
+import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import { LoginPage } from "../pages/auth/LoginPage.tsx";
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
 import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
@@ -45,7 +46,7 @@ export default function AppRouter() {
             <Route path="essay-submission" element={<EssaySubmissionPage />} />
             <Route path="practice-writing" element={<PracticeWritingPage />} />
             <Route path="submissions" element={<SubmissionsPage />} />
-            {/*<Route path="submission:submissionId" element={<SubmissionAnalysisPage />} />*/}
+            <Route path="submission/:submissionId" element={<SubmissionAnalysisPage />} />
           </Route>
         </Route>
 
