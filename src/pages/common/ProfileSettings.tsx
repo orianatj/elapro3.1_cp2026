@@ -28,6 +28,7 @@ export function ProfileSettings() {
         confirmEmailAddress: "",
     });
     const [emailError, setEmailError] = useState("");
+    const [emailSuccess, setEmailSuccess] = useState("");
 
     // Sync form data with user data when it refetches
     useEffect(() => {
@@ -81,7 +82,9 @@ export function ProfileSettings() {
             return;
         }
 
-        updateEmail.mutate(emailFormData, {
+        updateEmail.mutate(
+            { password: emailFormData.password, emailAddress: emailFormData.newEmailAddress, confirmEmailAddress: emailFormData.confirmEmailAddress },
+            {
             onSuccess: () => {
                 setShowEmailForm(false);
                 setEmailFormData({
@@ -89,12 +92,21 @@ export function ProfileSettings() {
                     newEmailAddress: "",
                     confirmEmailAddress: "",
                 });
+                setEmailSuccess("Email update initiated. Please check your email for the confirmation link.");
+                setTimeout(() => setEmailSuccess(""), 5000);
             },
             onError: (error: any) => {
                 if (error.response?.status === 400) {
                     setEmailError("Invalid password or email address.");
                 } else if (error.response?.status === 422) {
-                    setEmailError("Invalid email format.");
+                    // Extract error messages from detail array
+                    const detail = error.response?.data?.detail;
+                    if (Array.isArray(detail) && detail.length > 0) {
+                        const messages = detail.map((d: any) => d.msg || d.message).join(". ");
+                        setEmailError(messages);
+                    } else {
+                        setEmailError("Invalid email format or validation failed.");
+                    }
                 } else {
                     setEmailError("Something went wrong. Please try again.");
                 }
@@ -161,87 +173,92 @@ export function ProfileSettings() {
                 <button className="auth-button" type="submit" disabled={updateMe.isPending}>
                     {updateMe.isPending ? "Updating..." : "Update Details"}
                 </button>
-
-                <div className="form-group">
-                    <label>Email</label>
-                    <div>
-                        <span>{userData?.emailAddress || "No email found"}</span>
-                        <button
-                            type="button"
-                            onClick={() => setShowEmailForm(!showEmailForm)}
-                            style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
-                        >
-                            {showEmailForm ? "Cancel" : "Update Email"}
-                        </button>
-                    </div>
-                </div>
-
-                {showEmailForm && (
-                    <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
-                        <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>Update Email Address</h3>
-                        <form onSubmit={handleEmailUpdateSubmit} className="auth-form">
-                            <div className="form-group">
-                                <label htmlFor="password" className="required">Password</label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    value={emailFormData.password}
-                                    onChange={handleEmailFormChange}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="newEmailAddress" className="required">New Email Address</label>
-                                <input
-                                    id="newEmailAddress"
-                                    type="email"
-                                    name="newEmailAddress"
-                                    value={emailFormData.newEmailAddress}
-                                    onChange={handleEmailFormChange}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="confirmEmailAddress" className="required">Confirm Email Address</label>
-                                <input
-                                    id="confirmEmailAddress"
-                                    type="email"
-                                    name="confirmEmailAddress"
-                                    value={emailFormData.confirmEmailAddress}
-                                    onChange={handleEmailFormChange}
-                                />
-                            </div>
-
-                            {emailError && <p className="auth-error">{emailError}</p>}
-
-                            <button
-                                className="auth-button"
-                                type="submit"
-                                disabled={updateEmail.isPending}
-                                style={{ marginTop: "0.5rem" }}
-                            >
-                                {updateEmail.isPending ? "Updating..." : "Update Email"}
-                            </button>
-                        </form>
-                    </div>
-                )}
-
-                <div className="form-group">
-                    <label>User ID</label>
-                    <span>{userData?.userId || "No userid found"}</span>
-                </div>
-
-                <div className="form-group">
-                    <label>Role</label>
-                    <span>{userData?.userRole || "No role found"}</span>
-                </div>
-
-                <div className="form-group">
-                    <label>Account Status</label>
-                    <span>{userData?.accountStatus || "No account status found"}</span>
-                </div>
             </form>
+
+            <div className="form-group">
+                <label>Email</label>
+                <div>
+                    <span>{userData?.emailAddress || "No email found"}</span>
+                    <button
+                        type="button"
+                        onClick={() => setShowEmailForm(!showEmailForm)}
+                        style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
+                    >
+                        {showEmailForm ? "Cancel" : "Update Email"}
+                    </button>
+                </div>
+                {emailSuccess && (
+                    <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
+                        {emailSuccess}
+                    </p>
+                )}
+            </div>
+
+            {showEmailForm && (
+                <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
+                    <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>Update Email Address</h3>
+                    <form onSubmit={handleEmailUpdateSubmit} className="auth-form">
+                        <div className="form-group">
+                            <label htmlFor="password" className="required">Password</label>
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                value={emailFormData.password}
+                                onChange={handleEmailFormChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="newEmailAddress" className="required">New Email Address</label>
+                            <input
+                                id="newEmailAddress"
+                                type="email"
+                                name="newEmailAddress"
+                                value={emailFormData.newEmailAddress}
+                                onChange={handleEmailFormChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="confirmEmailAddress" className="required">Confirm Email Address</label>
+                            <input
+                                id="confirmEmailAddress"
+                                type="email"
+                                name="confirmEmailAddress"
+                                value={emailFormData.confirmEmailAddress}
+                                onChange={handleEmailFormChange}
+                            />
+                        </div>
+
+                        {emailError && <p className="auth-error">{emailError}</p>}
+
+                        <button
+                            className="auth-button"
+                            type="submit"
+                            disabled={updateEmail.isPending}
+                            style={{ marginTop: "0.5rem" }}
+                        >
+                            {updateEmail.isPending ? "Updating..." : "Update Email"}
+                        </button>
+                    </form>
+                </div>
+            )}
+
+            <div className="form-group">
+                <label>User ID</label>
+                <span>{userData?.userId || "No userid found"}</span>
+            </div>
+
+            <div className="form-group">
+                <label>Role</label>
+                <span>{userData?.userRole || "No role found"}</span>
+            </div>
+
+            <div className="form-group">
+                <label>Account Status</label>
+                <span>{userData?.accountStatus || "No account status found"}</span>
+            </div>
         </div>
     );
 

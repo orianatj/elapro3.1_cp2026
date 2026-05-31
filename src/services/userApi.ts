@@ -8,7 +8,7 @@ export const currentUser = () =>
 export const updateMe = (data: UpdateUserData) =>
     api.patch("/users/me/user-data", data);
 
-export const updateEmail = (data: { password: string; newEmailAddress: string; confirmEmailAddress: string }) =>
+export const updateEmail = (data: { password: string; emailAddress: string; confirmEmailAddress: string }) =>
     api.post("/users/me/email", data);
 
 export const confirmEmailChange = (token: string) =>
