@@ -3,9 +3,9 @@ import { currentUser } from "../services/userApi";
 
 /* Define TanStack Query, Query hook to return token of (logged-in) authenticated user. Only run if a token exists (see 'enabled').
 */
-export function useCurrentUser() {
+export function useCurrentUser(queryKey: string[] = ["me"]) {
     return useQuery({
-        queryKey: ["me"],
+        queryKey: queryKey,
         queryFn: currentUser,
         enabled: !!sessionStorage.getItem("token")
     });
