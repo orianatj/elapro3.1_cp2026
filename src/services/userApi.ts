@@ -22,3 +22,6 @@ export const changePassword = (data: { password: string; newPassword: string; co
 
 export const initateDeleteAccount = (password: string) =>
     api.post("/users/me/delete-initiate", { password });
+
+export const confirmDeleteAccount = (token: string) =>
+    api.get("/users/me/delete-confirm", { params: { token } });
