@@ -79,6 +79,10 @@
   min-width: 0;
 }
 
+.student-card h4 {
+  margin: 1px 1px;
+}
+
 .student-avatar {
   width: 52px;
   height: 52px;
@@ -306,7 +310,7 @@
   text-align: center;
 }
 
-.edit-score-page > div:nth-child(4) {
+.edit-score-page > div:nth-child(3) {
   display: flex;
   flex-direction: column;
   align-items: center;

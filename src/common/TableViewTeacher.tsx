@@ -153,7 +153,7 @@ export default function TableView({
             visibleSubmissions.map((s) => (
               <tr
                 key={s.submissionId}
-                onClick={() => navigate(`/teacher/individual-submission/${s.submissionId}`)}
+                onClick={() => navigate(`/teacher/individual-submission/${s.submissionId}/${encodeURIComponent(s.student?.firstName ?? '')}/${encodeURIComponent(s.student?.lastName ?? '')}`)}
                 style={{ cursor: "pointer" }}
               >
                 <td>{s.student?.firstName ?? "-"}</td>

@@ -33,8 +33,30 @@ export function GetCompetencyFeedback({ submissionId }: { submissionId: string }
   return competency.feedback;
 }
 
+export function GetTaskDetails({ submissionId }: { submissionId: string }) {
+  const submissionResultQuery = useSubmissionResult(submissionId);
+  const responsePayload = submissionResultQuery.data;
+  const result = responsePayload?.results?.[0] ?? responsePayload?.data?.results?.[0];
+
+  if (submissionResultQuery.isLoading) return <div>Loading...</div>;
+  if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
+
+  return (
+    <div>
+      <h4>IELTS Type: {result?.ieltsType ? capitalizeFirstLetter(result.ieltsType) : ""}</h4>
+      <h4>Task Type: {result?.taskType}</h4>
+    </div>
+  );
+}
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default function EditStudentScore() {
-  const { submissionId } = useParams<{ submissionId: string }>();
+  const { submissionId, firstName, lastName } = useParams<{ submissionId: string; firstName?: string; lastName?: string }>();
+  const firstNameDecoded = firstName ? decodeURIComponent(firstName) : "Emily";
+  const lastNameDecoded = lastName ? decodeURIComponent(lastName) : "Parker";
   const navigate = useNavigate();
   const reviewResult = useReviewResult();
 
@@ -134,27 +156,22 @@ export default function EditStudentScore() {
       },
       {
         onSuccess: () => {
-          navigate(`/teacher/individual-submission/${submissionId}`);
+          navigate(`/teacher/individual-submission/${submissionId}/${encodeURIComponent(firstNameDecoded)}/${encodeURIComponent(lastNameDecoded)}`);
         },
       }
     );
-  }; 
+  };
 
   const handleCancel = () => {
-    navigate(`/teacher/individual-submission/${submissionId}`);
+    navigate(`/teacher/individual-submission/${submissionId}/${encodeURIComponent(firstNameDecoded)}/${encodeURIComponent(lastNameDecoded)}`);
   };
 
   return (
     <div className="edit-score-page">
-      <h2 className="page-title">Edit Student Score</h2>
-
       <div className="student-card">
-        <div className="student-avatar"></div>
-
         <div>
-          <h3>Emily Parker</h3>
-          <p>ID: 173657</p>
-          <p>Class: Advanced English</p>
+          <h4>{firstNameDecoded} {lastNameDecoded}</h4>
+          <GetTaskDetails submissionId={submissionId ?? "default-submission-id"} />
         </div>
       </div>
 
