@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import "./adminDashboard.css";
 import { useAdminSubscriptions } from "../../hooks/useAdminSubscriptions";
 import type { AdminSubscriptionItem } from "../../services/adminApi";
@@ -51,6 +51,17 @@ function formatDate(dateValue?: string | null): string {
 }
 
 export function AdminSubscriptionsPage() {
+  const subscriptionQuery = useMemo(
+    () => ({
+      date_range: "30d" as const,
+      sort_by: "nextBillingDate" as const,
+      sort_order: "desc" as const,
+      limit: 25,
+      page: 1,
+    }),
+    []
+  );
+
   const {
     subscriptions,
     page,
@@ -62,13 +73,7 @@ export function AdminSubscriptionsPage() {
     setBillingStatus,
     setPage,
     refetchSubscriptions,
-  } = useAdminSubscriptions({
-    date_range: "30d",
-    sort_by: "nextBillingDate",
-    sort_order: "desc",
-    limit: 25,
-    page: 1,
-  });
+  } = useAdminSubscriptions(subscriptionQuery);
 
   if (loading) {
     return (
@@ -116,7 +121,11 @@ export function AdminSubscriptionsPage() {
             onChange={(event) =>
               setBillingStatus(
                 event.target.value
-                  ? (event.target.value as "pending" | "paid" | "failed" | "refunded")
+                  ? (event.target.value as
+                      | "pending"
+                      | "paid"
+                      | "failed"
+                      | "refunded")
                   : undefined
               )
             }
@@ -149,7 +158,7 @@ export function AdminSubscriptionsPage() {
           <tbody>
             {subscriptions.length > 0 ? (
               subscriptions.map((item, index) => (
-                <tr key={item.userId || index}>
+                <tr key={item.userId || item.emailAddress || index}>
                   <td>{formatUserName(item)}</td>
                   <td>{formatPlan(item)}</td>
                   <td>{formatStatus(item)}</td>

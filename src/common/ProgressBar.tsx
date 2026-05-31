@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSubmissionsList } from "../hooks/useSubmissionsList";
 import "../pages/teacher/SubmissionProgressChart.css";
 
@@ -16,6 +16,25 @@ interface Submission {
   status?: string | null;
 }
 
+function normalize(value?: string | null) {
+  return (value ?? "").trim().toLowerCase();
+}
+
+function getItems(data: any): Submission[] {
+  const candidates = [
+    data?.data?.data?.items,
+    data?.data?.items,
+    data?.items,
+    data,
+  ];
+
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate)) return candidate;
+  }
+
+  return [];
+}
+
 function Ring({
   value,
   total,
@@ -28,9 +47,11 @@ function Ring({
   return (
     <div
       className="progress-ring"
-      style={{
-        ["--value" as any]: percentage,
-      }}
+      style={
+        {
+          "--value": percentage,
+        } as React.CSSProperties
+      }
     >
       <div className="progress-ring__inner">
         <span>{percentage}%</span>
@@ -59,15 +80,10 @@ function ProgressRow({
 export default function SubmissionProgressChart({
   monthLabel = "Sept 2025",
 }: Props) {
-  const { data, isLoading, error } = useSubmissionsList();
+  const { data, isLoading, isError } = useSubmissionsList({ limit: 100 });
 
-  /**
-   * IMPORTANT:
-   * data = AxiosResponse
-   * data.data = API payload
-   */
-  const items: Submission[] = data?.data?.data?.items ?? [];
-  const total = data?.data?.data?.total ?? items.length;
+  const items = useMemo(() => getItems(data), [data]);
+  const total = items.length;
 
   const stats = useMemo(() => {
     let validated = 0;
@@ -76,13 +92,15 @@ export default function SubmissionProgressChart({
     let pending = 0;
 
     for (const item of items) {
-      const validatedValue = String(item.validated ?? "").toLowerCase();
-      const status = String(item.status ?? "").toLowerCase();
+      const validatedValue = normalize(item.validated);
+      const status = normalize(item.status);
 
-      if (item.flagged === true) flagged++;
-      if (validatedValue === "validated") validated++;
-      if (validatedValue === "pending") pending++;
-      if (status === "ai_graded") aiMarked++;
+      if (item.flagged === true || status.includes("flag")) flagged++;
+      if (validatedValue === "approved" || status.includes("validate")) validated++;
+      if (validatedValue === "pending" || status.includes("pending")) pending++;
+      if (status.includes("ai_graded") || status.includes("ai graded") || status.includes("ai")) {
+        aiMarked++;
+      }
     }
 
     return { validated, flagged, aiMarked, pending };
@@ -92,7 +110,7 @@ export default function SubmissionProgressChart({
     return <div>Loading submissions...</div>;
   }
 
-  if (error) {
+  if (isError) {
     return <div>Failed to load submissions</div>;
   }
 
@@ -114,9 +132,7 @@ export default function SubmissionProgressChart({
         </div>
       </div>
 
-      <div className="band-card__count">
-        {total} submissions
-      </div>
+      <div className="band-card__count">{total} submissions</div>
 
       <div className="band-card__scroll">
         <ProgressRow label="Validated" value={stats.validated} total={total} />

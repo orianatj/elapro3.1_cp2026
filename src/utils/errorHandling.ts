@@ -1,5 +1,12 @@
 // Maps API errors to user-friendly messages for UI display
 export function getErrorMessage(error: any): string {
+
+
+  // Handle custom (non-API) errors
+  if (error instanceof Error && !("response" in error)) {
+    return error.message;
+  }
+
   const status = error?.response?.status;
 
   // Default fallback message for unexpected errors
@@ -15,7 +22,11 @@ export function getErrorMessage(error: any): string {
   }
 
   if (status === 404) {
-    return "No submissions found.";
+    return "Unable to process your request.";
+  }
+
+  if (status === 422) {
+    return "Invalid input. Please check your selection and try again.";
   }
 
   if (status === 500) {

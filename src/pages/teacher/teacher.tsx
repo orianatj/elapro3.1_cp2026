@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./teacher.css";
+
 import Stats from "../../types/teacher/StatisticBoxTemplate";
-import MenuList from "./../../common/MenuList.tsx";
-import type { MenuData } from "./../../common/MenuList.tsx";
-import DashboardBandDistribution from "../../common/BandDistribution.tsx";
-import { WeaknessTrends } from "../../common/WeaknessTrends.tsx";
-import ProgressBar from "../../common/ProgressBar.tsx";
+import MenuList from "../../common/MenuList";
+import type { MenuData } from "../../common/MenuList";
+
+import DashboardBandDistribution from "../../common/BandDistribution";
+import { WeaknessTrends } from "../../common/WeaknessTrends";
+import ProgressBar from "../../common/ProgressBar";
+
+import { useSubmissionsList } from "../../hooks/useSubmissionsList";
+
 type TeacherRole = "supervisory_teacher" | "external_teacher";
 
 type TeacherDashboardProps = {
@@ -13,13 +19,50 @@ type TeacherDashboardProps = {
   userName?: string;
 };
 
+type Student = {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  emailAddress?: string;
+};
+
+type Submission = {
+  submissionId: string;
+  userId: string;
+  ieltsType: string;
+  taskType: string;
+  customQuestionText: string | null;
+  status: string;
+  submittedAt?: string;
+  student?: Student;
+};
+
+function getItems(data: any): Submission[] {
+  const candidates = [
+    data?.data?.data?.items,
+    data?.data?.items,
+    data?.items,
+    data,
+  ];
+
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate)) return candidate;
+  }
+
+  return [];
+}
+
 export default function TeacherDashboard({
   role = "supervisory_teacher",
-  userName= "Paul",
+  userName = "Paul",
 }: TeacherDashboardProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
   const isSupervisory = role === "supervisory_teacher";
+
+  const { data } = useSubmissionsList({ limit: 3 });
 
   const recentAssignments: MenuData[] = [
     {
@@ -45,29 +88,35 @@ export default function TeacherDashboard({
     },
   ];
 
-  const submissionView: MenuData[] = [
-    {
-      id: "4",
-      title: "Steven Stone",
-      status: "On Time",
-      avatarSrc: "/src/assets/ClipboardList.png",
-      isAvatar: true,
-    },
-    {
-      id: "5",
-      title: "Joyle Jackie",
-      status: "On Time",
-      avatarSrc: "/src/assets/ClipboardList.png",
-      isAvatar: true,
-    },
-    {
-      id: "6",
-      title: "Kyle Cone",
-      status: "LATE",
-      avatarSrc: "/src/assets/ClipboardList.png",
-      isAvatar: true,
-    },
-  ];
+  const submissionView = useMemo(() => {
+    return getItems(data)
+      .slice(0, 3)
+      .map((submission) => ({
+        id: submission.submissionId,
+        title: `${submission.student?.firstName ?? ""} ${
+          submission.student?.lastName ?? ""
+        }`.trim(),
+        status: submission.status,
+        day: submission.submittedAt
+          ? new Date(submission.submittedAt).getDate().toString()
+          : "",
+        time: submission.submittedAt
+          ? new Date(submission.submittedAt).toLocaleTimeString([], {
+              hour: "numeric",
+              minute: "2-digit",
+            })
+          : "",
+        avatarSrc: "../assets/ClipboardList.png",
+        isAvatar: true,
+
+        onClick: () =>
+          navigate(
+            `/teacher/individual-submission/${submission.submissionId}/${encodeURIComponent(
+              submission.student?.firstName ?? "",
+            )}/${encodeURIComponent(submission.student?.lastName ?? "")}`,
+          ),
+      })) as MenuData[];
+  }, [data, navigate]);
 
   return (
     <div
@@ -75,9 +124,7 @@ export default function TeacherDashboard({
         isSupervisory ? "supervisory-layout" : "external-layout"
       }`}
     >
-      <div className="header">
-      Welcome back {userName}
-      </div>
+      <div className="header">Welcome back {userName}</div>
 
       <h3>Overall Performance</h3>
 
@@ -85,45 +132,32 @@ export default function TeacherDashboard({
 
       <div className="charts">
         <div className="chart-box">
-          <><DashboardBandDistribution /></>
+          <DashboardBandDistribution />
         </div>
 
         <div className="chart-box">
-          <><ProgressBar /></>
+          <ProgressBar />
         </div>
 
         <div className="chart-box">
-          <><WeaknessTrends title="Weakness Trends" /></>
+          <WeaknessTrends title="Weakness Trends" />
         </div>
       </div>
 
-      {/* Existing section preserved */}
       {isSupervisory ? (
-        <div className="bottom supervisory-bottom">
-          <MenuList
-            title="Created Assignments"
-            items={recentAssignments}
-          />
-
-          <MenuList
-            title="Submission View"
-            items={submissionView}
-          />
+        <div className="submission-center external-bottom">
+          <MenuList title="Submission View" items={submissionView} />
         </div>
       ) : (
-        <div className="submission-center external-bottom">
-          <MenuList
-            title="Submission View"
-            items={submissionView}
-          />
+        <div className="bottom supervisory-bottom">
+          <MenuList title="Created Assignments" items={recentAssignments} />
+
+          <MenuList title="Submission View" items={submissionView} />
         </div>
       )}
 
       {selectedImage && (
-        <div
-          className="image-modal"
-          onClick={() => setSelectedImage(null)}
-        >
+        <div className="image-modal" onClick={() => setSelectedImage(null)}>
           <img
             src={selectedImage}
             alt="Zoomed Chart"

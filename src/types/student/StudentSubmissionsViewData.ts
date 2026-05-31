@@ -57,7 +57,7 @@ export type SubmissionTableRow = {
   date: string;               // formatted from submission timestamp, e.g. "2024-05-01 14:30"
   essayType: string;          // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
   ieltsType: IeltsType;       // from backend 'submissions': "academic" | "general"
-  taskType: TaskType;         // from backend 'submissions': "task-one" | "task-two"
+  taskType: TaskType;         // from backend 'submissions': "task1" | "task2"
   status: SafeGradingStatus;  // safe grading lifecycle status used for UI rendering and behaviour
   score?: number;             // numeric score from backend 'results'; omitted if not yet available
 };
