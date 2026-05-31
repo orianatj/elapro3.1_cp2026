@@ -9,15 +9,19 @@ ELA Pro 3.1 is an IELTS (International English Language Testing System) essay fe
 #### Frontend Architecture Diagram
 Figure 1 illustrates the high-level frontend architecture of the ELA Pro 3.1 application and the interaction between the React single-page application, TanStack Query, Axios HTTP client, and ELA Pro Wrapper API.
 
-<img src="images/elapro-frontend-architecture.png" alt="Frontend System Architecture" width="30%">
+<img src="images/elapro-frontend-architecture.png" alt="Frontend System Architecture" width="50%">
 
 *Figure 1. Frontend System Architecture Diagram*
+
+<div style="page-break-before: always;"></div>
 
 The frontend is implemented as a React single-page application (SPA) containing role-specific dashboards for students, teachers, and administrators. Role-based access control (RBAC) is implemented through an AuthProvider component and useAuth custom hook, which expose the application's global authentication context. The authenticated user's role is used to determine the appropriate dashboard and to enforce access restrictions on protected routes through a custom PrivateRoute component.
 
 TanStack Query is used to manage data fetching, mutations, and client-side caching. React components interact with the query layer through useQuery and useMutation hooks, which coordinate requests and cache updates.
 
 HTTP communication with the backend is handled through a custom Axios client. Axios sends HTTPS requests to the ELA Pro Wrapper API and returns JSON responses to the query layer, which then updates the user interface.
+
+<div style="page-break-before: always;"></div>
 
 ### 2. Repository Structure 
 
@@ -30,6 +34,8 @@ The context directory contains the authentication context used to manage user st
 <img src="images/top-level-src-code-tree.jpg" alt="Top-level Source Code Tree Diagram" >
 
 *Figure 2. High-level frontend directory structure*
+
+<div style="page-break-before: always;"></div>
 
 ### 3. Development Environment
 
@@ -94,6 +100,8 @@ This starts a local server that serves the production build, allowing the applic
 
 **Note**: Deployment to the production environment is not performed manually and is instead managed automatically by Netlify when changes are merged into the repository's `main` branch.
 
+<div style="page-break-before: always;"></div>
+
 ### 4. Deployment Process 
 
 #### 4.1 Deployment Architecture
@@ -104,17 +112,26 @@ The ELA Pro frontend is hosted on Netlify and integrated with the project's GitH
 
 The ELA Pro frontend is configured for deployment using Netlify. The current deployment configuration is summarised below:
 
-**Production Branch:** `main`
-**Build Command:** `npm run build`
-**Publish Directory:** `dist`
-**Branch Deployments:** `Disabled (production branch only)`
-**Deploy Previews:** `Enabled for pull requests targeting the production branch`
+- **Production Branch:** `main`
+- **Build Command:** `npm run build`
+- **Publish Directory:** `dist`
+- **Branch Deployments:** `Disabled (production branch only)`
+- **Deploy Previews:** `Enabled for pull requests targeting the production branch`
 
 The project includes a `netlify.toml` configuration file located in the root directory of the repository and is automatically applied during Netlify deployments. This file contains redirect rules required for React Router client-side routing and ensures that all application routes are redirected to index.html, allowing route handling to be performed by the React application rather than the Netlify web server.
+
+```toml
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
 
 #### 4.3 Repository Integration 
 
 The Netlify deployment is linked directly to the GitHub repository through Netlify's continuous deployment integration. Following repository ownership transfer, Netlify may require reauthorisation to access the repository in its new location. If automated deployments cease functioning after transfer, navigate to Site Configuration → Build & Deploy → Continuous Deployment → Repository and relink the repository as required.
+
+<div style="page-break-before: always;"></div>
 
 ### 5. Handover Considerations 
 
