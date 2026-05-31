@@ -15,7 +15,6 @@ import StudentDashboardPage from "../pages/student/StudentDashboard";
 import CreateAssignment from "../pages/teacher/createAssignment.tsx";
 import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
-import AccountSettingsPage from "../pages/common/AccountSettingsPage";
 import { LoginPage } from "../pages/auth/LoginPage.tsx";
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
 import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
@@ -94,11 +93,6 @@ export default function AppRouter() {
             <Route path="subscriptions" element={<AdminSubscriptionsPage />} />
             <Route path="reports" element={<AdminReportsPage />} />
           </Route>
-        </Route>
-
-        {/* Common Routes */}
-        <Route element={<ProtectedRoute allowedRoles={["admin", "student", "supervisory_teacher", "external_teacher"]} />}>
-          <Route path="/settings" element={<AccountSettingsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
