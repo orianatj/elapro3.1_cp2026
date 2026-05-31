@@ -1,6 +1,4 @@
 
-import { useNavigate } from "react-router-dom";
-
 type Status = "Upcoming" | "On Time" | "LATE";
 
 interface MenuItemProps {
@@ -24,7 +22,7 @@ export default function MenuItem({
   isAvatar = false,
   onClick,
 }: MenuItemProps){
-  const navigate = useNavigate();
+
 
 const handleClick = () => {
   onClick?.();

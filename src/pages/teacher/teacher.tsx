@@ -106,7 +106,7 @@ export default function TeacherDashboard({
               minute: "2-digit",
             })
           : "",
-        avatarSrc: "/src/assets/ClipboardList.png",
+        avatarSrc: "../assets/ClipboardList.png",
         isAvatar: true,
 
         onClick: () =>
