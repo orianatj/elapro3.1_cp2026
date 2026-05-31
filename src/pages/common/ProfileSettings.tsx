@@ -181,7 +181,7 @@ export function ProfileSettings() {
             </form>
 
             <div className="form-group">
-                <label>Email</label>
+                <label style={{ marginTop: "1rem" }}>Email</label>
                 <div>
                     <span>{userData?.emailAddress || "No email found"}</span>
                     {isStudent && (
@@ -203,7 +203,6 @@ export function ProfileSettings() {
 
             {showEmailForm && (
                 <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
-                    <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>Update Email Address</h3>
                     <form onSubmit={handleEmailUpdateSubmit} className="auth-form">
                         <div className="form-group">
                             <label htmlFor="password" className="required">Password</label>
@@ -251,21 +250,6 @@ export function ProfileSettings() {
                     </form>
                 </div>
             )}
-
-            <div className="form-group">
-                <label>User ID</label>
-                <span>{userData?.userId || "No userid found"}</span>
-            </div>
-
-            <div className="form-group">
-                <label>Role</label>
-                <span>{userData?.userRole || "No role found"}</span>
-            </div>
-
-            <div className="form-group">
-                <label>Account Status</label>
-                <span>{userData?.accountStatus || "No account status found"}</span>
-            </div>
         </div>
     );
 
