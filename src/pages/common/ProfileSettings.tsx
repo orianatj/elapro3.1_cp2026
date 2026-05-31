@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useUpdateMe } from "../../hooks/useUpdateMe";
 import { useUpdateEmail } from "../../hooks/useUpdateEmail";
+import { useChangePassword } from "../../hooks/useChangePassword";
 import { useAuth } from "../../hooks/useAuth";
 
 // User profile component that contains general account settings and prefernces - all user roles
@@ -9,6 +10,7 @@ export function ProfileSettings() {
     const { data: user } = useCurrentUser(["profile-settings"]);
     const updateMe = useUpdateMe();
     const updateEmail = useUpdateEmail();
+    const changePassword = useChangePassword();
     const { user: authUser } = useAuth();
 
     // AxiosResponse data is in user.data
@@ -34,6 +36,15 @@ export function ProfileSettings() {
     });
     const [emailError, setEmailError] = useState("");
     const [emailSuccess, setEmailSuccess] = useState("");
+
+    const [showPasswordForm, setShowPasswordForm] = useState(false);
+    const [passwordFormData, setPasswordFormData] = useState({
+        password: "",
+        newPassword: "",
+        confirmPassword: "",
+    });
+    const [passwordError, setPasswordError] = useState("");
+    const [passwordSuccess, setPasswordSuccess] = useState("");
 
     // Sync form data with user data when it refetches
     useEffect(() => {
@@ -78,6 +89,53 @@ export function ProfileSettings() {
 
     const handleEmailFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmailFormData({ ...emailFormData, [e.target.name]: e.target.value });
+    };
+
+    const handlePasswordFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordFormData({ ...passwordFormData, [e.target.name]: e.target.value });
+    };
+
+    const handlePasswordChangeSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setPasswordError("");
+
+        if (passwordFormData.newPassword !== passwordFormData.confirmPassword) {
+            setPasswordError("Passwords do not match.");
+            return;
+        }
+
+        if (!passwordFormData.password || !passwordFormData.newPassword || !passwordFormData.confirmPassword) {
+            setPasswordError("Please fill in all fields.");
+            return;
+        }
+
+        changePassword.mutate(passwordFormData, {
+            onSuccess: () => {
+                setShowPasswordForm(false);
+                setPasswordFormData({
+                    password: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                });
+                setPasswordSuccess("Password updated successfully.");
+                setTimeout(() => setPasswordSuccess(""), 5000);
+            },
+            onError: (error: any) => {
+                if (error.response?.status === 400) {
+                    setPasswordError("Invalid current password.");
+                } else if (error.response?.status === 422) {
+                    const detail = error.response?.data?.detail;
+                    if (Array.isArray(detail) && detail.length > 0) {
+                        const messages = detail.map((d: any) => d.msg || d.message).join(". ");
+                        setPasswordError(messages);
+                    } else {
+                        setPasswordError("Invalid password format or validation failed.");
+                    }
+                } else {
+                    setPasswordError("Something went wrong. Please try again.");
+                }
+            },
+        });
     };
 
     const handleEmailUpdateSubmit = async (e: React.FormEvent) => {
@@ -253,6 +311,74 @@ export function ProfileSettings() {
                             style={{ marginTop: "0.5rem" }}
                         >
                             {updateEmail.isPending ? "Updating..." : "Update Email"}
+                        </button>
+                    </form>
+                </div>
+            )}
+
+            <div className="form-group">
+                <label style={{ marginTop: "1rem" }}>Password</label>
+                <div>
+                    <button
+                        type="button"
+                        onClick={() => setShowPasswordForm(!showPasswordForm)}
+                        style={{ padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
+                    >
+                        {showPasswordForm ? "Cancel" : "Change Password"}
+                    </button>
+                </div>
+                {passwordSuccess && (
+                    <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
+                        {passwordSuccess}
+                    </p>
+                )}
+            </div>
+
+            {showPasswordForm && (
+                <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
+                    <form onSubmit={handlePasswordChangeSubmit} className="auth-form">
+                        <div className="form-group">
+                            <label htmlFor="currentPassword" className="required">Current Password</label>
+                            <input
+                                id="currentPassword"
+                                type="password"
+                                name="password"
+                                value={passwordFormData.password}
+                                onChange={handlePasswordFormChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="newPassword" className="required">New Password</label>
+                            <input
+                                id="newPassword"
+                                type="password"
+                                name="newPassword"
+                                value={passwordFormData.newPassword}
+                                onChange={handlePasswordFormChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="confirmPassword" className="required">Confirm New Password</label>
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                name="confirmPassword"
+                                value={passwordFormData.confirmPassword}
+                                onChange={handlePasswordFormChange}
+                            />
+                        </div>
+
+                        {passwordError && <p className="auth-error">{passwordError}</p>}
+
+                        <button
+                            className="auth-button"
+                            type="submit"
+                            disabled={changePassword.isPending}
+                            style={{ marginTop: "0.5rem" }}
+                        >
+                            {changePassword.isPending ? "Updating..." : "Update Password"}
                         </button>
                     </form>
                 </div>

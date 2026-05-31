@@ -16,3 +16,6 @@ export const confirmEmailChange = (token: string) =>
 
 export const cancelEmailChange = (token: string) =>
     api.get("/users/me/email/cancel", { params: { token } });
+
+export const changePassword = (data: { password: string; newPassword: string; confirmPassword: string }) =>
+    api.patch("/users/me/password", data)
