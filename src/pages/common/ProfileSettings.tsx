@@ -2,15 +2,20 @@ import { useState, useEffect } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useUpdateMe } from "../../hooks/useUpdateMe";
 import { useUpdateEmail } from "../../hooks/useUpdateEmail";
+import { useAuth } from "../../hooks/useAuth";
 
 // User profile component that contains general account settings and prefernces - all user roles
 export function ProfileSettings() {
     const { data: user } = useCurrentUser(["profile-settings"]);
     const updateMe = useUpdateMe();
     const updateEmail = useUpdateEmail();
+    const { user: authUser } = useAuth();
 
     // AxiosResponse data is in user.data
     const userData = user?.data;
+
+    // Email update is only available for students
+    const isStudent = authUser?.userRole === "student";
 
     const [formData, setFormData] = useState({
         firstName: userData?.firstName || "",
@@ -179,13 +184,15 @@ export function ProfileSettings() {
                 <label>Email</label>
                 <div>
                     <span>{userData?.emailAddress || "No email found"}</span>
-                    <button
-                        type="button"
-                        onClick={() => setShowEmailForm(!showEmailForm)}
-                        style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
-                    >
-                        {showEmailForm ? "Cancel" : "Update Email"}
-                    </button>
+                    {isStudent && (
+                        <button
+                            type="button"
+                            onClick={() => setShowEmailForm(!showEmailForm)}
+                            style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
+                        >
+                            {showEmailForm ? "Cancel" : "Update Email"}
+                        </button>
+                    )}
                 </div>
                 {emailSuccess && (
                     <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
