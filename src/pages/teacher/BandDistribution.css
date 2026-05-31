@@ -1,12 +1,23 @@
 .band-card {
-  width: 320px;
+  width: 100%;
   background: #ffffff;
-  border-radius: 24px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  position: relative;
-  font-family: Inter, sans-serif;
+  border: 1px solid #d6dde9;
+  border-radius: 26px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  padding: 10px 1px 30px;
+  color: #1f2a44;
+  overflow: hidden;
 }
+
+.weakness-trends__header h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #17396b;
+    margin-left: 20px;
+  font-weight: 700;
+}
+
+
 
 .band-header {
   display: flex;
