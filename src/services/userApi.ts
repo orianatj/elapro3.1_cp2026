@@ -19,3 +19,6 @@ export const cancelEmailChange = (token: string) =>
 
 export const changePassword = (data: { password: string; newPassword: string; confirmPassword: string }) =>
     api.patch("/users/me/password", data)
+
+export const initateDeleteAccount = (password: string) =>
+    api.post("/users/me/delete-initiate", { password });

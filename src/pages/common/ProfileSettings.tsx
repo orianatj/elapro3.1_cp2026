@@ -3,6 +3,7 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useUpdateMe } from "../../hooks/useUpdateMe";
 import { useUpdateEmail } from "../../hooks/useUpdateEmail";
 import { useChangePassword } from "../../hooks/useChangePassword";
+import { useInitiateDeleteAccount } from "../../hooks/useInitiateDeleteAccount";
 import { useAuth } from "../../hooks/useAuth";
 
 // User profile component that contains general account settings and prefernces - all user roles
@@ -11,6 +12,7 @@ export function ProfileSettings() {
     const updateMe = useUpdateMe();
     const updateEmail = useUpdateEmail();
     const changePassword = useChangePassword();
+    const initiateDeleteAccount = useInitiateDeleteAccount();
     const { user: authUser } = useAuth();
 
     // AxiosResponse data is in user.data
@@ -45,6 +47,10 @@ export function ProfileSettings() {
     });
     const [passwordError, setPasswordError] = useState("");
     const [passwordSuccess, setPasswordSuccess] = useState("");
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deletePassword, setDeletePassword] = useState("");
+    const [deleteError, setDeleteError] = useState("");
 
     // Sync form data with user data when it refetches
     useEffect(() => {
@@ -133,6 +139,32 @@ export function ProfileSettings() {
                     }
                 } else {
                     setPasswordError("Something went wrong. Please try again.");
+                }
+            },
+        });
+    };
+
+    const handleDeleteAccount = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setDeleteError("");
+
+        if (!deletePassword) {
+            setDeleteError("Please enter your password.");
+            return;
+        }
+
+        initiateDeleteAccount.mutate(deletePassword, {
+            onSuccess: () => {
+                setShowDeleteModal(false);
+                setDeletePassword("");
+                // Redirect to login or show success message
+                window.location.href = "/login";
+            },
+            onError: (error: any) => {
+                if (error.response?.status === 400) {
+                    setDeleteError("Invalid password.");
+                } else {
+                    setDeleteError("Something went wrong. Please try again.");
                 }
             },
         });
@@ -381,6 +413,109 @@ export function ProfileSettings() {
                             {changePassword.isPending ? "Updating..." : "Update Password"}
                         </button>
                     </form>
+                </div>
+            )}
+
+            {isStudent && (
+                <div style={{ marginTop: "2rem" }}>
+                    <button
+                        type="button"
+                        onClick={() => setShowDeleteModal(true)}
+                        style={{
+                            padding: "0.5rem 1rem",
+                            fontSize: "0.875rem",
+                            backgroundColor: "#dc3545",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Delete Account
+                    </button>
+                </div>
+            )}
+
+            {showDeleteModal && (
+                <div style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 1000
+                }}>
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "2rem",
+                        borderRadius: "8px",
+                        maxWidth: "400px",
+                        width: "90%"
+                    }}>
+                        <h2 style={{ marginTop: 0, marginBottom: "1rem" }}>Delete Account</h2>
+                        <p style={{ marginBottom: "1rem" }}>
+                            Are you sure you want to delete your account? This action cannot be undone.
+                            Please enter your password to confirm.
+                        </p>
+                        <form onSubmit={handleDeleteAccount}>
+                            <div className="form-group">
+                                <label htmlFor="deletePassword" className="required">Password</label>
+                                <input
+                                    id="deletePassword"
+                                    type="password"
+                                    value={deletePassword}
+                                    onChange={(e) => setDeletePassword(e.target.value)}
+                                    style={{
+                                        width: "100%",
+                                        padding: "0.5rem",
+                                        border: "1px solid #ccc",
+                                        borderRadius: "4px",
+                                        boxSizing: "border-box"
+                                    }}
+                                />
+                            </div>
+                            {deleteError && <p className="auth-error">{deleteError}</p>}
+                            <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowDeleteModal(false);
+                                        setDeletePassword("");
+                                        setDeleteError("");
+                                    }}
+                                    style={{
+                                        flex: 1,
+                                        padding: "0.5rem",
+                                        border: "1px solid #ccc",
+                                        borderRadius: "4px",
+                                        cursor: "pointer",
+                                        backgroundColor: "grey"
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={initiateDeleteAccount.isPending}
+                                    style={{
+                                        flex: 1,
+                                        padding: "0.5rem",
+                                        backgroundColor: "#dc3545",
+                                        color: "white",
+                                        border: "none",
+                                        borderRadius: "4px",
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                    {initiateDeleteAccount.isPending ? "Deleting..." : "Delete Account"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </div>
