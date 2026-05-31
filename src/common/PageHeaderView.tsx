@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import type { PageHeaderViewData } from "../types/common/PageHeaderDTO";
 
 // PageHeader is a presentational component responsible for rendering the header section of each page,
@@ -14,15 +14,21 @@ export function PageHeaderView({ header }: PageHeaderProps) {
        {/* Page title */}
        <h1>{header.title}</h1>  
        
-       {/* Breadcrumb navigation */}
-       {/* TODO: Replace span with appropriate navigation element once routing exists */}
+       {/* Breadcrumb navigation */}       
        <nav>
-        {header.breadcrumb.map((breadcrumb, index) => (            
-            <span key = {index}>
+        {header.breadcrumb.map((breadcrumb, index) => (
+          <span key={index}>
+            {breadcrumb.link ? (
+              <Link to={breadcrumb.link}>
                 {breadcrumb.label}
-                {/* Add separator if not the last breadcrumb segment */}
-                {index < header.breadcrumb.length - 1 && " > "}
-            </span>
+              </Link>
+          ) : (
+            <span>{breadcrumb.label}</span>
+          )}
+
+          {/* Add separator if not the last breadcrumb */}
+          {index < header.breadcrumb.length - 1 && " > "}
+          </span>
         ))}
        </nav>
     </header>

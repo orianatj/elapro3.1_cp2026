@@ -55,7 +55,7 @@ export type SubmissionsTable = {
 export type SubmissionTableRow = {
   submissionId: string;       // backend: submissionId - unique identifier for this submission, used for navigation to the analysis page
   date: string;               // formatted from submission timestamp, e.g. "2024-05-01 14:30"
-  essayType: string;          // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
+  questionType: string;          // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
   ieltsType: IeltsType;       // from backend 'submissions': "academic" | "general"
   taskType: TaskType;         // from backend 'submissions': "task1" | "task2"
   status: SafeGradingStatus;  // safe grading lifecycle status used for UI rendering and behaviour
