@@ -2,7 +2,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { ProfileSettings } from "./ProfileSettings";
 import { SubscriptionBillingSettings } from "./SubscriptionBillingSettings";
 
-export function AccountSettingsPage() {
+export default function AccountSettingsPage() {
 
     // Get logged-in user's info
     const { user } = useAuth();
