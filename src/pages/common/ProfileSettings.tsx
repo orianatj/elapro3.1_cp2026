@@ -49,7 +49,14 @@ export function ProfileSettings() {
 
     const handleSaveClick = async () => {
         setError("");
-        updateMe.mutate(formData, {
+        // Only send fields that have changed from their original values
+        const changedData = Object.fromEntries(
+            Object.entries(formData).filter(([key, value]) => {
+                const originalValue = userData?.[key as keyof typeof userData] || "";
+                return value !== originalValue;
+            })
+        );
+        updateMe.mutate(changedData, {
             onSuccess: () => {
                 // Form will be updated when the query refetches with new data
             },
