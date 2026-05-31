@@ -11,6 +11,7 @@ interface MenuItemProps {
   avatarSrc?: string;
   avatarAlt?: string;
   isAvatar?: boolean;
+  onClick?: () => void;
 }
 
 export default function MenuItem({
@@ -21,12 +22,13 @@ export default function MenuItem({
   avatarSrc,
   avatarAlt = "item",
   isAvatar = false,
-}: MenuItemProps) {
+  onClick,
+}: MenuItemProps){
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/teacher/edit-score");
-  };
+const handleClick = () => {
+  onClick?.();
+};
 
   return (
     <li className="assignment-item" onClick={handleClick}>
