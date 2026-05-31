@@ -3,7 +3,7 @@
 export function ProfileSettings() {
 
     return (
-        <div></div>
+        <div>This is where profile settings will go</div>
     );
 
 };
