@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useUpdateMe } from "../../hooks/useUpdateMe";
+import { useUpdateEmail } from "../../hooks/useUpdateEmail";
 
 // User profile component that contains general account settings and prefernces - all user roles
 export function ProfileSettings() {
     const { data: user } = useCurrentUser(["profile-settings"]);
     const updateMe = useUpdateMe();
+    const updateEmail = useUpdateEmail();
 
     // AxiosResponse data is in user.data
     const userData = user?.data;
@@ -18,6 +20,14 @@ export function ProfileSettings() {
     });
 
     const [error, setError] = useState("");
+
+    const [showEmailForm, setShowEmailForm] = useState(false);
+    const [emailFormData, setEmailFormData] = useState({
+        password: "",
+        newEmailAddress: "",
+        confirmEmailAddress: "",
+    });
+    const [emailError, setEmailError] = useState("");
 
     // Sync form data with user data when it refetches
     useEffect(() => {
@@ -53,6 +63,45 @@ export function ProfileSettings() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleEmailFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmailFormData({ ...emailFormData, [e.target.name]: e.target.value });
+    };
+
+    const handleEmailUpdateSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setEmailError("");
+
+        if (emailFormData.newEmailAddress !== emailFormData.confirmEmailAddress) {
+            setEmailError("Email addresses do not match.");
+            return;
+        }
+
+        if (!emailFormData.password || !emailFormData.newEmailAddress || !emailFormData.confirmEmailAddress) {
+            setEmailError("Please fill in all fields.");
+            return;
+        }
+
+        updateEmail.mutate(emailFormData, {
+            onSuccess: () => {
+                setShowEmailForm(false);
+                setEmailFormData({
+                    password: "",
+                    newEmailAddress: "",
+                    confirmEmailAddress: "",
+                });
+            },
+            onError: (error: any) => {
+                if (error.response?.status === 400) {
+                    setEmailError("Invalid password or email address.");
+                } else if (error.response?.status === 422) {
+                    setEmailError("Invalid email format.");
+                } else {
+                    setEmailError("Something went wrong. Please try again.");
+                }
+            },
+        });
+    };
+
     return (
         <div className="auth-card">
             <div className="auth-header">
@@ -61,48 +110,50 @@ export function ProfileSettings() {
             </div>
 
             <form onSubmit={(e) => { e.preventDefault(); handleSaveClick(); }} className="auth-form">
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                        id="firstName"
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                    />
-                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    <div className="form-group">
+                        <label htmlFor="firstName">First Name</label>
+                        <input
+                            id="firstName"
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="middleName">Middle Name (optional)</label>
-                    <input
-                        id="middleName"
-                        type="text"
-                        name="middleName"
-                        value={formData.middleName}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="middleName">Middle Name (optional)</label>
+                        <input
+                            id="middleName"
+                            type="text"
+                            name="middleName"
+                            value={formData.middleName}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        id="lastName"
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="lastName">Last Name</label>
+                        <input
+                            id="lastName"
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">Phone Number (optional)</label>
-                    <input
-                        id="phoneNumber"
-                        type="tel"
-                        name="phoneNumber"
-                        value={formData.phoneNumber}
-                        onChange={handleChange}
-                    />
+                    <div className="form-group">
+                        <label htmlFor="phoneNumber">Phone Number (optional)</label>
+                        <input
+                            id="phoneNumber"
+                            type="tel"
+                            name="phoneNumber"
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
 
                 {error && <p className="auth-error">{error}</p>}
@@ -113,8 +164,68 @@ export function ProfileSettings() {
 
                 <div className="form-group">
                     <label>Email</label>
-                    <span>{userData?.emailAddress || "No email found"}</span>
+                    <div>
+                        <span>{userData?.emailAddress || "No email found"}</span>
+                        <button
+                            type="button"
+                            onClick={() => setShowEmailForm(!showEmailForm)}
+                            style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
+                        >
+                            {showEmailForm ? "Cancel" : "Update Email"}
+                        </button>
+                    </div>
                 </div>
+
+                {showEmailForm && (
+                    <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
+                        <h3 style={{ marginTop: 0, marginBottom: "1rem" }}>Update Email Address</h3>
+                        <form onSubmit={handleEmailUpdateSubmit} className="auth-form">
+                            <div className="form-group">
+                                <label htmlFor="password" className="required">Password</label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    value={emailFormData.password}
+                                    onChange={handleEmailFormChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="newEmailAddress" className="required">New Email Address</label>
+                                <input
+                                    id="newEmailAddress"
+                                    type="email"
+                                    name="newEmailAddress"
+                                    value={emailFormData.newEmailAddress}
+                                    onChange={handleEmailFormChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="confirmEmailAddress" className="required">Confirm Email Address</label>
+                                <input
+                                    id="confirmEmailAddress"
+                                    type="email"
+                                    name="confirmEmailAddress"
+                                    value={emailFormData.confirmEmailAddress}
+                                    onChange={handleEmailFormChange}
+                                />
+                            </div>
+
+                            {emailError && <p className="auth-error">{emailError}</p>}
+
+                            <button
+                                className="auth-button"
+                                type="submit"
+                                disabled={updateEmail.isPending}
+                                style={{ marginTop: "0.5rem" }}
+                            >
+                                {updateEmail.isPending ? "Updating..." : "Update Email"}
+                            </button>
+                        </form>
+                    </div>
+                )}
 
                 <div className="form-group">
                     <label>User ID</label>
