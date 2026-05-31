@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useBandDistribution } from "../hooks/useBandDistribution";
-import "./BandDistribution.css";
+import "../pages/teacher/BandDistribution.css";
 
 interface Props {
   fromDate?: string;

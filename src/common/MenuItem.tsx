@@ -1,6 +1,4 @@
 
-import { useNavigate } from "react-router-dom";
-
 type Status = "Upcoming" | "On Time" | "LATE";
 
 interface MenuItemProps {
@@ -11,6 +9,7 @@ interface MenuItemProps {
   avatarSrc?: string;
   avatarAlt?: string;
   isAvatar?: boolean;
+  onClick?: () => void;
 }
 
 export default function MenuItem({
@@ -21,12 +20,13 @@ export default function MenuItem({
   avatarSrc,
   avatarAlt = "item",
   isAvatar = false,
-}: MenuItemProps) {
-  const navigate = useNavigate();
+  onClick,
+}: MenuItemProps){
 
-  const handleClick = () => {
-    navigate("/teacher/edit-score");
-  };
+
+const handleClick = () => {
+  onClick?.();
+};
 
   return (
     <li className="assignment-item" onClick={handleClick}>
