@@ -1,3 +1,4 @@
+import { useAuth } from "../../hooks/useAuth";
 
 // Import shared header bar
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
@@ -15,8 +16,14 @@ import './studentsubmissions.css';
 
 export default function SubmissionsPage() {
     // Use the custom hook to fetch and prepare the ViewData for this page based on the current student.
+    const { user } = useAuth();
+
+    if (!user) {
+        return <div>Unable to load user data.</div>;
+    }
+
     const { viewData, isPending, isError, error, actions } =
-        useStudentSubmissions("732502c3-990d-474b-b1ce-98ae059d6810"); // TODO: replace with actual userId from auth context
+        useStudentSubmissions(user.userId);
 
 
     // Delegate loading, error, and empty state handling to QueryStateHandler
@@ -35,8 +42,9 @@ export default function SubmissionsPage() {
                 )
             }
         >
+
             {(data) => (
-                <div className="student-submissions-page">                    
+                <div className="student-submissions-page">
 
                     <StudentHeaderBar header={data.pageHeader} />
 
