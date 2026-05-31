@@ -13,3 +13,6 @@ export const updateEmail = (data: { password: string; emailAddress: string; conf
 
 export const confirmEmailChange = (token: string) =>
     api.get("/users/me/email", { params: { token } });
+
+export const cancelEmailChange = (token: string) =>
+    api.get("/users/me/email/cancel", { params: { token } });

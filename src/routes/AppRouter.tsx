@@ -17,6 +17,7 @@ import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
 import AccountSettingsPage from "../pages/common/AccountSettingsPage";
 import { ConfirmEmailChangePage } from "../pages/common/ConfirmEmailChangePage";
+import { CancelEmailChangePage } from "../pages/common/CancelEmailChangePage";
 import { LoginPage } from "../pages/auth/LoginPage.tsx";
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
 import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
@@ -37,6 +38,7 @@ export default function AppRouter() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />
+        <Route path="/cancel-email-change" element={<CancelEmailChangePage />} />
 
         {/* Dashboard Redirect */}
         <Route path="/" element={<DashboardRedirect />} />
