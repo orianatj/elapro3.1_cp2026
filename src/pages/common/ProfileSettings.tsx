@@ -8,7 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 // User profile component that contains general account settings and prefernces - all user roles
 export function ProfileSettings() {
-    const { data: user } = useCurrentUser(["profile-settings"]);
+    const { data: user } = useCurrentUser();
     const updateMe = useUpdateMe();
     const updateEmail = useUpdateEmail();
     const changePassword = useChangePassword();
