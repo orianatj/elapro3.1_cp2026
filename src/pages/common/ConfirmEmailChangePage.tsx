@@ -29,7 +29,7 @@ export function ConfirmEmailChangePage() {
         // Fallback: redirect to settings after 10 seconds if no response
         const timeout = setTimeout(() => {
             console.log("Timeout reached, redirecting to settings");
-            navigate("/settings");
+            navigate("/login");
         }, 10000);
 
         return () => clearTimeout(timeout);
