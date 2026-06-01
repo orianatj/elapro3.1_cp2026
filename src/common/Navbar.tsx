@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { useAuth } from "../hooks/useAuth";
+import logo from "../assets/Logo.png";
+import avatar from "../assets/Avatar.png";
+import notifications from "../assets/notifications.png";
 
 // Define NavBar props
 type NavItem = {
@@ -22,17 +25,17 @@ export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
         <aside className="sidebar">
             <div className="top-section">
                 <div className="logo">
-                    <img src="/src/assets/Logo.png" alt="dashboard logo" />
+                    <img src={logo} alt="dashboard logo" />
                     {isStudent && <p>Student</p>}
                     {isAdmin && <p>Admin</p>}
                     {isTeacher && <p>Teacher</p>}
                 </div>
 
                 <div className="top-icons">
-                    <img className="avatar" src="/src/assets/Avatar.png" alt="user icon" />
+                    <img className="avatar" src={avatar} alt="user icon" />
 
                     <div className="notification-wrapper">
-                        <img src="/src/assets/notifications.png" alt="notifications icon" />
+                        <img src={notifications} alt="notifications icon" />
                         <span className="badge">2</span>
                     </div>
                 </div>
