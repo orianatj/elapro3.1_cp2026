@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+import { useAuth } from "../hooks/useAuth";
 
 // Define NavBar props
 type NavItem = {
@@ -11,13 +12,20 @@ type NavItem = {
 
 // NavBar component 
 export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
+    const { user: authUser } = useAuth();
+    const isStudent = authUser?.userRole === "student";
+    const isAdmin = authUser?.userRole === "admin";
+    const isTeacher = authUser?.userRole === "supervisory_teacher" || authUser?.userRole === "external_teacher";
+    
     return (
 
         <aside className="sidebar">
             <div className="top-section">
                 <div className="logo">
                     <img src="/src/assets/Logo.png" alt="dashboard logo" />
-                    <p>Student</p>
+                    {isStudent && <p>Student</p>}
+                    {isAdmin && <p>Admin</p>}
+                    {isTeacher && <p>Teacher</p>}
                 </div>
 
                 <div className="top-icons">
