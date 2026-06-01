@@ -1,4 +1,4 @@
-
+import { useMemo } from "react";
 import "./adminDashboard.css";
 import { useAdminSubscriptions } from "../../hooks/useAdminSubscriptions";
 import type { AdminSubscriptionItem } from "../../services/adminApi";
@@ -165,9 +165,7 @@ export function AdminSubscriptionsPage() {
                   <td>{formatUsage(item)}</td>
                   <td>
                     {formatDate(
-                      item.nextBillingDate ||
-                        item.renewalDate ||
-                        item.periodEnd
+                      item.nextBillingDate || item.renewalDate || item.periodEnd
                     )}
                   </td>
                   <td>{formatDate(item.lastUpdated || item.updatedAt)}</td>

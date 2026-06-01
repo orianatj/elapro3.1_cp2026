@@ -44,7 +44,7 @@ export function SubmissionsTable({ table, filters, actions }: SubmissionsTablePr
   // Define static and Submissions specific table headers
   const tableHeaders = [
     "Date",
-    "Essay Type",
+    "Question Type",
 
     // IELTS and Task filters inside header  
     <SubmissionsFilters
@@ -69,11 +69,11 @@ export function SubmissionsTable({ table, filters, actions }: SubmissionsTablePr
     <section className="submissions-table">
       <Table headers={tableHeaders}>
 
-        {/* TODO: Replace with real data mapping once backend integration is complete. Currently uses mock data for styling purposes. */}
         {rows.map((row) => (
+
           <tr key={row.submissionId}>
             <td>{row.date}</td>
-            <td>{row.essayType}</td>
+            <td>{row.questionType}</td>
             <td>{ieltsTypeLabels[row.ieltsType]}</td>
             <td>{taskTypeLabels[row.taskType]}</td>
             <td>
@@ -86,7 +86,7 @@ export function SubmissionsTable({ table, filters, actions }: SubmissionsTablePr
             <td>
               {/* Navigate to Submission Analysis page using submissionId */}
               <button
-                onClick={() => navigate(`../submission/${row.submissionId}`)}
+                onClick={() => navigate(`/student/submission/${row.submissionId}`)}
               >
                 View Analysis
               </button>

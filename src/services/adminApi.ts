@@ -240,3 +240,210 @@ export const exportAdminLogs = async (
   link.remove();
   window.URL.revokeObjectURL(downloadUrl);
 };
+
+
+// ===============================
+// Admin Users API
+// ===============================
+
+export type AdminUserRole =
+  | "admin"
+  | "student"
+  | "supervisory_teacher"
+  | "external_teacher";
+
+export type AdminUserStatus =
+  | "pending"
+  | "active"
+  | "inactive"
+  | "suspended"
+  | "locked"
+  | "pending_deletion"
+  | "deleted";
+
+export type AdminDateRange = "all" | "7d" | "30d" | "90d" | "6m" | "1y" | "3y";
+
+export type AdminUserSortBy =
+  | "createdAt"
+  | "lastLogin"
+  | "firstName"
+  | "lastName"
+  | "accountStatus";
+
+export interface AdminUsersQuery {
+  search?: string;
+  userRole?: AdminUserRole;
+  accountStatus?: AdminUserStatus;
+  createdAt?: AdminDateRange;
+  sortBy?: AdminUserSortBy;
+  sortOrder?: "asc" | "desc";
+  limit?: number;
+  page?: number;
+}
+
+export interface AdminUserItem {
+  userId: string;
+  firstName: string;
+  middleName?: string | null;
+  lastName: string;
+  emailAddress: string;
+  phoneNumber?: string | null;
+  userRole: AdminUserRole;
+  accountStatus: AdminUserStatus;
+  createdAt?: string | null;
+  lastLogin?: string | null;
+  lastActive?: string | null;
+  emailVerified?: boolean | null;
+}
+
+export interface AdminUsersResponse {
+  users: AdminUserItem[];
+  page: number;
+  limit: number;
+  total?: number;
+}
+
+export interface CreateAdminUserPayload {
+  firstName: string;
+  middleName?: string | null;
+  lastName: string;
+  emailAddress: string;
+  phoneNumber?: string | null;
+  userRole: AdminUserRole;
+}
+
+export interface UpdateAdminUserPayload {
+  firstName?: string;
+  middleName?: string | null;
+  lastName?: string;
+  phoneNumber?: string | null;
+  userRole?: AdminUserRole | null;
+  accountStatus?: AdminUserStatus | null;
+  emailVerified?: boolean | null;
+  reason: string;
+}
+
+interface RawAdminUsersResponse {
+  data?: {
+    users?: AdminUserItem[];
+    items?: AdminUserItem[];
+    page?: number;
+    limit?: number;
+    total?: number;
+  };
+  users?: AdminUserItem[];
+  items?: AdminUserItem[];
+  page?: number;
+  limit?: number;
+  total?: number;
+}
+
+interface RawAdminUserResponse {
+  data?: {
+    user?: AdminUserItem;
+  } | AdminUserItem;
+  user?: AdminUserItem;
+}
+
+function normaliseAdminUsersResponse(
+  raw: RawAdminUsersResponse
+): AdminUsersResponse {
+  const data = raw.data ?? raw;
+
+  return {
+    users: data.users ?? data.items ?? [],
+    page: data.page ?? 1,
+    limit: data.limit ?? 25,
+    total: data.total,
+  };
+}
+
+function normaliseAdminUserResponse(raw: RawAdminUserResponse): AdminUserItem {
+  const data = raw.data ?? raw;
+
+  if ("user" in data && data.user) {
+    return data.user;
+  }
+
+  return data as AdminUserItem;
+}
+
+export const getAdminUsers = async (
+  params: AdminUsersQuery = {}
+): Promise<AdminUsersResponse> => {
+  const response = await api.get<RawAdminUsersResponse>("/admin/users", {
+    params: {
+      search: params.search || undefined,
+      userRole: params.userRole,
+      accountStatus: params.accountStatus,
+      createdAt: params.createdAt ?? "30d",
+      sortBy: params.sortBy ?? "createdAt",
+      sortOrder: params.sortOrder ?? "desc",
+      limit: params.limit ?? 25,
+      page: params.page ?? 1,
+    },
+  });
+
+  return normaliseAdminUsersResponse(response.data);
+};
+
+export const createAdminUser = async (
+  payload: CreateAdminUserPayload
+): Promise<void> => {
+  await api.post("/admin/users", payload);
+};
+
+export const getAdminUser = async (userId: string): Promise<AdminUserItem> => {
+  const response = await api.get<RawAdminUserResponse>(`/admin/users/${userId}`);
+  return normaliseAdminUserResponse(response.data);
+};
+
+export const updateAdminUser = async (
+  userId: string,
+  payload: UpdateAdminUserPayload
+): Promise<AdminUserItem> => {
+  const response = await api.patch<RawAdminUserResponse>(
+    `/admin/users/${userId}`,
+    payload
+  );
+
+  return normaliseAdminUserResponse(response.data);
+};
+
+export const deleteAdminUser = async (
+  userId: string,
+  password: string
+): Promise<void> => {
+  await api.delete(`/admin/users/${userId}`, {
+    data: {
+      password,
+    },
+  });
+};
+
+export const exportAdminUsers = async (
+  params: Omit<AdminUsersQuery, "limit" | "page"> = {}
+): Promise<void> => {
+  const response = await api.get("/admin/users/export", {
+    params: {
+      search: params.search || undefined,
+      userRole: params.userRole,
+      accountStatus: params.accountStatus,
+      createdAt: params.createdAt ?? "30d",
+      sortBy: params.sortBy ?? "createdAt",
+      sortOrder: params.sortOrder ?? "desc",
+    },
+    responseType: "blob",
+  });
+
+  const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+  const link = document.createElement("a");
+
+  link.href = downloadUrl;
+  link.setAttribute("download", "admin-users-export.csv");
+  document.body.appendChild(link);
+  link.click();
+
+  link.remove();
+  window.URL.revokeObjectURL(downloadUrl);
+};

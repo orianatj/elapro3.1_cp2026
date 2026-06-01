@@ -1,0 +1,41 @@
+
+import type { GradingStatus } from "../GradingStatus";
+
+// Lightweight model for list/table views returned from /results endpoint.
+// Contains only fields required for displaying submission summaries
+export type ResultsLightResponse = {
+  submissionId: string;
+  overallScore?: number;
+  status: GradingStatus;
+};
+
+// Detailed result model returned from /results/submission/{id}
+// Includes full grading data and essay content for analysis view 
+export type ResultFullResponse = {
+  submissionId: string;
+  userId: string;
+  taskId: string;
+
+  ieltsType: string;
+  taskType: number;
+
+  overallScore?: number;
+  status: GradingStatus;
+
+  questionText: string | null;
+  customQuestionText: string | null;
+
+  essayText: string;
+
+  validated: boolean;
+  flagged: boolean;
+
+  submittedAt: string;
+
+  competencies: {
+    competency: string;
+    score: number;
+    feedback: string;
+    graderType: string;
+  }[];
+};

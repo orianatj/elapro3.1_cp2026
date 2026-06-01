@@ -28,6 +28,12 @@ type QueryStateHandlerProps<T> = {
     // Falls back to a default message if not provided.
     emptyMessage?: string;
 
+    // Optional function to determine if the data is considered "empty" for the page context.
+    isEmpty?: (data: T) => boolean;
+
+    // Optional function to determine if any filters are currently active based on the data.
+    hasActiveFilters?: (data: T) => boolean;
+
     // Children is a render function that receives the query data and 
     // returns React nodes to render the page UI.
     children: (data: T) => React.ReactNode;
@@ -39,8 +45,12 @@ export function QueryStateHandler<T>({
     error,
     data,
     emptyMessage,
+    isEmpty,
+    hasActiveFilters,
     children,
 }: QueryStateHandlerProps<T>) {
+
+
 
     /* ==================== LOADING STATE ==================== */
     // Render a loading indicator while the query is in progress.
@@ -62,9 +72,9 @@ export function QueryStateHandler<T>({
         );
     }
 
-
     /* ==================== EMPTY DATA STATE ==================== */
-    // Guard against undefined or missing data.
+
+    // Guard against undefined or missing data
     if (!data) {
         return (
             <div className="empty-state">
@@ -74,8 +84,24 @@ export function QueryStateHandler<T>({
     }
 
 
-    /* ==================== SUCCESS STATE ==================== */
-    // Render the page content using the provided render function once data is available.
-    return <>{children(data)}</>;
+    // Determine empty and filter states
+    const empty = isEmpty ? isEmpty(data) : false;
+    const filtered = hasActiveFilters?.(data);
+
+
+return (
+   <>
+        {children(data)}
+
+        {empty && (
+            <div className="empty-state">
+                {filtered
+                    ? "No data matches your filter selections."
+                    : emptyMessage ?? "No data available."}
+            </div>
+        )}
+    </>
+);
+
 }
 

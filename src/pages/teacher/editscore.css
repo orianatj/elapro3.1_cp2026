@@ -47,6 +47,7 @@
 =================================*/
 .edit-score-page {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   padding: 16px;
   max-width: 1700px;
@@ -78,6 +79,10 @@
   min-width: 0;
 }
 
+.student-card h4 {
+  margin: 1px 1px;
+}
+
 .student-avatar {
   width: 52px;
   height: 52px;
@@ -96,6 +101,13 @@
   row-gap: 14px;
   justify-content: start;
   align-content: start;
+}
+
+.score-grid > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 /* ===============================
@@ -186,6 +198,64 @@
 }
 
 /* ===============================
+   Edit Feedback Button
+=================================*/
+.edit-feedback-btn {
+  background: var(--resource-btn-bg);
+  color: var(--resource-btn-text);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px;
+  transition: background 0.2s ease;
+}
+
+.edit-feedback-btn:hover {
+  background: #2a4a8f;
+}
+
+/* ===============================
+   Feedback Panel
+=================================*/
+.feedback-panel {
+  grid-column: span 2;
+  background: var(--assignment-panel-bg);
+  border-radius: 10px;
+  border: 1px solid var(--assignment-panel-border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feedback-panel h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.feedback-textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  border: 1px solid var(--assignment-panel-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: vertical;
+  box-sizing: border-box;
+  background: #f3f4f6;
+  color: #111111;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: #1f4c8f;
+}
+
+/* ===============================
    Dummy Text
 =================================*/
 .dummy-text {
@@ -232,13 +302,20 @@
    Overall Score
 =================================*/
 .overall-score {
-  grid-column: span 2;
   background: var(--overall-score-bg);
   border: 1px solid var(--overall-score-border);
   border-radius: 6px;
   overflow: hidden;
   padding: 0;
   text-align: center;
+}
+
+.edit-score-page > div:nth-child(3) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
 }
 
 .overall-score__header {

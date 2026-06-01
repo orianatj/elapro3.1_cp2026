@@ -28,7 +28,15 @@ export function SubmissionsFilters({ filters, actions, showIelts, showTask }: Su
           <select value={filters.ieltsType.selected}
             onChange={(e) => actions.setIeltsType(e.target.value as IeltsType | "all")}>
             {filters.ieltsType.options.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option
+                key={option.value}
+                value={option.value}
+                disabled={
+                  filters.taskType.selected === "task1" &&
+                  option.value === "academic"
+                }
+              >
+
                 {option.label}
               </option>
             ))}
@@ -45,7 +53,14 @@ export function SubmissionsFilters({ filters, actions, showIelts, showTask }: Su
           <select value={filters.taskType.selected}
             onChange={(e) => actions.setTaskType(e.target.value as TaskType | "all")}>
             {filters.taskType.options.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option
+                key={option.value} 
+                value={option.value}
+                disabled={
+                  filters.ieltsType.selected === "academic" &&
+                  option.value === "task1"
+                }              
+              >
                 {option.label}
               </option>
             ))}

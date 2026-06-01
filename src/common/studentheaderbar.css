@@ -26,12 +26,29 @@
 
 /* Breadcrumb item styling */
 .student-header-bar nav span {
-    cursor: pointer;    /* Indicate that breadcrumb items are clickable */
+    cursor: pointer;    /* Indicate that breadcrumb items are clickable */   
+}
+
+/* Breadcrumb default-state styling */
+.student-header-bar nav a {
+    color: white
 }
 
 /* Breadcrumb hover styling */
-.student-header-bar nav span:hover {
+.student-header-bar nav a:hover {
     text-decoration: underline; /* Add underline on hover for better interactivity */    
-    font-weight: 600;   /* Semi-bold for better emphasis without being too heavy */
+    font-weight: 600;           /* Semi-bold for better emphasis without being too heavy */
     color: blue
 }
+
+/* Current page (non-link breadcrumb) */
+.student-header-bar nav span span {
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* Improve spacing between items */
+.student-header-bar nav span {
+  margin-right: 4px;
+}
+
