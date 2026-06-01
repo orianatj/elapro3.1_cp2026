@@ -16,7 +16,6 @@ import { PRACTICE_WRITING_INITIAL_STATE } from "../constants/PracticeWritingInit
 
 // Utils
 import { getErrorMessage } from "../utils/errorHandling";
-import { mapTaskTypeToApi, mapIeltsTypeToApi } from "../utils/ieltsTaskApiMapper";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 
@@ -40,14 +39,10 @@ export function usePracticeWriting() {
                 throw new Error("Please select both IELTS type and task type to generate a question.");
             }
 
-            // Map UI selections to expected API payload format
-            const mappedIeltsType = mapIeltsTypeToApi(ieltsType);
-
-            const mappedTaskType = mapTaskTypeToApi(taskType);
-
+            // Map UI selections to expected API query parameters
             const response = await getRandomQuestion(
-                mappedIeltsType,
-                mappedTaskType
+                ieltsType,
+                taskType
             );
 
             return response.data.data as QuestionResponse["data"];
@@ -89,7 +84,7 @@ export function usePracticeWriting() {
             // Map UI selections to expected API payload format
             const payload: SubmitAnswerPayload = {
                 ieltsType,
-                taskType: mapTaskTypeToApi(taskType),
+                taskType,
                 essayResponse: answerText,
                 questionId: viewData.taskDescription.questionID,
                 customQuestionText: "" // Not applicable for Practice Writing page
