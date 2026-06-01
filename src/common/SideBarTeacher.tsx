@@ -4,9 +4,9 @@ import grid from "../assets/grid.png";
 import create from "../assets/create.png";
 import fileTrayFull from "../assets/file-tray-full.png";
 import documents from "../assets/documents.png";
-import vector from "../assets/vector.png";
+import vector from "../assets/Vector.png";
 import help from "../assets/help.png";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 import avatar from "../assets/Avatar.png";
 import notifications from "../assets/notifications.png";
 
