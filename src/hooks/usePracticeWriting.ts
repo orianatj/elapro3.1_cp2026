@@ -29,6 +29,14 @@ export function usePracticeWriting() {
     const [taskType, setTaskType] = useState<TaskType | undefined>(undefined);
     const [answerText, setAnswerText] = useState("");
     const [wordCount, setWordCount] = useState(0);
+    
+    // Set countdown timer dependant to task type (40 mins for Task 2, 20 mins for Task 1)
+    const setTimer = (taskType?: TaskType) => {
+        if (taskType === "task2")
+            return 40 * 60; // 40 minutes in seconds
+        return 20 * 60;     // 20 minutes in seconds
+    };
+    const newTimerValue = setTimer(taskType);
 
     // Mutation to fetch a new question based on current selections
     const generateQuestionMutation = useMutation({
@@ -52,10 +60,15 @@ export function usePracticeWriting() {
             // Update task description with API response
             setViewData((prev) => ({
                 ...prev,
+                taskBar: {
+                    ...prev.taskBar,
+                    timeRemaining: newTimerValue, // Reset timer based on task type
+                    taskTimeLimit: newTimerValue, // Set time limit based on task type
+                },
                 taskDescription: {
                     ...prev.taskDescription,
                     questionID: data.questionId,
-                    questionText: data.questionText                    
+                    questionText: data.questionText
                 }
             }));
         }
@@ -104,7 +117,7 @@ export function usePracticeWriting() {
                     taskType: taskType!
                 }
             }));
-            
+
         }
     });
 
