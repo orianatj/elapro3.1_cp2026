@@ -5,7 +5,7 @@ export const getRandomQuestion = (
     ieltsType: string, 
     taskType: string
 ) => {
-    return api.get("/api/v1/questions", {
+    return api.get("/questions", {
         params: {
             ieltsType,
             taskType

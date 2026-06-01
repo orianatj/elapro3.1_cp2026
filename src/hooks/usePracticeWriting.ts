@@ -8,7 +8,7 @@ import { createSubmission } from "../services/submissionsApi";
 
 // Types
 import type { PracticeWriting } from "../types/student/StudentPracticeWriting";
-import type { GetQuestionResponse } from "../types/common/api/questions";
+import type { QuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
 
 // Constants
@@ -50,18 +50,17 @@ export function usePracticeWriting() {
                 mappedTaskType
             );
 
-            return response.data;
+            return response.data.data as QuestionResponse["data"];
         },
 
-        onSuccess: (data: GetQuestionResponse) => {
+        onSuccess: (data) => {
             // Update task description with API response
             setViewData((prev) => ({
                 ...prev,
                 taskDescription: {
                     ...prev.taskDescription,
-                    questionText: data.questionText,
-                    taskID: data.taskId,
-                    questionID: data.questionId
+                    questionID: data.questionId,
+                    questionText: data.questionText                    
                 }
             }));
         }
@@ -91,7 +90,6 @@ export function usePracticeWriting() {
             const payload: SubmitAnswerPayload = {
                 ieltsType,
                 taskType: mapTaskTypeToApi(taskType),
-                taskId: viewData.taskDescription.taskID,
                 essayResponse: answerText,
                 questionId: viewData.taskDescription.questionID,
                 customQuestionText: "" // Not applicable for Practice Writing page
@@ -108,10 +106,10 @@ export function usePracticeWriting() {
                     ...prev.answer,
                     submissionDate: new Date().toISOString(),
                     ieltsType: ieltsType!,
-                    taskType: taskType!,
-                    taskID: prev.taskDescription.taskID
+                    taskType: taskType!
                 }
             }));
+            
         }
     });
 
