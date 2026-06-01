@@ -12,18 +12,18 @@
   flex: 1;
   margin: 0; /* Removes default browser spacing */
   font-family: Arial, sans-serif; /* Sets a clean default font */
-  background: white; /* Soft gradient background */
+  background: none; /* Soft gradient background */
   display: block;
   color: black;
 }
 
 /* ================= LAYOUT WRAPPER ================= */
-
+  
 /* Main layout container holding sidebar + main content */
 .teacher-container {
   display: flex; /* Places sidebar and main content side by side */
   min-height: 100vh; /* Makes layout fill full viewport height */
-  background-color: white;
+  background-color: none;
 }
 
 /* Main content wrapper */
