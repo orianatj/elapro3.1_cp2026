@@ -6,6 +6,10 @@ import "./teachersubmission.css";
 import Pagination from "../../common/PageChanger";
 import { useSubmissionsList } from "../../hooks/useSubmissionsList";
 
+import search from "../../assets/search.png";
+import funnel from "../../assets/funnel.png";
+import download from "../../assets/download.png";
+
 function getItems(data: any) {
   const candidates = [
     data?.data?.data?.items,
@@ -69,11 +73,7 @@ export default function SubmissionsOverview() {
 
         <div className="toolbar">
           <div className="search-box">
-            <img
-              src="/src/assets/search.png"
-              alt="search"
-              className="search-icon"
-            />
+            <img src={search} alt="search" className="search-icon" />
 
             <input
               type="text"
@@ -98,13 +98,13 @@ export default function SubmissionsOverview() {
             </select>
 
             <ToolbarButton
-              icon="/src/assets/funnel.png"
+              icon={funnel}
               label="Filter"
               onClick={() => setShowFilters((prev) => !prev)}
             />
 
             <ToolbarButton
-              icon="/src/assets/download.png"
+              icon={download}
               label="Export"
               onClick={() => console.log("Export clicked")}
             />

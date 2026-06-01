@@ -1,29 +1,38 @@
-
 import { NavLink } from "react-router-dom";
 
+import grid from "../assets/grid.png";
+import create from "../assets/create.png";
+import fileTrayFull from "../assets/file-tray-full.png";
+import documents from "../assets/documents.png";
+import vector from "../assets/vector.png";
+import help from "../assets/help.png";
+import logo from "../assets/logo.png";
+import avatar from "../assets/Avatar.png";
+import notifications from "../assets/notifications.png";
+
 const navItems = [
-  { icon: "/src/assets/grid.png", label: "Dashboard", path: "/teacher" },
+  { icon: grid, label: "Dashboard", path: "/teacher" },
   {
-    icon: "/src/assets/create.png",
+    icon: create,
     label: "Assignments",
     path: "/teacher/create-assignment",
   },
   {
-    icon: "/src/assets/file-tray-full.png",
+    icon: fileTrayFull,
     label: "Resources",
     path: "/teacher/resources",
   },
   {
-    icon: "/src/assets/documents.png",
+    icon: documents,
     label: "Submissions",
     path: "/teacher/submissions",
   },
   {
-    icon: "/src/assets/vector.png",
+    icon: vector,
     label: "Settings",
     path: "/teacher/settings",
   },
-  { icon: "/src/assets/help.png", label: "Help", path: "/teacher/help" },
+  { icon: help, label: "Help", path: "/teacher/help" },
 ];
 
 export default function Sidebar() {
@@ -31,19 +40,15 @@ export default function Sidebar() {
     <aside className="sidebar">
       <div className="top-section">
         <div className="logo">
-          <img src="/src/assets/logo.png" alt="dashboard logo" />
+          <img src={logo} alt="dashboard logo" />
           <p>Teacher</p>
         </div>
 
         <div className="top-icons">
-          <img
-            className="avatar"
-            src="/src/assets/Avatar.png"
-            alt="user icon"
-          />
+          <img className="avatar" src={avatar} alt="user icon" />
 
           <div className="notification-wrapper">
-            <img src="/src/assets/notifications.png" alt="notifications icon" />
+            <img src={notifications} alt="notifications icon" />
             <span className="badge">2</span>
           </div>
         </div>
