@@ -137,7 +137,7 @@ export function ProgressTrackingChart({ chartData, isVisible, toggleObjects }: P
                     <Legend />
 
                     {toggleObjects.map((toggle) => (
-                        <Line type="monotone" dataKey={toggle.key} name={toggle.label} stroke={toggle.color} hide={!isVisible[toggle.key]} dot={isVisible[toggle.key] ? { r: 6, fill: toggle.color, stroke: "#ffffff", strokeWidth: 2 } : false} activeDot={isVisible[toggle.key] ? { r: 8, fill: toggle.color } : false}
+                        <Line key={toggle.key} type="monotone" dataKey={toggle.key} name={toggle.label} stroke={toggle.color} hide={!isVisible[toggle.key]} dot={isVisible[toggle.key] ? { r: 6, fill: toggle.color, stroke: "#ffffff", strokeWidth: 2 } : false} activeDot={isVisible[toggle.key] ? { r: 8, fill: toggle.color } : false}
                         />
 
                     ))}
