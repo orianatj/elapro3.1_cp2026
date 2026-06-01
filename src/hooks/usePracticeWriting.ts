@@ -29,7 +29,7 @@ export function usePracticeWriting() {
     const [taskType, setTaskType] = useState<TaskType | undefined>(undefined);
     const [answerText, setAnswerText] = useState("");
     const [wordCount, setWordCount] = useState(0);
-    
+
     // Set countdown timer dependant to task type (40 mins for Task 2, 20 mins for Task 1)
     const setTimer = (taskType?: TaskType) => {
         if (taskType === "task2")
@@ -107,16 +107,36 @@ export function usePracticeWriting() {
         },
 
         onSuccess: () => {
-            // Update Submission metadata
-            setViewData((prev) => ({
-                ...prev,
-                answer: {
-                    ...prev.answer,
-                    submissionDate: new Date().toISOString(),
-                    ieltsType: ieltsType!,
-                    taskType: taskType!
-                }
-            }));
+
+            setTimeout(() => {
+                // Update Submission metadata
+                setViewData((prev) => ({
+                    ...prev,
+                    taskBar: {
+                        ...prev.taskBar,
+                        isPaused: true,           // Pause timer on submission
+                        timeRemaining: 0,
+                        taskTimeLimit: 0
+                    },
+                    taskDescription: {
+                        ...prev.taskDescription,
+                        questionText: "",         // clear question
+                        questionID: ""            // clear reference
+                    },
+                    answer: {
+                        ...prev.answer,
+                        submissionDate: new Date().toISOString(),
+                        ieltsType: ieltsType!,
+                        taskType: taskType!,
+                        answerText: "",           // clear answer text
+                        wordCount: 0              // reset word count
+                    }
+                }));
+
+                setAnswerText(""); // Clear answer input after successful submission
+                setWordCount(0);   // Reset word count after successful submission
+
+            }, 5000); // Delay state update to allow user to see success message
 
         }
     });
