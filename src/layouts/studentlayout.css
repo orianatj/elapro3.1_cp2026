@@ -26,20 +26,9 @@
   background-color: white;
 }
 
-/* Greeting banner container */
-.greeting-banner {
-    margin: 15px 10px 10px 10px;
-    padding: 5px; /* Inner spacing */
-    background: #f3f4f6; /* Light gray background */
-    border-radius: 12px; /* Rounded corners */
-    font-size: 25px; /* Larger text size */
-    font-weight: bold;
-}
-
 /* Main content wrapper */
 .page-content {
   padding: 20px; /* Inner spacing */
-  border: 1px solid black;
   border-radius: 5px;
   margin: 15px 10px 10px 10px;
 }
