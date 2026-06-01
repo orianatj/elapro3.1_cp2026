@@ -3,6 +3,7 @@ import "./Navbar.css";
 
 // Define NavBar props
 type NavItem = {
+    icon?: string;
     label: string;
     path: string;
 };
@@ -33,6 +34,7 @@ export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
                 <ul>
                     {pageNames.map((item) => (
                         <li key={item.path}>
+                            {item.icon && <img src={item.icon} />}
                             <NavLink
                                 to={item.path}
                                 className={({ isActive }) => (isActive ? "active" : "")}
