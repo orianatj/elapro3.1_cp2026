@@ -13,8 +13,9 @@ export function calcUniqueSubDates({ series }: ProgChartProps) {
 
     /* Derive each date from respective point object, remove time component from timestamp, and add to Set to retain only unique date strings
     */
-    const uniqueDates = [new Set(series.map((point) =>
-        point.submissionTimestamp.split("T")[0]))]
+    const uniqueDates = Array.from(new Set(series.map((point) =>
+        point.submissionTimestamp.split("T")[0]))
+    );
 
     // Return the number of unique submission dates
     return {
