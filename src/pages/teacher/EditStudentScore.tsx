@@ -72,6 +72,7 @@ export default function EditStudentScore() {
   const [lexicalResourceFeedback, setLexicalResourceFeedback] = useState<string>(GetCompetencyFeedback({ submissionId: submissionId ?? "default-submission-id" }, "lexical") || "");
   const [grammarFeedback, setGrammarFeedback] = useState<string>(GetCompetencyFeedback({ submissionId: submissionId ?? "default-submission-id" }, "grammar") || "");
   const [overallFeedback, setOverallFeedback] = useState<string>(GetCompetencyFeedback({ submissionId: submissionId ?? "default-submission-id" }, "overall") || "");
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
 
   useEffect(() => {
     setFeedbackText(overallFeedback);
@@ -156,10 +157,15 @@ export default function EditStudentScore() {
       },
       {
         onSuccess: () => {
-          navigate(`/teacher/individual-submission/${submissionId}/${encodeURIComponent(firstNameDecoded)}/${encodeURIComponent(lastNameDecoded)}`);
+          setShowSuccessModal(true);
         },
       }
     );
+  };
+
+  const handleModalOk = () => {
+    setShowSuccessModal(false);
+    navigate(`/teacher/individual-submission/${submissionId}/${encodeURIComponent(firstNameDecoded)}/${encodeURIComponent(lastNameDecoded)}`);
   };
 
   const handleCancel = () => {
@@ -231,6 +237,21 @@ export default function EditStudentScore() {
         <button className="cancel" onClick={handleCancel}>Cancel</button>
         <button className="save" onClick={handleSave}>Save</button>
       </div>
+
+      {showSuccessModal && (
+        <div className="success-modal-overlay">
+          <div className="success-modal">
+            <div className="success-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="24" fill="#22c55e"/>
+                <path d="M14 24L21 31L34 17" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h4>Changes Saved</h4>
+            <button className="modal-ok-btn" onClick={handleModalOk}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
