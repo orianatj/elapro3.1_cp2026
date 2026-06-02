@@ -29,8 +29,13 @@ export const verifyEmail = async ({ token }: VerifySignup) => {
   return response.data;
 };
 
-export const refreshToken = async () => {
+export const refreshSession = async () => {
   const response = await api.post("/auth/refresh-session");
+  return response.data;
+}
+
+export const refreshToken = async () => {
+  const response = await api.post("/auth/refresh-token");
   return response.data;
 }
 
