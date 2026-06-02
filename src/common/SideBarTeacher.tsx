@@ -10,6 +10,8 @@ import logo from "../assets/Logo.png";
 import avatar from "../assets/Avatar.png";
 import notifications from "../assets/notifications.png";
 
+
+
 const navItems = [
   { icon: grid, label: "Dashboard", path: "/teacher" },
   {
@@ -47,10 +49,15 @@ export default function Sidebar() {
         <div className="top-icons">
           <img className="avatar" src={avatar} alt="user icon" />
 
-          <div className="notification-wrapper">
+          <NavLink
+            to="/notifications"
+            className={({ isActive }) =>
+              `notification-wrapper ${isActive ? "active" : ""}`
+            }
+          >
             <img src={notifications} alt="notifications icon" />
-            <span className="badge">2</span>
-          </div>
+            <span className="badge">0</span>
+          </NavLink>
         </div>
       </div>
 

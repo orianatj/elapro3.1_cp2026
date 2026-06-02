@@ -27,6 +27,7 @@ import { ResetPasswordPage } from "../pages/auth/ResetPasswordPage.tsx";
 import { VerifyEmailPage } from "../pages/auth/VerifyEmailPage.tsx";
 import { DashboardRedirect } from "./DashboardRedirect.tsx";
 import { ProtectedRoute } from "./ProtectedRoute.tsx";
+import Notifications from "../pages/common/notifications.tsx";
 
 // Defines the application's routing structure, including public and protected routes and nested dashboard layouts
 export default function AppRouter() {
@@ -106,6 +107,7 @@ export default function AppRouter() {
         {/* Common Routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin", "student", "supervisory_teacher", "external_teacher"]} />}>
           <Route path="/settings" element={<AccountSettingsPage />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Route>
       </Routes>
     </BrowserRouter>
