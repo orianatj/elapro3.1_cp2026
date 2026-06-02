@@ -30,10 +30,10 @@ The Individual Submission page allows teachers to view and assess individual stu
 
 To access the Individual Submission page:
 1. Navigate to the Teacher Dashboard
-2. Select a class from the class list
-3. Click on a student's submission to view the full details
+2. Select the 'Submissions' tab on the navigation bar
+3. Click on a student's submission in the list to view that specific submission
 
-The page displays the student's essay text, submission metadata (timestamp, word count), and provides options for the teacher to add feedback and assign scores.
+The page displays the student's essay text, submission metadata (including word count), the AI generated scores and feedback for each criterion, and provides options for the teacher to edit the feedback and scores.
 
 ---
 
