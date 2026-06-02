@@ -26,30 +26,20 @@ export function IndividualSubmission({ submissionId }: { submissionId: string })
   );
 }
 
-export function IndividualSubmissionFull({ submissionId }: { submissionId: string }) {
+export function IndividualSubmissionMetadata({ submissionId }: { submissionId: string }) {
   const submissionIndividualQuery = useSubmissionIndividual(submissionId);
   const submission = submissionIndividualQuery.data; // now the actual object
+  const wordCount = submission?.data.wordCount ?? "N/A";
+  const dateSubmitted = submission?.data.submittedAt ? new Date(submission.data.submittedAt).toLocaleString() : "N/A";
 
   if (submissionIndividualQuery.isLoading) return <div>Loading...</div>;
   if (submissionIndividualQuery.isError) return <div>Error: {String(submissionIndividualQuery.error)}</div>;
 
   return (
     <div>
-      <pre>{JSON.stringify(submission, null, 2)}</pre>
-    </div>
-  );
-}
-
-export function IndividualSubmissionWordCount({ submissionId }: { submissionId: string }) {
-  const submissionIndividualQuery = useSubmissionIndividual(submissionId);
-  const submission = submissionIndividualQuery.data; // now the actual object
-
-  if (submissionIndividualQuery.isLoading) return <div>Loading...</div>;
-  if (submissionIndividualQuery.isError) return <div>Error: {String(submissionIndividualQuery.error)}</div>;
-
-  return (
-    <div>
-      Word Count: {submission?.data.wordCount ?? "N/A"}
+      Word Count: {wordCount}
+      <br />
+      Submitted: {dateSubmitted}
     </div>
   );  
 }
@@ -117,8 +107,11 @@ export default function IndividualSubmissionPage() {
       <div className="flex-container">
         <div className ="submission-view-card">
             <IndividualSubmission submissionId={submissionId!} />
-            <IndividualSubmissionWordCount submissionId={submissionId!} />
+            <div className="metadata-box">
+                <IndividualSubmissionMetadata submissionId={submissionId!} />
+            </div>
         </div>
+        
         <div className="total-score-card">
             <h2>Overall Score: <SubmissionResultScore submissionId={submissionId!} /></h2>
             <SubmissionResult submissionId={submissionId!} />
