@@ -103,6 +103,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         /* Remove cached authenticated user data after logout. Prevents stale user information persisting across sessions */
         queryClient.removeQueries({ queryKey: ["me"] });
+
+        window.location.replace("/");
     };
 
     /* Provide authentication state and auth actions globally
