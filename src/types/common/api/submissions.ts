@@ -1,3 +1,4 @@
+import type { IeltsType, TaskType } from "../../student/common/StudentFilter";
 
 // Represents a single submission object returned from GET /api/v1/submissions.
 export type SubmissionResponse = {
@@ -5,8 +6,8 @@ export type SubmissionResponse = {
   userId: string;
   questionId: string;
 
-  ieltsType: string;
-  taskType: string;
+  ieltsType: IeltsType;
+  taskType: TaskType;
 
   questionText: string;
   customQuestionText: string | null;
@@ -14,7 +15,7 @@ export type SubmissionResponse = {
   essayText: string;
   wordCount: number;
 
-  validated: string;
+  validated: boolean;
   flagged: boolean;
   status: string;
 
@@ -24,8 +25,8 @@ export type SubmissionResponse = {
 
 // Payload for POST /api/v1/submissions
 export type SubmitAnswerPayload = {
-  ieltsType: string;        
-  taskType: string;  
+  ieltsType: IeltsType;        
+  taskType: TaskType;  
   essayResponse: string;
   questionId: string; 
   customQuestionText: string;

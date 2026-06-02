@@ -6,21 +6,14 @@ import { submissionResult } from "../services/resultsApi";
 import { submissionIndividual } from "../services/submissionsApi";
 
 // Import the ViewData types used by the Submission Analysis page
-import type { CriterionType, SubmissionAnalysis } from "../types/student/StudentSubmissionAnalysisViewData";
+import type { SubmissionAnalysis } from "../types/student/StudentSubmissionAnalysisViewData";
 import type { SubmissionResponse } from "../types/common/api/submissions";
 import type { ResultFullResponse } from "../types/common/api/results";
 
 // Import utilities for formatting and labeling
 import { formatDateTime } from "../utils/dateUtils";
-import { ieltsTypeLabels, taskTypeLabels } from "../utils/studentSubmissionLabels";
+import { ieltsTypeLabels, taskTypeLabels, criterionLabels } from "../utils/studentSubmissionLabels";
 
-
-const labels: Record<CriterionType, string> = {
-    "task-response": "Task Response",
-    "coherence-cohesion": "Coherence and Cohesion",
-    "lexical-resource": "Lexical Resource",
-    "grammatical-range-accuracy": "Grammatical Range and Accuracy",
-};
 
 // useSubmissionAnalysis is a custom hook responsible for fetching and preparing
 export function useSubmissionAnalysis(submissionId: string) {
@@ -36,16 +29,19 @@ export function useSubmissionAnalysis(submissionId: string) {
         queryFn: async () => {
 
             // Retrieve the submission and results data in parallel from the backend.
-            const [resultsResp, submissionResp] = await Promise.all([
+            const [resultsRes, submissionRes] = await Promise.all([
                 submissionResult(submissionId),
                 submissionIndividual(submissionId),
             ]);
-            
+
             const result: ResultFullResponse =
-                resultsResp.data.data.results[0];
+                resultsRes.data.data.results?.[0];
+                if (!result) {
+                    throw new Error("No results data found for this submission.");
+                }
 
             const submission: SubmissionResponse =
-                submissionResp.data.data;
+                submissionRes.data.data;
 
             return {
                 result,
@@ -70,19 +66,18 @@ export function useSubmissionAnalysis(submissionId: string) {
                 },
 
                 submissionMeta: {
-                    taskLabel: `Task Type: ${ieltsTypeLabels[result.ieltsType]} 
-                ${taskTypeLabels[result.taskType]}`,
+                    taskLabel: `Task Type: ${ieltsTypeLabels[result.ieltsType]} ${taskTypeLabels[result.taskType]}`,
                 },
 
 
                 scoreOverview: {
-                    overallScore: result.overallScore,
+                    overallScore: result.overallScore ?? 0,
                     overallScoreBar: [],
                     criteriaScores: result.competencies
                         .filter(c => c.competency !== "overall")
                         .map((criterion) => ({
-                            criterion: criterion.competency as CriterionType,
-                            displayLabel: labels[criterion.competency as CriterionType],
+                            criterion: criterion.competency,
+                            displayLabel: criterionLabels[criterion.competency],
                             score: criterion.score,
                             scoreBar: [],
                         })),
@@ -92,31 +87,34 @@ export function useSubmissionAnalysis(submissionId: string) {
 
                 submissionSummary: {
                     taskDescription: {
-                        placeHolderText: submission.question.placeHolderText,
-                        questionID: submission.question.id,
-                        questionText: submission.question.text,
+                        placeHolderText: "",
+                        questionID: submission.questionId,
+                        questionText: result.questionText ?? result.customQuestionText ?? "Question text unavailable",
                     },
                     submittedResponse: {
-                        essayText: submission.response.essayText,
+                        essayText: result.essayText,
                     },
 
                 },
 
                 scoreExplanation: {
                     title: "Score Explanation",
-                    overallScore: result.overallScore,
+                    overallScore: result.overallScore ?? 0,
                     overallScoreBar: [],
-                    explanationText: submission.score.explanation ?? "Explanation unavailable",
+                    explanationText: result.competencies.find(
+                        c => c.competency === "overall")?.feedback ?? "Explanation unavailable",
                 },
 
                 criterionBreakdown: {
-                    criteria: submission.score.criteria.map((criterion) => ({
-                        criterion: criterion.competency as CriterionType,
-                        titleLabel: labels[criterion.competency as CriterionType],
-                        score: criterion.score,
-                        scoreBar: [],
-                        explanationText: criterion.explanation ?? "Explanation unavailable",
-                    })),
+                    criteria: result.competencies
+                        .filter(c => c.competency !== "overall")
+                        .map((criterion) => ({
+                            criterion: criterion.competency,
+                            titleLabel: criterionLabels[criterion.competency],
+                            score: criterion.score,
+                            scoreBar: [],
+                            explanationText: criterion.feedback ?? "Explanation unavailable",
+                        })),
 
                 },
 

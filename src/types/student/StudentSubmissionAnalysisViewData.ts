@@ -4,6 +4,7 @@ import type { PageHeaderViewData } from "../common/PageHeaderDTO";
 
 // Import shared task description DTO used across student pages
 import type {TaskDescription} from "./common/TaskDescriptionDTO";
+import type { CompetencyType } from "../common/api/results";
 
 /**
  * StudentSubmissionAnalysisViewData
@@ -56,12 +57,8 @@ export type CriterionScore = {
 };
 
 // Supported IELTS marking criteria used across the submission analysis page
-export type CriterionType = (
-  | "task-response"
-  | "coherence-cohesion"
-  | "lexical-resource"
-  | "grammatical-range-accuracy"
-);
+export type CriterionType = CompetencyType;
+
 
 // Represents a single segment within a score bar visualisation.
 export type ScoreBarSegment = {

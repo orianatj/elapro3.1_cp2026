@@ -33,13 +33,19 @@ export type ResultFullResponse = {
 
   submittedAt: string;
 
-  competencies: {
-    competency: string;
+  competencies: Competency[];
+};
+
+export type CompetencyType = 
+"overall" 
+| "task_response" 
+| "coherence_cohesion" 
+| "lexical" 
+| "grammar";
+
+export type Competency = {
+    competency: CompetencyType;
     score: number;
     feedback: string;
     graderType: string;
-  }[];
-};
-
-
-
+  };

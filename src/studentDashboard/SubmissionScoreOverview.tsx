@@ -25,7 +25,7 @@ export function ScoreOverviewSection({ data }: ScoreOverviewProps) {
 
             {/* Score Meta Cards */}
             <div>Submitted: {data.submissionDate}</div>
-            <div>Duration: {data.writingDuration}</div>
+            <div>Word Count: {data.wordCount}</div>
         </section>
     );
 }
