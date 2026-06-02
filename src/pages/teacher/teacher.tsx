@@ -12,6 +12,10 @@ import ProgressBar from "../../common/ProgressBar";
 
 import { useSubmissionsList } from "../../hooks/useSubmissionsList";
 
+import clipboardList from "../../assets/ClipboardList.png";
+
+
+
 type TeacherRole = "supervisory_teacher" | "external_teacher";
 
 type TeacherDashboardProps = {
@@ -88,7 +92,7 @@ export default function TeacherDashboard({
     },
   ];
 
-  const submissionView = useMemo(() => {
+  const submissionView: MenuData[] = useMemo(() => {
     return getItems(data)
       .slice(0, 3)
       .map((submission) => ({
@@ -106,7 +110,7 @@ export default function TeacherDashboard({
               minute: "2-digit",
             })
           : "",
-        avatarSrc: "../assets/ClipboardList.png",
+        avatarSrc: clipboardList,
         isAvatar: true,
 
         onClick: () =>

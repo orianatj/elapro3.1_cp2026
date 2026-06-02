@@ -5,9 +5,11 @@ type StudentProps = {
 }
 
 // Greeting Banner component 
-export function GreetingBanner({name}: StudentProps){
+export function GreetingBanner({ name }: StudentProps) {
 
-    return(
-        <div className="greeting-banner">Hi, {name}</div>
+    return (
+        <div className="greeting-banner">
+            <p className="greeting-name">Welcome, {name}</p>
+        </div>
     );
 };

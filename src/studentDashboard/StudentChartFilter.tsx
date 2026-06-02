@@ -1,4 +1,4 @@
-import type { FilterKey, RuntimeFilter } from "../types/common/StudentDashboard";
+import type { FilterKey, RuntimeFilter } from "../types/student/StudentDashboard";
 
 
 // Define props for FilterBar component 

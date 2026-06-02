@@ -1,4 +1,4 @@
-
+import type { IconType } from "react-icons";
 
 // Define a union type to strongly type ieltsType
 export type IeltsType = "academic" | "general";
@@ -107,3 +107,23 @@ export type FilterConfig<TOption> = {
 
 export type RuntimeFilter = FilterConfig<IeltsFilterOptions> | FilterConfig<TaskFilterOptions>;
 
+/* Dashboard Stat Cards */
+
+// Define a union type to strongly type stat card label types
+export type StatCardLabel = "Total Submissions" | "Highest Score" | "Lowest Score" | "Average Score";
+
+
+// Define type for individual stat card 
+export type StatCard = {
+    label: StatCardLabel;
+    value: number;
+    icon: IconType;
+};
+
+// Define type for calculated stat card dataset
+export type StatCardData = {
+    totalSubmissions: number;
+    highestScore: number;
+    lowestScore: number;
+    averageScore: number;
+};

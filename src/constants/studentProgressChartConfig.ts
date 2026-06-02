@@ -1,4 +1,4 @@
-import type { CriterionToggleConfig, FilterMetadata, IeltsFilterOptions, TaskFilterOptions } from "../types/common/StudentDashboard";
+import type { CriterionToggleConfig, FilterMetadata, IeltsFilterOptions, TaskFilterOptions } from "../types/student/StudentDashboard";
 
 export const criterionToggleConfig: CriterionToggleConfig[] = [
 

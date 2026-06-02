@@ -74,19 +74,27 @@
   color: #374151;
 }
 
-.search-menu-icon,
-.search-icon {
+.search-menu-icon {
   color: #374151;
   font-size: 18px;
 }
 
+.search-submit-button {
+  border: none;
+  background: transparent;
+  color: #374151;
+  font-size: 18px;
+  cursor: pointer;
+}
+
 .admin-user-actions {
   display: grid;
-  grid-template-columns: repeat(4, 130px);
+  grid-template-columns: repeat(4, 140px);
   gap: 34px;
 }
 
-.admin-user-actions button {
+.admin-user-actions button,
+.admin-users-filters button {
   background: #4878f2;
   color: #ffffff;
   border: none;
@@ -96,8 +104,60 @@
   cursor: pointer;
 }
 
-.admin-user-actions button:hover {
+.admin-user-actions button:hover,
+.admin-users-filters button:hover {
   background: #215dab;
+}
+
+.admin-user-actions button:disabled,
+.admin-users-filters button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.admin-users-filters {
+  width: 760px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.admin-users-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.admin-users-filters select {
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.admin-users-error {
+  width: 760px;
+  max-width: 100%;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-weight: 600;
+}
+
+.admin-users-loading,
+.admin-users-empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 24px;
 }
 
 /* ===============================
@@ -105,7 +165,7 @@
 ================================= */
 
 .admin-users-table-wrapper {
-  max-width: 650px;
+  max-width: 720px;
   margin: 0 auto 30px;
   background: #ffffff;
   border-radius: 8px;
@@ -132,6 +192,15 @@
   background: #f9fafb;
 }
 
+.admin-users-table tbody tr {
+  cursor: pointer;
+}
+
+.admin-users-table tbody tr:hover,
+.selected-user-row {
+  background: #eff6ff;
+}
+
 .table-action {
   border: none;
   background: transparent;
@@ -146,10 +215,25 @@
 }
 
 .admin-pagination {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
   padding: 12px;
   color: #6b7280;
   font-size: 13px;
+}
+
+.admin-pagination button {
+  border: none;
+  background: transparent;
+  color: #31578f;
+  cursor: pointer;
+}
+
+.admin-pagination button:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
 .admin-pagination strong {
@@ -158,7 +242,7 @@
 }
 
 /* ===============================
-   Feedback Cards
+   Card View
 ================================= */
 
 .admin-feedback-grid {
@@ -169,7 +253,7 @@
 }
 
 .admin-feedback-card {
-  min-height: 330px;
+  min-height: 260px;
   background: #ffffff;
   border: 1px solid #111827;
   border-radius: 12px;
@@ -183,11 +267,17 @@
   gap: 14px;
 }
 
-.feedback-card-header img {
+.user-avatar-placeholder {
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  object-fit: cover;
+  background: #dbeafe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 22px;
 }
 
 .feedback-card-header h3 {
@@ -209,19 +299,126 @@
   letter-spacing: 1px;
 }
 
-.fake-text-lines {
-  margin-top: 55px;
+.user-card-details {
+  margin-top: 28px;
+  color: #374151;
+  line-height: 1.7;
+  word-break: break-word;
 }
 
-.fake-text-lines div {
-  height: 4px;
-  background: #6b7280;
-  margin-bottom: 16px;
-  border-radius: 4px;
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
 }
 
-.fake-text-lines .short-line {
-  width: 35%;
+.card-actions button {
+  border: none;
+  border-radius: 7px;
+  background: #4878f2;
+  color: #ffffff;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* ===============================
+   Modal
+================================= */
+
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.admin-modal {
+  width: 520px;
+  max-width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.admin-modal h2 {
+  margin: 0 0 18px;
+  color: #111827;
+}
+
+.admin-modal-close {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: #374151;
+}
+
+.admin-user-form {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-user-form label {
+  display: grid;
+  gap: 6px;
+  color: #374151;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.admin-user-form input,
+.admin-user-form select,
+.admin-user-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.admin-user-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.admin-user-form button {
+  margin-top: 8px;
+  background: #4878f2;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admin-user-form button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.admin-user-form .danger-button {
+  background: #dc2626;
+}
+
+.admin-user-detail-list {
+  display: grid;
+  gap: 10px;
+  color: #374151;
+}
+
+.admin-user-detail-list p {
+  margin: 0;
 }
 
 /* ===============================
@@ -230,8 +427,12 @@
 
 @media (max-width: 900px) {
   .admin-user-actions {
-    grid-template-columns: repeat(2, 130px);
+    grid-template-columns: repeat(2, 140px);
     gap: 16px;
+  }
+
+  .admin-users-filters {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .admin-feedback-grid {
@@ -252,6 +453,10 @@
 
   .admin-user-actions button {
     width: 100%;
+  }
+
+  .admin-users-filters {
+    grid-template-columns: 1fr;
   }
 
   .feedback-card-header {

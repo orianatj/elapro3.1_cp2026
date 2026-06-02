@@ -8,7 +8,7 @@ import { createSubmission } from "../services/submissionsApi";
 
 // Types
 import type { PracticeWriting } from "../types/student/StudentPracticeWriting";
-import type { GetQuestionResponse } from "../types/common/api/questions";
+import type { QuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
 
 // Constants
@@ -16,7 +16,6 @@ import { PRACTICE_WRITING_INITIAL_STATE } from "../constants/PracticeWritingInit
 
 // Utils
 import { getErrorMessage } from "../utils/errorHandling";
-import { mapTaskTypeToApi, mapIeltsTypeToApi } from "../utils/ieltsTaskApiMapper";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 
@@ -31,6 +30,14 @@ export function usePracticeWriting() {
     const [answerText, setAnswerText] = useState("");
     const [wordCount, setWordCount] = useState(0);
 
+    // Set countdown timer dependant to task type (40 mins for Task 2, 20 mins for Task 1)
+    const setTimer = (taskType?: TaskType) => {
+        if (taskType === "task2")
+            return 40 * 60; // 40 minutes in seconds
+        return 20 * 60;     // 20 minutes in seconds
+    };
+    const newTimerValue = setTimer(taskType);
+
     // Mutation to fetch a new question based on current selections
     const generateQuestionMutation = useMutation({
         mutationFn: async () => {
@@ -40,28 +47,28 @@ export function usePracticeWriting() {
                 throw new Error("Please select both IELTS type and task type to generate a question.");
             }
 
-            // Map UI selections to expected API payload format
-            const mappedIeltsType = mapIeltsTypeToApi(ieltsType);
-
-            const mappedTaskType = mapTaskTypeToApi(taskType);
-
+            // Map UI selections to expected API query parameters
             const response = await getRandomQuestion(
-                mappedIeltsType,
-                mappedTaskType
+                ieltsType,
+                taskType
             );
 
-            return response.data;
+            return response.data.data as QuestionResponse["data"];
         },
 
-        onSuccess: (data: GetQuestionResponse) => {
+        onSuccess: (data) => {
             // Update task description with API response
             setViewData((prev) => ({
                 ...prev,
+                taskBar: {
+                    ...prev.taskBar,
+                    timeRemaining: newTimerValue, // Reset timer based on task type
+                    taskTimeLimit: newTimerValue, // Set time limit based on task type
+                },
                 taskDescription: {
                     ...prev.taskDescription,
-                    questionText: data.questionText,
-                    taskID: data.taskId,
-                    questionID: data.questionId
+                    questionID: data.questionId,
+                    questionText: data.questionText
                 }
             }));
         }
@@ -90,8 +97,7 @@ export function usePracticeWriting() {
             // Map UI selections to expected API payload format
             const payload: SubmitAnswerPayload = {
                 ieltsType,
-                taskType: mapTaskTypeToApi(taskType),
-                taskId: viewData.taskDescription.taskID,
+                taskType,
                 essayResponse: answerText,
                 questionId: viewData.taskDescription.questionID,
                 customQuestionText: "" // Not applicable for Practice Writing page
@@ -101,17 +107,37 @@ export function usePracticeWriting() {
         },
 
         onSuccess: () => {
-            // Update Submission metadata
-            setViewData((prev) => ({
-                ...prev,
-                answer: {
-                    ...prev.answer,
-                    submissionDate: new Date().toISOString(),
-                    ieltsType: ieltsType!,
-                    taskType: taskType!,
-                    taskID: prev.taskDescription.taskID
-                }
-            }));
+
+            setTimeout(() => {
+                // Update Submission metadata
+                setViewData((prev) => ({
+                    ...prev,
+                    taskBar: {
+                        ...prev.taskBar,
+                        isPaused: true,           // Pause timer on submission
+                        timeRemaining: 0,
+                        taskTimeLimit: 0
+                    },
+                    taskDescription: {
+                        ...prev.taskDescription,
+                        questionText: "",         // clear question
+                        questionID: ""            // clear reference
+                    },
+                    answer: {
+                        ...prev.answer,
+                        submissionDate: new Date().toISOString(),
+                        ieltsType: ieltsType!,
+                        taskType: taskType!,
+                        answerText: "",           // clear answer text
+                        wordCount: 0              // reset word count
+                    }
+                }));
+
+                setAnswerText(""); // Clear answer input after successful submission
+                setWordCount(0);   // Reset word count after successful submission
+
+            }, 5000); // Delay state update to allow user to see success message
+
         }
     });
 

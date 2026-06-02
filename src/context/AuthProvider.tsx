@@ -45,7 +45,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const {
         data,
         isLoading,
-        isFetching,
     } = useCurrentUser();
 
     /* Extract authenticated user data from the API response. Falls back to null when no authenticated user exists */
@@ -55,7 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const isAuthenticated = user !== null;
 
     /* Combine query loading states to track whether authentication state is still being resolved */
-    const isAuthLoading = isLoading || isFetching;
+    const isAuthLoading = isLoading && !user;
 
 
     // Define async function to handle login result and update global state  

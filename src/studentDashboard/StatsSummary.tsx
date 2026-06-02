@@ -1,45 +1,43 @@
-// Describe STATS data types 
-type Stat = {
-    label: string;
-    value: number;
-    icon: React.ReactNode;
-}
+import type { StatCard } from "../types/student/StudentDashboard";
 
+// Define props for StatsSummary component
 type StatSummaryProps = {
-    stats: Stat[];
-}
+    stats: StatCard[];
+};
 
-// StatsSummary component displays four StatCard subcomponents which contain four key statistics from the student's submissions.
-// TODO: Pass data for values to prop. 
-export function StatsSummary({stats}:StatSummaryProps){
-    return(
+// StatsSummary component displays StatCard subcomponents which contain key statistics from the student's submissions.
+export function StatsSummary({ stats }: StatSummaryProps) {
+    return (
         <div className="stats-summary">
             {stats.map((stat) => (
-                <StatCard 
-                key={stat.label}
-                label={stat.label}
-                value={stat.value}
-                icon={stat.icon}
+                <StatCard
+                    key={stat.label}
+                    label={stat.label}
+                    value={stat.value}
+                    icon={stat.icon}
                 />
             ))}
-    </div>
+        </div>
     );
 
 }
 
-// Provide type to describe the StatCard component's props
-type StatCardProps = Stat;
+
+// Define props for StatCard component
+type StatCardProps = StatCard;
 
 
 // StatCard component displays a single stat card containing a label and value
-function StatCard({label, value, icon}: StatCardProps){
+function StatCard({ label, value, icon: Icon }: StatCardProps) {
     return (
         <div className="stat-card">
             <div className="stat-content">
-            <p className="statcard-label">{label}</p>
-            <p className="statcard-value">{value}</p>
+                <p className="statcard-label">{label}</p>
+                <p className="statcard-value">{value}</p>
             </div>
-            <div className="stat-icon">{icon}</div>
+            <div className="stat-icon">
+                <Icon />
+            </div>
         </div>
     );
 }

@@ -16,6 +16,11 @@ export default function PracticeWritingPage() {
 
     const { viewData, actions, state } = usePracticeWriting();
 
+    // Debugging: Log viewData changes TODO: Remove after confirming state updates correctly
+    console.log("FULL viewData:", viewData);
+    console.log("Question text:", viewData.taskDescription.questionText);
+
+
     return (
 
         <div className="practice-writing-page">
