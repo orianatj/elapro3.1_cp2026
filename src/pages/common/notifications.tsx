@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Notifications.css";
+import "./notifications.css";
 import { useNotifications } from "../../hooks/useNotifications";
 import { useUpdateNotification } from "../../hooks/useUpdateNotification";
 
