@@ -44,7 +44,7 @@ export type ScoreOverview = {
   criteriaScores: CriterionScore[];   // List of scores for each criterion
   
   submissionDate: string;             // Derived from backend 'timestamp', formatted for display, e.g. "Mar 17, 2026"  
-  writingDuration: string;            // Derived from backend 'submissionDuration', formatted for display, e.g. "45 mins"
+  wordCount: number;                  // Derived from backend 'wordCount'
 };
 
 // Represents the score for an individual IELTS assessment criterion
