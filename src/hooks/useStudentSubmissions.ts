@@ -9,8 +9,8 @@ import { formatDateTime } from "../utils/dateUtils";
 import { mapGradingStatus } from "../utils/gradingStatus";
 
 import type { StudentSubmissions } from "../types/student/StudentSubmissionsViewData";
-import type { SubmissionResponse } from "../types/common/api/SubmissionResponse";
-import type { ResultsLightResponse } from "../types/common/api/ResultsResponse";
+import type { SubmissionResponse } from "../types/common/api/submissions";
+import type { ResultsLightResponse } from "../types/common/api/results";
 
 import type {
     FilterValue,
