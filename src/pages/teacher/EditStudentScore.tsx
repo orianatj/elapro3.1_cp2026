@@ -41,10 +41,14 @@ export function GetTaskDetails({ submissionId }: { submissionId: string }) {
   if (submissionResultQuery.isLoading) return <div>Loading...</div>;
   if (submissionResultQuery.isError) return <div>Error: {String(submissionResultQuery.error)}</div>;
 
+  const originalTaskType: string = result?.taskType || "";
+  const wordToRemove: string = "task";
+  const cleanedTaskType: string = originalTaskType.replaceAll(wordToRemove, "");
+
   return (
     <div>
       <h4>IELTS Type: {result?.ieltsType ? capitalizeFirstLetter(result.ieltsType) : ""}</h4>
-      <h4>Task Type: {result?.taskType}</h4>
+      <h4>Task Type: {cleanedTaskType}</h4>
     </div>
   );
 }
