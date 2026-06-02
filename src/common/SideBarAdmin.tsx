@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+import "../common/primarynavigation.css";
 
 const adminNavItems = [
   {
