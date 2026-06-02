@@ -5,6 +5,9 @@ import ToolbarButtonConfirm from "../../common/ToolbarButtonConfirm";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSubmissionIndividual } from "../../hooks/useSubmissionIndividual";
 import { useSubmissionResult } from "../../hooks/useSubmissionResult";
+import pencil from "/src/assets/pencil.png";
+import checkmark from "/src/assets/checkmark.png";
+
 
 export function IndividualSubmission({ submissionId }: { submissionId: string }) {
   const submissionIndividualQuery = useSubmissionIndividual(submissionId);
@@ -121,12 +124,12 @@ export default function IndividualSubmissionPage() {
             <SubmissionResult submissionId={submissionId!} />
             <div className="button-container">
               <ToolbarButton
-                icon="/src/assets/pencil.png"
+                icon={pencil}
                 label="Edit Grade"
                 onClick={() => navigate(`/teacher/edit-score/${submissionId}/${encodeURIComponent(firstNameDecoded ?? '')}/${encodeURIComponent(lastNameDecoded ?? '')}`)}
               />
               <ToolbarButtonConfirm
-                icon="/src/assets/checkmark.png"
+                icon={checkmark}
                 label="OK"
                 onClick={() => navigate("/teacher/submissions")}
               />
