@@ -31,6 +31,7 @@
   --status-late: #b00303;
 }
 
+
 /* ================= RESET + BASE ================= */
 
 /* Universal reset for consistent sizing */
@@ -38,7 +39,7 @@
   box-sizing: border-box;
 }
 
-/* Overall page styling */
+/* Main page styling and background gradient */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -47,12 +48,13 @@ body {
   color: var(--text-main);
 }
 
-/* Makes all images responsive by default */
+/* Responsive image handling */
 img {
   max-width: 100%;
   display: block;
 }
 
+/* Shared heading styling */
 h3 {
   font-family: "Source Serif Pro", serif;
   font-size: 24px;
@@ -61,6 +63,7 @@ h3 {
 
 /* ================= LAYOUT WRAPPER ================= */
 
+/* Main teacher page layout with sidebar and content area */
 .teacher-container {
   display: flex;
   min-height: 100vh;
@@ -68,6 +71,7 @@ h3 {
 
 /* ================= SIDEBAR ================= */
 
+/* Sidebar container */
 .sidebar {
   width: 240px;
   margin: 10px;
@@ -77,12 +81,14 @@ h3 {
   border-radius: 20px;
 }
 
+/* Align logo and profile section vertically */
 .top-section {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Logo wrapper */
 .logo {
   display: flex;
   flex-direction: column;
@@ -91,12 +97,14 @@ h3 {
   margin-bottom: 20px;
 }
 
+/* Logo image sizing */
 .logo img {
   max-width: 300px;
   height: auto;
   margin-bottom: 0;
 }
 
+/* Logo text positioning */
 .logo p {
   margin-top: -80px;
   font-family: "Source Serif Pro", serif;
@@ -105,7 +113,7 @@ h3 {
   color: var(--sidebar-text);
 }
 
-
+/* User avatar and notification area */
 .top-icons {
   display: flex;
   align-items: center;
@@ -115,22 +123,26 @@ h3 {
   margin-bottom: 20px;
 }
 
+/* User profile picture */
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 
+/* Allows notification badge to sit on top of icon */
 .notification-wrapper {
   position: relative;
 }
 
+/* Notification bell/icon */
 .notification-wrapper img {
   width: 28px;
   height: 28px;
   cursor: pointer;
 }
 
+/* Red notification count badge */
 .badge {
   position: absolute;
   top: -6px;
@@ -143,17 +155,19 @@ h3 {
   border-radius: 50%;
 }
 
+/* Remove default list styling from navigation */
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* Navigation link layout */
 .sidebar a {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 0px;
+  padding: 0;
   margin: 0;
   border-radius: 8px;
   cursor: pointer;
@@ -161,16 +175,19 @@ nav ul {
   font-size: 18px;
 }
 
+/* Highlight menu item on hover */
 .sidebar a:hover {
   background: var(--sidebar-hover);
 }
 
+/* Navigation icon sizing */
 .sidebar a img {
   width: 24px;
   height: 24px;
   object-fit: contain;
 }
 
+/* Remove default link styling */
 .sidebar a,
 .sidebar a:visited {
   color: inherit;
@@ -179,11 +196,13 @@ nav ul {
 
 /* ================= MAIN CONTENT ================= */
 
+/* Main dashboard content area */
 .main {
   flex: 1;
   padding: 20px;
 }
 
+/* Welcome message container */
 .header {
   margin-bottom: 20px;
   padding: 20px;
@@ -194,6 +213,7 @@ nav ul {
 
 /* ================= STATS SECTION ================= */
 
+/* Statistics cards layout */
 .stats {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -201,6 +221,7 @@ nav ul {
   margin-bottom: 20px;
 }
 
+/* Individual statistics card */
 .card {
   padding: 5px;
   background: var(--card-bg);
@@ -215,11 +236,13 @@ nav ul {
   border: 1px solid var(--border-light);
 }
 
+/* Statistic icon */
 .card img {
   width: 36px;
   height: 36px;
 }
 
+/* Statistic value */
 .card strong {
   display: block;
   margin-top: 10px;
@@ -229,6 +252,7 @@ nav ul {
 
 /* ================= CHARTS SECTION ================= */
 
+/* Grid layout for dashboard charts */
 .charts {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -236,69 +260,30 @@ nav ul {
   margin-bottom: 20px;
 }
 
+/* Hover effect for chart images */
 .chart-box img {
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
+/* Slight zoom effect when hovering charts */
 .chart-box img:hover {
   transform: scale(1.03);
 }
 
-.image-modal {
-  position: fixed;
-  inset: 0;
-  background: var(--overlay-bg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  padding: 20px;
-}
-
-.zoomed-image {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 16px;
-  animation: zoomIn 0.3s ease;
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Make charts clickable */
-.chart-box img {
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.chart-box img:hover {
-  transform: scale(1.03);
-}
-
-/* Modal background */
+/* Full-screen modal overlay for enlarged chart images */
 .image-modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 9999;
   padding: 20px;
 }
 
-/* Zoomed image */
+/* Enlarged chart image */
 .zoomed-image {
   max-width: 90%;
   max-height: 90%;
@@ -306,7 +291,7 @@ nav ul {
   animation: zoomIn 0.3s ease;
 }
 
-/* Smooth zoom animation */
+/* Zoom-in animation when modal opens */
 @keyframes zoomIn {
   from {
     transform: scale(0.7);
@@ -317,15 +302,15 @@ nav ul {
     opacity: 1;
   }
 }
-
-
 /* ================= BOTTOM LISTS ================= */
 
+/* Wrapper for the two bottom dashboard panels */
 .bottom {
   display: flex;
   gap: 20px;
 }
 
+/* Card-style container used by list sections */
 .list {
   flex: 1;
   padding: 15px;
@@ -334,6 +319,7 @@ nav ul {
   border-radius: 12px;
 }
 
+/* Header row for each list section */
 .list-header {
   display: flex;
   justify-content: space-between;
@@ -341,21 +327,25 @@ nav ul {
   margin-bottom: 8px;
 }
 
+/* Title inside each list header */
 .list-header h3 {
   margin: 0;
   font-size: 18px;
 }
 
+/* Link-style action text */
 .see-all {
   font-size: 14px;
   color: var(--link-blue);
   cursor: pointer;
 }
 
+/* Hover state for the action link */
 .see-all:hover {
   text-decoration: underline;
 }
 
+/* Thin divider below the list header */
 .divider {
   width: 100%;
   height: 1px;
@@ -363,12 +353,14 @@ nav ul {
   margin-bottom: 10px;
 }
 
+/* Reset list spacing and bullets */
 .assignment-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* Single assignment row */
 .assignment-item {
   display: flex;
   align-items: center;
@@ -380,19 +372,23 @@ nav ul {
   border-radius: 16px;
 }
 
+/* Icon inside each assignment row */
 .assignment-item img {
   width: 28px;
   height: 28px;
 }
 
+/* Hover effect for assignment rows */
 .assignment-item:hover {
   background: var(--assignment-hover);
 }
 
+/* Darker date badge when hovering the row */
 .assignment-item:hover .assignment-date {
   background: var(--date-hover);
 }
 
+/* Date badge shown on the left side of each row */
 .assignment-date {
   width: 50px;
   height: 50px;
@@ -404,12 +400,14 @@ nav ul {
   justify-content: center;
 }
 
+/* Day number inside the date badge */
 .assignment-date .day {
   color: var(--sidebar-text);
   font-size: 18px;
   font-weight: 600;
 }
 
+/* Centers the assignment title area */
 .assignment-title-wrap {
   flex: 1;
   display: flex;
@@ -418,11 +416,13 @@ nav ul {
   text-align: center;
 }
 
+/* Title text for each assignment */
 .assignment-title-wrap strong {
   font-size: 16px;
   font-weight: 600;
 }
 
+/* Right-side metadata column for time and status */
 .assignment-meta {
   width: 140px;
   display: flex;
@@ -433,11 +433,13 @@ nav ul {
   gap: 4px;
 }
 
+/* Time text inside the metadata column */
 .assignment-meta .time {
   font-size: 13px;
   color: var(--text-time);
 }
 
+/* Default status label styling */
 .status {
   font-family: "DM Sans", sans-serif;
   font-size: 14px;
@@ -445,98 +447,10 @@ nav ul {
   color: var(--text-muted);
 }
 
+/* Special styling for late status labels */
 .status.late {
   font-family: "Jost", sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: var(--status-late);
-}
-
-/* ================= TABLET RESPONSIVE ================= */
-
-@media (max-width: 900px) {
-  .teacher-container {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: auto;
-    margin: 10px;
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .charts {
-    grid-template-columns: 1fr;
-  }
-
-  .bottom {
-    flex-direction: column;
-  }
-}
-
-/* ================= PHONE RESPONSIVE ================= */
-
-@media (max-width: 600px) {
-  .sidebar {
-    padding: 15px;
-  }
-
-  .logo img {
-    width: 240px;
-  }
-
-  .logo p {
-    font-size: 22px;
-  }
-
-  .header {
-    font-size: 18px;
-    padding: 15px;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .card {
-    max-width: none;
-    width: 100%;
-  }
-
-  .card strong {
-    font-size: 20px;
-  }
-
-  .chart-box {
-    padding: 15px;
-    min-height: 120px;
-  }
-
-/* Stats layout for mobile */
-.stats {
-  grid-template-columns: 1fr; /* keep single column */
-  gap: 12px; /* reduce huge desktop spacing */
-}
-
-/* Make cards wider and full-width */
-.card {
-  max-width: none;   /* remove width restriction */
-  width: 100%;       /* take full available space */
-}
-
-.submission-center {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.submission-center > * {
-  width: 100%;
-  max-width: 700px;
-}
-
 }
