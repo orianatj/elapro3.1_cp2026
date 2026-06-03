@@ -53,7 +53,7 @@
 }
 
 
-.notification-icon {
+.navbar-notification-icon {
   color: black;
   width: 24px;
   height: 24px;
@@ -86,21 +86,20 @@
 
 .avatar-container {
   position: relative;
-};
-
+}
 
 
 /* Notification badge */
-.badge {
-  position: absolute; /* Positioned relative to wrapper */
-  top: -6px; /* Moves badge upward */
-  right: -8px; /* Moves badge right */
-  background: #f70406; /* Red badge background */
-  color: white; /* White text */
-  font-size: 12px; /* Small text size */
-  font-weight: bold; /* Bold text */
-  padding: 2px 6px; /* Internal spacing */
-  border-radius: 50%; /* Circular badge */
+.notification-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    background-color: #ef4444;
+    border-radius: 50%;
+    border: 1px solid white;
 }
 
 nav ul {
