@@ -17,11 +17,11 @@ import { buildScoreBar } from "../utils/scoreBarUtility";
 
 // Defines the display order of IELTS competencies for consistent UI rendering 
 const competencyOrder: Record<CompetencyType, number> = {
-  overall: 0,
-  task_response: 1,
-  coherence_cohesion: 2,
-  lexical: 3,
-  grammar: 4,
+    overall: 0,
+    task_response: 1,
+    coherence_cohesion: 2,
+    lexical: 3,
+    grammar: 4,
 };
 
 // useSubmissionAnalysis is a custom hook responsible for fetching and preparing
@@ -45,9 +45,9 @@ export function useSubmissionAnalysis(submissionId: string) {
 
             const result: ResultFullResponse =
                 resultsRes.data.data.results?.[0];
-                if (!result) {
-                    throw new Error("No results data found for this submission.");
-                }
+            if (!result) {
+                throw new Error("No results data found for this submission.");
+            }
 
             const submission: SubmissionResponse =
                 submissionRes.data.data;
@@ -99,10 +99,11 @@ export function useSubmissionAnalysis(submissionId: string) {
                     taskDescription: {
                         placeHolderText: "",
                         questionID: submission.questionId,
-                        questionText: result.questionText ?? result.customQuestionText ?? "Question text unavailable",
+                        questionText: result.questionText ?? result.customQuestionText ?? "Task description unavailable",
                     },
                     submittedResponse: {
-                        essayText: result.essayText,
+                        essayText: result.essayText && result.essayText.length > 0
+                            ? result.essayText : "Submitted response unavailable",
                     },
 
                 },
@@ -114,9 +115,11 @@ export function useSubmissionAnalysis(submissionId: string) {
                         .map((criterion) => ({
                             criterion: criterion.competency,
                             titleLabel: criterionLabels[criterion.competency],
-                            score: criterion.score,
+                            score: criterion.score ?? 0,
                             scoreBar: buildScoreBar(criterion.score),
-                            explanationText: criterion.feedback ?? "Explanation unavailable",
+                            explanationText: criterion.feedback && criterion.feedback.trim().length > 0
+                                ? criterion.feedback
+                                : "Explanation unavailable",
                         })),
 
                 },

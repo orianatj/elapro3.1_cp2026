@@ -8,7 +8,6 @@ import { QueryStateHandler } from "../../common/QueryStateHandler";
 import { SubmissionMetaBar } from "../../studentDashboard/SubmissionMetaBar";
 import { ScoreOverviewSection } from "../../studentDashboard/SubmissionScoreOverview";
 import { SubmissionSummarySection } from "../../studentDashboard/SubmissionSummary";
-import { ScoreExplanationSection } from "../../studentDashboard/SubmissionScoreExplanation";
 import { CriterionBreakdownSection } from "../../studentDashboard/SubmissionCriterionBreakdown";
 import { SubmissionActionsBar } from "../../studentDashboard/SubmissionActionsBar";
 
@@ -21,9 +20,6 @@ export default function SubmissionAnalysisPage() {
 
   // Extract submissionId from the URL parameters to fetch the correct submission analysis data.
   const { submissionId } = useParams();
-
-  // TODO: REMOVE console.log after testing
-  console.log("Submission ID:", submissionId);
 
   // Use the custom hook to fetch and prepare the ViewData for this page based on the submissionId.
   const { viewData, isPending, isError, error } = useSubmissionAnalysis(submissionId ?? "");
