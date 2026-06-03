@@ -16,7 +16,7 @@ export type NavbarProps = {
 };
 
 // NavBar component 
-export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
+export default function Navbar({ pageNames }: NavbarProps) {
 
     const menuRef = useRef<HTMLDivElement>(null);
 
