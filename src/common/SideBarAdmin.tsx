@@ -3,7 +3,7 @@ import "../common/primarynavigation.css";
 
 import logoIcon from "../assets/Logo.png";
 import avatarIcon from "../assets/Avatar.png";
-import notificationsIcon from "../assets/notifications.png";
+/*import notificationsIcon from "../assets/notifications.png";*/
 import dashboardIcon from "../assets/grid.png";
 import usersIcon from "../assets/Avatar.png";
 import subscriptionsIcon from "../assets/documents.png";
@@ -49,7 +49,7 @@ export default function SideBarAdmin() {
           />
 
           <div className="admin-notification-wrapper">
-            <img src={notificationsIcon} alt="notifications" />
+            {/*<img src={notificationsIcon} alt="notifications" />*/}
             <span className="admin-badge">2</span>
           </div>
         </div>

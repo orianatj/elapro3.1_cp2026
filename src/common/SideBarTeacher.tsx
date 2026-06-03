@@ -8,7 +8,7 @@ import vector from "../assets/Vector.png";
 import help from "../assets/help.png";
 import logo from "../assets/Logo.png";
 import avatar from "../assets/Avatar.png";
-import notifications from "../assets/notifications.png";
+{/*import notifications from "../assets/notifications.png";*/ }
 
 
 
@@ -55,7 +55,7 @@ export default function Sidebar() {
               `notification-wrapper ${isActive ? "active" : ""}`
             }
           >
-            <img src={notifications} alt="notifications icon" />
+            {/*<img src={notifications} alt="notifications icon" />*/}
             <span className="badge">0</span>
           </NavLink>
         </div>
