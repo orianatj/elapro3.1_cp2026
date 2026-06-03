@@ -41,8 +41,17 @@
   background-color: #ef4444;
 }
 
-.score-segment:not(.active) {
+.score-segment:not(.active):not(.half-active) {
   background-color: #e5e7eb;
 }
+
+.score-segment.half-active {
+  background: linear-gradient(
+    to right,
+    #ef4444 50%,
+    #e5e7eb 50%
+  );
+}
+
 
 

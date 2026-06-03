@@ -21,7 +21,7 @@ export function CriterionBreakdownSection({ data }: CriterionBreakdownProps) {
                     {/* Criterion title and score on the same line */}
                     <div className="criterion-header">
                         <h3>
-                            {criterion.titleLabel}: {criterion.score}
+                            {criterion.titleLabel}: {criterion.score.toFixed(1)}
                         </h3>
                     </div>
 
@@ -40,7 +40,9 @@ export function CriterionBreakdownSection({ data }: CriterionBreakdownProps) {
                                 {criterion.scoreBar.map((segment) => (
                                     <div
                                         key={segment.value}
-                                        className={`score-segment ${segment.isActive ? "active" : ""}`}
+                                        className={`score-segment ${segment.isActive ? "active" : ""
+                                            } ${segment.isHalfActive ? "half-active" : ""
+                                            }`}
                                     />
                                 ))}
                             </div>

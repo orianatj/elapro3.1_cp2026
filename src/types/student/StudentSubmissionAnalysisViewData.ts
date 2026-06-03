@@ -63,6 +63,7 @@ export type CriterionType = CompetencyType;
 export type ScoreBarSegment = {
   value: number;     // band value for this segment, e.g. 1 - 9
   isActive: boolean; // whether this segment should be visually highlighted.
+  isHalfActive?: boolean; // Optional extension for half-band scores (e.g. 6.5)
 };
 
 

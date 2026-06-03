@@ -26,7 +26,9 @@ export function ScoreOverviewSection({ data }: ScoreOverviewProps) {
                         {data.overallScoreBar.map((segment) => (
                             <div
                                 key={segment.value}
-                                className={`score-segment ${segment.isActive ? "active" : ""}`}
+                                className={`score-segment ${segment.isActive ? "active" : ""
+                                    } ${segment.isHalfActive ? " half-active" : ""                                        
+                                    }`}
                             />
                         ))}
                     </div>
@@ -36,7 +38,7 @@ export function ScoreOverviewSection({ data }: ScoreOverviewProps) {
                 </div>
 
                 <div className="score-value">
-                    {data.overallScore}
+                    {data.overallScore.toFixed(1)}
                 </div>
 
             </div>
@@ -54,13 +56,15 @@ export function ScoreOverviewSection({ data }: ScoreOverviewProps) {
                             {c.scoreBar.map((segment) => (
                                 <div
                                     key={segment.value}
-                                    className={`score-segment ${segment.isActive ? "active" : ""}`}
+                                    className={`score-segment ${segment.isActive ? "active" : ""
+                                        } ${segment.isHalfActive ? "half-active" : ""
+                                        }`}
                                 />
                             ))}
                         </div>
 
                         <div className="criterion-score">
-                            {c.score}
+                            {c.score.toFixed(1)}
                         </div>
                     </div>
                 ))}
