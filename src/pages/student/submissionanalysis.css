@@ -12,5 +12,37 @@
   margin-bottom: 32px;
 }
 
+/* ===== Score Bar Styles ===== */
+
+.score-bar-with-labels {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.overall-score-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.score-bar {
+  display: flex;
+  gap: 4px;
+}
+
+.score-segment {
+  width: 16px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}
+
+.score-segment.active {
+  background-color: #ef4444;
+}
+
+.score-segment:not(.active) {
+  background-color: #e5e7eb;
+}
 
 
