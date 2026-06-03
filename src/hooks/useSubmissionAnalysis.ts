@@ -8,12 +8,21 @@ import { submissionIndividual } from "../services/submissionsApi";
 // Import the ViewData types used by the Submission Analysis page
 import type { SubmissionAnalysis } from "../types/student/StudentSubmissionAnalysisViewData";
 import type { SubmissionResponse } from "../types/common/api/submissions";
-import type { ResultFullResponse } from "../types/common/api/results";
+import type { CompetencyType, ResultFullResponse } from "../types/common/api/results";
 
 // Import utilities for formatting and labeling
 import { formatDateTime } from "../utils/dateUtils";
 import { ieltsTypeLabels, taskTypeLabels, criterionLabels } from "../utils/studentSubmissionLabels";
+import { buildScoreBar } from "../utils/scoreBarUtility";
 
+// Defines the display order of IELTS competencies for consistent UI rendering 
+const competencyOrder: Record<CompetencyType, number> = {
+  overall: 0,
+  task_response: 1,
+  coherence_cohesion: 2,
+  lexical: 3,
+  grammar: 4,
+};
 
 // useSubmissionAnalysis is a custom hook responsible for fetching and preparing
 export function useSubmissionAnalysis(submissionId: string) {
@@ -72,14 +81,15 @@ export function useSubmissionAnalysis(submissionId: string) {
 
                 scoreOverview: {
                     overallScore: result.overallScore ?? 0,
-                    overallScoreBar: [],
+                    overallScoreBar: buildScoreBar(result.overallScore),
                     criteriaScores: result.competencies
                         .filter(c => c.competency !== "overall")
+                        .sort((a, b) => competencyOrder[a.competency] - competencyOrder[b.competency])
                         .map((criterion) => ({
                             criterion: criterion.competency,
                             displayLabel: criterionLabels[criterion.competency],
                             score: criterion.score,
-                            scoreBar: [],
+                            scoreBar: buildScoreBar(criterion.score),
                         })),
                     submissionDate: formatDateTime(submission.submittedAt),
                     wordCount: submission.wordCount,
@@ -97,22 +107,15 @@ export function useSubmissionAnalysis(submissionId: string) {
 
                 },
 
-                scoreExplanation: {
-                    title: "Score Explanation",
-                    overallScore: result.overallScore ?? 0,
-                    overallScoreBar: [],
-                    explanationText: result.competencies.find(
-                        c => c.competency === "overall")?.feedback ?? "Explanation unavailable",
-                },
-
                 criterionBreakdown: {
                     criteria: result.competencies
-                        .filter(c => c.competency !== "overall")
+                        .filter(c => c.competency)
+                        .sort((a, b) => competencyOrder[a.competency] - competencyOrder[b.competency])
                         .map((criterion) => ({
                             criterion: criterion.competency,
                             titleLabel: criterionLabels[criterion.competency],
                             score: criterion.score,
-                            scoreBar: [],
+                            scoreBar: buildScoreBar(criterion.score),
                             explanationText: criterion.feedback ?? "Explanation unavailable",
                         })),
 

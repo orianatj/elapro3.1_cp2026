@@ -24,7 +24,6 @@ export interface SubmissionAnalysis {
     submissionMeta: SubmissionMeta;         // Metadata about the submission (e.g. Academic/General, Task 1/2)
     scoreOverview: ScoreOverview;           // Displays overall and criteria scores, as well as writing metrics.
     submissionSummary: SubmissionSummary;   // Contains the task description and the submitted essay response
-    scoreExplanation: ScoreExplanation;     // Detailed explanations for overall and criteria scores, with enhancement suggestions.
     criterionBreakdown: CriterionBreakdown; // Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
     actions: SubmissionActions;             // Available actions the student can take related to this submission (e.g. download report, request review)
 }
@@ -78,16 +77,6 @@ export type SubmissionSummary = {
 export type SubmittedResponse = {
   essayText: string;   // derived from backend 'essayResponse'
   wordCount?: number;  // derived from length of 'essayResponse'
-};
-
-
-/* ===================== Score Explanation ===================== */
-// Score explanation section, includes detailed overall, and per-criterion explanations.
-export type ScoreExplanation = {
-  title: string;                      // e.g. "Score Explanation"
-  overallScore: number;               // Overall band score, e.g. 4.0
-  overallScoreBar: ScoreBarSegment[]; // Visual representation of the overall score
-  explanationText: string;            // AI-generated overall explanation (multi-paragraph)
 };
 
 

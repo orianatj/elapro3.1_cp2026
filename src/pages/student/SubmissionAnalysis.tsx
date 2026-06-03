@@ -58,10 +58,6 @@ export default function SubmissionAnalysisPage() {
               <SubmissionSummarySection data={data.submissionSummary} />
             </div>
 
-            <div className="analysis-page-score-explanation">
-              <ScoreExplanationSection data={data.scoreExplanation} />
-            </div>
-
             <div className="analysis-page-criterion-breakdown">
               <CriterionBreakdownSection data={data.criterionBreakdown} />
             </div>
