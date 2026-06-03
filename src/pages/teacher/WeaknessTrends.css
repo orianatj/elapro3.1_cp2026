@@ -1,14 +1,36 @@
+/* ==========================================================
+   Weakness Trends Component
+
+   This stylesheet controls:
+   - Overall card appearance
+   - Chart layout
+   - Tooltip styling
+   - Legend styling
+   - Recharts customizations
+
+   CSS variables are used for easy color management and
+   consistent theming across the component.
+   ========================================================== */
+
 .weakness-trends {
+  /* ======================================================
+     Series Colors
+     Used by chart lines, legend dots, and tooltips.
+     ====================================================== */
   --wt-task-response: #f2b705;
   --wt-coherence-cohesion: #2f66d0;
   --wt-lexical-resource: #27c93f;
   --wt-range-accuracy: #d10000;
 
+  /* Axis and grid styling */
   --wt-axis-color: #64748b;
   --wt-grid-color: rgba(15, 23, 42, 0.18);
+
+  /* Legend appearance */
   --wt-legend-opacity-disabled: 0.45;
   --wt-legend-text: #334155;
 
+  /* Main card styling */
   background: #ffffff;
   border: 1px solid #e6edf5;
   border-radius: 20px;
@@ -16,6 +38,25 @@
   width: 100%;
 }
 
+/* ==========================================================
+   Header Style
+
+   ========================================================== */
+.weakness-trends__header h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #17396b;
+  margin-left: 20px;
+  font-weight: 700;
+}
+
+/* ==========================================================
+   Header Container
+
+   Holds:
+   - Title
+   - Subtitle (optional)
+   ========================================================== */
 .weakness-trends__header {
   display: flex;
   align-items: flex-start;
@@ -23,6 +64,7 @@
   margin-bottom: 10px;
 }
 
+/* Main chart title */
 .weakness-trends__title {
   font-size: 18px;
   font-weight: 700;
@@ -30,12 +72,22 @@
   margin: 0;
 }
 
+/* Optional date range / period text */
 .weakness-trends__subtitle {
   margin: 4px 0 0;
   color: #64748b;
   font-size: 13px;
 }
 
+/* ==========================================================
+   Chart Wrapper
+
+   Contains:
+   - Recharts graph
+   - Legend
+
+   Fixed height ensures chart consistency.
+   ========================================================== */
 .weakness-trends__chart {
   width: 100%;
   height: 320px;
@@ -43,11 +95,17 @@
   flex-direction: column;
 }
 
+/* Container that allows the chart to grow/shrink */
 .weakness-trends__chart-area {
   flex: 1;
   min-height: 0;
 }
 
+/* ==========================================================
+   Loading / Empty / Error States
+
+   Used while fetching data or when no data exists.
+   ========================================================== */
 .weakness-trends__state {
   display: grid;
   place-items: center;
@@ -56,10 +114,17 @@
   font-size: 14px;
 }
 
+/* Error-specific state styling */
 .weakness-trends__state--error {
   color: #b91c1c;
 }
 
+/* ==========================================================
+   Custom Tooltip
+
+   Appears when hovering over a chart point.
+   Displays values for all visible metrics.
+   ========================================================== */
 .weakness-trends__tooltip {
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid #dbe4ee;
@@ -69,6 +134,7 @@
   min-width: 210px;
 }
 
+/* Tooltip date/month label */
 .weakness-trends__tooltip-title {
   font-weight: 700;
   font-size: 13px;
@@ -76,61 +142,93 @@
   margin-bottom: 8px;
 }
 
+/* Individual metric row inside tooltip */
 .weakness-trends__tooltip-row {
   display: grid;
+
+  /* Layout:
+     [dot] [label] [value]
+  */
   grid-template-columns: 10px 1fr auto;
+
   gap: 8px;
   align-items: center;
+
   font-size: 12px;
   color: #334155;
   margin-bottom: 6px;
 }
 
+/* Remove spacing from final row */
 .weakness-trends__tooltip-row:last-child {
   margin-bottom: 0;
 }
 
+/* ==========================================================
+   Shared Series Dot
+
+   Used in:
+   - Tooltips
+   - Legend items
+   ========================================================== */
 .dot {
   width: 8px;
   height: 8px;
   border-radius: 999px;
 }
 
+/* Task Response series color */
 .dot--task-response {
   background: var(--wt-task-response);
 }
 
+/* Coherence & Cohesion series color */
 .dot--coherence {
   background: var(--wt-coherence-cohesion);
 }
 
+/* Lexical Resource series color */
 .dot--lexical {
   background: var(--wt-lexical-resource);
 }
 
+/* Range & Accuracy series color */
 .dot--range {
   background: var(--wt-range-accuracy);
 }
 
+/* ==========================================================
+   Recharts Customizations
+   ========================================================== */
+
+/* Horizontal grid lines */
 .weakness-trends__grid line {
   stroke: var(--wt-grid-color);
 }
 
+/* Axis label styling */
 .weakness-trends .recharts-cartesian-axis-tick-value {
   fill: var(--wt-axis-color);
   font-size: 12px;
 }
 
+/* ==========================================================
+   Interactive Legend
+
+   Allows users to show/hide individual chart series.
+   ========================================================== */
 .weakness-trends__legend {
   display: flex;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+
   padding-top: 8px;
   margin-top: 6px;
   line-height: 1;
 }
 
+/* Individual legend button */
 .weakness-trends__legend-item {
   border: none;
   background: transparent;
@@ -144,14 +242,17 @@
   transition: opacity 0.2s ease;
 }
 
+/* Active (visible) series */
 .weakness-trends__legend-item--active {
   opacity: 1;
 }
 
+/* Inactive (hidden) series */
 .weakness-trends__legend-item--inactive {
   opacity: var(--wt-legend-opacity-disabled);
 }
 
+/* Legend label text */
 .weakness-trends__legend-text {
   color: var(--wt-legend-text);
   font-size: 11px;

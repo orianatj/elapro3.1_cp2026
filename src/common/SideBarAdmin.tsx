@@ -1,33 +1,35 @@
-
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
+import logoIcon from "../assets/Logo.png";
+import avatarIcon from "../assets/Avatar.png";
+import notificationsIcon from "../assets/notifications.png";
+import dashboardIcon from "../assets/grid.png";
+import usersIcon from "../assets/Avatar.png";
+import subscriptionsIcon from "../assets/documents.png";
+import reportsIcon from "../assets/file-tray-full.png";
+
 const adminNavItems = [
   {
-    icon: "/src/assets/grid.png",
+    icon: dashboardIcon,
     label: "Dashboard",
     path: "/admin",
   },
   {
-    icon: "/src/assets/Avatar.png",
+    icon: usersIcon,
     label: "Users",
     path: "/admin/users",
   },
   {
-    icon: "/src/assets/documents.png",
+    icon: subscriptionsIcon,
     label: "Subscriptions",
     path: "/admin/subscriptions",
   },
   {
-    icon: "/src/assets/file-tray-full.png",
+    icon: reportsIcon,
     label: "Reports",
     path: "/admin/reports",
   },
-  /*{
-    icon: "/src/assets/vector.png",
-    label: "Settings",
-    path: "/admin/settings",
-  },*/
 ];
 
 export default function SideBarAdmin() {
@@ -35,19 +37,19 @@ export default function SideBarAdmin() {
     <aside className="admin-sidebar">
       <div className="admin-top-section">
         <div className="admin-logo">
-          <img src="/src/assets/logo.png" alt="ELA Pro logo" />
+          <img src={logoIcon} alt="ELA Pro logo" />
           <p>Admin</p>
         </div>
 
         <div className="admin-top-icons">
           <img
             className="admin-avatar"
-            src="/src/assets/Avatar.png"
+            src={avatarIcon}
             alt="admin avatar"
           />
 
           <div className="admin-notification-wrapper">
-            <img src="/src/assets/notifications.png" alt="notifications" />
+            <img src={notificationsIcon} alt="notifications" />
             <span className="admin-badge">2</span>
           </div>
         </div>
@@ -64,7 +66,7 @@ export default function SideBarAdmin() {
                   isActive ? "admin-nav-link active" : "admin-nav-link"
                 }
               >
-                <img src={item.icon} alt="" />
+                <img src={item.icon} alt={`${item.label} icon`} />
                 <span>{item.label}</span>
               </NavLink>
             </li>
