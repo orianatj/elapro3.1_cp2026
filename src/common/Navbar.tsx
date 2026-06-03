@@ -7,6 +7,8 @@ import { USER_ROLE_LABELS } from "../constants/userRoleLabels";
 import useravatar from "../assets/primarynavigation/useravatar.png";
 import notificationsbell from "../assets/primarynavigation/notificationsbell.png";
 import type { NavItem } from "../types/common/NavBar";
+import { useNotifications } from "../hooks/useNotifications";
+import type { NotificationItem } from "../pages/common/notifications";
 
 
 export type NavbarProps = {
@@ -16,18 +18,13 @@ export type NavbarProps = {
 // NavBar component 
 export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
 
-
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Get logged-in user's info
     const { user, logout } = useAuth();
 
-    if (!user) {
-        return null;
-    }
-
-    // Get user role: student/teacher/administrator 
-    const userLabel = USER_ROLE_LABELS[user.userRole];
+    // Return TSQ notifications query 
+    const { data } = useNotifications(1);
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -35,6 +32,17 @@ export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
         logout();
         setIsMenuOpen(false);
     }
+
+    if (!user) {
+        return null;
+    }
+    // Determine if there are unread notifications  
+    const hasUnreadNotifications = data?.data?.items?.some((notification: NotificationItem) => !notification.read) ?? false;
+
+
+    // Get user role: student/teacher/administrator 
+    const userLabel = USER_ROLE_LABELS[user.userRole];
+
 
     /* Register global click listener to detect clicks outside the avatar/menu container.
     Closes the user menu when the user interacts elsewhere on the page. */
@@ -74,11 +82,20 @@ export default function Navbar({ pageNames }: { pageNames: NavItem[] }) {
 
                     </div>
 
-                    <div className="notification-container">
-                        <img className="notification-icon" src={notificationsbell} alt="notifications icon" />
-                        {/* Implement useNotifications hook call in this component to derive live data*/}
-                        <span className="badge">2</span>
-                    </div>
+                    {userLabel === "Student" && (
+                        <div className="notification-container">
+                            <NavLink to="notifications">
+                                <img className="navbar-notification-icon" src={notificationsbell} alt="notifications-icon" />
+                            </NavLink>
+
+                            {hasUnreadNotifications &&
+                                <span className="notification-indicator" />
+                            }
+
+                        </div>
+                    )}
+
+
                 </div>
             </div>
 
@@ -127,7 +144,6 @@ export function UserMenu({ name, onLogout }: UserMenuProps) {
             </div>
             <ul className="menu-options">
                 <li><NavLink to="/account-settings">Account Settings</NavLink></li>
-                <li><NavLink to="/notifications">Notifications</NavLink></li>
                 <li><button type="button" onClick={onLogout}>Logout</button></li>
             </ul>
         </div>
