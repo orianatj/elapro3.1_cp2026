@@ -1,5 +1,5 @@
 import { api } from "./client";
-import type { Credentials, Registration, PasswordReset, EmailRequest, ForgotPassword, VerifySignup } from "../types/common/Auth.ts"
+import type { Credentials, Registration, PasswordReset, EmailRequest, ForgotPassword, VerifySignup, RefreshToken } from "../types/common/Auth.ts"
 
 export const login = (credentials: Credentials) =>
   api.post("/auth/login", credentials);
@@ -34,8 +34,8 @@ export const refreshSession = async () => {
   return response.data;
 }
 
-export const refreshToken = async () => {
-  const response = await api.post("/auth/refresh-token");
+export const refreshToken = async ({ refreshToken }: RefreshToken) => {
+  const response = await api.post("/auth/refresh-token", { refreshToken, });
   return response.data;
 }
 

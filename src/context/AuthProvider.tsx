@@ -5,6 +5,7 @@ import type { Credentials } from "../types/common/Auth.ts";
 import { useLogin } from "../hooks/useLogin.ts";
 import { useCurrentUser } from "../hooks/useCurrentUser.ts";
 import { useQueryClient } from "@tanstack/react-query";
+import { refreshSession } from "../services/authApi.ts";
 
 
 // Define props for AuthContext
@@ -70,6 +71,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             // Persist access token for the current session to authenticate API calls
             sessionStorage.setItem("token", accessToken);
+
+            console.log("Login successful, attempting refresh token generation");
+
+            try {
+                // Generate refresh token 
+                const refreshToken = await refreshSession();
+
+                console.log("refreshSession response:", refreshToken);
+
+                // Store refresh token to exchange on session invalidation
+                sessionStorage.setItem("refreshToken", refreshToken.data.refreshToken);
+
+                console.log(
+                    "stored refresh token:",
+                    sessionStorage.getItem("refreshToken")
+                );
+
+            } catch (error) {
+                console.warn("Failed to generate refresh token")
+            }
 
             /* Trigger refetch of authenticated user data after login succeeds. Ensures the latest user profile is loaded into global auth state */
             queryClient.invalidateQueries({ queryKey: ["me"] });
