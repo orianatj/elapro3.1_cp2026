@@ -33,7 +33,6 @@ export const PRACTICE_WRITING_INITIAL_STATE: PracticeWriting = {
     taskDescription: {
         questionText: "",
         placeHolderText: "Select IELTS type and task type, then click 'Generate Question' to receive a writing prompt.",
-        taskID: 0,
         questionID: ""
     },
 

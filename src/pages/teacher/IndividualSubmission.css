@@ -19,6 +19,13 @@
   flex-direction: column;
 }
 
+.metadata-box {
+  font-family: "DM Sans", sans-serif;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: var(--score-card-bg);
+}
+
 .total-score-card {
   gap: 10px;
   border-radius: 12px;

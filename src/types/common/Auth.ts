@@ -36,3 +36,7 @@ export type ForgotPassword = {
 export type VerifySignup = {
     token: string;
 };
+
+export type RefreshToken = {
+    refreshToken: string;
+}
