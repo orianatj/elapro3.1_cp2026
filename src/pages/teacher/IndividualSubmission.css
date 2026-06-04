@@ -1,7 +1,7 @@
 /* Global color variables used throughout the page */
 :root {
   --page-bg:#FAFAFC;
-  --score-card-bg: #ebebf0;
+  --score-card-bg: #f3f4f6;
 }
 
 /* Main layout container holding the submission view and score card */
@@ -21,6 +21,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  
 }
 
 /* Metadata section showing word count and submission date */
@@ -29,16 +30,21 @@
   border-radius: 12px;
   padding: 20px;
   background-color: var(--score-card-bg);
+  color: black; /* Default text color */
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
 }
 
 /* Right-side card displaying scores, feedback, and action buttons */
 .total-score-card {
   gap: 10px;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 20px;
   padding-top: 0;
   flex: 1;
   background-color: var(--score-card-bg);
+  color: black; /* Default text color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Container for navigation and grading action buttons */
