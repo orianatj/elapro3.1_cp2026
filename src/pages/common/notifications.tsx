@@ -3,7 +3,7 @@ import "./notifications.css";
 import { useNotifications } from "../../hooks/useNotifications";
 import { useUpdateNotification } from "../../hooks/useUpdateNotification";
 
-type NotificationItem = {
+export type NotificationItem = {
   notificationId: string;
   userId?: string;
   submissionId?: string;
