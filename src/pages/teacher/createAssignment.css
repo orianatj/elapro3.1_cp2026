@@ -1,8 +1,7 @@
 /* ================= THEME COLORS ================= */
 /* Central color palette for the whole page */
 :root {
-  --bg-start: #c7d2fe;
-  --bg-end: #e5e7eb;
+  --bg-start: #FAFAFC;
 
   --text-main: #000000;
   --text-muted: #6b7280;
@@ -38,7 +37,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+  background: var(--bg-start);
   display: block;
   color: var(--text-main);
 }
