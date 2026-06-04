@@ -1,5 +1,3 @@
-/* BandDistribution.css */
-
 /* ==========================================================
    Main card container
    ========================================================== */
@@ -15,7 +13,7 @@
 }
 
 /* ==========================================================
-   Header row: title on the left, month controls on the right
+   Header
    ========================================================== */
 .band-header {
   display: flex;
@@ -24,7 +22,6 @@
   margin-bottom: 10px;
 }
 
-/* Title text inside the header */
 .band-header h3 {
   margin: 0;
   font-size: 22px;
@@ -32,7 +29,6 @@
   font-weight: 700;
 }
 
-/* Month selector wrapper */
 .band-period {
   display: flex;
   align-items: center;
@@ -41,7 +37,6 @@
   font-size: 13px;
 }
 
-/* Previous / next month buttons */
 .nav-btn {
   border: none;
   background: transparent;
@@ -52,7 +47,7 @@
 }
 
 /* ==========================================================
-   Legend area showing the red average marker
+   Legend
    ========================================================== */
 .legend {
   display: flex;
@@ -64,7 +59,6 @@
   font-size: 12px;
 }
 
-/* Small red dot used in the legend */
 .legend-dot {
   width: 8px;
   height: 8px;
@@ -74,15 +68,13 @@
 
 /* ==========================================================
    Chart layout
-   Left side = Y-axis labels
-   Right side = bars + line overlay
    ========================================================== */
 .chart-wrapper {
   display: flex;
   margin-top: 10px;
 }
 
-/* Left axis column with score labels */
+/* Y axis */
 .y-axis {
   width: 30px;
   height: 200px;
@@ -91,73 +83,27 @@
   justify-content: space-between;
 }
 
-/* Single row for each Y-axis label */
 .axis-row {
-  position: relative;
   font-size: 11px;
   color: #666;
 }
 
-/* Main chart drawing area */
+/* Main chart area */
 .chart-area {
   position: relative;
   flex: 1;
-  height: 240px; /* increased */
+  height: 240px;
 }
 
-/* Grid line separator between chart levels */
+/* Grid lines */
 .grid-line {
-  position: relative;
   width: 100%;
   height: 33px;
   border-top: 1px solid #ececec;
 }
 
 /* ==========================================================
-   Bars container
-   Positioned absolutely so it overlays the grid area
-   ========================================================== */
-.bars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 35px; /* reserve space for labels */
-
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-
-  z-index: 2;
-}
-
-/* Single band group:
-   contains the bar, the average marker, the tooltip, and the label */
-.bar-group {
-  position: relative;
-  width: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Actual vertical bar representing the percentage value */
-.bar {
-  width: 100%;
-  background: #061d3b;
-  border-radius: 6px 6px 0 0;
-}
-
-/* Band label shown under each bar */
-.label {
-  position: absolute;
-  bottom: -28px; /* move labels below chart */
-  font-size: 12px;
-  color: #666;
-}
-
-/* ==========================================================
-   Red trend line overlay
+   SVG LINE (behind everything)
    ========================================================== */
 .avg-line {
   position: absolute;
@@ -165,11 +111,10 @@
   top: 0;
   width: 100%;
   height: 200px;
-  z-index: 3;
+  z-index: 1;
   pointer-events: none;
 }
 
-/* SVG path styling for the trend line */
 .avg-line path {
   fill: none;
   stroke: #ff0000;
@@ -178,17 +123,71 @@
   stroke-linejoin: round;
 }
 
-/* Red circular point placed near each bar */
+/* ==========================================================
+   Bars layer (above line)
+   ========================================================== */
+.bars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 35px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+
+  z-index: 2; /* ABOVE line */
+}
+
+/* Each bar group */
+.bar-group {
+  position: relative;
+  width: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Bars */
+.bar {
+  width: 100%;
+  background: #061d3b;
+  border-radius: 6px 6px 0 0;
+}
+
+/* Labels (always visible on top) */
+.label {
+  position: absolute;
+  bottom: -28px;
+  font-size: 12px;
+  color: #666;
+  z-index: 5;
+}
+
+/* ==========================================================
+   Points
+   ========================================================== */
 .avg-point {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 10px;
   height: 10px;
   background: red;
   border-radius: 50%;
-  z-index: 4;
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* Tooltip shown when a value is near the average */
+.avg-point.is-average {
+  background: #3b82f6;
+}
+
+/* ==========================================================
+   Tooltips
+   ========================================================== */
 .avg-tooltip {
   position: absolute;
   background: #d7d9e3;
@@ -196,12 +195,27 @@
   padding: 8px 12px;
   border-radius: 20px;
   font-size: 11px;
-  text-align: center;
   white-space: nowrap;
-  z-index: 5;
+  z-index: 6;
 }
 
-/* Loading, empty, and error state text */
+.bar-tooltip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* ==========================================================
+   States
+   ========================================================== */
 .loading {
   text-align: center;
   padding: 40px 0;
