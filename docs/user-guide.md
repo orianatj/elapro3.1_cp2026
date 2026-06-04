@@ -24,7 +24,7 @@
 
 The Individual Submission View page allows teachers to view an overall assessment of a student's individual essay submission. Teachers can access detailed submission information, review the student's essay content, and review the AI generated feedback and scores.
 
-<img src="images/individual-submission-page.png" alt="Individual Submission View Page">
+<img src="images/teacher/individual-submission-page.png" alt="Individual Submission View Page">
 
 To access the Individual Submission View page:
 1. Navigate to the Teacher Dashboard
@@ -34,32 +34,43 @@ To access the Individual Submission View page:
 The page displays the student's essay text, submission metadata, the AI generated scores and feedback for each criterion, and provides options for the teacher to edit the feedback and scores or return back to the submissions list.
 First presented on screen is the student's essay question, student response, and submission metadata.
 
-<img src="images/essay-question-response.png" alt="Essay Question and Response">
+<img src="images/teacher/essay-question-response.png" alt="Essay Question and Response">
 
 Underneath the response is where the submission metadata is displayed, including word count and submission date.
 
-<img src="images/submission-metadata.png" alt="Submission Metadata">
+<img src="images/teacher/submission-metadata.png" alt="Submission Metadata">
 
 Next, the AI generated scores and feedback for each criterion are displayed. The scores and feedback are separated by competency. 
 Additionally, these scores and feedback are editable by the teacher by selecting the 'Edit Grade' button underneath the overall score to open the Edit Student Score page.
 To return to the submissions list, click the 'OK' button.
 
-<img src="images/ai-scores-feedback.png" alt="AI Scores and Feedback">
-
----
+<img src="images/teacher/ai-scores-feedback.png" alt="AI Scores and Feedback">
 
 ### Edit Student Score
 
 The Edit Student Score page enables teachers to modify or update scores for student submissions. This feature allows teachers to correct scoring errors or adjust grades based on reviews for reassessment.
 
-<img src="images/edit-student-score-page.png" alt="Edit Student Score Page">
+<img src="images/teacher/edit-student-score-page.png" alt="Edit Student Score Page">
 
 To access the Edit Student Score page:
 1. Navigate to the Teacher Dashboard
 2. Select the 'Submissions' tab on the navigation bar
 3. Click on a student's submission in the list to view that specific submission
+4. Select the 'Edit Grade' button underneath the overall score to open the Edit Student Score page.
 
-The page provides input fields for each scoring criterion, allowing teachers to adjust individual component scores and automatically recalculate the total score.
+The top of page displays the student's name, the IELTS type, and task type of the submission. 
+
+Below this, the current score and feedback for each criterion are displayed, allowing teachers to adjust individual component scores and automatically recalculate the total score.
+Each competency scorebox has an adjustable slider that allows each criterion's score to be adjusted. Adjusting a score will automatically update the overall score.
+Additionally, underneath each scorebox is an 'edit feedback' button that allows teachers to edit the feedback for that criterion.
+Clicking this button will change what feedback type is displayed in the textbox below the scores. This is an editable textbox where the teacher can edit the feedback for that criterion.
+
+<img src="images/teacher/edit-competency-feedback.png" alt="Edit Competency Score/Feedback">
+
+When all scores and feedback have been adjusted to the teacher's liking, the teacher can click the 'Save' button to save the changes to the database. 
+There will be a confirmation dialog that will let the teacher know that the changes have been saved. Clicking 'OK' will take the user back to the Individual Submission View page.
+
+<img src="images/teacher/edit-score-changes-saved.png" alt="Save Confirmation">
 
 ### Navigation
 Navigation is done via the side bar WHich is split up into theese navigational components:
