@@ -26,8 +26,6 @@ The Individual Submission View page allows teachers to view an overall assessmen
 
 <img src="images/individual-submission-page.png" alt="Individual Submission View Page">
 
-*Figure 1. Individual Submission View Page Interface*
-
 To access the Individual Submission View page:
 1. Navigate to the Teacher Dashboard
 2. Select the 'Submissions' tab on the navigation bar
