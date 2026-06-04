@@ -129,6 +129,12 @@ export function useSubmissionAnalysis(submissionId: string) {
                     canRequestReview: !submission.flagged, // Only allow review request if one hasn't already been made
                     canReattempt: true,
                 },
+
+                reattempt: {
+                    ieltsType: submission.ieltsType,
+                    taskType: submission.taskType,
+                    questionId: submission.questionId,
+                }
             }
         },
     });
