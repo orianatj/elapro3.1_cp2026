@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: #FAFAFC;
 }
 
 /* Login box/card */
@@ -70,7 +70,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: 2rem 0;
-  background: white;
+  background: #FAFAFC;
 }
 
 /* Registration box/card */
@@ -136,7 +136,7 @@ label.required::after {
   justify-content: center;
   align-items: center;
   padding: 2rem 0;
-  background: white;
+  background: #FAFAFC;
 }
 
 /* Auth box/card */

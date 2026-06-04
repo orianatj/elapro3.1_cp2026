@@ -1,7 +1,7 @@
 /* ================= THEME COLORS ================= */
+/* Central color palette for the whole page */
 :root {
-  --bg-start: #c7d2fe;
-  --bg-end: #e5e7eb;
+  --bg-start: #FAFAFC;
 
   --text-main: #000000;
   --text-muted: #6b7280;
@@ -32,16 +32,17 @@
   --radio-active: #2563eb;
 }
 
-/* ================= ORIGINAL CSS (COLOR VARIABLES APPLIED ONLY) ================= */
-
+/* ================= BASE PAGE STYLES ================= */
+/* Page background and default typography */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+  background: var(--bg-start);
   display: block;
   color: var(--text-main);
 }
 
+/* Optional sidebar container for the app layout */
 .sidebar {
   width: 240px;
   margin: 10px;
@@ -55,16 +56,19 @@ body {
   top: 10px;
 }
 
+/* Main page wrapper for the assignment creation screen */
 .create-assignment-page {
   padding: 18px;
   min-height: 100vh;
 }
 
+/* Marks required fields with a red asterisk */
 .required-star {
   color: var(--danger);
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+/* Top header bar containing the page title and back button */
 .assignment-header {
   background: var(--white);
   border-radius: 16px;
@@ -76,6 +80,7 @@ body {
   box-shadow: 0 2px 10px var(--shadow-soft);
 }
 
+/* Main page title styling */
 .assignment-header h1 {
   margin: 0;
   font-size: 38px;
@@ -83,12 +88,14 @@ body {
   color: var(--text-dark);
 }
 
+/* Breadcrumb text under the title */
 .breadcrumb {
   margin-top: 2px;
   font-size: 13px;
   color: var(--text-muted);
 }
 
+/* Back navigation button */
 .back-btn {
   border: 1px solid var(--border-light);
   background: var(--white);
@@ -103,14 +110,16 @@ body {
   background: var(--link-hover-bg);
 }
 
-/* LAYOUT */
+/* ================= PAGE LAYOUT ================= */
+/* Two-column layout for main form and sidebar */
 .assignment-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 16px;
 }
 
-/* MAIN CARD */
+/* ================= MAIN FORM CARD ================= */
+/* Main form card with assignment details */
 .assignment-main-card {
   background: var(--white);
   border-radius: 18px;
@@ -118,18 +127,21 @@ body {
   box-shadow: 0 3px 14px var(--shadow);
 }
 
+/* Heading inside the main form card */
 .assignment-main-card h2 {
   color: var(--primary);
   margin-bottom: 16px;
 }
 
-/* FORM */
+/* ================= FORM FIELDS ================= */
+/* Shared layout for label + input groups */
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 14px;
 }
 
+/* Field labels */
 .form-group label {
   font-size: 14px;
   font-weight: 600;
@@ -137,6 +149,7 @@ body {
   color: var(--text-label);
 }
 
+/* Inputs, textareas, and selects share consistent styling */
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -150,29 +163,34 @@ body {
   color: var(--text-soft);
 }
 
+/* Focus state for all form controls */
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--primary-light);
 }
 
+/* Two-column grid for paired inputs */
 .double-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-/* TIME */
+/* ================= TIME INPUT ================= */
+/* Wrapper used to position the clock icon inside the time field */
 .time-input-container {
   position: relative;
   width: 100%;
 }
 
+/* Extra padding so text doesn't overlap the icon */
 .time-input-container input {
   width: 100%;
   padding-right: 36px;
 }
 
+/* Clock icon positioned inside the input */
 .inside-icon {
   position: absolute;
   right: 10px;
@@ -181,13 +199,15 @@ body {
   pointer-events: none;
 }
 
-/* RADIO */
+/* ================= RADIO GROUPS ================= */
+/* Horizontal layout for radio button choices */
 .radio-row {
   display: flex;
   gap: 40px;
 }
 
-/* BUTTONS */
+/* ================= ACTION BUTTONS ================= */
+/* Bottom action area for cancel and create buttons */
 .assignment-actions {
   display: flex;
   justify-content: space-between;
@@ -195,6 +215,7 @@ body {
   margin-top: 24px;
 }
 
+/* Cancel button styling */
 .cancel-btn {
   background: var(--white);
   padding: 10px 18px;
@@ -204,6 +225,7 @@ body {
   border-color: var(--border-medium);
 }
 
+/* Primary submit button */
 .create-btn {
   display: flex;
   justify-content: space-between;
@@ -218,17 +240,20 @@ body {
   gap: 8px;
 }
 
+/* Hover effect for the submit button */
 .create-btn:hover {
   background: var(--primary-hover);
 }
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
+/* Right-side column that contains upload, assign-to, and settings cards */
 .assignment-sidebar {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
+/* Generic card used in the sidebar */
 .side-card {
   background: var(--white);
   border-radius: 18px;
@@ -236,17 +261,20 @@ body {
   box-shadow: 0 3px 14px var(--shadow);
 }
 
+/* Sidebar section headings */
 .side-card h3 {
   margin-top: 0;
   margin-bottom: 12px;
   color: var(--primary);
 }
 
-/* UPLOAD */
+/* ================= UPLOAD AREA ================= */
+/* Upload cloud icon image */
 .upload-cloud-icon {
   display: inline;
 }
 
+/* Upload drop zone */
 .upload-box {
   border: 2px solid var(--border-light);
   border-radius: 14px;
@@ -254,22 +282,26 @@ body {
   text-align: center;
 }
 
+/* Optional icon size class for uploads */
 .upload-icon {
   font-size: 28px;
   margin-bottom: 6px;
 }
 
+/* Upload instructions text */
 .upload-box p {
   margin: 0;
   color: var(--text-muted);
 }
 
+/* Divider text between drag/drop and browse button */
 .upload-box span {
   display: block;
   margin: 6px 0;
   color: var(--text-soft);
 }
 
+/* Button for opening file picker */
 .browse-btn {
   border: 1px solid var(--border-medium);
   background: var(--white);
@@ -279,6 +311,7 @@ body {
   color: var(--text-soft);
 }
 
+/* Uploaded resources list area */
 .resource-list {
   margin-top: 10px;
   font-size: 13px;
@@ -289,36 +322,42 @@ body {
   border: 2px solid var(--border-light);
 }
 
+/* Resource icon alignment */
 .resource-list img {
   display: inline;
 }
 
-/* ASSIGN */
+/* ================= ASSIGN TO ================= */
+/* Helper text under the Assign To heading */
 .sub-text {
   color: var(--text-soft);
   font-size: 13px;
   margin-bottom: 12px;
 }
 
+/* Stack assignment targeting options vertically */
 .assign-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* SETTINGS */
+/* ================= SETTINGS ================= */
+/* Vertical stack for additional settings controls */
 .settings-options {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Inline row for timer label and timer value */
 .timer-inline {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
+/* Timer number input and unit label */
 .timer-row {
   display: flex;
   align-items: center;
@@ -333,7 +372,8 @@ body {
   border: 1px solid var(--border-light);
 }
 
-/* CUSTOM CONTROL */
+/* ================= CUSTOM RADIO / CHECKBOX UI ================= */
+/* Reusable custom control wrapper for radios and checkboxes */
 .custom-control {
   display: flex;
   align-items: center;
@@ -344,10 +384,12 @@ body {
   font-size: 14px;
 }
 
+/* Hide the native input element */
 .custom-control input {
   display: none;
 }
 
+/* Visual replacement for the hidden input */
 .control-ui {
   width: 18px;
   height: 18px;
@@ -358,11 +400,13 @@ body {
   transition: all 0.2s ease;
 }
 
+/* Filled active state when the control is checked */
 .custom-control input:checked + .control-ui {
   border-color: var(--radio-active);
   background: var(--radio-active);
 }
 
+/* Inner dot shown when the control is checked */
 .custom-control input:checked + .control-ui::after {
   content: "";
   width: 8px;
@@ -375,13 +419,15 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE BEHAVIOR ================= */
+/* Collapse the two-column layout into one column on medium screens */
 @media (max-width: 1100px) {
   .assignment-layout {
     grid-template-columns: 1fr;
   }
 }
 
+/* Stack smaller controls and header content on mobile */
 @media (max-width: 700px) {
   .double-grid {
     grid-template-columns: 1fr;

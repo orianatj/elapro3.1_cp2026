@@ -1,33 +1,53 @@
+/* Global color variables used throughout the page */
 :root {
-  --page-bg: #f3f4f6;
-  --score-card-bg: #ebebf0;
+  --page-bg:#FAFAFC;
+  --score-card-bg: #f3f4f6;
 }
+
+/* Main layout container holding the submission view and score card */
 .flex-container {
-  display: flex;           
-  gap: 20px;            
-  width: 100%;            
-  padding: 20px;            
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--page-bg);
 }
 
+/* Left-side card displaying the submission content and metadata */
 .submission-view-card {
   font-family: "DM Sans", sans-serif;
   flex: 1;
   display: flex;
   flex-direction: column;
+  
 }
 
-.total-score-card {
-  gap: 10px;
+/* Metadata section showing word count and submission date */
+.metadata-box {
+  font-family: "DM Sans", sans-serif;
   border-radius: 12px;
   padding: 20px;
-  padding-top: 0px;
-  flex: 1;
   background-color: var(--score-card-bg);
+  color: black; /* Default text color */
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
 }
 
+/* Right-side card displaying scores, feedback, and action buttons */
+.total-score-card {
+  gap: 10px;
+  border-radius: 16px;
+  padding: 20px;
+  padding-top: 0;
+  flex: 1;
+  background-color: var(--score-card-bg);
+  color: black; /* Default text color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Container for navigation and grading action buttons */
 .button-container {
   display: flex;
   gap: 10px;
