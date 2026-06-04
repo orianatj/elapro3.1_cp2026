@@ -70,7 +70,7 @@ export function useSubmissionAnalysis(submissionId: string) {
                     breadcrumb: [
                         { label: "Dashboard", link: "/student" },
                         { label: "Submissions", link: "/student/submissions" },
-                        { label: "Analysis" },
+                        { label: "Submission Analysis" },
                     ],
                 },
 
