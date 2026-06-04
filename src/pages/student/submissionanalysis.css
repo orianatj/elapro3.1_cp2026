@@ -8,11 +8,42 @@
   gap: 24px;
 }
 
+/* ===== Card Styles ===== */
+.analysis-page-meta,
+.analysis-page-score-overview,
+.analysis-page-submission-summary,
+.analysis-page-criterion-breakdown,
+.analysis-page-action-buttons {
+  width: 100%;
+  max-width: 1100px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
 /* ===== Section Spacing ===== */
 .section {
   margin-bottom: 32px;
 }
 
+
+.analysis-page-header nav{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* ===== Header Styles ===== */
+.analysis-page-criterion-breakdown h2,
+.analysis-page-score-overview h2,
+.analysis-page-submission-summary h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #0f172a;
+}
 
 /* ===== Score Bar Styles ===== */
 
@@ -59,7 +90,3 @@
   flex-direction: column;
   gap: 10px;
 }
-
-
-
-
