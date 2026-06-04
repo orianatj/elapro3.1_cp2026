@@ -125,9 +125,9 @@ export function useSubmissionAnalysis(submissionId: string) {
                 },
 
                 actions: {
-                    canDownloadReport: true,
-                    canRequestReview: true,
-                    canReattempt: false,
+                    canDownloadReport: false,
+                    canRequestReview: !submission.flagged, // Only allow review request if one hasn't already been made
+                    canReattempt: true,
                 },
             }
         },
