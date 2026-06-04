@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useBandDistribution } from "../hooks/useBandDistribution";
 import "../pages/teacher/BandDistribution.css";
 
@@ -33,6 +33,8 @@ const BandDistribution: React.FC<Props> = ({
     taskType,
   });
 
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const data: BandItem[] = useMemo(() => {
     if (!response) return [];
 
@@ -59,11 +61,31 @@ const BandDistribution: React.FC<Props> = ({
   const maxHeight = 180;
   const scaleMax = 30;
 
-  const average =
-    data.length > 0
-      ? data.reduce((sum, item) => sum + Number(item.percentage || 0), 0) /
+  const average = useMemo(() => {
+    if (data.length === 0) return 0;
+    return (
+      data.reduce((sum, item) => sum + Number(item.percentage || 0), 0) /
       data.length
-      : 0;
+    );
+  }, [data]);
+
+  const averageIndex = useMemo(() => {
+    if (data.length === 0) return -1;
+
+    let bestIndex = 0;
+    let bestDiff = Infinity;
+
+    data.forEach((item, index) => {
+      const value = Number(item.percentage || 0);
+      const diff = Math.abs(value - average);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestIndex = index;
+      }
+    });
+
+    return bestIndex;
+  }, [data, average]);
 
   if (error) {
     return (
@@ -113,12 +135,19 @@ const BandDistribution: React.FC<Props> = ({
               {data.map((item, index) => {
                 const value = Number(item.percentage || 0);
                 const height = (value / scaleMax) * maxHeight;
+                const isAvgBar = index === averageIndex;
+                const isHovered = hoveredIndex === index;
 
                 return (
-                  <div key={index} className="bar-group">
+                  <div
+                    key={index}
+                    className="bar-group"
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                  >
                     <div className="bar" style={{ height: `${height}px` }} />
 
-                    {Math.abs(value - average) < 2 && (
+                    {isAvgBar && (
                       <div
                         className="avg-tooltip"
                         style={{ bottom: `${height + 18}px` }}
@@ -127,8 +156,17 @@ const BandDistribution: React.FC<Props> = ({
                       </div>
                     )}
 
+                    {isHovered && (
+                      <div
+                        className="bar-tooltip"
+                        style={{ bottom: `${height + 18}px` }}
+                      >
+                        {value.toFixed(1)}%
+                      </div>
+                    )}
+
                     <div
-                      className="avg-point"
+                      className={`avg-point ${isAvgBar ? "is-average" : ""}`}
                       style={{ bottom: `${Math.max(height - 5, 0)}px` }}
                     />
 

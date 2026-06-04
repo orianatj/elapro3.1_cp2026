@@ -5,6 +5,7 @@ import type { Credentials } from "../types/common/Auth.ts";
 import { useLogin } from "../hooks/useLogin.ts";
 import { useCurrentUser } from "../hooks/useCurrentUser.ts";
 import { useQueryClient } from "@tanstack/react-query";
+import { refreshSession } from "../services/authApi.ts";
 
 
 // Define props for AuthContext
@@ -45,7 +46,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const {
         data,
         isLoading,
-        isFetching,
     } = useCurrentUser();
 
     /* Extract authenticated user data from the API response. Falls back to null when no authenticated user exists */
@@ -55,7 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const isAuthenticated = user !== null;
 
     /* Combine query loading states to track whether authentication state is still being resolved */
-    const isAuthLoading = isLoading || isFetching;
+    const isAuthLoading = isLoading && !user;
 
 
     // Define async function to handle login result and update global state  
@@ -71,6 +71,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             // Persist access token for the current session to authenticate API calls
             sessionStorage.setItem("token", accessToken);
+
+            console.log("Login successful, attempting refresh token generation");
+
+            try {
+                // Generate refresh token 
+                const refreshToken = await refreshSession();
+
+                console.log("refreshSession response:", refreshToken);
+
+                // Store refresh token to exchange on session invalidation
+                sessionStorage.setItem("refreshToken", refreshToken.data.refreshToken);
+
+                console.log(
+                    "stored refresh token:",
+                    sessionStorage.getItem("refreshToken")
+                );
+
+            } catch (error) {
+                console.warn("Failed to generate refresh token")
+            }
 
             /* Trigger refetch of authenticated user data after login succeeds. Ensures the latest user profile is loaded into global auth state */
             queryClient.invalidateQueries({ queryKey: ["me"] });
@@ -103,6 +123,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         /* Remove cached authenticated user data after logout. Prevents stale user information persisting across sessions */
         queryClient.removeQueries({ queryKey: ["me"] });
+
+        window.location.replace("/");
     };
 
     /* Provide authentication state and auth actions globally

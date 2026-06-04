@@ -16,3 +16,10 @@ export type User = {
     userRole: UserRole;
     accountStatus: AccountStatus;
 };
+
+export interface UpdateUserData {
+    firstName?: string;
+    middleName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+}

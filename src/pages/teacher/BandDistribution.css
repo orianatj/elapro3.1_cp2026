@@ -1,3 +1,6 @@
+/* ==========================================================
+   Main card container
+   ========================================================== */
 .band-card {
   width: 100%;
   background: #ffffff;
@@ -9,16 +12,9 @@
   overflow: hidden;
 }
 
-.weakness-trends__header h3 {
-  margin: 0;
-  font-size: 22px;
-  color: #17396b;
-    margin-left: 20px;
-  font-weight: 700;
-}
-
-
-
+/* ==========================================================
+   Header
+   ========================================================== */
 .band-header {
   display: flex;
   justify-content: space-between;
@@ -50,6 +46,9 @@
   line-height: 1;
 }
 
+/* ==========================================================
+   Legend
+   ========================================================== */
 .legend {
   display: flex;
   justify-content: flex-end;
@@ -67,11 +66,15 @@
   border-radius: 50%;
 }
 
+/* ==========================================================
+   Chart layout
+   ========================================================== */
 .chart-wrapper {
   display: flex;
   margin-top: 10px;
 }
 
+/* Y axis */
 .y-axis {
   width: 30px;
   height: 200px;
@@ -81,66 +84,34 @@
 }
 
 .axis-row {
-  position: relative;
   font-size: 11px;
   color: #666;
 }
 
+/* Main chart area */
 .chart-area {
   position: relative;
   flex: 1;
-  height: 240px; /* increased */
+  height: 240px;
 }
 
+/* Grid lines */
 .grid-line {
-  position: relative;
   width: 100%;
   height: 33px;
   border-top: 1px solid #ececec;
 }
 
-.bars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 35px; /* reserve space for labels */
-
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-
-  z-index: 2;
-}
-
-.bar-group {
-  position: relative;
-  width: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bar {
-  width: 100%;
-  background: #061d3b;
-  border-radius: 6px 6px 0 0;
-}
-
-.label {
-  position: absolute;
-  bottom: -28px; /* move labels below chart */
-  font-size: 12px;
-  color: #666;
-}
-
+/* ==========================================================
+   SVG LINE (behind everything)
+   ========================================================== */
 .avg-line {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 200px;
-  z-index: 3;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -152,15 +123,71 @@
   stroke-linejoin: round;
 }
 
+/* ==========================================================
+   Bars layer (above line)
+   ========================================================== */
+.bars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 35px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+
+  z-index: 2; /* ABOVE line */
+}
+
+/* Each bar group */
+.bar-group {
+  position: relative;
+  width: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Bars */
+.bar {
+  width: 100%;
+  background: #061d3b;
+  border-radius: 6px 6px 0 0;
+}
+
+/* Labels (always visible on top) */
+.label {
+  position: absolute;
+  bottom: -28px;
+  font-size: 12px;
+  color: #666;
+  z-index: 5;
+}
+
+/* ==========================================================
+   Points
+   ========================================================== */
 .avg-point {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 10px;
   height: 10px;
   background: red;
   border-radius: 50%;
-  z-index: 4;
+  z-index: 3;
+  pointer-events: none;
 }
 
+.avg-point.is-average {
+  background: #3b82f6;
+}
+
+/* ==========================================================
+   Tooltips
+   ========================================================== */
 .avg-tooltip {
   position: absolute;
   background: #d7d9e3;
@@ -168,11 +195,27 @@
   padding: 8px 12px;
   border-radius: 20px;
   font-size: 11px;
-  text-align: center;
   white-space: nowrap;
-  z-index: 5;
+  z-index: 6;
 }
 
+.bar-tooltip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* ==========================================================
+   States
+   ========================================================== */
 .loading {
   text-align: center;
   padding: 40px 0;

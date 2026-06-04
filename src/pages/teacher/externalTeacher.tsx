@@ -9,7 +9,7 @@ const submissionView: MenuData[] = [
     id: "1",
     title: "Steven Stone",
     status: "On Time",
-    avatarSrc: "/src/assets/ClipboardList.png",
+    avatarSrc: "../assets/ClipboardList.png",
     isAvatar: true,
   },
   {

@@ -3,8 +3,8 @@ import Navbar from "../common/Navbar";
 import "../pages/admin/adminDashboard.css";
 
 import dashboard from "../assets/grid.png";
-import users from "../assets/Avatar.png";
-import subscriptions from "../assets/documents.png";
+import users from "../assets/primarynavigation/useravatar.png";
+import subscriptions from "../assets/documents-black.png";
 import reports from "../assets/file-tray-full.png";
 
 const adminNavItems = [

@@ -75,7 +75,6 @@ export function useSubmissionAnalysis(submissionId: string) {
             submissionSummary: {
                 taskDescription: {
                     placeHolderText: submission.question.placeHolderText,
-                    taskID: submission.question.taskID,
                     questionID: submission.question.id,
                     questionText: submission.question.text,
                 },

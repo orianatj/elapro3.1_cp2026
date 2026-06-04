@@ -14,6 +14,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
     // Local state for countdown timer
     const [time, setTime] = useState(utilData.timeRemaining);
     const [isRunning, setIsRunning] = useState(false);
+    const [isExpired, setIsExpired] = useState(false);
 
     // Button handlers
     // Start button initiates countdown
@@ -31,6 +32,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
     const handleReset = () => {
         setTime(utilData.timeRemaining);
         setIsRunning(false);
+        setIsExpired(false);
     };
 
     // Countdown effect
@@ -43,7 +45,9 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
             setTime((prev) => {
 
                 // Stop at 0
-                if (!shouldContinue(prev)) {                    
+                if (!shouldContinue(prev)) {
+                    setIsExpired(true);
+                    setIsRunning(false);
                     return 0;
                 }
 
@@ -59,6 +63,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
     // Sync if reset from parent
     useEffect(() => {
         setTime(utilData.timeRemaining);
+        setIsExpired(false);
     }, [utilData.timeRemaining]);
 
     return (
@@ -82,14 +87,23 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
 
                 {/* Timer */}
                 <div className="task-timer">
-                    <FiClock className="timer-icon" />
-                    <span>{formatTimer(time)}</span>
+                    <FiClock className="timer-icon" />                  
+                    <span className={time === 0 ? "timer-expired" : ""}>
+                        {formatTimer(time)}
+                    </span>
                 </div>
+
+                {isExpired && (
+                    <div className="time-expired">
+                        Your time has expired. Please review your answer and submit when ready.
+                    </div>
+                )}
+
 
                 {/* Controls Group */}
                 <div className="controls-group">
                     {/* Play button */}
-                    <button className="icon-button" onClick={handleStart} disabled={isRunning || utilData.isPaused}>
+                    <button className="icon-button" onClick={handleStart} disabled={isRunning || utilData.isPaused || isExpired}>
                         <FiPlay />
                     </button>
 
@@ -97,7 +111,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
                     <span className="mini-divider"></span>
 
                     {/* Pause button */}
-                    <button className="icon-button" onClick={handlePause}>
+                    <button className="icon-button" onClick={handlePause} disabled={isExpired}>
                         <FiPause />
                     </button>
 

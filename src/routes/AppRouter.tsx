@@ -17,6 +17,9 @@ import PracticeWritingPage from "../pages/student/PracticeWriting";
 import SubmissionsPage from "../pages/student/StudentSubmissions";
 import SubmissionAnalysisPage from "../pages/student/SubmissionAnalysis";
 import AccountSettingsPage from "../pages/common/AccountSettingsPage";
+import { ConfirmEmailChangePage } from "../pages/common/ConfirmEmailChangePage";
+import { CancelEmailChangePage } from "../pages/common/CancelEmailChangePage";
+import { ConfirmDeleteAccountPage } from "../pages/common/ConfirmDeleteAccountPage";
 import { LoginPage } from "../pages/auth/LoginPage.tsx";
 import { SignupPage } from "../pages/auth/SignupPage.tsx";
 import { ForgotPasswordPage } from "../pages/auth/ForgotPasswordPage.tsx";
@@ -24,6 +27,7 @@ import { ResetPasswordPage } from "../pages/auth/ResetPasswordPage.tsx";
 import { VerifyEmailPage } from "../pages/auth/VerifyEmailPage.tsx";
 import { DashboardRedirect } from "./DashboardRedirect.tsx";
 import { ProtectedRoute } from "./ProtectedRoute.tsx";
+import Notifications from "../pages/common/notifications.tsx";
 
 // Defines the application's routing structure, including public and protected routes and nested dashboard layouts
 export default function AppRouter() {
@@ -37,6 +41,10 @@ export default function AppRouter() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
 
+        <Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />
+        <Route path="/cancel-email-change" element={<CancelEmailChangePage />} />
+        <Route path="/confirm-delete-account" element={<ConfirmDeleteAccountPage />} />
+
         {/* Dashboard Redirect */}
         <Route path="/" element={<DashboardRedirect />} />
 
@@ -47,6 +55,7 @@ export default function AppRouter() {
             <Route path="essay-submission" element={<EssaySubmissionPage />} />
             <Route path="practice-writing" element={<PracticeWritingPage />} />
             <Route path="submissions" element={<SubmissionsPage />} />
+            <Route path="notifications" element={<Notifications />} />
             <Route path="submission/:submissionId" element={<SubmissionAnalysisPage />} />
           </Route>
         </Route>
