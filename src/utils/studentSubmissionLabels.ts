@@ -1,18 +1,28 @@
-import { GradingStatus } from "../types/common/GradingStatus";
+import type { DisplayStatus } from "../types/common/GradingStatus";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 import type { CriterionType } from "../types/student/StudentSubmissionAnalysisViewData";
 
 
 // Maps grading status values to user-friendly labels for display in UI
-export const gradingStatusLabels: Record<GradingStatus | "unknown", string> = {
-    pending: "Pending",
-    processing: "Processing",
-    ai_graded: "AI Graded",
-    failed: "Error",
-    teacher_validated: "Validated",
-    teacher_reviewed: "Reviewed",
-    unknown: "Unknown",
-} as const;
+export function getStatusClass(status: DisplayStatus): string {
+    switch (status) {
+        case "Review Pending":
+        case "Pending":    
+            return "pending";
+        case "AI Graded":
+            return "ai_graded";
+        case "Teacher Reviewed":
+            return "teacher_reviewed";
+        case "Teacher Validated":
+            return "teacher_validated";
+        case "Failed":
+            return "failed";    
+        case "Processing":
+            return "processing";
+        default:
+            return "status-unknown";
+    }
+}
 
 // Maps IELTS type values to user-friendly labels for display in UI
 export const ieltsTypeLabels: Record<IeltsType, string> = {

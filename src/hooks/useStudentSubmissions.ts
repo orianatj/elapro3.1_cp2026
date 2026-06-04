@@ -6,7 +6,7 @@ import { submissionsList } from "../services/submissionsApi";
 import { results } from "../services/resultsApi";
 
 import { formatDateTime } from "../utils/dateUtils";
-import { mapGradingStatus } from "../utils/gradingStatus";
+import { mapGradingStatus, getDisplayStatus } from "../utils/gradingStatus";
 
 import type { StudentSubmissions } from "../types/student/StudentSubmissionsViewData";
 import type { SubmissionResponse } from "../types/common/api/submissions";
@@ -51,6 +51,8 @@ export function useStudentSubmissions(userId: string) {
             submission.customQuestionText?.trim()
                 ? "Custom" : "Generated";
 
+        const safeStatus = mapGradingStatus(result?.status ?? submission.status);
+
         return {
             submissionId: submission.submissionId,
             date: formatDateTime(submission.submittedAt),
@@ -60,7 +62,8 @@ export function useStudentSubmissions(userId: string) {
             taskType: submission.taskType as TaskType,    // Type assertion based on backend API contract
 
             score: result?.overallScore ?? undefined,     // Score from results if available; otherwise undefined until graded
-            status: mapGradingStatus(result?.status ?? submission.status),
+            rawStatus: safeStatus,                       // Safe grading status for UI logic
+            displayStatus: getDisplayStatus(safeStatus, !!submission.flagged),
         };
     };
 
