@@ -75,6 +75,7 @@
   gap: 14px;
   background: var(--student-card-bg);
   padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
   border-radius: 12px;
   min-width: 0;
 }
@@ -101,6 +102,7 @@
   row-gap: 14px;
   justify-content: start;
   align-content: start;
+  
 }
 
 .score-grid > div {
@@ -117,7 +119,7 @@
   background: var(--score-box-bg);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid var(--score-box-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -171,7 +173,7 @@
 .assignment-panel {
   background: var(--assignment-panel-bg);
   border-radius: 10px;
-  border: 1px solid var(--assignment-panel-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -224,7 +226,7 @@
   grid-column: span 2;
   background: var(--assignment-panel-bg);
   border-radius: 10px;
-  border: 1px solid var(--assignment-panel-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -359,7 +361,7 @@
 =================================*/
 .overall-score {
   background: var(--overall-score-bg);
-  border: 1px solid var(--overall-score-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.30);
   border-radius: 6px;
   overflow: hidden;
   padding: 0;
