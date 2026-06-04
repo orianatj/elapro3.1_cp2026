@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../common/Navbar";
 import "./teacherlayout.css"
 import dashboard from "../assets/studentnavicons/dashboard.png";
-import submissions from "../assets/studentnavicons/practicewriting.png";
+import submissions from "../assets/documents-black.png";
 
 const teacherNavItems = [
   {icon: dashboard, label: "Dashboard", end: true, path: "/teacher" },
