@@ -22,7 +22,7 @@
 
 ### Navigation
 Navigation is done via the side bar Which is split up into these navigational components
-<img src ="teacher/images/Navigation.png" alt="TeacherNav" width="70%">
+<img src ="images/teacher/Navigation.png" alt="TeacherNav" width="70%">
 *Figure 1. Nav Bar Teacher*
 
 1. Dashboard -> Homepage
@@ -32,18 +32,18 @@ Clicking on one of theese icons will simply navigate to that section
 ### HomePage
 The homepage allows teachers to navigate and view main stastics. View the three most recent student submissions and get a detailed overview of charts.
 
-<img src ="teacher/images/Homepage-Template.png" alt="Homepage" width="70%">
+<img src ="images/teacher/Homepage-Template.png" alt="Homepage" width="70%">
 *Figure 2. Homepage page interface*
 
 ### Peformance Statistics
 This small group of assets showcase examples of what can be shown to the teacher for statistics. CUrrently #Students, Exams for review, avg preformance and improvement rate are connected to api
-<img src ="teacher/images/Peformance-Statistics.png" alt="Homepage" width="70%">
+<img src ="images/teacher/Peformance-Statistics.png" alt="Homepage" width="70%">
 *Figure 3. Interface for statistic boxes*
 
 #### Band Distrubution Chart
 This chart tracks the average band distrubution over different areas, tracking the average percentage of each band and overall average point.
 
-<img src ="teacher/images/Hover.png" alt="Homepage" width="70%">
+<img src ="images/teacher/Hover.png" alt="Homepage" width="70%">
 *Figure 4. Hovering action*
 
 1. Hovering the mouse over one of the bars 
@@ -52,7 +52,7 @@ This chart tracks the average band distrubution over different areas, tracking t
 #### Submission Status Distrubution
 This status distrubution chart showcases validated, flagged, AI marked, Pending there is no current functionality in this graph
 
-<img src ="teacher/images/Submission-Stats.png" alt="Homepage" width="70%">
+<img src ="images/teacher/Submission-Stats.png" alt="Homepage" width="70%">
 *Figure 5. Statistic Chart*
 
 ##### Weakness Trends
@@ -67,7 +67,7 @@ This graph weakness trends of all 4 grading categorgies. This graph is interacta
 ##### Submission View
 This view showcases the three most recent student submissions. This has basic navigation functionality.
 
-<img src ="teacher/images/Submission-Bar.png" alt="Homepage" width="70%">
+<img src ="images/teacher/Submission-Bar.png" alt="Homepage" width="70%">
 *Figure 5. Statistic Chart*
 
 1. Click one of the items in the list 
@@ -76,13 +76,13 @@ This view showcases the three most recent student submissions. This has basic na
 ### View Submissions Page
 This page displays in table format various different submissions from students. It displays the Name, IELTS Type, task type, status and submission time.
 
-<img src ="teacher/images/View-Submissions.png" alt="SubmissionView" width="70%">
+<img src ="images/teacher/View-Submissions.png" alt="SubmissionView" width="70%">
 *Figure 6. Submission page interface*
 
 #### Sort By
 This button allows the user to sort by either name or date
 
-<img src ="teacher/images/Sort-Menu.png" alt="SortMenu" width="70%">
+<img src ="images/teacher/Sort-Menu.png" alt="SortMenu" width="70%">
 *Figure 7. Sort Menu*
 
 1. When you click the sort by button a drop down button will appear
@@ -92,13 +92,13 @@ This button allows the user to sort by either name or date
 #### Filter
 This button allows filter by IELTS Type, Task type or status.
 
-<img src ="teacher/images/Filter-Button.png" alt="Filter" width="70%">
+<img src ="images/teacher/Filter-Button.png" alt="Filter" width="70%">
 *Figure 8. Filter*
 
 1. When You click by the button a drop down button will come up
 2. This will display three options allowing to sort by IELTS Type, Task Task and statuses
 
-<img src ="teacher/images/filter-pop-up.png" alt="FilterPopout" width="70%">
+<img src ="images/teacher/filter-pop-up.png" alt="FilterPopout" width="70%">
 *Figure 9. Filter Pop Up*
 
 3. Click on one of theese options will have another drop down which you can select from the various options
@@ -108,7 +108,7 @@ This button allows filter by IELTS Type, Task type or status.
 7. Once filter is clicked again the drop down selection will be removed 
 
 
-<img src ="teacher/images/filter-example.png" alt="ExampleFilter" width="70%">
+<img src ="images/teacher/filter-example.png" alt="ExampleFilter" width="70%">
 *Figure 10. Filtered table Example*
 
 ### Individual Submission View
