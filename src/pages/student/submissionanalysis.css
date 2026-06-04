@@ -1,16 +1,18 @@
 
 /* ===== Page Layout ===== */
 .submission-analysis-page {
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
-  gap: 32px; /* spacing between sections */
-  padding: 16px;
+  gap: 24px;
 }
 
 /* ===== Section Spacing ===== */
 .section {
   margin-bottom: 32px;
 }
+
 
 /* ===== Score Bar Styles ===== */
 
@@ -52,6 +54,12 @@
     #e5e7eb 50%
   );
 }
+
+.criterion-block {.criterion display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 
 
 

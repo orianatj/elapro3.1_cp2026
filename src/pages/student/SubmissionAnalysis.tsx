@@ -59,7 +59,10 @@ export default function SubmissionAnalysisPage() {
             </div>
 
             <div className="analysis-page-action-buttons">
-              <SubmissionActionsBar actions={data.actions} />
+              <SubmissionActionsBar
+                actions={data.actions}
+                submissionId={submissionId ?? ""}
+              />
             </div>
           </div>
         )
