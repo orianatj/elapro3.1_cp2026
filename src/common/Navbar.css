@@ -132,3 +132,18 @@ nav ul li img {
 a.active {
     color: red;
 }
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #fff;
+  text-decoration: none;
+  width: 100%;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
