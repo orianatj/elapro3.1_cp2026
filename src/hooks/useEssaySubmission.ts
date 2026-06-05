@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 
@@ -7,22 +6,22 @@ import { getRandomQuestion } from "../services/questionsApi";
 import { createSubmission } from "../services/submissionsApi";
 
 // Types
-import type { PracticeWriting } from "../types/student/StudentPracticeWriting";
+import type { EssaySubmission } from "../types/student/StudentEssaySubmissionViewData";
 import type { QuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
 
 // Constants
-import { PRACTICE_WRITING_INITIAL_STATE } from "../constants/essayWritingInitialStates";
+import { ESSAY_SUBMISSION_INITIAL_STATE } from "../constants/essayWritingInitialStates";
 
 // Utils
 import { getErrorMessage } from "../utils/errorHandling";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 
-export function usePracticeWriting() {
+export function useEssaySubmission() {
 
     // Base view data structure, populated with API responses and user input
-    const [viewData, setViewData] = useState<PracticeWriting>(PRACTICE_WRITING_INITIAL_STATE);
+    const [viewData, setViewData] = useState<EssaySubmission>(ESSAY_SUBMISSION_INITIAL_STATE);
 
     // UI State for current selections
     const [ieltsType, setIeltsType] = useState<IeltsType | undefined>(undefined);
@@ -168,7 +167,7 @@ export function usePracticeWriting() {
 
 
     // Derived ViewData (combines base data with current UI state)
-    const updatedViewData: PracticeWriting = {
+    const updatedViewData: EssaySubmission = {
         ...viewData,
         ieltsSelection: {
             ...viewData.ieltsSelection,
@@ -221,3 +220,4 @@ export function usePracticeWriting() {
         }
     };
 }
+
