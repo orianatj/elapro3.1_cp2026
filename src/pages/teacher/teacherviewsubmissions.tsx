@@ -139,19 +139,20 @@ export default function SubmissionsOverview() {
               <option value="Task2">Task 2</option>
             </select>
 
-            <select
-              className="sort-dropdown"
-              value={status}
-              onChange={(e) => {
-                setStatus(e.target.value);
-                setCurrentPage(1);
-              }}
-            >
-              <option value="">All Statuses</option>
-              <option value="pending">Pending</option>
-              <option value="Teacher_reviewed">Teacher Reviewed</option>
-              <option value="Ai_graded">Ai Graded</option>
-            </select>
+          <select
+  className="sort-dropdown"
+  value={status}
+  onChange={(e) => {
+    setStatus(e.target.value);
+    setCurrentPage(1);
+  }}
+>
+  <option value="">All Statuses</option>
+  <option value="pending">Pending</option>
+  <option value="review-requested">Review Requested</option>
+  <option value="Teacher_reviewed">Teacher Reviewed</option>
+  <option value="Ai_graded">Ai Graded</option>
+</select>
           </div>
         )}
 
