@@ -1,6 +1,8 @@
 import { useAuth } from "../../hooks/useAuth";
 import { ProfileSettings } from "./ProfileSettings";
 import { SubscriptionBillingSettings } from "./SubscriptionBillingSettings";
+import "../../pages/auth/authpages.css";
+import "../../pages/common/accountsettings.css";
 
 export default function AccountSettingsPage() {
 
