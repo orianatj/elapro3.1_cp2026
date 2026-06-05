@@ -50,117 +50,119 @@ export function BillingHistoryCard() {
     const billingItems = billingHistQuery.data?.data?.items ?? [];
 
     return (
-        <div className="auth-card">
 
-            <h2 className="auth-title">Billing History</h2>
+        <div className="billing-component-card">
+            <h2 className="billing-title">Billing History</h2>
 
-            <div className="billing-filters">
+            <div className="auth-card">
 
-                <div className="filter-group">
+                <div className="billing-filters">
 
-                    <p className="auth-p"><strong>Date Range</strong></p>
+                    <div className="filter-group">
 
-                    <select className="billing-select"
-                        value={dateRange}
-                        onChange={(e) =>
-                            setDateRange(
-                                e.target.value as BillingHistoryQuery["date_range"]
-                            )
-                        }
-                    >
-                        <option value="all">All</option>
-                        <option value="7d">Last 7 Days</option>
-                        <option value="30d">Last 30 Days</option>
-                        <option value="90d">Last 90 Days</option>
-                        <option value="6m">Last 6 Months</option>
-                        <option value="1y">Last Year</option>
-                        <option value="3y">Last 3 Years</option>
-                    </select>
+                        <p className="auth-p"><strong>Date Range</strong></p>
+
+                        <select className="billing-select"
+                            value={dateRange}
+                            onChange={(e) =>
+                                setDateRange(
+                                    e.target.value as BillingHistoryQuery["date_range"]
+                                )
+                            }
+                        >
+                            <option value="all">All</option>
+                            <option value="7d">Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                            <option value="90d">Last 90 Days</option>
+                            <option value="6m">Last 6 Months</option>
+                            <option value="1y">Last Year</option>
+                            <option value="3y">Last 3 Years</option>
+                        </select>
+                    </div>
+
+                    <div className="filter-group">
+
+                        <p className="auth-p"><strong>Sort By</strong></p>
+
+                        <select className="billing-select"
+                            value={sortBy}
+                            onChange={(e) =>
+                                setSortBy(
+                                    e.target.value as BillingHistoryQuery["sort_by"]
+                                )
+                            }
+                        >
+                            <option value="billingDate">Date</option>
+                            <option value="amount">Amount</option>
+                            <option value="status">Status</option>
+                        </select>
+                    </div>
+
+                    <div className="filter-group">
+
+                        <p className="auth-p"><strong>Order</strong></p>
+
+                        <select className="billing-select"
+                            value={sortOrder}
+                            onChange={(e) =>
+                                setSortOrder(
+                                    e.target.value as BillingHistoryQuery["sort_order"]
+                                )
+                            }
+                        >
+                            <option value="desc">Newest First</option>
+                            <option value="asc">Oldest First</option>
+                        </select>
+                    </div>
+
                 </div>
 
-                <div className="filter-group">
+                {billingItems.length === 0 ? (
 
-                    <p className="auth-p"><strong>Sort By</strong></p>
+                    <p className="billing-info">No billing history available.</p>) : (
 
-                    <select className="billing-select"
-                        value={sortBy}
-                        onChange={(e) =>
-                            setSortBy(
-                                e.target.value as BillingHistoryQuery["sort_by"]
-                            )
-                        }
-                    >
-                        <option value="billingDate">Date</option>
-                        <option value="amount">Amount</option>
-                        <option value="status">Status</option>
-                    </select>
-                </div>
+                    <table className="billing-table">
 
-                <div className="filter-group">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Billing Period</th>
+                            </tr>
+                        </thead>
 
-                    <p className="auth-p"><strong>Order</strong></p>
+                        <tbody>
+                            {billingItems.map((item: BillingHistoryItem) => (
+                                <tr key={item.billing_id}>
 
-                    <select className="billing-select"
-                        value={sortOrder}
-                        onChange={(e) =>
-                            setSortOrder(
-                                e.target.value as BillingHistoryQuery["sort_order"]
-                            )
-                        }
-                    >
-                        <option value="desc">Newest First</option>
-                        <option value="asc">Oldest First</option>
-                    </select>
-                </div>
+                                    <td>
+                                        {billingDateTranform(item.billing_date)}
+                                    </td>
+
+                                    <td>
+                                        {item.currency} ${item.plan_cost}
+                                    </td>
+
+                                    <td>
+                                        {item.billing_status}
+                                    </td>
+
+                                    <td>
+                                        {billingDateTranform(item.billing_period_start)}
+                                        {" - "}
+                                        {billingDateTranform(item.billing_period_end)}
+                                    </td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+
+                    </table>
+                )}
 
             </div>
-
-            {billingItems.length === 0 ? (
-
-                <p className="billing-info">No billing history available.</p>) : (
-
-                <table className="billing-table">
-
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Billing Period</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {billingItems.map((item: BillingHistoryItem) => (
-                            <tr key={item.billing_id}>
-
-                                <td>
-                                    {billingDateTranform(item.billing_date)}
-                                </td>
-
-                                <td>
-                                    {item.currency} ${item.plan_cost}
-                                </td>
-
-                                <td>
-                                    {item.billing_status}
-                                </td>
-
-                                <td>
-                                    {billingDateTranform(item.billing_period_start)}
-                                    {" - "}
-                                    {billingDateTranform(item.billing_period_end)}
-                                </td>
-
-                            </tr>
-                        ))}
-                    </tbody>
-
-                </table>
-            )}
-
         </div>
-
     );
 
 

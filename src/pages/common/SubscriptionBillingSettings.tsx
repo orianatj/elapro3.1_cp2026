@@ -1,11 +1,10 @@
 import { SubscriptionCard } from "./SubscriptionCard";
 import { BillingHistoryCard } from "./BillingHistoryCard";
+import { PaymentMethodCard } from "./PaymentMethodCard";
 
 
 // Profile component that contains Billing & Subcription functionality - Student Role only 
 export function SubscriptionBillingSettings() {
-
-
 
 
     return (
@@ -15,8 +14,8 @@ export function SubscriptionBillingSettings() {
 
             <BillingHistoryCard />
 
+            <PaymentMethodCard />
         </div>
-
 
     );
 

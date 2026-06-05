@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import type { PlanNames } from "../../types/common/billing";
 import { billingDateTranform } from "../../utils/billingDateConversion";
+import { formatString } from "../../utils/stringFormatting";
 
 export function SubscriptionCard() {
 
@@ -104,15 +105,6 @@ export function SubscriptionCard() {
     // Convert timestamp into date components
     const currentPeriodEnd = billingDateTranform(subscriptionData.currentPeriodEnd)
 
-    // Helper function to return plan name to UI friendly version
-    function formatPlanName(plan: string) {
-
-        const planName = plan.replaceAll("_", " ")
-            .replace(/\b\w/g, (char: string) => char.toUpperCase());
-
-        return planName
-    };
-
 
     // Add formatting and check for free plan 
     const priceDisplay = subscriptionData.currentPlanPrice === 0 ? "Free"
@@ -120,106 +112,109 @@ export function SubscriptionCard() {
 
 
     return (
-        <div className="auth-card">
 
-            <h2 className="auth-title">Subscription</h2>
+        <div className="billing-component-card">
 
-            <p className="auth-p"><strong>Current Plan:</strong> {formatPlanName(subscriptionData.currentPlanName)}</p>
+            <h2 className="billing-title">Subscription</h2>
+            <div className="auth-card">
 
-            {subscriptionData.pendingPlanName && (
-                <p className="auth-p">
-                    <strong>Pending Upgrade:</strong> {formatPlanName(subscriptionData.pendingPlanName)}
-                    {" "}
-                    (${subscriptionData.pendingPlanPrice})
-                </p>
-            )}
+                <p className="auth-p"><strong>Current Plan:</strong> {formatString(subscriptionData.currentPlanName)}</p>
 
-            <p className="auth-p"><strong>Price:</strong> {priceDisplay}</p>
-
-            <p className="auth-p"><strong>Renews on:</strong> {currentPeriodEnd}</p>
-
-            {showCancellation && <p className="auth-p"><strong>Cancellation Effective:</strong> {cancellationDate}</p>}
-
-
-            <p className="auth-p"><strong>Remaining Submissions:</strong> {" "}{subscriptionData.remainingSubmissionNumber}{" / "}
-                {subscriptionData.planSubmissionLimit ?? "Unlimited"}</p>
-
-
-            <div className="sub-button-container"><button className="auth-button" onClick={() => { setIsUpdating(true); setIsCancelling(false); }}>Change Subscription
-            </button></div>
-
-            <div className="sub-button-container"><button className="sub-cancel-button" onClick={() => { setIsCancelling(true); setIsUpdating(false); }}>Cancel Subscription
-            </button></div>
-
-            {isUpdating && (
-                <div className="auth-form">
-
-                    <p className="auth-p"><strong>New Plan</strong></p>
-
-                    <select className="billing-select"
-                        value={planName}
-                        onChange={(e) =>
-                            setPlanName(e.target.value as PlanNames)
-                        }
-                    >
-                        <option value="free_trial">Free Trial</option>
-                        <option value="general">General</option>
-                        <option value="academic">Academic</option>
-                        <option value="ukvi_general">UKVI General</option>
-                        <option value="ukvi_academic">UKVI Academic</option>
-                        <option value="life_skills">Life Skills</option>
-                        <option value="retake">Retake</option>
-                    </select>
-
-
-                    <p className="auth-p"><strong>Password</strong></p>
-
-                    <input className="auth-form input"
-                        type="password"
-                        autoComplete="off"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(e.target.value)
-                        }
-                    />
-
-                    <button className="auth-button" onClick={handleSubmit}>
-                        Save
-                    </button>
-
-                    <button className="auth-button" onClick={() => setIsUpdating(false)}>
-                        Cancel
-                    </button>
-
-                </div>
-            )}
-
-            {isCancelling && (
-                <>
-                    <p className="auth-p"><strong>Password</strong></p>
-
-                    <div className="auth-form"><input className="auth-form input"
-                        type="password"
-                        value={cancelPassword}
-                        autoComplete="off"
-                        onChange={(e) => setCancelPassword(e.target.value)}
-                    /></div>
-
-                    <p className="sub-p">
-                        Your subscription will remain active until the end of the
-                        current billing period.
+                {subscriptionData.pendingPlanName && (
+                    <p className="auth-p">
+                        <strong>Pending Upgrade:</strong> {formatString(subscriptionData.pendingPlanName)}
+                        {" "}
+                        (${subscriptionData.pendingPlanPrice})
                     </p>
+                )}
 
-                    <button className="sub-cancel-button" onClick={handleCancelSubscription}>
-                        Confirm Cancellation
-                    </button>
+                <p className="auth-p"><strong>Price:</strong> {priceDisplay}</p>
 
-                    <div className="sub-button-container"><button className="auth-button" onClick={() => setIsCancelling(false)}>
-                        Back
-                    </button></div>
-                </>
-            )}
+                <p className="auth-p"><strong>Renews on:</strong> {currentPeriodEnd}</p>
 
+                {showCancellation && <p className="auth-p"><strong>Cancellation Effective:</strong> {cancellationDate}</p>}
+
+
+                <p className="auth-p"><strong>Remaining Submissions:</strong> {" "}{subscriptionData.remainingSubmissionNumber}{" / "}
+                    {subscriptionData.planSubmissionLimit ?? "Unlimited"}</p>
+
+
+                <div className="sub-button-container"><button className="auth-button" onClick={() => { setIsUpdating(true); setIsCancelling(false); }}>Change Subscription
+                </button></div>
+
+                <div className="sub-button-container"><button className="sub-cancel-button" onClick={() => { setIsCancelling(true); setIsUpdating(false); }}>Cancel Subscription
+                </button></div>
+
+                {isUpdating && (
+                    <div className="auth-form">
+
+                        <p className="auth-p"><strong>New Plan</strong></p>
+
+                        <select className="billing-select"
+                            value={planName}
+                            onChange={(e) =>
+                                setPlanName(e.target.value as PlanNames)
+                            }
+                        >
+                            <option value="free_trial">Free Trial</option>
+                            <option value="general">General</option>
+                            <option value="academic">Academic</option>
+                            <option value="ukvi_general">UKVI General</option>
+                            <option value="ukvi_academic">UKVI Academic</option>
+                            <option value="life_skills">Life Skills</option>
+                            <option value="retake">Retake</option>
+                        </select>
+
+
+                        <p className="auth-p"><strong>Password</strong></p>
+
+                        <input className="auth-form input"
+                            type="password"
+                            autoComplete="off"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                        />
+
+                        <button className="auth-button" onClick={handleSubmit}>
+                            Save
+                        </button>
+
+                        <button className="auth-button" onClick={() => setIsUpdating(false)}>
+                            Cancel
+                        </button>
+
+                    </div>
+                )}
+
+                {isCancelling && (
+                    <>
+                        <p className="auth-p"><strong>Password</strong></p>
+
+                        <div className="auth-form"><input className="auth-form input"
+                            type="password"
+                            value={cancelPassword}
+                            autoComplete="off"
+                            onChange={(e) => setCancelPassword(e.target.value)}
+                        /></div>
+
+                        <p className="sub-p">
+                            Your subscription will remain active until the end of the
+                            current billing period.
+                        </p>
+
+                        <button className="sub-cancel-button" onClick={handleCancelSubscription}>
+                            Confirm Cancellation
+                        </button>
+
+                        <div className="sub-button-container"><button className="auth-button" onClick={() => setIsCancelling(false)}>
+                            Back
+                        </button></div>
+                    </>
+                )}
+
+            </div>
         </div>
     );
 

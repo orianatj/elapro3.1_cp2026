@@ -1,6 +1,6 @@
 import { api } from "./client";
 import type { UpdateUserData } from "../types/common/User";
-import type { BillingHistoryQuery, UpdateSubscription } from "../types/common/billing";
+import type { BillingHistoryQuery, UpdateSubscription, AddPaymentMethod, UpdateExistingPayMethod, DeletePaymentMethod } from "../types/common/billing";
 
 // Retrieve authenticated user's details
 export const currentUser = () =>
@@ -32,7 +32,23 @@ export const getPaymentMethod = async () => {
     return response.data;
 };
 
+// Add a payment method
+export const addPaymentMethod = async (data: AddPaymentMethod) => {
+    const response = await api.post("/users/me/billing/payment-method", data);
+    return response.data;
+};
 
+// Update an existing payment method
+export const updatePaymentMethod = async (data: UpdateExistingPayMethod) => {
+    const response = await api.patch("/users/me/billing/payment-method", data);
+    return response.data;
+};
+
+// Delete payment method 
+export const deletePaymentMethod = async (data: DeletePaymentMethod) => {
+    const response = await api.delete("/users/me/billing/payment-method", { data });
+    return response.data;
+};
 
 // Retrieve user's billing history 
 export const getBillingHistory = async (params: BillingHistoryQuery) => {

@@ -39,12 +39,10 @@ export type PaymentMethod = {
     last_updated: string;
 };
 
-// Define request body for PATCH /billing/payment-method
-export type PaymentMethodRequest = {
-    paymentMethodId: string;
+// Define request body for adding a payment method (POST /billing/payment-method) 
+export type AddPaymentMethod = {
     paymentProvider: string;
     paymentToken: string;
-    isActive: boolean;
     defaultMethod: boolean;
 };
 
@@ -57,8 +55,10 @@ export type UpdateExistingPayMethod = {
     defaultMethod: boolean;
 };
 
-// Define type for adding a new payment method - POST /billing/payment-method
-
+// Define type for request body for DELETE /billing/payment-method
+export type DeletePaymentMethod = {
+    paymentMethodId: string;
+};
 
 // Define type for GET /billing/history query parameters 
 export type BillingHistoryQuery = {

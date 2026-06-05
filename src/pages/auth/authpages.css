@@ -235,6 +235,10 @@ label.required::after {
   transition: background-color 0.2s ease;
 }
 
+.auth-button-small {
+  width: 70%;
+}
+
 /* Hover state */
 .auth-button:hover {
   background-color: slategray;
