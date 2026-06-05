@@ -4,6 +4,7 @@ import { useCancelSubscription } from "../../hooks/useCancelSubscription";
 import { useState } from "react";
 import axios from "axios";
 import type { PlanNames } from "../../types/common/billing";
+import { billingDateTranform } from "../../utils/billingDateConversion";
 
 export function SubscriptionCard() {
 
@@ -96,18 +97,12 @@ export function SubscriptionCard() {
     // Create boolean to support conditional rendering of cancellation info
     const showCancellation = subscriptionData.cancellationDate !== null;
 
-    // Convert timestamp into date components if cancellation date not null
-    const cancellationDate = showCancellation ? new Date(subscriptionData.cancellationDate)
-        .toLocaleDateString("en-AU", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-        }) : null;
+
+    // Convert timestamp into date components 
+    const cancellationDate = billingDateTranform(subscriptionData.cancellationDate)
 
     // Convert timestamp into date components
-    const currentPeriodEnd = new Date(subscriptionData.currentPeriodEnd
-    ).toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" });
-
+    const currentPeriodEnd = billingDateTranform(subscriptionData.currentPeriodEnd)
 
     // Helper function to return plan name to UI friendly version
     function formatPlanName(plan: string) {
@@ -161,7 +156,7 @@ export function SubscriptionCard() {
 
                     <p className="auth-p"><strong>New Plan</strong></p>
 
-                    <select className="subscription-select"
+                    <select className="billing-select"
                         value={planName}
                         onChange={(e) =>
                             setPlanName(e.target.value as PlanNames)
