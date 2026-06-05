@@ -6,7 +6,7 @@
 }
 
 /* Overall page styling */
-.student-layout-body {
+.teacher-layout-body {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -20,7 +20,7 @@
 /* ================= LAYOUT WRAPPER ================= */
 
 /* Main layout container holding sidebar + main content */
-.student-container {
+.teacher-container {
   display: flex; /* Places sidebar and main content side by side */
   min-height: 100vh; /* Makes layout fill full viewport height */
   background-color: #FAFAFC;

@@ -58,6 +58,7 @@ export default function AppRouter() {
             <Route path="essay-submission" element={<EssaySubmissionPage />} />
             <Route path="practice-writing" element={<PracticeWritingPage />} />
             <Route path="submissions" element={<SubmissionsPage />} />
+            <Route path="notifications" element={<Notifications />} />
             <Route path="submission/:submissionId" element={<SubmissionAnalysisPage />} />
           </Route>
         </Route>
@@ -111,7 +112,6 @@ export default function AppRouter() {
         {/* Common Routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin", "student", "supervisory_teacher", "external_teacher"]} />}>
           <Route path="/settings" element={<AccountSettingsPage />} />
-          <Route path="/notifications" element={<Notifications />} />
         </Route>
       </Routes>
     </BrowserRouter>
