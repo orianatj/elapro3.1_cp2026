@@ -60,12 +60,10 @@ export type UpdateExistingPayMethod = {
 // Define type for adding a new payment method - POST /billing/payment-method
 
 
-
-
 // Define type for GET /billing/history query parameters 
 export type BillingHistoryQuery = {
-    date_range?: "7d" | "30d" | "90d" | "all";
-    sort_by?: "billing_date" | "amount" | "status";
+    date_range?: "7d" | "30d" | "90d" | "6m" | "1y" | "3y" | "all";
+    sort_by?: "billingDate" | "amount" | "status";
     sort_order?: "asc" | "desc";
     limit?: number;
     page?: number;
