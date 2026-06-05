@@ -111,7 +111,7 @@ export default function AppRouter() {
 
         {/* Common Routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin", "student", "supervisory_teacher", "external_teacher"]} />}>
-          <Route path="/settings" element={<AccountSettingsPage />} />
+          <Route path="/account-settings" element={<AccountSettingsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
