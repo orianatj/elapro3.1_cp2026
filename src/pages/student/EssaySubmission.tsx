@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 
 // Import shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
-import { PracticeTaskSelectionGroup as TaskSelectionGroup} from "../../studentDashboard/PracticeWritingTaskSelection";
+import { PracticeTaskSelectionGroup as TaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
 import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
 import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor";
 
@@ -17,6 +17,9 @@ import { ACCEPTED_FILE_TYPES } from "../../constants/uploadAcceptedFileTypes";
 
 // Import utils
 import { getWordCount } from "../../utils/wordCounter";
+
+// Import css
+import "./essaysubmission.css"
 
 export default function EssaySubmissionPage() {
 
@@ -41,7 +44,7 @@ export default function EssaySubmissionPage() {
         getWordCount(viewData.answer.answerText);
 
 
-        return (
+    return (
         <div className="essay-submission-page">
 
             {/* Page Header */}
@@ -58,108 +61,122 @@ export default function EssaySubmissionPage() {
             {/* Main Content */}
             <div className="main-content">
 
-                {/* Task Section */}
-                <div className="task-section">
+                {/* Left Column */}
+                <div className="left-column">
 
-                    {/* Generate Question */}
-                    <TaskSelectionGroup
-                        ieltsFilter={viewData.ieltsSelection}
-                        taskFilter={viewData.taskSelection}
-                        onIeltsTypeChange={actions.setIeltsType}
-                        onTaskTypeChange={actions.setTaskType}
-                        onGenerate={actions.generateQuestion}
-                    />
+                    {/* Task Section */}
+                    <div className="task-section">
 
-                    {/* Upload Section */}
-                    <div className="upload-section">
-
-                        {/* Hidden question upload input */}
-                        <input
-                            type="file"
-                            id="question-upload"
-                            accept={ACCEPTED_FILE_TYPES}
-                            style={{ display: "none" }}
-                            onChange={(e) => {
-                                const file = e.target.files?.[0];
-
-                                if (file) {
-                                    actions.uploadQuestion(file);
-
-                                    // allow same file to be uploaded again
-                                    e.target.value = "";
-                                }
-                            }}
+                        {/* Generate Question */}
+                        <TaskSelectionGroup
+                            ieltsFilter={viewData.ieltsSelection}
+                            taskFilter={viewData.taskSelection}
+                            onIeltsTypeChange={actions.setIeltsType}
+                            onTaskTypeChange={actions.setTaskType}
+                            onGenerate={actions.generateQuestion}
                         />
 
-                        {/* Upload question trigger */}
-                        <label
-                            htmlFor="question-upload"
-                            className="upload-button"
-                        >
-                            {state.isUploadingQuestion
-                                ? "Uploading..."
-                                : "Upload Question"}
-                        </label>
+                        {/* Question upload feedback */}
+                        {state.isUploadingQuestion && (
+                            <p>Uploading question...</p>
+                        )}
 
-                        {/* Hidden essay upload input */}
-                        <input
-                            type="file"
-                            id="essay-upload"
-                            accept={ACCEPTED_FILE_TYPES}
-                            style={{ display: "none" }}
-                            onChange={(e) => {
-                                const file = e.target.files?.[0];
-
-                                if (file) {
-                                    actions.uploadEssay(file);
-
-                                    // allow same file to be uploaded again
-                                    e.target.value = "";
-                                }
-                            }}
-                        />
-
-                        {/* Upload essay trigger */}
-                        <label
-                            htmlFor="essay-upload"
-                            className="upload-button"
-                        >
-                            {state.isUploadingEssay
-                                ? "Uploading..."
-                                : "Upload Essay"}
-                        </label>
+                        {state.uploadQuestionErrorMessage && (
+                            <p>{state.uploadQuestionErrorMessage}</p>
+                        )}
 
                     </div>
 
-                    {/* Reset upload */}
-                    <button
-                        type="button"
-                        onClick={actions.resetUpload}
-                        disabled={
-                            state.isUploadingEssay ||
-                            state.isUploadingQuestion
-                        }
-                    >
-                        Reset Upload
-                    </button>
+                    <div className="upload-card">
 
-                    {/* Essay upload feedback */}
-                    {state.isUploadingEssay && (
-                        <p>Uploading essay...</p>
-                    )}
+                        <h4>Upload Files</h4>
 
-                    {state.uploadEssayErrorMessage && (
-                        <p>{state.uploadEssayErrorMessage}</p>
-                    )}
+                        {/* Upload Section */}
+                        <div className="upload-section">
 
-                    {/* Question upload feedback */}
-                    {state.isUploadingQuestion && (
-                        <p>Uploading question...</p>
-                    )}
+                            {/* Hidden question upload input */}
+                            <input
+                                type="file"
+                                id="question-upload"
+                                accept={ACCEPTED_FILE_TYPES}
+                                style={{ display: "none" }}
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
 
-                    {state.uploadQuestionErrorMessage && (
-                        <p>{state.uploadQuestionErrorMessage}</p>
-                    )}
+                                    if (file) {
+                                        actions.uploadQuestion(file);
+
+                                        // allow same file to be uploaded again
+                                        e.target.value = "";
+                                    }
+                                }}
+                            />
+
+                            {/* Upload question trigger */}
+                            <label
+                                htmlFor="question-upload"
+                                className="upload-button"
+                            >
+                                {state.isUploadingQuestion
+                                    ? "Uploading..."
+                                    : "Upload Question"}
+                            </label>
+
+                            {/* Hidden essay upload input */}
+                            <input
+                                type="file"
+                                id="essay-upload"
+                                accept={ACCEPTED_FILE_TYPES}
+                                style={{ display: "none" }}
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+
+                                    if (file) {
+                                        actions.uploadEssay(file);
+
+                                        // allow same file to be uploaded again
+                                        e.target.value = "";
+                                    }
+                                }}
+                            />
+
+                            {/* Upload essay trigger */}
+                            <label
+                                htmlFor="essay-upload"
+                                className="upload-button"
+                            >
+                                {state.isUploadingEssay
+                                    ? "Uploading..."
+                                    : "Upload Essay"}
+                            </label>
+
+
+
+                            {/* Reset upload */}
+                            <button
+                                className="reset-upload-button"
+                                type="button"
+                                onClick={actions.resetUpload}
+                                disabled={
+                                    state.isUploadingEssay ||
+                                    state.isUploadingQuestion
+                                }
+                            >
+                                Reset Uploads
+                            </button>
+
+                            {/* Essay upload feedback */}
+                            {state.isUploadingEssay && (
+                                <p>Uploading essay...</p>
+                            )}
+
+                            {state.uploadEssayErrorMessage && (
+                                <p>{state.uploadEssayErrorMessage}</p>
+                            )}
+                            
+                        </div>
+
+                    </div>
 
                 </div>
 

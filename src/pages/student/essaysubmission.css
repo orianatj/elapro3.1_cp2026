@@ -275,7 +275,7 @@
     color: var(--text-primary);
 }
 
-/* ================= SELECTS ================= */
+/* ================= FILTER SELECTS ================= */
 
 .practice-task-selection select {
     width: 160px;
@@ -298,16 +298,15 @@
         0 0 0 3px rgba(0,0,0,0.05);
 }
 
-/* ================= BUTTON CONTAINER ================= */
 
+
+/* ================= GET TASK BUTTON ================= */
 .get-task-button-container {
     display: flex;
     align-items: flex-end;
     flex-shrink: 0;
     padding-left: 4px;
 }
-
-/* ================= GET TASK BUTTON ================= */
 
 .get-task-button {
     height: 38px;
@@ -341,7 +340,7 @@
 /* ================= TASK DESCRIPTION ================= */
 
 .task-description {
-    min-height: 260px;
+    min-height: 265px;
 }
 
 .task-description p {
@@ -356,7 +355,7 @@
 .upload-card {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 }
 
 .upload-card h4 {
@@ -401,18 +400,26 @@
     transform: translateY(1px);
 }
 
-/* ================= RESET UPLOAD BUTTON ================= */
-
-.reset-upload-button {
-    align-self: flex-start;
+.reset-upload-button {  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
     background: transparent;
-    border: none;
-    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     color: #666666;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
+    white-space: nowrap;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
 }
+
 
 .reset-upload-button:hover {
     color: #111111;
