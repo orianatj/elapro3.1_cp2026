@@ -3,18 +3,21 @@ import { useMutation } from "@tanstack/react-query";
 
 // API services
 import { getRandomQuestion } from "../services/questionsApi";
-import { createSubmission } from "../services/submissionsApi";
+import { createSubmission, uploadEssay } from "../services/submissionsApi";
 
 // Types
 import type { EssaySubmission } from "../types/student/StudentEssaySubmissionViewData";
 import type { QuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
+import type { UploadEssayResponse } from "../types/common/api/uploadFiles"
 
 // Constants
 import { ESSAY_SUBMISSION_INITIAL_STATE } from "../constants/essayWritingInitialStates";
 
 // Utils
 import { getErrorMessage } from "../utils/errorHandling";
+import { buildUploadFormData } from "../utils/uploadUtility";
+import { getWordCount } from "../utils/wordCounter";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 
@@ -27,7 +30,6 @@ export function useEssaySubmission() {
     const [ieltsType, setIeltsType] = useState<IeltsType | undefined>(undefined);
     const [taskType, setTaskType] = useState<TaskType | undefined>(undefined);
     const [answerText, setAnswerText] = useState("");
-    const [wordCount, setWordCount] = useState(0);
 
     // Set countdown timer dependant to task type (40 mins for Task 2, 20 mins for Task 1)
     const setTimer = (taskType?: TaskType) => {
@@ -37,7 +39,7 @@ export function useEssaySubmission() {
     };
     const newTimerValue = setTimer(taskType);
 
-    // Mutation to fetch a new question based on current selections
+    // Mutation to fetch a new randomquestion based on current selections
     const generateQuestionMutation = useMutation({
         mutationFn: async () => {
 
@@ -55,6 +57,7 @@ export function useEssaySubmission() {
             return response.data.data as QuestionResponse["data"];
         },
 
+
         onSuccess: (data) => {
             // Update task description with API response
             setViewData((prev) => ({
@@ -71,6 +74,8 @@ export function useEssaySubmission() {
                 }
             }));
         }
+
+
     });
 
     // Mutation to submit the answer
@@ -127,19 +132,81 @@ export function useEssaySubmission() {
                         submissionDate: new Date().toISOString(),
                         ieltsType: ieltsType!,
                         taskType: taskType!,
-                        answerText: "",           // clear answer text
-                        wordCount: 0              // reset word count
+                        answerText: ""            // clear answer text                        
                     }
                 }));
 
-                setAnswerText(""); // Clear answer input after successful submission
-                setWordCount(0);   // Reset word count after successful submission
+                setAnswerText(""); // Clear answer input after successful submission                
 
             }, 5000); // Delay state update to allow user to see success message
 
         }
     });
 
+    // Handles essay upload and populates editor with extracted text
+    const uploadEssayMutation = useMutation({
+        mutationFn: async (file: File) => {
+
+            if (!ieltsType || !taskType) {
+                throw new Error("Please select IELTS type and task type.");
+            }
+
+            // Build upload payload
+            const formData = buildUploadFormData(file, ieltsType, taskType);
+
+            // Call upload endpoint
+            const response = await uploadEssay(formData);
+            return response.data.data as UploadEssayResponse;
+        },
+
+        // reset upload success state before starting a new upload
+        onMutate: () => {
+            setViewData(prev => ({
+                ...prev,
+                essayUpload: {
+                    ...prev.essayUpload,
+                    isSuccessful: false,
+                    isValid: false,
+                    fileProvided: false,
+                    fileName: ""
+                }
+            }));
+        },
+
+        // reset upload state if request fails
+        onError: () => {
+            setViewData(prev => ({
+                ...prev,
+                essayUpload: {
+                    ...prev.essayUpload,
+                    isSuccessful: false,
+                    isValid: false
+                }
+            }));
+        },
+
+        onSuccess: (data) => {
+
+            setViewData((prev) => ({
+                ...prev,
+                essayUpload: {
+                    ...prev.essayUpload,
+                    fileName: data.sourceFile,
+                    fileProvided: true,
+                    isSuccessful: true,
+                    isValid: true
+                },
+                answer: {
+                    ...prev.answer,
+                    fromUpload: true
+                }
+            }));
+
+            // populate editor
+            setAnswerText(data.essayText);
+        }
+
+    });
 
     // Auto-clear generate question error after 3 seconds
     useEffect(() => {
@@ -165,8 +232,30 @@ export function useEssaySubmission() {
         }
     }, [submitAnswerMutation.isSuccess, submitAnswerMutation.error]);
 
+    // resets upload-related state and clears editor
+    const resetUpload = () => {
+        setAnswerText("");
+
+        setViewData(prev => ({
+            ...prev,
+            essayUpload: {
+                ...prev.essayUpload,
+                fileName: "",
+                fileProvided: false,
+                isValid: false,
+                isSuccessful: false
+            },
+            answer: {
+                ...prev.answer,
+                fromUpload: false
+            }
+        }));
+    };
+
+
 
     // Derived ViewData (combines base data with current UI state)
+    const computedWordCount = getWordCount(answerText);
     const updatedViewData: EssaySubmission = {
         ...viewData,
         ieltsSelection: {
@@ -179,10 +268,15 @@ export function useEssaySubmission() {
             selected: taskType
         },
 
+        taskBar: {
+            ...viewData.taskBar,
+            userWordCount: computedWordCount
+        },
+
         answer: {
             ...viewData.answer,
             answerText,
-            wordCount
+            wordCount: computedWordCount
         }
     };
 
@@ -194,11 +288,12 @@ export function useEssaySubmission() {
             setIeltsType,
             setTaskType,
             setAnswerText,
-            setWordCount,
 
             // TSQ Trigger functions
             generateQuestion: generateQuestionMutation.mutate,
-            submitAnswer: submitAnswerMutation.mutate
+            submitAnswer: submitAnswerMutation.mutate,
+            uploadEssay: uploadEssayMutation.mutate,
+            resetUpload
         },
 
         state: {
@@ -211,6 +306,11 @@ export function useEssaySubmission() {
             isSubmittingAnswer: submitAnswerMutation.isPending,
             submitAnswerErrorMessage: submitAnswerMutation.error
                 ? getErrorMessage(submitAnswerMutation.error)
+                : null,
+
+            isUploadingEssay: uploadEssayMutation.isPending,
+            uploadEssayErrorMessage: uploadEssayMutation.error
+                ? getErrorMessage(uploadEssayMutation.error)
                 : null,
 
             isSubmitSuccess: submitAnswerMutation.isSuccess,

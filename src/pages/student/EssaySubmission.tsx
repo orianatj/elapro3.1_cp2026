@@ -1,14 +1,24 @@
 // Import shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
-import { PracticeTaskSelectionGroup as TaskSelectionGroup} from "../../studentDashboard/PracticeWritingTaskSelection";
+import { PracticeTaskSelectionGroup as TaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
 import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
 import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor";
 
 // Import hooks
 import { useEssaySubmission } from "../../hooks/useEssaySubmission";
 
+// Import constants
+import { ACCEPTED_FILE_TYPES } from "../../constants/uploadAcceptedFileTypes";
+
+// Utils
+import { getWordCount } from "../../utils/wordCounter";
+
 export default function EssaySubmissionPage() {
+
     const { viewData, actions, state } = useEssaySubmission();
+
+    // Derive live word count from current answer text
+    const computedWordCount = getWordCount(viewData.answer.answerText);
 
     return (
         <div className="essay-submission-page">
@@ -17,7 +27,12 @@ export default function EssaySubmissionPage() {
             <StudentHeaderBar header={viewData.pageHeader} />
 
             {/* Task Utility Bar */}
-            <TaskUtilityBar utilData={viewData.taskBar} />
+            <TaskUtilityBar
+                utilData={{
+                    ...viewData.taskBar,
+                    userWordCount: computedWordCount
+                }}
+            />
 
             {/* Main Content */}
             <div className="main-content">
@@ -25,7 +40,7 @@ export default function EssaySubmissionPage() {
                 {/* Task Section */}
                 <div className="task-section">
 
-                    {/* Generate / Select Task */}
+                    {/* Generate Question */}
                     <TaskSelectionGroup
                         ieltsFilter={viewData.ieltsSelection}
                         taskFilter={viewData.taskSelection}
@@ -36,52 +51,106 @@ export default function EssaySubmissionPage() {
 
                     {/* Upload Section */}
                     <div className="upload-section">
-                        <button>Upload Question</button>
-                        <button>Upload Essay</button>
+
+                        {/* Hidden file input */}
+                        <input
+                            type="file"
+                            id="essay-upload"
+                            accept={ACCEPTED_FILE_TYPES}
+                            style={{ display: "none" }}
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+
+                                if (file) {
+                                    actions.uploadEssay(file);
+
+                                    // allow same file to be uploaded again
+                                    e.target.value = "";
+                                }
+                            }}
+                        />
+
+
+                        {/* Upload trigger */}
+                        <label
+                            htmlFor="essay-upload"
+                            className="upload-button"
+                        >
+                            {state.isUploadingEssay
+                                ? "Uploading..."
+                                : "Upload Essay"}
+                        </label>
+
                     </div>
 
-                    {/* Task Description */}
-                    <div className="task-description">
-                        <h4>Task Description</h4>
-                        <p>
-                            {viewData.taskDescription.questionText ||
-                                viewData.taskDescription.placeHolderText}
-                        </p>
-                    </div>
 
-                </div>
-
-                {/* Answer Section */}
-                <div className="answer-section">
-                    <h4>Your Answer</h4>
-
-                    <AnswerEditor
-                        answer={viewData.answer}
-                        onWordCountChange={actions.setWordCount}
-                        onTextChange={actions.setAnswerText}
-                    />
-                </div>
-
-                {/* Submit Section */}
-                <div className="submit-section">
+                    {/* Reset upload */}
                     <button
-                        onClick={() => actions.submitAnswer()}
-                        disabled={state.isSubmittingAnswer}
+                        type="button"
+                        onClick={actions.resetUpload}
+                        disabled={state.isUploadingEssay}
                     >
-                        {state.isSubmittingAnswer ? "Submitting..." : "Submit Answer"}
+                        Reset Upload
                     </button>
 
-                    {state.submitAnswerErrorMessage && (
-                        <p>{state.submitAnswerErrorMessage}</p>
+                    {/* Upload feedback */}
+                    {state.isUploadingEssay && (
+                        <p>Uploading essay...</p>
                     )}
 
-                    {!state.submitAnswerErrorMessage && state.submitSuccessMessage && (
-                        <p>{state.submitSuccessMessage}</p>
+                    {state.uploadEssayErrorMessage && (
+                        <p>{state.uploadEssayErrorMessage}</p>
                     )}
+
+                </div>
+
+                {/* Task Description */}
+                <div className="task-description">
+                    <h4>Task Description</h4>
+
+                    <p>
+                        {viewData.taskDescription.questionText ||
+                            viewData.taskDescription.placeHolderText}
+                    </p>
                 </div>
 
             </div>
-        </div>
+
+            {/* Answer Section */}
+            <div className="answer-section">
+
+                <h4>Your Answer</h4>
+
+                <AnswerEditor
+                    answer={viewData.answer}
+                    onTextChange={actions.setAnswerText}
+                />
+
+            </div>
+
+            {/* Submit Section */}
+            <div className="submit-section">
+
+                <button
+                    onClick={() => actions.submitAnswer()}
+                    disabled={state.isSubmittingAnswer}
+                >
+                    {state.isSubmittingAnswer
+                        ? "Submitting..."
+                        : "Submit Answer"}
+                </button>
+
+                {state.submitAnswerErrorMessage && (
+                    <p>{state.submitAnswerErrorMessage}</p>
+                )}
+
+                {!state.submitAnswerErrorMessage &&
+                    state.submitSuccessMessage && (
+                        <p>{state.submitSuccessMessage}</p>
+                    )}
+
+            </div>
+
+        </div>        
     );
 }
-
