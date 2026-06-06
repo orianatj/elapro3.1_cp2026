@@ -267,7 +267,9 @@ Students can access notifications by selecting the notification bell icon locate
 The Practice Writing page allows students to complete IELTS writing practice tasks within an interactive writing workspace. Students can generate IELTS writing prompts, manage writing time using built-in timer controls, and draft responses directly within the platform.
 
 <img src ="images/student/PracticeWritingEmpty.png" alt="Practice Writing Page" width="70%"> 
+
 *Figure 24. Practice Writing Workspace*
+
 The page is broken into 4 sections:
 1. The **Task utility bar** that controls timer and live word counting functions.
 2. The **Generate Question** section provides students the ability select and generate a specific type of question to practice.
@@ -277,6 +279,7 @@ The page is broken into 4 sections:
 ### Generating a Practice Question
 
 <img src ="images/student/GenerateQuestion.png" alt="Practice Writing Generate Question section" width="70%"> 
+
 *Figure 25. Generating a Random Question*
 
 1. Select the appropriate **IELTS Type** from the available dropdown options.
@@ -295,13 +298,14 @@ Students can:
 - Start, pause, or reset the writing timer. The timer is set automatically dependant on Task Type (20m for Type 1 questions, 40m for Type 2).
 - Monitor the live word count while writing.
 
-### Writing an submitting a Practice Response
+### Writing and Submitting a Practice Response
 
 <img src ="images/student/PracticeWritingSubmission.png" alt="Submitting a Practice Writing answer" width="70%"> 
+
 *Figure 26. Submitting a Finished Response*
 
 1. The task is generated from the selected options.
-2. The countdown timer is initiated by pressing the "play" icon. The student will be alerted once time has expired, though can continue to edit their answer until ready for submission.
+2. The countdown timer is initiated by pressing the `play` icon. The student will be alerted once time has expired, though can continue to edit their answer until ready for submission.
 3. The student will enter your response into the **Your Answer** text editor.
 4. The editor automatically updates the displayed word count while typing.
 5. Select **Submit Answer** to submit the completed response.
@@ -315,6 +319,7 @@ Once submitted, the platform will process the response and generate AI feedback 
 The Essay Submission page allows students to submit IELTS writing responses using either manually entered text or uploaded documents. Students may generate a writing question within the platform or upload an external writing task and essay response. 
 
 <img src ="images/student/EssaySubmissionPage.png" alt="Essay Submission Page" width="70%">   
+
 *Figure 27. Essay Submission Workspace*
 
 ### Generating a Writing Question
@@ -328,7 +333,8 @@ A user has teh opportunity to generate a random question similar to the Practice
 
 Students can upload essay-related documents, either their own own questions or answers directly through the Upload Files section. The platform supports docx, txt, or pdf file formats for upload.
 
-<img src ="images/student/EssaySubmissionuploadFiles.png" alt="upload a file in Essay Submission Page" width="70%">   
+<img src ="images/student/EssaySubmissionuploadFiles.png" alt="upload a file in Essay Submission Page" width="70%">  
+
 *Figure 28. Essay Submission File Upload*
 
 1. To upload any file, the student must first select an IELTS and Task Type combination from the dropdown selection to provide the required metadata of the type of essay being submitted.
@@ -363,6 +369,7 @@ Students may:
 The Submissions page allows students to review and manage previously submitted IELTS writing responses. Students can access submission history, filter results, and review grading outcomes.
 
 <img src ="images/student/SubmissionsPage.png" alt="Submissions Page" width="70%">   
+
 *Figure 29. Student Submission History*
 
 ### Viewing Submission History
@@ -385,6 +392,7 @@ Filtering options automatically update the displayed results.
 ### Opening a Submission
 
 <img src ="images/student/SubmissionsFiltered.png" alt="Filtered Submissions and View Analysis Button" width="70%">   
+
 *Figure 30. Student Submission History*
 
 1. Locate the desired submission within the table.
@@ -398,10 +406,22 @@ Filtering options automatically update the displayed results.
 
 The Submission Analysis page provides detailed AI-generated feedback and scoring for submitted IELTS essays. Students can review criterion breakdowns, overall scores, and written feedback designed to support improvement in IELTS writing performance.
 
-Submission Analysis Page  
-*Figure 27. Submission Analysis Overview*
+<img src ="images/student/SubmissionAnalysisTop.png" alt="Top section of a Submission Analysis report" width="70%">
+ 
+*Figure 31. Submission Analysis Overview*
+
+### Reviewing Essay Content
+
+The submission analysis page displays:
+- the original writing prompt
+- the submitted essay response
+- submission metadata including submission date and word count
 
 ### Viewing Scores and Feedback
+
+<img src ="images/student/SubmissionAnalysisBottom.png" alt="Score explanation section of a Submission Analysis report" width="70%">
+ 
+*Figure 32. Submission Analysis Score Explanations*
 
 Students can review:
 - Overall Band Score
@@ -412,15 +432,9 @@ Students can review:
 
 Each criterion includes:
 - an individual score
+- a visual score indicator on scale of 0 to 9
 - written AI feedback
-- improvement suggestions
 
-### Reviewing Essay Content
-
-The submission analysis page displays:
-- the original writing prompt
-- the submitted essay response
-- submission metadata including submission date and word count
 
 ### Reattempting a Submission
 
