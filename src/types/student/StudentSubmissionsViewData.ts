@@ -2,7 +2,7 @@
 import type { PageHeaderViewData } from "../common/PageHeaderDTO";
 
 // Import shared GradingStatus type and mapping function
-import type { SafeGradingStatus } from "../../utils/gradingStatus";
+import type { SafeGradingStatus, DisplayStatus } from "../common/GradingStatus";
 
 // Import shared StudentFilter DTO from student/common folder. 
 import type {
@@ -53,13 +53,14 @@ export type SubmissionsTable = {
 // Represents a single row in the Student Submissions table that describes one submission including.
 // its metadata, score, and the identifier needed to open the submission analysis page.
 export type SubmissionTableRow = {
-  submissionId: string;       // backend: submissionId - unique identifier for this submission, used for navigation to the analysis page
-  date: string;               // formatted from submission timestamp, e.g. "2024-05-01 14:30"
+  submissionId: string;          // backend: submissionId - unique identifier for this submission, used for navigation to the analysis page
+  date: string;                  // formatted from submission timestamp, e.g. "2024-05-01 14:30"
   questionType: string;          // derived, not provided by backend - e.g. "Practice" or "Submitted Essay"
-  ieltsType: IeltsType;       // from backend 'submissions': "academic" | "general"
-  taskType: TaskType;         // from backend 'submissions': "task1" | "task2"
-  status: SafeGradingStatus;  // safe grading lifecycle status used for UI rendering and behaviour
-  score?: number;             // numeric score from backend 'results'; omitted if not yet available
+  ieltsType: IeltsType;          // from backend 'submissions': "academic" | "general"
+  taskType: TaskType;            // from backend 'submissions': "task1" | "task2"
+  rawStatus: SafeGradingStatus;  // safe grading lifecycle status used for UI rendering and behaviour
+  displayStatus: DisplayStatus;  // user-friendly status label derived from grading status and flagged status.
+  score?: number;                // numeric score from backend 'results'; omitted if not yet available
 };
 
 

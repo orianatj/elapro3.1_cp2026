@@ -9,7 +9,7 @@ ELA Pro 3.1 is an IELTS (International English Language Testing System) essay fe
 #### Frontend Architecture Diagram
 Figure 1 illustrates the high-level frontend architecture of the ELA Pro 3.1 application and the interaction between the React single-page application, TanStack Query, Axios HTTP client, and ELA Pro Wrapper API.
 
-<img src="images/elapro-frontend-architecture.png" alt="Frontend System Architecture" width="50%">
+<img src="images/deployment/elapro-frontend-architecture.png" alt="Frontend System Architecture" width="50%">
 
 *Figure 1. Frontend System Architecture Diagram*
 
@@ -31,7 +31,7 @@ The context directory contains the authentication context used to manage user st
 
 #### Folder tree structure 
 
-<img src="images/top-level-src-code-tree.jpg" alt="Top-level Source Code Tree Diagram" >
+<img src="images/deployment/top-level-src-code-tree.jpg" alt="Top-level Source Code Tree Diagram" >
 
 *Figure 2. High-level frontend directory structure*
 

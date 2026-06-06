@@ -8,7 +8,6 @@ import { QueryStateHandler } from "../../common/QueryStateHandler";
 import { SubmissionMetaBar } from "../../studentDashboard/SubmissionMetaBar";
 import { ScoreOverviewSection } from "../../studentDashboard/SubmissionScoreOverview";
 import { SubmissionSummarySection } from "../../studentDashboard/SubmissionSummary";
-import { ScoreExplanationSection } from "../../studentDashboard/SubmissionScoreExplanation";
 import { CriterionBreakdownSection } from "../../studentDashboard/SubmissionCriterionBreakdown";
 import { SubmissionActionsBar } from "../../studentDashboard/SubmissionActionsBar";
 
@@ -55,16 +54,16 @@ export default function SubmissionAnalysisPage() {
               <SubmissionSummarySection data={data.submissionSummary} />
             </div>
 
-            <div className="analysis-page-score-explanation">
-              <ScoreExplanationSection data={data.scoreExplanation} />
-            </div>
-
             <div className="analysis-page-criterion-breakdown">
               <CriterionBreakdownSection data={data.criterionBreakdown} />
             </div>
 
             <div className="analysis-page-action-buttons">
-              <SubmissionActionsBar actions={data.actions} />
+              <SubmissionActionsBar
+                actions={data.actions}                
+                submissionId={submissionId ?? ""}
+                reattempt={data.reattempt}
+              />
             </div>
           </div>
         )

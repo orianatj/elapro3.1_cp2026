@@ -1,122 +1,151 @@
 // Import React Query hooks for data fetching
 import { useQuery } from "@tanstack/react-query";
 
-// Import the ViewData type used by the Submission Analysis page
-import type { CriterionType, SubmissionAnalysis } from "../types/student/StudentSubmissionAnalysisViewData";
+// Import API services
+import { submissionResult } from "../services/resultsApi";
+import { submissionIndividual } from "../services/submissionsApi";
+
+// Import the ViewData types used by the Submission Analysis page
+import type { SubmissionAnalysis } from "../types/student/StudentSubmissionAnalysisViewData";
+import type { SubmissionResponse } from "../types/common/api/submissions";
+import type { CompetencyType, ResultFullResponse } from "../types/common/api/results";
 
 // Import utilities for formatting and labeling
 import { formatDateTime } from "../utils/dateUtils";
-import { ieltsTypeLabels, taskTypeLabels } from "../utils/studentSubmissionLabels";
-import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
+import { ieltsTypeLabels, taskTypeLabels, criterionLabels } from "../utils/studentSubmissionLabels";
+import { buildScoreBar } from "../utils/scoreBarUtility";
 
-import { mockSubmissionAnalysis } from "../studentDashboard/SubmissionAnalysisMock";
-
-const labels: Record<CriterionType, string> = {
-    "task-response": "Task Response",
-    "coherence-cohesion": "Coherence and Cohesion",
-    "lexical-resource": "Lexical Resource",
-    "grammatical-range-accuracy": "Grammatical Range and Accuracy",
+// Defines the display order of IELTS competencies for consistent UI rendering 
+const competencyOrder: Record<CompetencyType, number> = {
+    overall: 0,
+    task_response: 1,
+    coherence_cohesion: 2,
+    lexical: 3,
+    grammar: 4,
 };
 
 // useSubmissionAnalysis is a custom hook responsible for fetching and preparing
 export function useSubmissionAnalysis(submissionId: string) {
 
     // Use TanStack Query to fetch and manage submission data.
-    const { data, isPending, isError, error } = useQuery({
+    const analysisQuery = useQuery({
         queryKey: ["submissionAnalysis", submissionId], // Unique key for caching and refetching
 
         // Prevent the query from running if submissionId is not provided
-        enabled: Boolean(submissionId),
+        enabled: !!submissionId,
 
-        // Simulate an API call to fetch submission analysis data
+        // Call the API's to fetch submission analysis data
         queryFn: async () => {
-            // Simulate error handling by throwing an error for certain submissionIds (e.g., "error-case")
-            const simulateError = false; // Toggle to true to test error handling 
-            if (simulateError) {
-                throw {
-                    response: { status: 403 },
-                };
+
+            // Retrieve the submission and results data in parallel from the backend.
+            const [resultsRes, submissionRes] = await Promise.all([
+                submissionResult(submissionId),
+                submissionIndividual(submissionId),
+            ]);
+
+            const result: ResultFullResponse =
+                resultsRes.data.data.results?.[0];
+            if (!result) {
+                throw new Error("No results data found for this submission.");
             }
 
-            // Simulate API response (no backend yet)
-            return mockSubmissionAnalysis;
+            const submission: SubmissionResponse =
+                submissionRes.data.data;
+
+            return {
+                result,
+                submission
+            };
 
         },
 
-        // transform the raw API response into the ViewData format expected by the page components
-        select: (submission): SubmissionAnalysis => ({
-            pageHeader: {
-                title: "Submission Analysis",
-                breadcrumb: [
-                    { label: "Dashboard", link: "/student" },
-                    { label: "Submissions", link: "/student/submissions" },
-                    { label: "Analysis" },
-                ],
-            },
+        // Transform the raw API response into the ViewData format expected by the page components
+        select: (data): SubmissionAnalysis => {
 
-            submissionMeta: {
-                taskLabel: `Task Type: ${ieltsTypeLabels[submission.ieltsType as IeltsType]} ${taskTypeLabels[submission.taskType as TaskType]}`,
-            },
+            const { result, submission } = data;
 
-
-            scoreOverview: {
-                overallScore: submission.score.overall,
-                overallScoreBar: [],
-                criteriaScores: submission.score.criteria.map((criterion) => ({
-                    criterion: criterion.type as CriterionType,
-                    displayLabel: labels[criterion.type as CriterionType],
-                    score: criterion.score,
-                    scoreBar: [],
-                })),
-                submissionDate: formatDateTime(submission.submittedAt),
-                writingDuration: submission.duration,
-            },
-
-            submissionSummary: {
-                taskDescription: {
-                    placeHolderText: submission.question.placeHolderText,
-                    questionID: submission.question.id,
-                    questionText: submission.question.text,
-                },
-                submittedResponse: {
-                    essayText: submission.response.essayText,
+            return {
+                pageHeader: {
+                    title: "Submission Analysis",
+                    breadcrumb: [
+                        { label: "Dashboard", link: "/student" },
+                        { label: "Submissions", link: "/student/submissions" },
+                        { label: "Submission Analysis" },
+                    ],
                 },
 
-            },
+                submissionMeta: {
+                    taskLabel: `Task Type: ${ieltsTypeLabels[result.ieltsType]} ${taskTypeLabels[result.taskType]}`,
+                },
 
-            scoreExplanation: {
-                title: "Score Explanation",
-                overallScore: submission.score.overall,
-                overallScoreBar: [],
-                explanationText: submission.score.explanation ?? "Explanation unavailable",
-            },
 
-            criterionBreakdown: {
-                criteria: submission.score.criteria.map((criterion) => ({
-                    criterion: criterion.type as CriterionType,
-                    titleLabel: labels[criterion.type as CriterionType],
-                    score: criterion.score,
-                    scoreBar: [],
-                    explanationText: criterion.explanation ?? "Explanation unavailable",
-                })),
+                scoreOverview: {
+                    overallScore: result.overallScore ?? 0,
+                    overallScoreBar: buildScoreBar(result.overallScore),
+                    criteriaScores: result.competencies
+                        .filter(c => c.competency !== "overall")
+                        .sort((a, b) => competencyOrder[a.competency] - competencyOrder[b.competency])
+                        .map((criterion) => ({
+                            criterion: criterion.competency,
+                            displayLabel: criterionLabels[criterion.competency],
+                            score: criterion.score,
+                            scoreBar: buildScoreBar(criterion.score),
+                        })),
+                    submissionDate: formatDateTime(submission.submittedAt),
+                    wordCount: submission.wordCount,
+                },
 
-            },
+                submissionSummary: {
+                    taskDescription: {
+                        placeHolderText: "",
+                        questionID: submission.questionId,
+                        questionText: result.questionText ?? result.customQuestionText ?? "Task description unavailable",
+                    },
+                    submittedResponse: {
+                        essayText: result.essayText && result.essayText.length > 0
+                            ? result.essayText : "Submitted response unavailable",
+                    },
 
-            actions: {
-                canDownloadReport: true,
-                canRequestReview: true,
-                canReattempt: false,
-            },
-        }),
+                },
+
+                criterionBreakdown: {
+                    criteria: result.competencies
+                        .filter(c => c.competency)
+                        .sort((a, b) => competencyOrder[a.competency] - competencyOrder[b.competency])
+                        .map((criterion) => ({
+                            criterion: criterion.competency,
+                            titleLabel: criterionLabels[criterion.competency],
+                            score: criterion.score ?? 0,
+                            scoreBar: buildScoreBar(criterion.score),
+                            explanationText: criterion.feedback && criterion.feedback.trim().length > 0
+                                ? criterion.feedback
+                                : "Explanation unavailable",
+                        })),
+
+                },
+
+                actions: {
+                    canDownloadReport: false,
+                    canRequestReview: !submission.flagged, // Only allow review request if one hasn't already been made
+                    canReattempt: true,
+                },
+
+                reattempt: {
+                    ieltsType: submission.ieltsType,
+                    taskType: submission.taskType,
+                    questionId: submission.questionId,
+                }
+            }
+        },
     });
 
 
     // Return clean API for page consumption
     return {
-        viewData: data,
-        isPending,
-        isError,
-        error,
+        viewData: analysisQuery.data,
+        isPending: analysisQuery.isPending,
+        isError: analysisQuery.isError,
+        error: analysisQuery.error,
     };
 }
 

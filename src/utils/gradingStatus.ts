@@ -1,8 +1,6 @@
 
 import { GradingStatus } from '../types/common/GradingStatus';
-
-// Safe extension of GradingStatus that includes "unknown" for invalid values
-export type SafeGradingStatus = GradingStatus | "unknown";
+import type { DisplayStatus, SafeGradingStatus } from '../types/common/GradingStatus';
 
 // Maps a string to a SafeGradingStatus, returning "unknown" for invalid values
 export function mapGradingStatus(value?: string): SafeGradingStatus {
@@ -27,4 +25,35 @@ export function canShowScore(status: SafeGradingStatus): boolean {
         status === GradingStatus.teacher_validated ||
         status === GradingStatus.teacher_reviewed
     );
+}
+
+// Maps backend grading status and flagged status to a user-friendly display string
+export function getDisplayStatus(
+    status: SafeGradingStatus,
+    flagged: boolean
+): DisplayStatus {
+    if (flagged) return "Review Pending";
+
+    switch (status) {
+        case GradingStatus.ai_graded:
+            return "AI Graded";
+
+        case GradingStatus.failed:
+            return "Failed";
+
+        case GradingStatus.pending:
+            return "Pending";
+
+        case GradingStatus.processing:
+            return "Processing";
+
+        case GradingStatus.teacher_reviewed:
+            return "Teacher Reviewed";
+
+        case GradingStatus.teacher_validated:
+            return "Teacher Validated";
+
+        default:
+            return "Unknown";
+    }
 }
