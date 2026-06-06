@@ -12,7 +12,8 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "academic",
     taskType: "task2",
     score: 7.5,
-    status: GradingStatus.ai_graded,
+    rawStatus: GradingStatus.ai_graded,
+    displayStatus: "AI Graded",
   },
   {
     submissionId: "mock-2",
@@ -21,7 +22,8 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "general",
     taskType: "task1",
     score: 6,
-    status: GradingStatus.processing,
+    rawStatus: GradingStatus.processing,
+    displayStatus: "Processing",
   },
   {
     submissionId: "mock-3",
@@ -30,7 +32,8 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "academic",
     taskType: "task2",
     score: 4.5,
-    status: GradingStatus.pending,
+    rawStatus: GradingStatus.pending,
+    displayStatus: "Pending",
   },
   {
     submissionId: "mock-4",
@@ -39,7 +42,8 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "academic",
     taskType: "task2",
     score: 6.5,
-    status: GradingStatus.teacher_reviewed,
+    rawStatus: GradingStatus.teacher_reviewed,
+    displayStatus: "Teacher Reviewed",
   },
     {
     submissionId: "mock-5",
@@ -48,7 +52,8 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "general",
     taskType: "task1",
     score: 7,
-    status: GradingStatus.processing,
+    rawStatus: GradingStatus.processing,
+    displayStatus: "Processing",
   },
   {
     submissionId: "mock-6",
@@ -57,7 +62,8 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "academic",
     taskType: "task2",
     score: 8,
-    status: GradingStatus.pending,
+    rawStatus: GradingStatus.pending,
+    displayStatus: "Pending", 
   },
   {
     submissionId: "mock-7",
@@ -66,6 +72,7 @@ export const mockSubmissionRows: SubmissionTableRow[] = [
     ieltsType: "academic",
     taskType: "task2",
     score: 6.5,
-    status: GradingStatus.failed,
+    rawStatus: GradingStatus.failed,
+    displayStatus: "Failed",  
   },
 ];
