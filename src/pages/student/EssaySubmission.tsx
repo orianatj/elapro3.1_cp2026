@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom"
+
 // Import shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
 import { PracticeTaskSelectionGroup as TaskSelectionGroup} from "../../studentDashboard/PracticeWritingTaskSelection";
@@ -7,20 +9,39 @@ import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor
 // Import hooks
 import { useEssaySubmission } from "../../hooks/useEssaySubmission";
 
+// Import Types
+import type { IeltsType, TaskType } from "../../types/student/common/StudentFilter";
+
 // Import constants
 import { ACCEPTED_FILE_TYPES } from "../../constants/uploadAcceptedFileTypes";
 
-// Utils
+// Import utils
 import { getWordCount } from "../../utils/wordCounter";
 
 export default function EssaySubmissionPage() {
 
-    const { viewData, actions, state } = useEssaySubmission();
+    // Router state from SubmissionAnalysis reattempt flow
+    const location = useLocation();
 
-    // Derive live word count from current answer text
-    const computedWordCount = getWordCount(viewData.answer.answerText);
+    const reattempt = location.state?.reattempt as
+        | {
+            ieltsType: IeltsType;
+            taskType: TaskType;
+            questionId: string;
+            questionText: string;
+        }
+        | undefined;
 
-    return (
+    // Hook
+    const { viewData, actions, state } =
+        useEssaySubmission(reattempt);
+
+    // Derive live word count
+    const computedWordCount =
+        getWordCount(viewData.answer.answerText);
+
+
+        return (
         <div className="essay-submission-page">
 
             {/* Page Header */}

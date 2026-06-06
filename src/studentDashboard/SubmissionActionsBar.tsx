@@ -10,7 +10,7 @@ import type { IeltsType } from "../types/student/StudentDashboard";
 import type { TaskType } from "../types/student/common/StudentFilter";
 
 type SubmissionActionsBarProps = {
-    actions: SubmissionActions;    
+    actions: SubmissionActions;
     submissionId: string;
     reattempt: {
         ieltsType: IeltsType;
@@ -51,15 +51,12 @@ export function SubmissionActionsBar({ actions, submissionId, reattempt }: Submi
     return (
         <div className="submission-actions-bar">
             {/* Navigate to a new essay attempt */}
-
             {actions.canReattempt && (
                 <button
                     onClick={() =>
                         navigate("/student/essay-submission", {
                             state: {
-                                ieltsType: reattempt.ieltsType,
-                                taskType: reattempt.taskType,
-                                questionId: reattempt.questionId,
+                                reattempt
                             },
                         })
                     }
@@ -67,6 +64,7 @@ export function SubmissionActionsBar({ actions, submissionId, reattempt }: Submi
                     Reattempt Essay
                 </button>
             )}
+
 
 
             {/* Download submission report */}

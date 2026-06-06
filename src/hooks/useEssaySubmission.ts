@@ -21,14 +21,28 @@ import { getWordCount } from "../utils/wordCounter";
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 
-export function useEssaySubmission() {
+export function useEssaySubmission(
+    reattempt?: {
+        ieltsType: IeltsType;
+        taskType: TaskType;
+        questionId: string;
+        questionText: string;
+    }
+) {
+
 
     // Base view data structure, populated with API responses and user input
     const [viewData, setViewData] = useState<EssaySubmission>(ESSAY_SUBMISSION_INITIAL_STATE);
 
     // UI State for current selections
-    const [ieltsType, setIeltsType] = useState<IeltsType | undefined>(undefined);
-    const [taskType, setTaskType] = useState<TaskType | undefined>(undefined);
+    const [ieltsType, setIeltsType] =
+        useState<IeltsType | undefined>(
+            reattempt?.ieltsType
+        );
+    const [taskType, setTaskType] =
+        useState<TaskType | undefined>(
+            reattempt?.taskType
+        );
     const [answerText, setAnswerText] = useState("");
 
     // Set countdown timer dependant to task type (40 mins for Task 2, 20 mins for Task 1)
@@ -38,6 +52,31 @@ export function useEssaySubmission() {
         return 20 * 60;     // 20 minutes in seconds
     };
     const newTimerValue = setTimer(taskType);
+
+    // Preload task data for essay reattempt flow
+    useEffect(() => {
+
+        if (!reattempt) {
+            return;
+        }
+
+        setViewData((prev) => ({
+            ...prev,
+
+            taskBar: {
+                ...prev.taskBar,
+                timeRemaining: newTimerValue,
+                taskTimeLimit: newTimerValue
+            },
+
+            taskDescription: {
+                ...prev.taskDescription,
+                questionID: reattempt.questionId,
+                questionText: reattempt.questionText
+            }
+        }));
+
+    }, [reattempt, newTimerValue]);
 
     // Mutation to fetch a new randomquestion based on current selections
     const generateQuestionMutation = useMutation({
@@ -290,7 +329,8 @@ export function useEssaySubmission() {
 
             taskDescription: {
                 ...prev.taskDescription,
-                questionText: ""
+                questionText: "",
+                questionID: ""
             },
 
             answer: {
@@ -302,7 +342,7 @@ export function useEssaySubmission() {
 
     // Derived ViewData (combines base data with current UI state)
     const computedWordCount = getWordCount(answerText);
-    const updatedViewData: EssaySubmission = {
+    const derivedViewData: EssaySubmission = {
         ...viewData,
         ieltsSelection: {
             ...viewData.ieltsSelection,
@@ -327,7 +367,7 @@ export function useEssaySubmission() {
     };
 
     return {
-        viewData: updatedViewData,
+        viewData: derivedViewData,
 
         actions: {
             // UI State Setters

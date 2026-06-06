@@ -99,7 +99,10 @@ export function useSubmissionAnalysis(submissionId: string) {
                     taskDescription: {
                         placeHolderText: "",
                         questionID: submission.questionId,
-                        questionText: result.questionText ?? result.customQuestionText ?? "Task description unavailable",
+                        questionText:
+                            result.questionText ??
+                            result.customQuestionText ??
+                            "Task description unavailable",
                     },
                     submittedResponse: {
                         essayText: result.essayText && result.essayText.length > 0
@@ -134,11 +137,14 @@ export function useSubmissionAnalysis(submissionId: string) {
                     ieltsType: submission.ieltsType,
                     taskType: submission.taskType,
                     questionId: submission.questionId,
+                    questionText:
+                        result.questionText ??
+                        result.customQuestionText ??
+                        "Task description unavailable"
                 }
             }
         },
     });
-
 
     // Return clean API for page consumption
     return {
