@@ -6,7 +6,11 @@ import { DEFAULT_IELTS_FILTER, DEFAULT_TASK_FILTER } from "./filters";
 export const PRACTICE_WRITING_INITIAL_STATE: PracticeWriting = {
     pageHeader: {
         title: "Practice Writing",
-        breadcrumb: []
+        breadcrumb: [
+            { label: "Dashboard", link: "/student" },
+            { label: "Practice Writing" }
+        ]
+
     },
 
     taskBar: {
@@ -54,7 +58,11 @@ export const PRACTICE_WRITING_INITIAL_STATE: PracticeWriting = {
 export const ESSAY_SUBMISSION_INITIAL_STATE: EssaySubmission = {
     pageHeader: {
         title: "Essay Submission",
-        breadcrumb: []
+        breadcrumb: [
+            { label: "Dashboard", link: "/student" },
+            { label: "Essay Submission" }
+        ]
+
     },
 
     taskBar: {
