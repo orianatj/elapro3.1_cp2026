@@ -378,8 +378,8 @@ The submissions table displays:
 - submission date
 - IELTS Type
 - Task Type
-- overall score
-- submission status
+- overall score. The score is only displayed if the essay has been fully graded or reviewed. Pending results are not visible.
+- submission status indicate how the essay has been graded. A pending status indicates an essay is waiting to be graded or reviewed if requested.
 
 ### Filtering Submissions
 
@@ -432,7 +432,7 @@ Students can review:
 
 Each criterion includes:
 - an individual score
-- a visual score indicator on scale of 0 to 9
+- a visual score indicator on scale of 0 to 9.
 - written AI feedback
 
 
@@ -446,6 +446,11 @@ The platform will preload:
 - original task description
 
 allowing students to practise revisions and continue improving their writing performance.
+
+
+### Requesting a Teacher Review
+
+If a student believes the AI algorithm has marked an essay incorrectly, they are able to flag the submission for teacher review. The status will change to `Review Pending`, until a teacher applies a manual grade and move status to `Teacher Reviewed`.
 
 ---
 
