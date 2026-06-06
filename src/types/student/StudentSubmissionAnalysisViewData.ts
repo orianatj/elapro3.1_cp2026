@@ -33,6 +33,7 @@ export interface SubmissionAnalysis {
     ieltsType: IeltsType;
     taskType: TaskType;
     questionId: string;
+    questionText: string;
   };
 
 }

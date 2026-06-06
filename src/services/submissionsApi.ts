@@ -15,3 +15,12 @@ export const createSubmission = (payload: any) => {
 export const submissionStatus = () => {
     return api.get("/submissions/status");
 }
+
+export const uploadFile = (formData: FormData) => {
+  return api.post("/submissions/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
