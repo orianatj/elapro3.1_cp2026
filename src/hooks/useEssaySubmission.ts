@@ -3,13 +3,13 @@ import { useMutation } from "@tanstack/react-query";
 
 // API services
 import { getRandomQuestion } from "../services/questionsApi";
-import { createSubmission, uploadEssay } from "../services/submissionsApi";
+import { createSubmission, uploadFile } from "../services/submissionsApi";
 
 // Types
 import type { EssaySubmission } from "../types/student/StudentEssaySubmissionViewData";
 import type { QuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
-import type { UploadEssayResponse } from "../types/common/api/uploadFiles"
+import type { UploadFileResponse } from "../types/common/api/uploadFiles"
 
 // Constants
 import { ESSAY_SUBMISSION_INITIAL_STATE } from "../constants/essayWritingInitialStates";
@@ -143,6 +143,46 @@ export function useEssaySubmission() {
         }
     });
 
+    // Handles question upload and populates task description
+    const uploadQuestionMutation = useMutation({
+        mutationFn: async (file: File) => {
+
+            // Ensure required selections are made before upload
+            if (!ieltsType || !taskType) {
+                throw new Error("Please select IELTS type and task type.");
+            }
+
+            // Build upload payload
+            const formData = buildUploadFormData(
+                file,
+                ieltsType,
+                taskType
+            );
+
+            // Call upload endpoint
+            const response = await uploadFile(formData);
+
+            return response.data.data as UploadFileResponse;
+        },
+
+        onSuccess: (data) => {
+
+            // Populate task description with extracted question text
+            setViewData((prev) => ({
+                ...prev,
+                taskBar: {
+                    ...prev.taskBar,
+                    timeRemaining: newTimerValue, // Reset timer based on task type
+                    taskTimeLimit: newTimerValue, // Set time limit based on task type
+                },
+                taskDescription: {
+                    ...prev.taskDescription,
+                    questionText: data.essayText
+                }
+            }));
+        }
+    });
+
     // Handles essay upload and populates editor with extracted text
     const uploadEssayMutation = useMutation({
         mutationFn: async (file: File) => {
@@ -155,8 +195,8 @@ export function useEssaySubmission() {
             const formData = buildUploadFormData(file, ieltsType, taskType);
 
             // Call upload endpoint
-            const response = await uploadEssay(formData);
-            return response.data.data as UploadEssayResponse;
+            const response = await uploadFile(formData);
+            return response.data.data as UploadFileResponse;
         },
 
         // reset upload success state before starting a new upload
@@ -232,12 +272,14 @@ export function useEssaySubmission() {
         }
     }, [submitAnswerMutation.isSuccess, submitAnswerMutation.error]);
 
-    // resets upload-related state and clears editor
+    // resets upload-related state and clears uploaded content
     const resetUpload = () => {
+
         setAnswerText("");
 
         setViewData(prev => ({
             ...prev,
+
             essayUpload: {
                 ...prev.essayUpload,
                 fileName: "",
@@ -245,14 +287,18 @@ export function useEssaySubmission() {
                 isValid: false,
                 isSuccessful: false
             },
+
+            taskDescription: {
+                ...prev.taskDescription,
+                questionText: ""
+            },
+
             answer: {
                 ...prev.answer,
                 fromUpload: false
             }
         }));
     };
-
-
 
     // Derived ViewData (combines base data with current UI state)
     const computedWordCount = getWordCount(answerText);
@@ -292,7 +338,10 @@ export function useEssaySubmission() {
             // TSQ Trigger functions
             generateQuestion: generateQuestionMutation.mutate,
             submitAnswer: submitAnswerMutation.mutate,
+
+            uploadQuestion: uploadQuestionMutation.mutate,
             uploadEssay: uploadEssayMutation.mutate,
+
             resetUpload
         },
 
@@ -306,6 +355,11 @@ export function useEssaySubmission() {
             isSubmittingAnswer: submitAnswerMutation.isPending,
             submitAnswerErrorMessage: submitAnswerMutation.error
                 ? getErrorMessage(submitAnswerMutation.error)
+                : null,
+
+            isUploadingQuestion: uploadQuestionMutation.isPending,
+            uploadQuestionErrorMessage: uploadQuestionMutation.error
+                ? getErrorMessage(uploadQuestionMutation.error)
                 : null,
 
             isUploadingEssay: uploadEssayMutation.isPending,
