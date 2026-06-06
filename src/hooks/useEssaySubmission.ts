@@ -170,7 +170,6 @@ export function useEssaySubmission() {
             // Populate task description with extracted question text
             setViewData((prev) => ({
                 ...prev,
-<<<<<<< HEAD
                 taskBar: {
                     ...prev.taskBar,
                     timeRemaining: newTimerValue, // Reset timer based on task type
