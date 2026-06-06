@@ -12,9 +12,15 @@ type Student = {
 type Submission = {
   submissionId: string;
   userId: string;
+  questionId?: string | null;
   ieltsType: string;
   taskType: string;
+  questionText?: string;
   customQuestionText: string | null;
+  essayText?: string;
+  wordCount?: number;
+  validated?: string;
+  flagged?: boolean | string | number | null;
   status: string;
   submittedAt?: string;
   student?: Student;
@@ -31,14 +37,28 @@ type Props = {
   itemsPerPage?: number;
 };
 
+function normalize(value?: string) {
+  return (value ?? "").trim().toLowerCase();
+}
+
 function capitalizeWords(text: string) {
-  return text.replace(/\b\w/g, (char) => char.toUpperCase());
+  return text
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function isFlagged(flagged: Submission["flagged"]) {
+  return flagged === true || flagged === "true" || flagged === 1 || flagged === "1";
+}
+
+function getDisplayStatus(status: string, flagged?: Submission["flagged"]) {
+  return isFlagged(flagged) ? "review-requested" : status;
 }
 
 function getStatusClass(status: string) {
   const normalized = status.toLowerCase();
 
-  if (normalized.includes("pending")) {
+  if (normalized.includes("pending") || normalized.includes("review-requested")) {
     return "status-badge status-pending";
   }
 
@@ -49,17 +69,8 @@ function getStatusClass(status: string) {
   return "status-badge status-default";
 }
 
-function normalize(value?: string) {
-  return (value ?? "").trim().toLowerCase();
-}
-
 function getItems(data: any): Submission[] {
-  const candidates = [
-    data?.data?.data?.items,
-    data?.data?.items,
-    data?.items,
-    data,
-  ];
+  const candidates = [data?.data?.data?.items, data?.data?.items, data?.items, data];
 
   for (const candidate of candidates) {
     if (Array.isArray(candidate)) return candidate;
@@ -77,13 +88,14 @@ export default function TableView({
   itemsPerPage = 25,
 }: Props) {
   const navigate = useNavigate();
-
   const { data, isLoading, isError } = useSubmissionsList({ limit: 100 });
 
   const submissions = useMemo(() => getItems(data), [data]);
 
   const filteredSubmissions = useMemo(() => {
     return submissions.filter((s) => {
+      const displayStatus = getDisplayStatus(s.status, s.flagged);
+
       const matchesIelts =
         !ieltsType || normalize(s.ieltsType) === normalize(ieltsType);
 
@@ -91,7 +103,7 @@ export default function TableView({
         !taskType || normalize(s.taskType) === normalize(taskType);
 
       const matchesStatus =
-        !status || normalize(s.status) === normalize(status);
+        !status || normalize(displayStatus) === normalize(status);
 
       return matchesIelts && matchesTask && matchesStatus;
     });
@@ -106,12 +118,8 @@ export default function TableView({
       }
 
       if (sortBy === "name") {
-        const nameA =
-          `${a.student?.firstName ?? ""} ${a.student?.lastName ?? ""}`.trim();
-
-        const nameB =
-          `${b.student?.firstName ?? ""} ${b.student?.lastName ?? ""}`.trim();
-
+        const nameA = `${a.student?.firstName ?? ""} ${a.student?.lastName ?? ""}`.trim();
+        const nameB = `${b.student?.firstName ?? ""} ${b.student?.lastName ?? ""}`.trim();
         return nameA.localeCompare(nameB);
       }
 
@@ -122,12 +130,10 @@ export default function TableView({
   const visibleSubmissions = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-
     return sortedSubmissions.slice(startIndex, endIndex);
   }, [sortedSubmissions, currentPage, itemsPerPage]);
 
   if (isLoading) return <p>Loading submissions...</p>;
-
   if (isError) return <p>Failed to load submissions.</p>;
 
   return (
@@ -150,33 +156,34 @@ export default function TableView({
               <td colSpan={6}>No submissions found.</td>
             </tr>
           ) : (
-            visibleSubmissions.map((s) => (
-              <tr
-                key={s.submissionId}
-                onClick={() => navigate(`/teacher/individual-submission/${s.submissionId}/${encodeURIComponent(s.student?.firstName ?? '')}/${encodeURIComponent(s.student?.lastName ?? '')}`)}
-                style={{ cursor: "pointer" }}
-              >
-                <td>{s.student?.firstName ?? "-"}</td>
+            visibleSubmissions.map((s) => {
+              const displayStatus = getDisplayStatus(s.status, s.flagged);
 
-                <td>{s.student?.lastName ?? "-"}</td>
-
-                <td>{capitalizeWords(s.ieltsType)}</td>
-
-                <td>{capitalizeWords(s.taskType)}</td>
-
-                <td>
-                  <span className={getStatusClass(s.status)}>
-                    {capitalizeWords(s.status)}
-                  </span>
-                </td>
-
-                <td>
-                  {s.submittedAt
-                    ? new Date(s.submittedAt).toLocaleString()
-                    : "-"}
-                </td>
-              </tr>
-            ))
+              return (
+                <tr
+                  key={s.submissionId}
+                  onClick={() =>
+                    navigate(
+                      `/teacher/individual-submission/${s.submissionId}/${encodeURIComponent(
+                        s.student?.firstName ?? ""
+                      )}/${encodeURIComponent(s.student?.lastName ?? "")}`
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <td>{s.student?.firstName ?? "-"}</td>
+                  <td>{s.student?.lastName ?? "-"}</td>
+                  <td>{capitalizeWords(s.ieltsType)}</td>
+                  <td>{capitalizeWords(s.taskType)}</td>
+                  <td>
+                    <span className={getStatusClass(displayStatus)}>
+                      {capitalizeWords(displayStatus)}
+                    </span>
+                  </td>
+                  <td>{s.submittedAt ? new Date(s.submittedAt).toLocaleString() : "-"}</td>
+                </tr>
+              );
+            })
           )}
         </tbody>
       </table>

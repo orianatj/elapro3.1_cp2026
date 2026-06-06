@@ -3,7 +3,9 @@
 import type { PageHeaderViewData } from "../common/PageHeaderDTO";
 
 // Import shared task description DTO used across student pages
-import type {TaskDescription} from "./common/TaskDescriptionDTO";
+import type { TaskDescription } from "./common/TaskDescriptionDTO";
+import type { CompetencyType } from "../common/api/results";
+import type { IeltsType, TaskType } from "./StudentDashboard";
 
 /**
  * StudentSubmissionAnalysisViewData
@@ -15,17 +17,24 @@ import type {TaskDescription} from "./common/TaskDescriptionDTO";
 /* ------------------------------------------------------------------ 
 * Main Submission Analysis Interface
 * ------------------------------------------------------------------- 
-*/ 
+*/
 // Main page-level ViewData for the Submission Analysis screen
 // Acts as the UI contract between the page-level data source and the React components
-export interface SubmissionAnalysis {      
-    pageHeader: PageHeaderViewData;         // Shared page header (title + breadcrumb)
-    submissionMeta: SubmissionMeta;         // Metadata about the submission (e.g. Academic/General, Task 1/2)
-    scoreOverview: ScoreOverview;           // Displays overall and criteria scores, as well as writing metrics.
-    submissionSummary: SubmissionSummary;   // Contains the task description and the submitted essay response
-    scoreExplanation: ScoreExplanation;     // Detailed explanations for overall and criteria scores, with enhancement suggestions.
-    criterionBreakdown: CriterionBreakdown; // Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
-    actions: SubmissionActions;             // Available actions the student can take related to this submission (e.g. download report, request review)
+export interface SubmissionAnalysis {
+  pageHeader: PageHeaderViewData;         // Shared page header (title + breadcrumb)
+  submissionMeta: SubmissionMeta;         // Metadata about the submission (e.g. Academic/General, Task 1/2)
+  scoreOverview: ScoreOverview;           // Displays overall and criteria scores, as well as writing metrics.
+  submissionSummary: SubmissionSummary;   // Contains the task description and the submitted essay response
+  criterionBreakdown: CriterionBreakdown; // Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
+  actions: SubmissionActions;             // Available actions the student can take related to this submission (e.g. download report, request review)
+  
+  // Data required to pre-fill a new essay attempt based on this submission
+  reattempt: {
+    ieltsType: IeltsType;
+    taskType: TaskType;
+    questionId: string;
+  };
+
 }
 
 /*===================== SubmissionMeta =====================*/
@@ -42,9 +51,8 @@ export type ScoreOverview = {
   overallScore: number;               // Overall score for the submission, e.g. 6.5
   overallScoreBar: ScoreBarSegment[]; // Data for rendering the overall score bar visualization  
   criteriaScores: CriterionScore[];   // List of scores for each criterion
-  
   submissionDate: string;             // Derived from backend 'timestamp', formatted for display, e.g. "Mar 17, 2026"  
-  writingDuration: string;            // Derived from backend 'submissionDuration', formatted for display, e.g. "45 mins"
+  wordCount: number;                  // Derived from backend 'wordCount'
 };
 
 // Represents the score for an individual IELTS assessment criterion
@@ -56,17 +64,14 @@ export type CriterionScore = {
 };
 
 // Supported IELTS marking criteria used across the submission analysis page
-export type CriterionType = (
-  | "task-response"
-  | "coherence-cohesion"
-  | "lexical-resource"
-  | "grammatical-range-accuracy"
-);
+export type CriterionType = CompetencyType;
+
 
 // Represents a single segment within a score bar visualisation.
 export type ScoreBarSegment = {
   value: number;     // band value for this segment, e.g. 1 - 9
   isActive: boolean; // whether this segment should be visually highlighted.
+  isHalfActive?: boolean; // Optional extension for half-band scores (e.g. 6.5)
 };
 
 
@@ -84,19 +89,9 @@ export type SubmittedResponse = {
 };
 
 
-/* ===================== Score Explanation ===================== */
-// Score explanation section, includes detailed overall, and per-criterion explanations.
-export type ScoreExplanation = {
-  title: string;                      // e.g. "Score Explanation"
-  overallScore: number;               // Overall band score, e.g. 4.0
-  overallScoreBar: ScoreBarSegment[]; // Visual representation of the overall score
-  explanationText: string;            // AI-generated overall explanation (multi-paragraph)
-};
-
-
 /* ===================== Criterion Breakdown ===================== */
 // Detailed breakdown of scores and feedback for each criterion, used in the expandable sections of the UI.
-export type CriterionBreakdown = {  
+export type CriterionBreakdown = {
   criteria: CriterionExplanation[]; // List of detailed breakdowns for each criterion
 };
 
@@ -115,5 +110,5 @@ export type CriterionExplanation = {
 export type SubmissionActions = {
   canDownloadReport: boolean;   // Whether the student can download a PDF report of this submission
   canRequestReview: boolean;    // Whether the student is eligible to request a review for this submission
-  canReattempt: boolean;         // Whether the student can reattempt this task for re-evaluation
+  canReattempt: boolean;        // Whether the student can reattempt this task for re-evaluation  
 }

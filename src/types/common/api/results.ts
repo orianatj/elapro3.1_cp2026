@@ -1,5 +1,6 @@
 
 import type { GradingStatus } from "../GradingStatus";
+import type { IeltsType, TaskType } from "../../student/common/StudentFilter";
 
 // Lightweight model for list/table views returned from /results endpoint.
 // Contains only fields required for displaying submission summaries
@@ -16,8 +17,8 @@ export type ResultFullResponse = {
   userId: string;
   taskId: string;
 
-  ieltsType: string;
-  taskType: number;
+  ieltsType: IeltsType;
+  taskType: TaskType;
 
   overallScore?: number;
   status: GradingStatus;
@@ -32,10 +33,19 @@ export type ResultFullResponse = {
 
   submittedAt: string;
 
-  competencies: {
-    competency: string;
+  competencies: Competency[];
+};
+
+export type CompetencyType = 
+"overall" 
+| "task_response" 
+| "coherence_cohesion" 
+| "lexical" 
+| "grammar";
+
+export type Competency = {
+    competency: CompetencyType;
     score: number;
     feedback: string;
     graderType: string;
-  }[];
-};
+  };
