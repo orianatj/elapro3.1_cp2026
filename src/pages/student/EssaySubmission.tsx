@@ -1,6 +1,6 @@
 // Import shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
-import { PracticeTaskSelectionGroup as TaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
+import { PracticeTaskSelectionGroup as TaskSelectionGroup} from "../../studentDashboard/PracticeWritingTaskSelection";
 import { TaskUtilityBar } from "../../studentDashboard/PracticeWritingTaskUtilityBar";
 import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor";
 
@@ -52,7 +52,35 @@ export default function EssaySubmissionPage() {
                     {/* Upload Section */}
                     <div className="upload-section">
 
-                        {/* Hidden file input */}
+                        {/* Hidden question upload input */}
+                        <input
+                            type="file"
+                            id="question-upload"
+                            accept={ACCEPTED_FILE_TYPES}
+                            style={{ display: "none" }}
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+
+                                if (file) {
+                                    actions.uploadQuestion(file);
+
+                                    // allow same file to be uploaded again
+                                    e.target.value = "";
+                                }
+                            }}
+                        />
+
+                        {/* Upload question trigger */}
+                        <label
+                            htmlFor="question-upload"
+                            className="upload-button"
+                        >
+                            {state.isUploadingQuestion
+                                ? "Uploading..."
+                                : "Upload Question"}
+                        </label>
+
+                        {/* Hidden essay upload input */}
                         <input
                             type="file"
                             id="essay-upload"
@@ -70,8 +98,7 @@ export default function EssaySubmissionPage() {
                             }}
                         />
 
-
-                        {/* Upload trigger */}
+                        {/* Upload essay trigger */}
                         <label
                             htmlFor="essay-upload"
                             className="upload-button"
@@ -83,17 +110,19 @@ export default function EssaySubmissionPage() {
 
                     </div>
 
-
                     {/* Reset upload */}
                     <button
                         type="button"
                         onClick={actions.resetUpload}
-                        disabled={state.isUploadingEssay}
+                        disabled={
+                            state.isUploadingEssay ||
+                            state.isUploadingQuestion
+                        }
                     >
                         Reset Upload
                     </button>
 
-                    {/* Upload feedback */}
+                    {/* Essay upload feedback */}
                     {state.isUploadingEssay && (
                         <p>Uploading essay...</p>
                     )}
@@ -102,16 +131,27 @@ export default function EssaySubmissionPage() {
                         <p>{state.uploadEssayErrorMessage}</p>
                     )}
 
+                    {/* Question upload feedback */}
+                    {state.isUploadingQuestion && (
+                        <p>Uploading question...</p>
+                    )}
+
+                    {state.uploadQuestionErrorMessage && (
+                        <p>{state.uploadQuestionErrorMessage}</p>
+                    )}
+
                 </div>
 
                 {/* Task Description */}
                 <div className="task-description">
+
                     <h4>Task Description</h4>
 
                     <p>
                         {viewData.taskDescription.questionText ||
                             viewData.taskDescription.placeHolderText}
                     </p>
+
                 </div>
 
             </div>
@@ -151,6 +191,6 @@ export default function EssaySubmissionPage() {
 
             </div>
 
-        </div>        
+        </div>
     );
 }

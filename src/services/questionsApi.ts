@@ -5,7 +5,7 @@ export const createQuestion = (
   taskType: string,
   questionText: string
 ) => {
-  return api.post("/api/v1/questions", {
+  return api.post("/questions", {
     ieltsType,
     taskType,
     questionText,

@@ -1,5 +1,5 @@
-
-export type UploadEssayResponse = {
+// Response returned after essay upload and text extraction
+export type UploadFileResponse = {
     message: string;
     ieltsType: string;
     taskType: string;
@@ -7,3 +7,5 @@ export type UploadEssayResponse = {
     sourceFile: string;
     charCount: number;
 };
+
+
