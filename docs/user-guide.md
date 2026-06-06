@@ -408,8 +408,264 @@ There will be a confirmation dialog that will let the teacher know that the chan
 
 ---
 
-## Administrator Dashboard 
+## Admin Dashboard User Guide
 
-### Feature X 
+The Admin Dashboard allows administrators to manage platform users, subscriptions, reports, and audit logs. It provides an overview of platform activity and gives administrators access to the main management features required to maintain the system.
+
+### Navigation
+
+Navigation is completed using the sidebar located on the left-hand side of the screen. The sidebar is divided into the following navigation components:
+
+- **Dashboard** → Homepage
+- **User Management** → Manage users and permissions
+- **Subscriptions** → View and manage subscriptions
+- **Reports** → Access system reports and analytics
+- **Audit Logs** → View platform activity logs
+
+Selecting any navigation item will automatically direct the administrator to the corresponding page.
+
+---
+
+### Homepage
+
+The Homepage provides administrators with an overview of platform performance, user activity, and key system metrics.
+
+#### Homepage Interface
+
+*Figure 1. Homepage page interface*
+
+#### System Overview
+
+The System Overview section displays key statistics including:
+
+- Total Users
+- Active Users
+- Total Institutions
+- Active Subscriptions
+- Total Submissions
+- System Health Status
+
+These statistics are automatically updated and provide a quick overview of platform activity.
+
+#### User Growth Chart
+
+The User Growth Chart displays user growth over time, allowing administrators to monitor platform adoption and engagement trends.
+
+#### Interacting with the Chart
+
+- Hover over any data point to view detailed values.
+- Charts automatically update when new data becomes available.
+
+#### Subscription Distribution
+
+The Subscription Distribution chart displays the distribution of subscription plans currently active across the platform.
+
+The chart allows administrators to:
+
+- View subscription breakdowns by plan type
+- Identify the most commonly used subscription tiers
+- Monitor subscription trends
+
+#### Recent Activity Feed
+
+The Recent Activity Feed displays the latest platform activities, including:
+
+- New user registrations
+- Subscription changes
+- User account updates
+- System notifications
+
+Administrators can review recent actions without navigating away from the homepage.
+
+---
+
+### User Management Page
+
+The User Management page allows administrators to view, manage, and update user accounts across the platform.
+
+#### User Management Interface
+
+*Figure 2. User Management page interface*
+
+#### User Table
+
+The User Table displays the following information:
+
+- User Name
+- Email Address
+- Role
+- Institution
+- Account Status
+- Date Created
+
+#### Search Users
+
+The Search function allows administrators to locate users quickly.
+
+To search for a user:
+
+1. Click inside the search bar.
+2. Enter a user name or email address.
+3. The table will automatically update to display matching results.
+4. Clear the search field to return to the full user list.
+
+#### Filter Users
+
+The Filter button allows administrators to filter users by:
+
+- Role
+- Institution
+- Account Status
+
+To filter users:
+
+1. Click the **Filter** button.
+2. Select a filter category.
+3. Choose the desired option.
+4. The table will automatically update to display matching users.
+5. Select **Show All** to remove the filter.
+
+#### Edit User
+
+Administrators can update user information directly from the User Management page.
+
+To edit a user:
+
+1. Locate the user in the table.
+2. Click the **Edit** button.
+3. Update the required information.
+4. Click **Save** to apply changes.
+
+#### Activate or Deactivate Users
+
+Administrators can control user access by changing account status.
+
+To manage a user's account status:
+
+1. Locate the user in the table.
+2. Select **Activate** or **Deactivate**.
+3. The user's account status will update immediately.
+
+---
+
+### Subscription Management Page
+
+The Subscription Management page allows administrators to view and manage subscription plans.
+
+#### Subscription Table
+
+The Subscription Table displays:
+
+- Institution Name
+- Subscription Tier
+- Number of Licenses
+- Active Users
+- Subscription Status
+- Expiry Date
+
+#### Managing Subscriptions
+
+Administrators can:
+
+- View subscription details
+- Upgrade or downgrade subscription tiers
+- Adjust license allocations
+- Monitor subscription expiry dates
+
+#### Search and Filter
+
+Subscription records can be searched and filtered using the same process as the User Management page.
+
+Available filters include:
+
+- Subscription Tier
+- Status
+- Institution
+
+---
+
+### Reports Page
+
+The Reports page provides detailed analytics and reporting capabilities.
+
+#### Available Reports
+
+Administrators can generate reports for:
+
+- User Activity
+- Submission Performance
+- Subscription Usage
+- Platform Engagement
+- System Statistics
+
+#### Generating Reports
+
+To generate a report:
+
+1. Navigate to the Reports page.
+2. Select a report category.
+3. Choose a date range.
+4. Click **Generate Report**.
+5. The report will display automatically.
+
+#### Export Reports
+
+Reports can be exported for further analysis.
+
+To export a report:
+
+1. Generate the desired report.
+2. Click **Export**.
+3. Select the required file format.
+4. The report will be downloaded automatically.
+
+---
+
+### Audit Logs Page
+
+The Audit Logs page provides a record of administrative and system actions.
+
+#### Audit Log Table
+
+The table displays:
+
+- Timestamp
+- User
+- Action Performed
+- Affected Module
+- Status
+
+#### Viewing Audit Logs
+
+Administrators can review activity logs to:
+
+- Monitor user actions
+- Track system changes
+- Investigate issues
+- Maintain compliance records
+
+#### Filtering Audit Logs
+
+Audit logs can be filtered by:
+
+- User
+- Date Range
+- Action Type
+- Status
+
+Selecting a filter will automatically update the displayed results.
+
+#### Log Details
+
+Clicking on an audit log entry will display additional information about the selected event, including:
+
+- Full action details
+- User information
+- Timestamp
+- Affected records
+
+This provides administrators with a complete audit trail of platform activity.
+
+---
 
 ---
