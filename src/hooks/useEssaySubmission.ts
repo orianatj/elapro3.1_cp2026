@@ -175,6 +175,8 @@ export function useEssaySubmission() {
                     timeRemaining: newTimerValue, // Reset timer based on task type
                     taskTimeLimit: newTimerValue, // Set time limit based on task type
                 },
+=======
+>>>>>>> fbd28bf08333dd78fffde9410df3acdf3262fb70
                 taskDescription: {
                     ...prev.taskDescription,
                     questionText: data.essayText
