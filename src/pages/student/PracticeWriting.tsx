@@ -11,7 +11,7 @@ import { usePracticeWriting } from "../../hooks/usePracticeWriting";
 import { getWordCount } from "../../utils/wordCounter";
 
 //Styles
-// import "./practicewriting.css";
+import "./practicewriting.css";
 
 export default function PracticeWritingPage() {
 
@@ -59,17 +59,19 @@ export default function PracticeWritingPage() {
 
                     </div>
 
-                    {/* Task Description */}
-                    <div className="task-description">
-
-                        <h4>Task Description</h4>
-
-                        <p>
-                            {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
-                        </p>
-
-                    </div>
                 </div>
+
+                {/* Task Description */}
+                <div className="task-description">
+
+                    <h4>Task Description</h4>
+
+                    <p>
+                        {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
+                    </p>
+
+                </div>
+
             </div>
 
             {/* Answer Section */}
