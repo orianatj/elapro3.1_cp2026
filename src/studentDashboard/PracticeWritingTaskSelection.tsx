@@ -60,41 +60,44 @@ export function PracticeTaskSelectionGroup({
                 <h4>Generate Question</h4>
             </div>
 
-            {/* Filters */}
-            <FilterGroup
-                filters={[
-                    {
-                        ...constraintIeltsFilter,
-                        selected: ieltsFilter.selected
-                    },
-                    {
-                        ...constraintTaskFilter,
-                        selected: taskFilter.selected
-                    }
-                ]}
+            <div className="practice-task-selection-top">
 
-                // Handle dropdown changes coming from FilterGroup
-                onChange={(title: string, value: IeltsType | TaskType | undefined) => {
+                {/* Filters */}
+                <FilterGroup
+                    filters={[
+                        {
+                            ...constraintIeltsFilter,
+                            selected: ieltsFilter.selected
+                        },
+                        {
+                            ...constraintTaskFilter,
+                            selected: taskFilter.selected
+                        }
+                    ]}
 
-                    if (title === ieltsFilter.title) {
-                        onIeltsTypeChange?.(value as IeltsType)
-                    }
+                    // Handle dropdown changes coming from FilterGroup
+                    onChange={(title: string, value: IeltsType | TaskType | undefined) => {
 
-                    if (title === taskFilter.title) {
-                        onTaskTypeChange?.(value as TaskType)
-                    }
-                }}
-            />
+                        if (title === ieltsFilter.title) {
+                            onIeltsTypeChange?.(value as IeltsType)
+                        }
 
-            {/* Get Task Button */}
-            <div className="get-task-button-container">
-                <button
-                    className="get-task-button"
-                    onClick={onGenerate}
-                    disabled={isDisabled}
-                >
-                    Get Task
-                </button>
+                        if (title === taskFilter.title) {
+                            onTaskTypeChange?.(value as TaskType)
+                        }
+                    }}
+                />
+
+                {/* Get Task Button */}
+                <div className="get-task-button-container">
+                    <button
+                        className="get-task-button"
+                        onClick={onGenerate}
+                        disabled={isDisabled}
+                    >
+                        Get Task
+                    </button>
+                </div>
             </div>
         </div>
     )
