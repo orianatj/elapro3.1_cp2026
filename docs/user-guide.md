@@ -9,6 +9,7 @@ The application provides separate dashboards for students, teachers, and adminis
 This user guide provides instructions for accessing and using the key features of ELA Pro 3.1. Topics covered include account registration, login, password recovery, user profile management, and the role-specific functionality available within the student, teacher, and administrator dashboards. The guide is intended to assist users in navigating the platform and making effective use of its features.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## Registering an Account
 
@@ -44,6 +45,8 @@ This user guide provides instructions for accessing and using the key features o
 
 ---
 
+<div style="page-break-before: always;"></div>
+
 ## Logging in
 
 1. Navigate to the ELA Pro login page at <a href="https://elapro.netlify.app/login">https://elapro.netlify.app/login</a>.
@@ -55,6 +58,8 @@ This user guide provides instructions for accessing and using the key features o
 *Figure 5. Login Form*
 
 ---
+
+<div style="page-break-before: always;"></div>
 
 ## Password Recovery
 
@@ -99,6 +104,8 @@ This user guide provides instructions for accessing and using the key features o
 
 --- 
 
+<div style="page-break-before: always;"></div>
+
 ## Navigation 
 
 ### Navigation Menu
@@ -121,8 +128,9 @@ After logging in, users are directed to the dashboard associated with their user
 4. Students can access notifications by selecting the notification bell icon displayed in the navigation bar.
 
 
-
 ---
+
+<div style="page-break-before: always;"></div>
 
 ## Managing Account Settings 
 
@@ -211,6 +219,8 @@ Student users can add, update, or remove payment methods from the Payment Method
 
 ---
 
+<div style="page-break-before: always;"></div>
+
 ## Student Dashboard  
 
 The Student Dashboard serves as the primary workspace for student users. Through the navigation menu, students can access the homepage, essay submission tools, practice writing activities, submission history, notifications, and account management features.
@@ -238,13 +248,16 @@ The Homepage provides students with an overview of their IELTS writing performan
 
 5. The progress tracking chart is interactive. Hover over a data point to display the submission date and the scores for all currently enabled criteria.
 
-<img src ="images/student/progress-tracking-chart-interactive.png" alt="Hovering over data point to show tooltip" width="70%">
+<img src ="images/student/progress-tracking-chart-interactive.png" alt="Hovering over data point to show tooltip">
 
 *Figure 22. Progress Tracking Chart Tooltip Display*
 
 
 **Note:** Academic IELTS Task 1 submissions are not currently supported and therefore cannot be selected within the available filter options.
 
+---
+
+<div style="page-break-before: always;"></div>
 
 ### Notifications 
 
@@ -255,7 +268,7 @@ Students can access notifications by selecting the notification bell icon locate
 3. Select Mark as read to mark an individual notification as read.
 4. Notifications marked with a blue indicator represent unread notifications.
 
-<img src ="images/student/studentdb-notifications.png" alt="Student notifications table" width="70%">
+<img src ="images/student/studentdb-notifications.png" alt="Student notifications table">
 
 *Figure 23. Student Notifications*
 
@@ -454,33 +467,39 @@ If a student believes the AI algorithm has marked an essay incorrectly, they are
 
 ---
 
+<div style="page-break-before: always;"></div>
+
 ## Teacher Dashboard 
 
 ### Navigation
 Navigation is done via the side bar Which is split up into these navigational components
-<img src ="images/teacher/Navigation.png" alt="TeacherNav" width="70%">
-*Figure 1. Nav Bar Teacher*
+
+<img src ="images/teacher/Navigation.png" alt="TeacherNav" width="30%">
+
+*Figure 33. Nav Bar Teacher*
 
 1. Dashboard -> Homepage
 2. Submissions -> View Submissions
 Clicking on one of theese icons will simply navigate to that section
 
+<div style="page-break-before: always;"></div>
+
 ### HomePage
 The homepage allows teachers to navigate and view main stastics. View the three most recent student submissions and get a detailed overview of charts.
 
 <img src ="images/teacher/Homepage-Template.png" alt="Homepage" width="70%">
-*Figure 2. Homepage page interface*
+*Figure 34. Homepage page interface*
 
 ### Peformance Statistics
 This small group of assets showcase examples of what can be shown to the teacher for statistics. CUrrently #Students, Exams for review, avg preformance and improvement rate are connected to api
 <img src ="images/teacher/Peformance-Statistics.png" alt="Homepage" width="70%">
-*Figure 3. Interface for statistic boxes*
+*Figure 35. Interface for statistic boxes*
 
 #### Band Distrubution Chart
 This chart tracks the average band distrubution over different areas, tracking the average percentage of each band and overall average point.
 
 <img src ="images/teacher/Hover.png" alt="Homepage" width="70%">
-*Figure 4. Hovering action*
+*Figure 36. Hovering action*
 
 1. Hovering the mouse over one of the bars 
 2. The chart will display the avg number for that bar
@@ -489,7 +508,7 @@ This chart tracks the average band distrubution over different areas, tracking t
 This status distrubution chart showcases validated, flagged, AI marked, Pending there is no current functionality in this graph
 
 <img src ="images/teacher/Submission-Stats.png" alt="Homepage" width="70%">
-*Figure 5. Statistic Chart*
+*Figure 37. Statistic Chart*
 
 ##### Weakness Trends
 This graph weakness trends of all 4 grading categorgies. This graph is interactable and the elements in the legend can be tracked.
@@ -504,7 +523,7 @@ This graph weakness trends of all 4 grading categorgies. This graph is interacta
 This view showcases the three most recent student submissions. This has basic navigation functionality.
 
 <img src ="images/teacher/Submission-Bar.png" alt="Homepage" width="70%">
-*Figure 5. Statistic Chart*
+*Figure 38. Statistic Chart*
 
 1. Click one of the items in the list 
 2. Will navigate to the most recent student submission 
@@ -513,13 +532,13 @@ This view showcases the three most recent student submissions. This has basic na
 This page displays in table format various different submissions from students. It displays the Name, IELTS Type, task type, status and submission time.
 
 <img src ="images/teacher/View-Submissions.png" alt="SubmissionView" width="70%">
-*Figure 6. Submission page interface*
+*Figure 39. Submission page interface*
 
 #### Sort By
 This button allows the user to sort by either name or date
 
 <img src ="images/teacher/Sort-Menu.png" alt="SortMenu" width="70%">
-*Figure 7. Sort Menu*
+*Figure 40. Sort Menu*
 
 1. When you click the sort by button a drop down button will appear
 2. When you click either name or date it will update table auomatically
@@ -529,13 +548,13 @@ This button allows the user to sort by either name or date
 This button allows filter by IELTS Type, Task type or status.
 
 <img src ="images/teacher/Filter-Button.png" alt="Filter" width="70%">
-*Figure 8. Filter*
+*Figure 41. Filter*
 
 1. When You click by the button a drop down button will come up
 2. This will display three options allowing to sort by IELTS Type, Task Task and statuses
 
 <img src ="images/teacher/filter-pop-up.png" alt="FilterPopout" width="70%">
-*Figure 9. Filter Pop Up*
+*Figure 42. Filter Pop Up*
 
 3. Click on one of theese options will have another drop down which you can select from the various options
 4. Once clicked the table wil automatically update to showcase representing the nee filtered options
@@ -545,7 +564,11 @@ This button allows filter by IELTS Type, Task type or status.
 
 
 <img src ="images/teacher/filter-example.png" alt="ExampleFilter" width="70%">
-*Figure 10. Filtered table Example*
+*Figure 43. Filtered table Example*
+
+---
+
+<div style="page-break-before: always;"></div>
 
 ### Individual Submission View
 
@@ -601,6 +624,10 @@ There will be a confirmation dialog that will let the teacher know that the chan
 
 ---
 
+## Administrator Dashboard 
+
+---
+
 ## Admin Dashboard User Guide
 
 The Admin Dashboard allows administrators to manage platform users, subscriptions, reports, and audit logs. It provides an overview of platform activity and gives administrators access to the main management features required to maintain the system.
@@ -625,7 +652,7 @@ The Homepage provides administrators with an overview of platform performance, u
 
 #### Homepage Interface
 
-*Figure 1. Homepage page interface*
+*Figure 44. Homepage page interface*
 
 #### System Overview
 
@@ -678,7 +705,7 @@ The User Management page allows administrators to view, manage, and update user 
 
 #### User Management Interface
 
-*Figure 2. User Management page interface*
+*Figure 45. User Management page interface*
 
 #### User Table
 
@@ -859,6 +886,4 @@ Clicking on an audit log entry will display additional information about the sel
 
 This provides administrators with a complete audit trail of platform activity.
 
----
 
----
