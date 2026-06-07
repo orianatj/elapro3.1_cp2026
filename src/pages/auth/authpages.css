@@ -148,7 +148,7 @@ label.required::after {
     background: white;
     margin: 0;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
 
 
@@ -168,7 +168,7 @@ label.required::after {
 .auth-form input {
   background-color: white;
   color: black;
-  border: 1px solid #ccc;
+  border: 1.5px solid #ccc;
   border-radius: 8px;
   padding: 0.75rem;
 }
@@ -185,11 +185,18 @@ label.required::after {
     margin: 0;
 }
 
+.auth-p {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 5px;
+}
+
 .auth-instruction {
   font-size: 17px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 
 /* Form icon */
 .auth-icon {
@@ -218,7 +225,7 @@ label.required::after {
 .auth-button {
   width: 100%;
   padding: 0.85rem 1rem;
-  background-color: #5f6f95;
+  background-color: black;
   color: white;
   border: none;
   border-radius: 8px;
@@ -228,9 +235,13 @@ label.required::after {
   transition: background-color 0.2s ease;
 }
 
+.auth-button-small {
+  width: 70%;
+}
+
 /* Hover state */
 .auth-button:hover {
-  background-color: #4c5a7a;
+  background-color: slategray;
 }
 
 /* Active/click state */

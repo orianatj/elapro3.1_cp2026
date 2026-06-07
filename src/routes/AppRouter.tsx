@@ -35,12 +35,15 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
+
+        {/* Auth Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
 
+        {/* Profile Setting Routes */}
         <Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />
         <Route path="/cancel-email-change" element={<CancelEmailChangePage />} />
         <Route path="/confirm-delete-account" element={<ConfirmDeleteAccountPage />} />
@@ -108,7 +111,7 @@ export default function AppRouter() {
 
         {/* Common Routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin", "student", "supervisory_teacher", "external_teacher"]} />}>
-          <Route path="/settings" element={<AccountSettingsPage />} />
+          <Route path="/account-settings" element={<AccountSettingsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

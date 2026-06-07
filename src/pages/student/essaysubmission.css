@@ -1,0 +1,547 @@
+
+/* ================= THEME VARIABLES ================= */
+
+:root {
+
+
+  /* Page */
+    --page-bg: #FAFAFC;
+    --card-bg: #FFFFFF;
+    --secondary-surface: #F3F4F6;
+
+    /* Borders */
+    --border-color: #D9DEE8;
+
+    /* Typography */
+    --text-primary: #1F2937;
+    --text-secondary: #6B7280;
+
+    /* Buttons */
+    --btn-primary-bg: #2F5FA7;
+    --btn-primary-hover: #244C88;
+    --btn-text: #FFFFFF;
+
+    /* Shadows */
+    --shadow-soft:
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+    /* Radius */
+    --radius-lg: 16px;
+    --radius-md: 10px;
+
+    /* Spacing */
+    --section-gap: 20px;
+}
+
+/* ================= PAGE LAYOUT ================= */
+
+.essay-submission-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+    padding: 24px;
+    min-height: 100vh;
+    background: var(--page-bg);
+}
+
+/* ================= MAIN CONTENT LAYOUT ================= */
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--section-gap);
+    align-items: start;
+}
+
+/* ================= LEFT COLUMN ================= */
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ================= CARD PANELS ================= */
+
+.task-section,
+.task-description,
+.answer-section,
+.submit-section,
+.upload-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+    padding: 16px 18px;
+}
+
+/* ================= HEADINGS ================= */
+
+.task-section h4,
+.task-description h4,
+.answer-section h4,
+.upload-card h4 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* ================= TASK UTILITY BAR ================= */
+
+.task-utility-bar {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    align-items: center;
+    gap: 30px;
+    padding: 18px 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+/* ================= UTILITY SECTIONS ================= */
+
+.utility-section {
+    display: flex;
+    align-items: center;
+}
+
+/* LEFT SECTION */
+
+.utility-section:first-of-type {
+    justify-content: flex-start;
+}
+
+/* MIDDLE SECTION */
+
+.utility-section:nth-of-type(2) {
+    justify-content: center;
+    gap: 28px;
+}
+
+/* RIGHT SECTION */
+
+.utility-section:last-of-type {
+    justify-content: flex-end;
+}
+
+/* ================= TASK TITLE ================= */
+
+.task-title h4 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 650;
+    color: #111111;
+    white-space: nowrap;
+}
+
+/* ================= DIVIDERS ================= */
+
+.divider {
+    width: 1px;
+    height: 28px;
+    background: #E5E7EB;
+}
+
+/* ================= TIMER ================= */
+
+.task-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #DC2626;
+}
+
+.timer-icon {
+    font-size: 1.3rem;
+    color: #444;
+    flex-shrink: 0;
+}
+
+/* ================= CONTROLS ================= */
+
+.controls-group {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+}
+
+/* ================= ICON BUTTONS ================= */
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #444;
+    transition:
+        transform 0.15s ease,
+        color 0.2s ease;
+}
+
+.icon-button svg {
+    font-size: 1.3rem;
+    stroke-width: 2.2;
+}
+
+.icon-button:hover {
+    color: #111111;
+}
+
+.icon-button:active {
+    transform: scale(0.96);
+}
+
+/* ================= REMOVE MINI DIVIDERS ================= */
+
+.mini-divider {
+    display: none;
+}
+
+/* ================= WORD COUNT ================= */
+
+.word-count {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111111;
+    margin-left: -12px;
+    white-space: nowrap;
+}
+
+/* ================= TIMER EXPIRED ================= */
+
+.timer-expired {
+    color: #DC2626;
+}
+
+/* ================= GENERATE QUESTION ================= */
+
+.practice-task-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ================= TOP CONTROLS ROW ================= */
+
+.practice-task-selection-top {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+/* ================= SECTION TITLE ================= */
+
+.practice-task-selection .section-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ================= FILTER GROUP ================= */
+
+.practice-task-selection .filter-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    flex-wrap: nowrap;
+    width: auto;
+}
+
+/* ================= FILTER ITEMS ================= */
+
+.practice-task-selection .filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+}
+
+/* ================= FILTER LABELS ================= */
+
+.practice-task-selection label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ================= FILTER SELECTS ================= */
+
+.practice-task-selection select {
+    width: 160px;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: white;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.practice-task-selection select:focus {
+    outline: none;
+    border-color: #111111;
+    box-shadow:
+        0 0 0 3px rgba(0,0,0,0.05);
+}
+
+
+
+/* ================= GET TASK BUTTON ================= */
+.get-task-button-container {
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+    padding-left: 4px;
+}
+
+.get-task-button {
+    height: 38px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 10px;
+    background: #111111;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.12s ease;
+}
+
+.get-task-button:hover {
+    background: #2A2A2A;
+}
+
+.get-task-button:active {
+    transform: scale(0.98);
+}
+
+.get-task-button:disabled {
+    background: #D1D5DB;
+    color: white;
+    opacity: 1;
+}
+
+/* ================= TASK DESCRIPTION ================= */
+
+.task-description {
+    min-height: 265px;
+}
+
+.task-description p {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.65;
+    white-space: pre-wrap;
+}
+
+/* ================= UPLOAD CARD ================= */
+
+.upload-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-card h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* ================= UPLOAD SECTION ================= */
+
+.upload-section {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ================= UPLOAD BUTTONS ================= */
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 10px;
+    background: #111111;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.upload-button:hover {
+    background: #2A2A2A;
+}
+
+.upload-button:active {
+    transform: translateY(1px);
+}
+
+.reset-upload-button {  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: #666666;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.reset-upload-button:hover {
+    color: #111111;
+    background: transparent;
+}
+
+/* ================= ANSWER SECTION ================= */
+
+.answer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ================= ANSWER TEXTAREA ================= */
+
+.answer-section textarea {
+    width: 100%;
+    min-height: 380px;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: #FFFFFF;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.7;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+/* ================= TEXTAREA FOCUS ================= */
+
+.answer-section textarea:focus {
+    outline: none;
+    border-color: var(--btn-primary-bg);
+    box-shadow:
+        0 0 0 3px rgba(47, 95, 167, 0.12);
+}
+
+/* ================= SUBMIT SECTION ================= */
+
+.submit-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+}
+
+/* ================= SUBMIT BUTTON ================= */
+
+.submit-section button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 10px;
+    background: #111111;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.submit-section button:hover {
+    background: #2A2A2A;
+}
+
+.submit-section button:active {
+    transform: translateY(1px);
+}
+
+/* ================= DISABLED BUTTONS ================= */
+
+button:disabled,
+.upload-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ================= FEEDBACK MESSAGES ================= */
+
+.task-section p,
+.submit-section p,
+.upload-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .task-utility-bar {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .utility-section {
+        justify-content: center;
+    }
+
+    .practice-task-selection-top,
+    .practice-task-selection .filter-group {
+        flex-wrap: wrap;
+    }
+
+    .utility-section:last-of-type {
+        padding-left: 6px;
+    }
+}
+

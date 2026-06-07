@@ -187,337 +187,340 @@ export function ProfileSettings() {
         updateEmail.mutate(
             { password: emailFormData.password, emailAddress: emailFormData.newEmailAddress, confirmEmailAddress: emailFormData.confirmEmailAddress },
             {
-            onSuccess: () => {
-                setShowEmailForm(false);
-                setEmailFormData({
-                    password: "",
-                    newEmailAddress: "",
-                    confirmEmailAddress: "",
-                });
-                setEmailSuccess("Email update initiated. Please check your email for the confirmation link.");
-                setTimeout(() => setEmailSuccess(""), 5000);
-            },
-            onError: (error: any) => {
-                if (error.response?.status === 400) {
-                    setEmailError("Invalid password or email address.");
-                } else if (error.response?.status === 422) {
-                    // Extract error messages from detail array
-                    const detail = error.response?.data?.detail;
-                    if (Array.isArray(detail) && detail.length > 0) {
-                        const messages = detail.map((d: any) => d.msg || d.message).join(". ");
-                        setEmailError(messages);
+                onSuccess: () => {
+                    setShowEmailForm(false);
+                    setEmailFormData({
+                        password: "",
+                        newEmailAddress: "",
+                        confirmEmailAddress: "",
+                    });
+                    setEmailSuccess("Email update initiated. Please check your email for the confirmation link.");
+                    setTimeout(() => setEmailSuccess(""), 5000);
+                },
+                onError: (error: any) => {
+                    if (error.response?.status === 400) {
+                        setEmailError("Invalid password or email address.");
+                    } else if (error.response?.status === 422) {
+                        // Extract error messages from detail array
+                        const detail = error.response?.data?.detail;
+                        if (Array.isArray(detail) && detail.length > 0) {
+                            const messages = detail.map((d: any) => d.msg || d.message).join(". ");
+                            setEmailError(messages);
+                        } else {
+                            setEmailError("Invalid email format or validation failed.");
+                        }
                     } else {
-                        setEmailError("Invalid email format or validation failed.");
+                        setEmailError("Something went wrong. Please try again.");
                     }
-                } else {
-                    setEmailError("Something went wrong. Please try again.");
-                }
-            },
-        });
+                },
+            });
     };
 
     return (
-        <div className="auth-card">
-            <div className="auth-header">
-                <h2 className="auth-title">Profile Settings</h2>
-                <p className="auth-instruction">Update your personal information</p>
-            </div>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleSaveClick(); }} className="auth-form">
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                    <div className="form-group">
-                        <label htmlFor="firstName">First Name</label>
-                        <input
-                            id="firstName"
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="middleName">Middle Name (optional)</label>
-                        <input
-                            id="middleName"
-                            type="text"
-                            name="middleName"
-                            value={formData.middleName}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input
-                            id="lastName"
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="phoneNumber">Phone Number (optional)</label>
-                        <input
-                            id="phoneNumber"
-                            type="tel"
-                            name="phoneNumber"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                        />
-                    </div>
+        <div className="billing-component-card">
+            <h2 className="billing-title">Profile Settings</h2>
+            <div className="auth-card">
+                <div className="auth-header">
+                    <p className="auth-instruction">Update your personal information</p>
                 </div>
 
-                {error && <p className="auth-error">{error}</p>}
+                <form onSubmit={(e) => { e.preventDefault(); handleSaveClick(); }} className="auth-form">
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                        <div className="form-group">
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                                id="firstName"
+                                type="text"
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                <button className="auth-button" type="submit" disabled={updateMe.isPending}>
-                    {updateMe.isPending ? "Updating..." : "Update Details"}
-                </button>
-            </form>
+                        <div className="form-group">
+                            <label htmlFor="middleName">Middle Name (optional)</label>
+                            <input
+                                id="middleName"
+                                type="text"
+                                name="middleName"
+                                value={formData.middleName}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-            <div className="form-group">
-                <label style={{ marginTop: "1rem" }}>Email</label>
-                <div>
-                    <span>{userData?.emailAddress || "No email found"}</span>
-                    {isStudent && (
-                        <button
-                            type="button"
-                            onClick={() => setShowEmailForm(!showEmailForm)}
-                            style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
-                        >
-                            {showEmailForm ? "Cancel" : "Update Email"}
-                        </button>
+                        <div className="form-group">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                                id="lastName"
+                                type="text"
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="phoneNumber">Phone Number (optional)</label>
+                            <input
+                                id="phoneNumber"
+                                type="tel"
+                                name="phoneNumber"
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    {error && <p className="auth-error">{error}</p>}
+
+                    <button className="auth-button" type="submit" disabled={updateMe.isPending}>
+                        {updateMe.isPending ? "Updating..." : "Update Details"}
+                    </button>
+                </form>
+
+                <div className="form-group">
+                    <label style={{ marginTop: "1rem" }}>Email</label>
+                    <div>
+                        <span>{userData?.emailAddress || "No email found"}</span>
+                        {isStudent && (
+                            <button
+                                type="button"
+                                onClick={() => setShowEmailForm(!showEmailForm)}
+                                style={{ marginLeft: "1rem", padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
+                            >
+                                {showEmailForm ? "Cancel" : "Update Email"}
+                            </button>
+                        )}
+                    </div>
+                    {emailSuccess && (
+                        <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
+                            {emailSuccess}
+                        </p>
                     )}
                 </div>
-                {emailSuccess && (
-                    <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
-                        {emailSuccess}
-                    </p>
-                )}
-            </div>
 
-            {showEmailForm && (
-                <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
-                    <form onSubmit={handleEmailUpdateSubmit} className="auth-form">
-                        <div className="form-group">
-                            <label htmlFor="password" className="required">Password</label>
-                            <input
-                                id="password"
-                                type="password"
-                                name="password"
-                                value={emailFormData.password}
-                                onChange={handleEmailFormChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="newEmailAddress" className="required">New Email Address</label>
-                            <input
-                                id="newEmailAddress"
-                                type="email"
-                                name="newEmailAddress"
-                                value={emailFormData.newEmailAddress}
-                                onChange={handleEmailFormChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="confirmEmailAddress" className="required">Confirm Email Address</label>
-                            <input
-                                id="confirmEmailAddress"
-                                type="email"
-                                name="confirmEmailAddress"
-                                value={emailFormData.confirmEmailAddress}
-                                onChange={handleEmailFormChange}
-                            />
-                        </div>
-
-                        {emailError && <p className="auth-error">{emailError}</p>}
-
-                        <button
-                            className="auth-button"
-                            type="submit"
-                            disabled={updateEmail.isPending}
-                            style={{ marginTop: "0.5rem" }}
-                        >
-                            {updateEmail.isPending ? "Updating..." : "Update Email"}
-                        </button>
-                    </form>
-                </div>
-            )}
-
-            <div className="form-group">
-                <label style={{ marginTop: "1rem" }}>Password</label>
-                <div>
-                    <button
-                        type="button"
-                        onClick={() => setShowPasswordForm(!showPasswordForm)}
-                        style={{ padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
-                    >
-                        {showPasswordForm ? "Cancel" : "Change Password"}
-                    </button>
-                </div>
-                {passwordSuccess && (
-                    <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
-                        {passwordSuccess}
-                    </p>
-                )}
-            </div>
-
-            {showPasswordForm && (
-                <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
-                    <form onSubmit={handlePasswordChangeSubmit} className="auth-form">
-                        <div className="form-group">
-                            <label htmlFor="currentPassword" className="required">Current Password</label>
-                            <input
-                                id="currentPassword"
-                                type="password"
-                                name="password"
-                                value={passwordFormData.password}
-                                onChange={handlePasswordFormChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="newPassword" className="required">New Password</label>
-                            <input
-                                id="newPassword"
-                                type="password"
-                                name="newPassword"
-                                value={passwordFormData.newPassword}
-                                onChange={handlePasswordFormChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="confirmPassword" className="required">Confirm New Password</label>
-                            <input
-                                id="confirmPassword"
-                                type="password"
-                                name="confirmPassword"
-                                value={passwordFormData.confirmPassword}
-                                onChange={handlePasswordFormChange}
-                            />
-                        </div>
-
-                        {passwordError && <p className="auth-error">{passwordError}</p>}
-
-                        <button
-                            className="auth-button"
-                            type="submit"
-                            disabled={changePassword.isPending}
-                            style={{ marginTop: "0.5rem" }}
-                        >
-                            {changePassword.isPending ? "Updating..." : "Update Password"}
-                        </button>
-                    </form>
-                </div>
-            )}
-
-            {isStudent && (
-                <div style={{ marginTop: "2rem" }}>
-                    <button
-                        type="button"
-                        onClick={() => setShowDeleteModal(true)}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            fontSize: "0.875rem",
-                            backgroundColor: "#dc3545",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "4px",
-                            cursor: "pointer"
-                        }}
-                    >
-                        Delete Account
-                    </button>
-                </div>
-            )}
-
-            {showDeleteModal && (
-                <div style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    zIndex: 1000
-                }}>
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "2rem",
-                        borderRadius: "8px",
-                        maxWidth: "400px",
-                        width: "90%"
-                    }}>
-                        <h2 style={{ marginTop: 0, marginBottom: "1rem" }}>Delete Account</h2>
-                        <p style={{ marginBottom: "1rem" }}>
-                            Are you sure you want to delete your account? This action cannot be undone.
-                            Please enter your password to confirm.
-                        </p>
-                        <form onSubmit={handleDeleteAccount}>
+                {showEmailForm && (
+                    <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
+                        <form onSubmit={handleEmailUpdateSubmit} className="auth-form">
                             <div className="form-group">
-                                <label htmlFor="deletePassword" className="required">Password</label>
+                                <label htmlFor="password" className="required">Password</label>
                                 <input
-                                    id="deletePassword"
+                                    id="password"
                                     type="password"
-                                    value={deletePassword}
-                                    onChange={(e) => setDeletePassword(e.target.value)}
-                                    style={{
-                                        width: "100%",
-                                        padding: "0.5rem",
-                                        border: "1px solid #ccc",
-                                        borderRadius: "4px",
-                                        boxSizing: "border-box"
-                                    }}
+                                    name="password"
+                                    value={emailFormData.password}
+                                    onChange={handleEmailFormChange}
                                 />
                             </div>
-                            {deleteError && <p className="auth-error">{deleteError}</p>}
-                            <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setShowDeleteModal(false);
-                                        setDeletePassword("");
-                                        setDeleteError("");
-                                    }}
-                                    style={{
-                                        flex: 1,
-                                        padding: "0.5rem",
-                                        border: "1px solid #ccc",
-                                        borderRadius: "4px",
-                                        cursor: "pointer",
-                                        backgroundColor: "grey"
-                                    }}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={initiateDeleteAccount.isPending}
-                                    style={{
-                                        flex: 1,
-                                        padding: "0.5rem",
-                                        backgroundColor: "#dc3545",
-                                        color: "white",
-                                        border: "none",
-                                        borderRadius: "4px",
-                                        cursor: "pointer"
-                                    }}
-                                >
-                                    {initiateDeleteAccount.isPending ? "Deleting..." : "Delete Account"}
-                                </button>
+
+                            <div className="form-group">
+                                <label htmlFor="newEmailAddress" className="required">New Email Address</label>
+                                <input
+                                    id="newEmailAddress"
+                                    type="email"
+                                    name="newEmailAddress"
+                                    value={emailFormData.newEmailAddress}
+                                    onChange={handleEmailFormChange}
+                                />
                             </div>
+
+                            <div className="form-group">
+                                <label htmlFor="confirmEmailAddress" className="required">Confirm Email Address</label>
+                                <input
+                                    id="confirmEmailAddress"
+                                    type="email"
+                                    name="confirmEmailAddress"
+                                    value={emailFormData.confirmEmailAddress}
+                                    onChange={handleEmailFormChange}
+                                />
+                            </div>
+
+                            {emailError && <p className="auth-error">{emailError}</p>}
+
+                            <button
+                                className="auth-button"
+                                type="submit"
+                                disabled={updateEmail.isPending}
+                                style={{ marginTop: "0.5rem" }}
+                            >
+                                {updateEmail.isPending ? "Updating..." : "Update Email"}
+                            </button>
                         </form>
                     </div>
+                )}
+
+                <div className="form-group">
+                    <label style={{ marginTop: "1rem" }}>Password</label>
+                    <div>
+                        <button
+                            type="button"
+                            onClick={() => setShowPasswordForm(!showPasswordForm)}
+                            style={{ padding: "0.25rem 0.5rem", fontSize: "0.875rem" }}
+                        >
+                            {showPasswordForm ? "Cancel" : "Change Password"}
+                        </button>
+                    </div>
+                    {passwordSuccess && (
+                        <p style={{ color: "green", fontSize: "0.875rem", marginTop: "0.5rem" }}>
+                            {passwordSuccess}
+                        </p>
+                    )}
                 </div>
-            )}
+
+                {showPasswordForm && (
+                    <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
+                        <form onSubmit={handlePasswordChangeSubmit} className="auth-form">
+                            <div className="form-group">
+                                <label htmlFor="currentPassword" className="required">Current Password</label>
+                                <input
+                                    id="currentPassword"
+                                    type="password"
+                                    name="password"
+                                    value={passwordFormData.password}
+                                    onChange={handlePasswordFormChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="newPassword" className="required">New Password</label>
+                                <input
+                                    id="newPassword"
+                                    type="password"
+                                    name="newPassword"
+                                    value={passwordFormData.newPassword}
+                                    onChange={handlePasswordFormChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="confirmPassword" className="required">Confirm New Password</label>
+                                <input
+                                    id="confirmPassword"
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={passwordFormData.confirmPassword}
+                                    onChange={handlePasswordFormChange}
+                                />
+                            </div>
+
+                            {passwordError && <p className="auth-error">{passwordError}</p>}
+
+                            <button
+                                className="auth-button"
+                                type="submit"
+                                disabled={changePassword.isPending}
+                                style={{ marginTop: "0.5rem" }}
+                            >
+                                {changePassword.isPending ? "Updating..." : "Update Password"}
+                            </button>
+                        </form>
+                    </div>
+                )}
+
+                {isStudent && (
+                    <div style={{ marginTop: "2rem" }}>
+                        <button
+                            type="button"
+                            onClick={() => setShowDeleteModal(true)}
+                            style={{
+                                padding: "0.5rem 1rem",
+                                fontSize: "0.875rem",
+                                backgroundColor: "#dc3545",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "4px",
+                                cursor: "pointer"
+                            }}
+                        >
+                            Delete Account
+                        </button>
+                    </div>
+                )}
+
+                {showDeleteModal && (
+                    <div style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        zIndex: 1000
+                    }}>
+                        <div style={{
+                            backgroundColor: "white",
+                            padding: "2rem",
+                            borderRadius: "8px",
+                            maxWidth: "400px",
+                            width: "90%"
+                        }}>
+                            <h2 style={{ marginTop: 0, marginBottom: "1rem" }}>Delete Account</h2>
+                            <p style={{ marginBottom: "1rem" }}>
+                                Are you sure you want to delete your account? This action cannot be undone.
+                                Please enter your password to confirm.
+                            </p>
+                            <form onSubmit={handleDeleteAccount}>
+                                <div className="form-group">
+                                    <label htmlFor="deletePassword" className="required">Password</label>
+                                    <input
+                                        id="deletePassword"
+                                        type="password"
+                                        value={deletePassword}
+                                        onChange={(e) => setDeletePassword(e.target.value)}
+                                        style={{
+                                            width: "100%",
+                                            padding: "0.5rem",
+                                            border: "1px solid #ccc",
+                                            borderRadius: "4px",
+                                            boxSizing: "border-box"
+                                        }}
+                                    />
+                                </div>
+                                {deleteError && <p className="auth-error">{deleteError}</p>}
+                                <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setShowDeleteModal(false);
+                                            setDeletePassword("");
+                                            setDeleteError("");
+                                        }}
+                                        style={{
+                                            flex: 1,
+                                            padding: "0.5rem",
+                                            border: "1px solid #ccc",
+                                            borderRadius: "4px",
+                                            cursor: "pointer",
+                                            backgroundColor: "grey"
+                                        }}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={initiateDeleteAccount.isPending}
+                                        style={{
+                                            flex: 1,
+                                            padding: "0.5rem",
+                                            backgroundColor: "#dc3545",
+                                            color: "white",
+                                            border: "none",
+                                            borderRadius: "4px",
+                                            cursor: "pointer"
+                                        }}
+                                    >
+                                        {initiateDeleteAccount.isPending ? "Deleting..." : "Delete Account"}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 

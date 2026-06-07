@@ -272,6 +272,199 @@ Students can access notifications by selecting the notification bell icon locate
 
 *Figure 23. Student Notifications*
 
+
+---
+
+## Practice Writing Page
+
+The Practice Writing page allows students to complete IELTS writing practice tasks within an interactive writing workspace. Students can generate IELTS writing prompts, manage writing time using built-in timer controls, and draft responses directly within the platform.
+
+<img src ="images/student/PracticeWritingEmpty.png" alt="Practice Writing Page" width="70%"> 
+
+*Figure 24. Practice Writing Workspace*
+
+The page is broken into 4 sections:
+1. The **Task utility bar** that controls timer and live word counting functions.
+2. The **Generate Question** section provides students the ability select and generate a specific type of question to practice.
+3. The **Task Description** section is populated with the question text.
+4. The **Your Answer** section allows for live typing under practice exam conditions.
+
+### Generating a Practice Question
+
+<img src ="images/student/GenerateQuestion.png" alt="Practice Writing Generate Question section" width="70%"> 
+
+*Figure 25. Generating a Random Question*
+
+1. Select the appropriate **IELTS Type** from the available dropdown options.
+2. Select the desired **Task Type**.
+3. Select **Get Task** to generate a new IELTS writing question. The button is disabled until an option has been selected from both dropdowns.
+4. The generated writing prompt will appear in the **Task Description** panel.
+
+**Note:** Academic IELTS Task 1 is not currently supported and cannot be selected.
+
+### Task Utility Bar
+
+The Task Utility Bar provides students with writing session tools and live writing information.
+
+Students can:
+- View the current writing task name.
+- Start, pause, or reset the writing timer. The timer is set automatically dependant on Task Type (20m for Type 1 questions, 40m for Type 2).
+- Monitor the live word count while writing.
+
+### Writing and Submitting a Practice Response
+
+<img src ="images/student/PracticeWritingSubmission.png" alt="Submitting a Practice Writing answer" width="70%"> 
+
+*Figure 26. Submitting a Finished Response*
+
+1. The task is generated from the selected options.
+2. The countdown timer is initiated by pressing the `play` icon. The student will be alerted once time has expired, though can continue to edit their answer until ready for submission.
+3. The student will enter your response into the **Your Answer** text editor.
+4. The editor automatically updates the displayed word count while typing.
+5. Select **Submit Answer** to submit the completed response.
+
+Once submitted, the platform will process the response and generate AI feedback and scores, which will become available on the Submissions page.
+
+---
+
+## Essay Submission Page
+
+The Essay Submission page allows students to submit IELTS writing responses using either manually entered text or uploaded documents. Students may generate a writing question within the platform or upload an external writing task and essay response. 
+
+<img src ="images/student/EssaySubmissionPage.png" alt="Essay Submission Page" width="70%">   
+
+*Figure 27. Essay Submission Workspace*
+
+### Generating a Writing Question
+
+A user has teh opportunity to generate a random question similar to the Practice Writing page:
+- Select the required **IELTS Type** and **Task Type**.
+- Select **Get Task** to generate a writing prompt.
+- The generated prompt will appear in the **Task Description** panel.
+
+### Uploading Files
+
+Students can upload essay-related documents, either their own own questions or answers directly through the Upload Files section. The platform supports docx, txt, or pdf file formats for upload.
+
+<img src ="images/student/EssaySubmissionuploadFiles.png" alt="upload a file in Essay Submission Page" width="70%">  
+
+*Figure 28. Essay Submission File Upload*
+
+1. To upload any file, the student must first select an IELTS and Task Type combination from the dropdown selection to provide the required metadata of the type of essay being submitted.
+2. Choose to upload either a question or answer to the page. 
+3. The student navigates on their own device to the file for upload.
+4. Reset Uploads will clear the page of any uploaded files.
+
+### Task Utility Bar
+
+The Task Utility Bar provides students with:
+- writing timer controls
+- live word count tracking
+- writing session management tools
+
+### Writing or Editing an Answer
+
+Students may:
+- type directly into the text editor
+- edit uploaded content
+
+
+### Submitting an Essay
+
+1. Select **Submit Answer** to submit the essay.
+2. The platform will process the submission and generate feedback.
+3. Upon successful submission, the results will become available on the Submissions page.
+
+---
+
+## Submissions Page
+
+The Submissions page allows students to review and manage previously submitted IELTS writing responses. Students can access submission history, filter results, and review grading outcomes.
+
+<img src ="images/student/SubmissionsPage.png" alt="Submissions Page" width="70%">   
+
+*Figure 29. Student Submission History*
+
+### Viewing Submission History
+
+The submissions table displays:
+- submission date
+- IELTS Type
+- Task Type
+- overall score. The score is only displayed if the essay has been fully graded or reviewed. Pending results are not visible.
+- submission status indicate how the essay has been graded. A pending status indicates an essay is waiting to be graded or reviewed if requested.
+
+### Filtering Submissions
+
+Students can filter submissions by:
+- IELTS Type
+- Task Type
+
+Filtering options automatically update the displayed results.
+
+### Opening a Submission
+
+<img src ="images/student/SubmissionsFiltered.png" alt="Filtered Submissions and View Analysis Button" width="70%">   
+
+*Figure 30. Student Submission History*
+
+1. Locate the desired submission within the table.
+2. Select the View Analysis button for the submission entry.
+3. The Submission Analysis page will open for the selected response.
+
+
+---
+
+## Submission Analysis Page
+
+The Submission Analysis page provides detailed AI-generated feedback and scoring for submitted IELTS essays. Students can review criterion breakdowns, overall scores, and written feedback designed to support improvement in IELTS writing performance.
+
+<img src ="images/student/SubmissionAnalysisTop.png" alt="Top section of a Submission Analysis report" width="70%">
+ 
+*Figure 31. Submission Analysis Overview*
+
+### Reviewing Essay Content
+
+The submission analysis page displays:
+- the original writing prompt
+- the submitted essay response
+- submission metadata including submission date and word count
+
+### Viewing Scores and Feedback
+
+<img src ="images/student/SubmissionAnalysisBottom.png" alt="Score explanation section of a Submission Analysis report" width="70%">
+ 
+*Figure 32. Submission Analysis Score Explanations*
+
+Students can review:
+- Overall Band Score
+- Task Response
+- Coherence & Cohesion
+- Lexical Resource
+- Grammatical Range & Accuracy
+
+Each criterion includes:
+- an individual score
+- a visual score indicator on scale of 0 to 9.
+- written AI feedback
+
+
+### Reattempting a Submission
+
+Students can select **Reattempt Submission** to reopen the writing task and attempt the essay again using the original IELTS question.
+
+The platform will preload:
+- IELTS Type
+- Task Type
+- original task description
+
+allowing students to practise revisions and continue improving their writing performance.
+
+
+### Requesting a Teacher Review
+
+If a student believes the AI algorithm has marked an essay incorrectly, they are able to flag the submission for teacher review. The status will change to `Review Pending`, until a teacher applies a manual grade and move status to `Teacher Reviewed`.
+
 <<<<<<< Updated upstream
 =======
 ---
@@ -919,3 +1112,265 @@ Clicking on an audit log entry will display additional information about the sel
 This provides administrators with a complete audit trail of platform activity.
 
 >>>>>>> Stashed changes
+
+## Admin Dashboard User Guide
+
+The Admin Dashboard allows administrators to manage platform users, subscriptions, reports, and audit logs. It provides an overview of platform activity and gives administrators access to the main management features required to maintain the system.
+
+### Navigation
+
+Navigation is completed using the sidebar located on the left-hand side of the screen. The sidebar is divided into the following navigation components:
+
+- **Dashboard** → Homepage
+- **User Management** → Manage users and permissions
+- **Subscriptions** → View and manage subscriptions
+- **Reports** → Access system reports and analytics
+- **Audit Logs** → View platform activity logs
+
+Selecting any navigation item will automatically direct the administrator to the corresponding page.
+
+---
+
+### Homepage
+
+The Homepage provides administrators with an overview of platform performance, user activity, and key system metrics.
+
+#### Homepage Interface
+
+*Figure 1. Homepage page interface*
+
+#### System Overview
+
+The System Overview section displays key statistics including:
+
+- Total Users
+- Active Users
+- Total Institutions
+- Active Subscriptions
+- Total Submissions
+- System Health Status
+
+These statistics are automatically updated and provide a quick overview of platform activity.
+
+#### User Growth Chart
+
+The User Growth Chart displays user growth over time, allowing administrators to monitor platform adoption and engagement trends.
+
+#### Interacting with the Chart
+
+- Hover over any data point to view detailed values.
+- Charts automatically update when new data becomes available.
+
+#### Subscription Distribution
+
+The Subscription Distribution chart displays the distribution of subscription plans currently active across the platform.
+
+The chart allows administrators to:
+
+- View subscription breakdowns by plan type
+- Identify the most commonly used subscription tiers
+- Monitor subscription trends
+
+#### Recent Activity Feed
+
+The Recent Activity Feed displays the latest platform activities, including:
+
+- New user registrations
+- Subscription changes
+- User account updates
+- System notifications
+
+Administrators can review recent actions without navigating away from the homepage.
+
+---
+
+### User Management Page
+
+The User Management page allows administrators to view, manage, and update user accounts across the platform.
+
+#### User Management Interface
+
+*Figure 2. User Management page interface*
+
+#### User Table
+
+The User Table displays the following information:
+
+- User Name
+- Email Address
+- Role
+- Institution
+- Account Status
+- Date Created
+
+#### Search Users
+
+The Search function allows administrators to locate users quickly.
+
+To search for a user:
+
+1. Click inside the search bar.
+2. Enter a user name or email address.
+3. The table will automatically update to display matching results.
+4. Clear the search field to return to the full user list.
+
+#### Filter Users
+
+The Filter button allows administrators to filter users by:
+
+- Role
+- Institution
+- Account Status
+
+To filter users:
+
+1. Click the **Filter** button.
+2. Select a filter category.
+3. Choose the desired option.
+4. The table will automatically update to display matching users.
+5. Select **Show All** to remove the filter.
+
+#### Edit User
+
+Administrators can update user information directly from the User Management page.
+
+To edit a user:
+
+1. Locate the user in the table.
+2. Click the **Edit** button.
+3. Update the required information.
+4. Click **Save** to apply changes.
+
+#### Activate or Deactivate Users
+
+Administrators can control user access by changing account status.
+
+To manage a user's account status:
+
+1. Locate the user in the table.
+2. Select **Activate** or **Deactivate**.
+3. The user's account status will update immediately.
+
+---
+
+### Subscription Management Page
+
+The Subscription Management page allows administrators to view and manage subscription plans.
+
+#### Subscription Table
+
+The Subscription Table displays:
+
+- Institution Name
+- Subscription Tier
+- Number of Licenses
+- Active Users
+- Subscription Status
+- Expiry Date
+
+#### Managing Subscriptions
+
+Administrators can:
+
+- View subscription details
+- Upgrade or downgrade subscription tiers
+- Adjust license allocations
+- Monitor subscription expiry dates
+
+#### Search and Filter
+
+Subscription records can be searched and filtered using the same process as the User Management page.
+
+Available filters include:
+
+- Subscription Tier
+- Status
+- Institution
+
+---
+
+### Reports Page
+
+The Reports page provides detailed analytics and reporting capabilities.
+
+#### Available Reports
+
+Administrators can generate reports for:
+
+- User Activity
+- Submission Performance
+- Subscription Usage
+- Platform Engagement
+- System Statistics
+
+#### Generating Reports
+
+To generate a report:
+
+1. Navigate to the Reports page.
+2. Select a report category.
+3. Choose a date range.
+4. Click **Generate Report**.
+5. The report will display automatically.
+
+#### Export Reports
+
+Reports can be exported for further analysis.
+
+To export a report:
+
+1. Generate the desired report.
+2. Click **Export**.
+3. Select the required file format.
+4. The report will be downloaded automatically.
+
+---
+
+### Audit Logs Page
+
+The Audit Logs page provides a record of administrative and system actions.
+
+#### Audit Log Table
+
+The table displays:
+
+- Timestamp
+- User
+- Action Performed
+- Affected Module
+- Status
+
+#### Viewing Audit Logs
+
+Administrators can review activity logs to:
+
+- Monitor user actions
+- Track system changes
+- Investigate issues
+- Maintain compliance records
+
+#### Filtering Audit Logs
+
+Audit logs can be filtered by:
+
+- User
+- Date Range
+- Action Type
+- Status
+
+Selecting a filter will automatically update the displayed results.
+
+#### Log Details
+
+Clicking on an audit log entry will display additional information about the selected event, including:
+
+- Full action details
+- User information
+- Timestamp
+- Affected records
+
+This provides administrators with a complete audit trail of platform activity.
+
+---
+
+---

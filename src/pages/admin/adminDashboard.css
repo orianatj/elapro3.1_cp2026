@@ -9,14 +9,14 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #c7d2fe, #e5e7eb);
+  background: #FAFAFC;
   color: #111827;
 }
 
 .admin-container {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #c7d2fe, #e5e7eb);
+  background: #FAFAFC;
 }
 
 /* ===============================

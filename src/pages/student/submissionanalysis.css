@@ -1,16 +1,246 @@
+/* =====================================================
+   PAGE BACKGROUND
+===================================================== */
 
-/* ===== Page Layout ===== */
+body {
+  background: #FAFAFC;
+  margin: 0;
+}
+
+/* =====================================================
+   WRAPPER (CENTER EVERYTHING)
+===================================================== */
+
+.submission-analysis-wrapper {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   MAIN PAGE CONTAINER
+===================================================== */
+
 .submission-analysis-page {
+  width: min(100%, 980px);
+
   display: flex;
   flex-direction: column;
-  gap: 32px; /* spacing between sections */
-  padding: 16px;
+  gap: 20px;
+
+  align-items: center; /* center children horizontally */
 }
 
-/* ===== Section Spacing ===== */
-.section {
-  margin-bottom: 32px;
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.analysis-page-header {
+  width: 100%;
+  background: #6879a7;
+  border: 1px solid #54658e;
+  border-radius: 8px;
+  padding: 16px 20px;
+  color: white;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
+.analysis-page-header nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #e5eaf7;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.analysis-page-header h1,
+.analysis-page-header h2,
+.analysis-page-header h3 {
+  margin: 0;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.analysis-page-header nav a,
+.analysis-page-header nav a:visited {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.analysis-page-header nav span {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   SECTION CARDS
+===================================================== */
+
+.analysis-page-meta,
+.analysis-page-score-overview,
+.analysis-page-submission-summary,
+.analysis-page-criterion-breakdown,
+.analysis-page-action-buttons {
+  width: 100%;
+  background: #eef1f7;
+  border: 1px solid #c5cde0;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: none;
+
+  text-align: center;
+}
+
+/* =====================================================
+   SECTION TITLES
+===================================================== */
+
+.analysis-page-score-overview h2,
+.analysis-page-submission-summary h2,
+.analysis-page-criterion-breakdown h2 {
+  margin: -18px -18px 16px -18px;
+  padding: 10px 16px;
+
+  background: #6879a7;
+  border-bottom: 1px solid #54658e;
+
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+
+  text-align: center;
+}
+
+/* =====================================================
+   INNER CONTENT PANELS
+===================================================== */
+
+.analysis-panel {
+  background: white;
+  border: 1px solid #d4d8e4;
+  border-radius: 6px;
+  padding: 14px;
+
+  text-align: center;
+}
+
+/* =====================================================
+   SCORE BARS
+===================================================== */
+
+.score-bar-with-labels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.overall-score-bar,
+.score-bar {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.score-segment {
+  width: 16px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid #bfc7d8;
+  background: #edf0f5;
+}
+
+.score-segment.active {
+  background: #e97b7b;
+  border-color: #d96b6b;
+}
+
+.score-segment.half-active {
+  background: linear-gradient(
+    to right,
+    #e97b7b 50%,
+    #edf0f5 50%
+  );
+}
+
+/* =====================================================
+   TEXT
+===================================================== */
+
+.analysis-page p,
+.analysis-page span,
+.analysis-page li {
+  color: #374151;
+  line-height: 1.55;
+}
+
+.analysis-page strong {
+  color: #1f2937;
+}
+
+/* =====================================================
+   CRITERION BLOCKS
+===================================================== */
+
+.criterion-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: white;
+  border: 1px solid #d4d8e4;
+  border-radius: 6px;
+  padding: 14px;
+
+  text-align: center;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.analysis-page-action-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.analysis-page-action-buttons > * {
+  display: flex;
+  gap: 12px; /* controls spacing between buttons */
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.analysis-page-action-buttons button {
+  background: #6879a7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.analysis-page-action-buttons button:hover {
+  background: #56678f;
+}
 
 

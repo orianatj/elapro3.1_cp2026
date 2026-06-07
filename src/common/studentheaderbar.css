@@ -1,9 +1,9 @@
 /* Header container styling */
 .student-header-bar {
     padding: 16px 24px;
-    border-radius: 10px;    
-    background-color: #6476A1;    /* Match Figma Menu Colour*/
-    color: white;
+    border-radius: 16px;    
+    background-color: #FFFFFF;
+    color: #1F2937;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -11,44 +11,44 @@
 
 /* Header title styling */
 .student-header-bar h1 {
-    margin: 0;         /* Tighten spacing below the main title */
+    margin: 0;         /* Tighten spacing below the main title */    
     font-size: 2rem;   /* Slightly smaller than the default h1 for better hierarchy */
     line-height: 1.2;  /* Reduce line height for a more compact header */
-    font-weight: 600;  /* Semi-bold for better emphasis without being too heavy */
+    font-weight: 700;  /* Semi-bold for better emphasis without being too heavy */
 }
 
-/* Subtle styling for navigation and breadcrumbs within the header */
-.student-header-bar nav,
-.student-header-bar .breadcrumb {
-    opacity: 0.8;       /* Subtle styling for navigation/breadcrumbs */
-    font-size: 0.8rem;  /* Slightly smaller font for breadcrumbs */
+
+
+/* ================= BREADCRUMBS ================= */
+
+.student-header-bar nav {
+
+    font-size: 0.9rem;
+
+    color: #6B7280;
 }
 
-/* Breadcrumb item styling */
-.student-header-bar nav span {
-    cursor: pointer;    /* Indicate that breadcrumb items are clickable */   
-}
-
-/* Breadcrumb default-state styling */
 .student-header-bar nav a {
-    color: white
+
+    color: #2F5FA7;
+
+    text-decoration: none;
 }
 
-/* Breadcrumb hover styling */
 .student-header-bar nav a:hover {
-    text-decoration: underline; /* Add underline on hover for better interactivity */    
-    font-weight: 600;           /* Semi-bold for better emphasis without being too heavy */
-    color: blue
+
+    text-decoration: underline;
 }
 
-/* Current page (non-link breadcrumb) */
-.student-header-bar nav span span {
-  font-weight: 600;
-  opacity: 1;
-}
+/* ================= BREADCRUMB RESET ================= */
 
-/* Improve spacing between items */
-.student-header-bar nav span {
-  margin-right: 4px;
+.student-header-bar nav a {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    gap: 0;
+    align-items: unset;
 }
-

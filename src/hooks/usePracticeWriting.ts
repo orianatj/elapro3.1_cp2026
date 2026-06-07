@@ -12,7 +12,7 @@ import type { QuestionResponse } from "../types/common/api/questions";
 import type { SubmitAnswerPayload } from "../types/common/api/submissions";
 
 // Constants
-import { PRACTICE_WRITING_INITIAL_STATE } from "../constants/PracticeWritingInitialState";
+import { PRACTICE_WRITING_INITIAL_STATE } from "../constants/essayWritingInitialStates";
 
 // Utils
 import { getErrorMessage } from "../utils/errorHandling";

@@ -1,7 +1,8 @@
-import type {TaskUtilityBar} from "./common/TaskUtilBar.ts";
-import type {TaskDescription} from "./common/TaskDescriptionDTO.ts";
-import type {TaskAnswer} from "./common/TaskAnswerDTO.ts";
-import type { IeltsType, TaskType, StudentFilter} from "./common/StudentFilter.ts";
+import type { TaskUtilityBar } from "./common/TaskUtilBar.ts";
+import type { TaskDescription } from "./common/TaskDescriptionDTO.ts";
+import type { TaskAnswer } from "./common/TaskAnswerDTO.ts";
+import type { IeltsType, TaskType, StudentFilter } from "./common/StudentFilter.ts";
+import type { PageHeaderViewData } from "../common/PageHeaderDTO.ts";
 
 
 /**
@@ -10,6 +11,7 @@ import type { IeltsType, TaskType, StudentFilter} from "./common/StudentFilter.t
  */
 
 export interface EssaySubmission {
+    pageHeader: PageHeaderViewData;
     taskBar: TaskUtilityBar;
     ieltsSelection: StudentFilter<IeltsType>;
     taskSelection: StudentFilter<TaskType>;
@@ -24,7 +26,7 @@ export type EssayUpload = {
     placeHolderText: string;
     fileName: string;
     fileType: AcceptedFileTypes;
-    filePath:string;
+    filePath: string;
     fileProvided: boolean;
     isValid: boolean;
     isSuccessful: boolean;
@@ -32,4 +34,3 @@ export type EssayUpload = {
 
 // Union type defines acceptable file format for essay upload
 export type AcceptedFileTypes = "txt" | "pdf" | "docx";
-

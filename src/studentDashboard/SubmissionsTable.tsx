@@ -15,9 +15,9 @@ import type {
 import type { IeltsType, TaskType } from "../types/student/common/StudentFilter";
 
 import {
+  getStatusClass,
   ieltsTypeLabels,
   taskTypeLabels,
-  gradingStatusLabels
 } from "../utils/studentSubmissionLabels";
 
 import { SubmissionsFilters } from "./SubmissionsFilters";
@@ -77,12 +77,12 @@ export function SubmissionsTable({ table, filters, actions }: SubmissionsTablePr
             <td>{ieltsTypeLabels[row.ieltsType]}</td>
             <td>{taskTypeLabels[row.taskType]}</td>
             <td>
-              <span className={`status-badge ${row.status}`}>
-                {gradingStatusLabels[row.status]}
+              <span className={`status-badge ${getStatusClass(row.displayStatus)}`}>
+                {row.displayStatus}
               </span>
             </td>
             {/* Display score or "-" if not available */}
-            <td>{canShowScore(row.status) ? row.score : "-"}</td>
+            <td>{canShowScore(row.rawStatus) ? row.score : "-"}</td>
             <td>
               {/* Navigate to Submission Analysis page using submissionId */}
               <button

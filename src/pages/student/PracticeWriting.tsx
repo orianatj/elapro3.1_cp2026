@@ -1,4 +1,3 @@
-
 // Shared components
 import { StudentHeaderBar } from "../../common/StudentHeaderBar";
 import { PracticeTaskSelectionGroup } from "../../studentDashboard/PracticeWritingTaskSelection";
@@ -8,18 +7,18 @@ import { AnswerEditor } from "../../studentDashboard/PracticeWritingAnswerEditor
 // Hooks
 import { usePracticeWriting } from "../../hooks/usePracticeWriting";
 
-//Styles
-// import "./practicewriting.css";
+// Utils
+import { getWordCount } from "../../utils/wordCounter";
 
+//Styles
+import "./practicewriting.css";
 
 export default function PracticeWritingPage() {
 
     const { viewData, actions, state } = usePracticeWriting();
 
-    // Debugging: Log viewData changes TODO: Remove after confirming state updates correctly
-    console.log("FULL viewData:", viewData);
-    console.log("Question text:", viewData.taskDescription.questionText);
-
+    // derive word count
+    const computedWordCount = getWordCount(viewData.answer.answerText);
 
     return (
 
@@ -29,29 +28,27 @@ export default function PracticeWritingPage() {
             <StudentHeaderBar header={viewData.pageHeader} />
 
             {/* Task Utility Bar */}
-            <div className="task-utility-bar">
-                <TaskUtilityBar utilData={{
-                    ...viewData.taskBar,
-                    userWordCount: viewData.answer.wordCount
-                }} />
-            </div>
+            <TaskUtilityBar utilData={{
+                ...viewData.taskBar,
+                userWordCount: computedWordCount
+            }} />
+
 
             {/* Main content layout */}
-            <div className="practice-page-content-layout">
+            <div className="main-content">
 
                 {/* Task Section */}
-                <div className="practice-writing-task">
+                <div className="left-column">
 
-                    {/* Dropdown Selection Group 
-                        (includes section-header and action button) */}
-                    <div className="task-selection-section">
+                    {/* Dropdown Selection Group */}
+                    <div className="task-section">
 
                         <PracticeTaskSelectionGroup
                             ieltsFilter={viewData.ieltsSelection}
                             taskFilter={viewData.taskSelection}
                             onIeltsTypeChange={actions.setIeltsType}
                             onTaskTypeChange={actions.setTaskType}
-                            onGenerate={actions.generateQuestion}                            
+                            onGenerate={actions.generateQuestion}
                         />
 
                         {state.generateQuestionErrorMessage && (
@@ -62,63 +59,58 @@ export default function PracticeWritingPage() {
 
                     </div>
 
-                    {/* Task Description Section*/}
-                    <div className="task-description-section">
-
-                        {/* Section Header */}
-                        <div className="section-header">
-                            <h4>Task Description</h4>
-                        </div>
-
-                        <div className="task-description">
-                            {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
-                        </div>
-                    </div>
                 </div>
 
+                {/* Task Description */}
+                <div className="task-description">
 
-                {/* Answer Section */}
-                <div className="practice-writing-answer">
+                    <h4>Task Description</h4>
 
-                    {/* Section Header */}
-                    <div className="section-header">
-                        <h4>Your Answer</h4>
-                    </div>
+                    <p>
+                        {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
+                    </p>
 
-                    <div className="answer-text-editor">
-                        <AnswerEditor
-                            answer={viewData.answer}
-                            onWordCountChange={actions.setWordCount}
-                            onTextChange={actions.setAnswerText}
-                        />
-                    </div>
+                </div>
 
-                    {/* Submit Answer Section */}
-                    <div className="submit-answer-section">
+            </div>
 
-                        <div className="submit-answer-button">
-                            <button onClick={() => actions.submitAnswer()}
-                                disabled={state.isSubmittingAnswer}>
-                                {state.isSubmittingAnswer ? "Submitting..." : "Submit Answer"}
-                            </button>
+            {/* Answer Section */}
+            <div className="answer-section">
+
+                <h4>Your Answer</h4>
+
+                <AnswerEditor
+                    answer={viewData.answer}
+                    onTextChange={actions.setAnswerText}
+                />
+
+
+                {/* Submit */}
+                <div className="submit-section">
+
+                    <button
+                        onClick={() => actions.submitAnswer()}
+                        disabled={state.isSubmittingAnswer}
+                    >
+                        {state.isSubmittingAnswer ? "Submitting..." : "Submit Answer"}
+                    </button>
+
+
+                    {state.submitAnswerErrorMessage && (
+                        <div className="error">
+                            {state.submitAnswerErrorMessage}
                         </div>
+                    )}
 
+                    {!state.submitAnswerErrorMessage && state.submitSuccessMessage && (
+                        <div className="success">
+                            {state.submitSuccessMessage}
+                        </div>
+                    )}
 
-                        {state.submitAnswerErrorMessage && (
-                            <div className="error">
-                                {state.submitAnswerErrorMessage}
-                            </div>
-                        )}
-
-                        {!state.submitAnswerErrorMessage && state.submitSuccessMessage && (
-                            <div className="success">
-                                {state.submitSuccessMessage}
-                            </div>
-                        )}
-
-                    </div>
                 </div>
             </div>
+
         </div>
-    )
-};
+    );
+}

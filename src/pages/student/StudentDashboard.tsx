@@ -107,12 +107,12 @@ export default function StudentDashboardPage() {
 
         if (key === "ieltsType") {
 
-            setIeltsType(value as IeltsType)
+            setIeltsType(value ? (value as IeltsType) : undefined);
         };
 
         if (key === "taskType") {
 
-            setTaskType(value as TaskType)
+            setTaskType(value ? (value as TaskType) : undefined);
         };
     }
 
