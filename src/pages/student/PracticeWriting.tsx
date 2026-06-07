@@ -11,7 +11,7 @@ import { usePracticeWriting } from "../../hooks/usePracticeWriting";
 import { getWordCount } from "../../utils/wordCounter";
 
 //Styles
-// import "./practicewriting.css";
+import "./practicewriting.css";
 
 export default function PracticeWritingPage() {
 
@@ -28,21 +28,20 @@ export default function PracticeWritingPage() {
             <StudentHeaderBar header={viewData.pageHeader} />
 
             {/* Task Utility Bar */}
-            <div className="task-utility-bar">
-                <TaskUtilityBar utilData={{
-                    ...viewData.taskBar,
-                    userWordCount: computedWordCount
-                }} />
-            </div>
+            <TaskUtilityBar utilData={{
+                ...viewData.taskBar,
+                userWordCount: computedWordCount
+            }} />
+
 
             {/* Main content layout */}
-            <div className="practice-page-content-layout">
+            <div className="main-content">
 
                 {/* Task Section */}
-                <div className="practice-writing-task">
+                <div className="left-column">
 
                     {/* Dropdown Selection Group */}
-                    <div className="task-selection-section">
+                    <div className="task-section">
 
                         <PracticeTaskSelectionGroup
                             ieltsFilter={viewData.ieltsSelection}
@@ -60,60 +59,58 @@ export default function PracticeWritingPage() {
 
                     </div>
 
-                    {/* Task Description */}
-                    <div className="task-description-section">
-
-                        <div className="section-header">
-                            <h4>Task Description</h4>
-                        </div>
-
-                        <div className="task-description">
-                            {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
-                        </div>
-                    </div>
                 </div>
 
-                {/* Answer Section */}
-                <div className="practice-writing-answer">
+                {/* Task Description */}
+                <div className="task-description">
 
-                    <div className="section-header">
-                        <h4>Your Answer</h4>
-                    </div>
+                    <h4>Task Description</h4>
 
-                    <div className="answer-text-editor">
-                        <AnswerEditor
-                            answer={viewData.answer}
-                            onTextChange={actions.setAnswerText}  
-                        />
-                    </div>
+                    <p>
+                        {viewData.taskDescription.questionText || viewData.taskDescription.placeHolderText}
+                    </p>
 
-                    {/* Submit */}
-                    <div className="submit-answer-section">
+                </div>
 
-                        <div className="submit-answer-button">
-                            <button
-                                onClick={() => actions.submitAnswer()}
-                                disabled={state.isSubmittingAnswer}
-                            >
-                                {state.isSubmittingAnswer ? "Submitting..." : "Submit Answer"}
-                            </button>
+            </div>
+
+            {/* Answer Section */}
+            <div className="answer-section">
+
+                <h4>Your Answer</h4>
+
+                <AnswerEditor
+                    answer={viewData.answer}
+                    onTextChange={actions.setAnswerText}
+                />
+
+
+                {/* Submit */}
+                <div className="submit-section">
+
+                    <button
+                        onClick={() => actions.submitAnswer()}
+                        disabled={state.isSubmittingAnswer}
+                    >
+                        {state.isSubmittingAnswer ? "Submitting..." : "Submit Answer"}
+                    </button>
+
+
+                    {state.submitAnswerErrorMessage && (
+                        <div className="error">
+                            {state.submitAnswerErrorMessage}
                         </div>
+                    )}
 
-                        {state.submitAnswerErrorMessage && (
-                            <div className="error">
-                                {state.submitAnswerErrorMessage}
-                            </div>
-                        )}
+                    {!state.submitAnswerErrorMessage && state.submitSuccessMessage && (
+                        <div className="success">
+                            {state.submitSuccessMessage}
+                        </div>
+                    )}
 
-                        {!state.submitAnswerErrorMessage && state.submitSuccessMessage && (
-                            <div className="success">
-                                {state.submitSuccessMessage}
-                            </div>
-                        )}
-
-                    </div>
                 </div>
             </div>
+
         </div>
     );
 }

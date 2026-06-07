@@ -80,7 +80,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
             </div>
 
             {/* Divider */}
-            <span className="divider">|</span>
+            <span className="divider"></span>
 
             {/* Middle Section - Timer and controls */}
             <div className="utility-section">
@@ -127,7 +127,7 @@ export function TaskUtilityBar({ utilData }: TaskUtilityBarProps) {
             </div>
 
             {/* Divider */}
-            <span className="divider">|</span>
+            <span className="divider"></span>
 
             {/* Right Section - Word counter */}
             <div className="utility-section">
